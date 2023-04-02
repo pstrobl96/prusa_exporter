@@ -1,10 +1,16 @@
-## Prusa Prometheus Exporter
+## Buddy Link Prometheus Exporter
 
-This is implementation of Prometheus exporter for Prusas printers running Prusa Link Web - Like Prusa Mini or SL1. You can check any number of printers if you want to as long it has accesible Prusa Link API.
+This is implementation of Prometheus exporter for Prusas printers running Buddy board and Prusa Link Web - Like Prusa Mini or MK4 or XL. You can check any number of printers if you want to as long it has accesible Prusa Link API.
 
 ### printers.yaml
 
 Exporter loads printers.yaml (file with connections to printers) from environment variable called **PRUSA_EXPORTER_PRINTERS**. If you want to put this file in folder, where exporter is located then just set it to *printers.yaml*.
+
+### Grafana Dashboard
+
+I also prepared one dashboard that you can find in grafana folder.
+
+![dashboard](./grafana/buddy.png)
 
 #### Format of printers.yaml
 ```
