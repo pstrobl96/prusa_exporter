@@ -13,10 +13,13 @@ printers:
   - address: <your_printer_ip>
     apikey: <your_prusa_link_apikey>
     name: <familiar_name_of_printer>
-  password:
+    type: <mini>
+password:
   - address: <your_printer_ip>
-    apikey: <your_prusa_link_apikey>
+    username: <your_prusa_link_username>
+    password: <your_prusa_link_password>
     name: <familiar_name_of_printer>
+    type: <xl_or_mk4>
 
 ```
 
