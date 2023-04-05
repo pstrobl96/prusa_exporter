@@ -54,26 +54,6 @@ func loadCfg(path string) config {
 	return p
 }
 
-/*
-	func createScrape(c config) scrape {
-		var result scrape
-		for _, v := range c.Printers.APIKey {
-			header, headerVal, err := generateHeader(v.Apikey, "", "")
-			if err != nil {
-				panic(err)
-			}
-			result.Printers = append(result.Printers, scrapeItem{Address: v.Address, Header: header, HeaderVal: headerVal, Name: v.Name, Type: v.Type})
-		}
-		for _, v := range c.Printers.Password {
-			header, headerVal, err := generateHeader("", v.Username, v.Pass)
-			if err != nil {
-				panic(err)
-			}
-			result.Printers = append(result.Printers, scrapeItem{Address: v.Address, Header: header, HeaderVal: headerVal, Name: v.Name, Type: v.Type})
-		}
-		return result
-	}
-*/
 func basicAuth(username, password string) string {
 	auth := username + ":" + password
 	return base64.StdEncoding.EncodeToString([]byte(auth))
@@ -85,18 +65,6 @@ func generateHeader(apiKey string, username string, pass string) (string, string
 	}
 	return "X-Api-Key", apiKey, nil
 }
-
-/*func accessApi(path string, address string, header string, headerVal string) *http.Response {
-	url := string("http://" + address + "/api/" + path)
-	client := &http.Client{}
-	req, _ := http.NewRequest("GET", url, nil)
-	req.Header.Add(header, headerVal)
-	resp, err := client.Do(req)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return resp
-}*/
 
 func accessApi(path string, address string, apiKey string, username string, password string) *http.Response {
 	url := string("http://" + address + "/api/" + path)
@@ -124,16 +92,3 @@ func accessApi(path string, address string, apiKey string, username string, pass
 	}
 	return res
 }
-
-/*
- */
-/*func digestApi(path string, address string, username string, pass string) *http.Response {
-	// create a new digest authentication request
-	dr := dac.NewRequest(username, pass, "GET", address, "")
-	response1, _ := dr.Execute()
-
-	fmt.Println(response1.Body)
-
-	// check error, get response
-}
-*/
