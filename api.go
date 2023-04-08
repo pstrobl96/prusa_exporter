@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/base64"
 	"errors"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/icholy/digest"
@@ -60,16 +61,21 @@ func accessLegacyApi(path string, address string) *http.Response {
 	return res
 }
 
-func accessEinsyApi(path string, address string, apiKey string) *http.Response {
+func accessEinsyApi(path string, address string, apiKey string) []byte {
 	url := string("http://" + address + "/api/" + path)
-	var res *http.Response
-	var err error
-	req, _ := http.NewRequest("GET", url, nil)
+	req, _ := http.NewRequest(http.MethodGet, url, nil)
 	client := &http.Client{}
-	req.Header.Add("X-Api-Key", apiKey)
-	res, err = client.Do(req)
+	req.Header.Set("X-Api-Key", apiKey)
+	res, err := client.Do(req)
 	if err != nil {
 		panic(err)
 	}
-	return res
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	res.Body.Close()
+	return body
 }

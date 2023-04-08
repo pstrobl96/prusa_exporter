@@ -24,55 +24,55 @@ type einsyCollector struct {
 
 func newEinsyCollector() *einsyCollector {
 	return &einsyCollector{
-		printerNozzleTemp: prometheus.NewDesc("prusa_nozzle_temperature",
+		printerNozzleTemp: prometheus.NewDesc("prusa_einsy_nozzle_temperature",
 			"Current temperature of printer nozzle in Celsius",
 			[]string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"},
 			nil),
-		printerBedTemp: prometheus.NewDesc("prusa_bed_temperature",
+		printerBedTemp: prometheus.NewDesc("prusa_einsy_bed_temperature",
 			"Current temperature of printer bed in Celsius",
 			[]string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"},
 			nil),
-		printerVersion: prometheus.NewDesc("prusa_version",
+		printerVersion: prometheus.NewDesc("prusa_einsy_version",
 			"Return information about printer. This metric contains information mostly about Prusa Link",
 			[]string{"printer_address", "printer_model", "printer_name", "printer_api", "printer_server", "printer_text"},
 			nil),
-		printerZHeight: prometheus.NewDesc("prusa_z_height",
+		printerZHeight: prometheus.NewDesc("prusa_einsy_z_height",
 			"Current height of Z",
 			[]string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"},
 			nil),
-		printerPrintSpeed: prometheus.NewDesc("prusa_print_speed",
+		printerPrintSpeed: prometheus.NewDesc("prusa_einsy_print_speed",
 			"Current setting of printer speed in percents (%)",
 			[]string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"},
 			nil),
-		printerTargetTempNozzle: prometheus.NewDesc("prusa_nozzle_target_temperature",
+		printerTargetTempNozzle: prometheus.NewDesc("prusa_einsy_nozzle_target_temperature",
 			"Target temperature of printer nozzle in Celsius",
 			[]string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"},
 			nil),
-		printerTargetTempBed: prometheus.NewDesc("prusa_bed_target_temperature",
+		printerTargetTempBed: prometheus.NewDesc("prusa_einsy_bed_target_temperature",
 			"Target temperature of printer bed in Celsius",
 			[]string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"},
 			nil),
-		printerFiles: prometheus.NewDesc("prusa_files",
+		printerFiles: prometheus.NewDesc("prusa_einsy_files",
 			"Number of files in storage",
 			[]string{"printer_address", "printer_model", "printer_name", "printer_storage"},
 			nil),
-		printerPrintTimeRemaining: prometheus.NewDesc("prusa_printing_time_remaining",
+		printerPrintTimeRemaining: prometheus.NewDesc("prusa_einsy_printing_time_remaining",
 			"Returns time that remains for completion of current print",
 			[]string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"},
 			nil),
-		printerPrintProgress: prometheus.NewDesc("prusa_printing_progress",
+		printerPrintProgress: prometheus.NewDesc("prusa_einsy_printing_progress",
 			"Returns information about completion of current print in percents",
 			[]string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"},
 			nil),
-		printerPrinting: prometheus.NewDesc("prusa_printing",
+		printerPrinting: prometheus.NewDesc("prusa_einsy_printing",
 			"Return information about printing",
 			[]string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"},
 			nil),
-		printerMaterial: prometheus.NewDesc("prusa_material",
+		printerMaterial: prometheus.NewDesc("prusa_einsy_material",
 			"Returns information about loaded filament. Returns 0 if there is no loaded filament",
 			[]string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path", "printer_filament"},
 			nil),
-		printerPrintTime: prometheus.NewDesc("prusa_print_time",
+		printerPrintTime: prometheus.NewDesc("prusa_einsy_print_time",
 			"Returns information about loaded filament. Returns 0 if there is no loaded filament",
 			[]string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"},
 			nil),
@@ -101,9 +101,14 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 	for _, s := range cfg.Printers.Einsy {
 		log.Println("Einsy scraping at " + s.Address)
 
+		printer := getEinsyPrinter(s.Address, s.Apikey)
+		job := getEinsyJob(s.Address, s.Apikey)
+		version := getEinsyVersion(s.Address, s.Apikey)
+		files := getEinsyFiles(s.Address, s.Apikey)
+
 		bedTemp := prometheus.MustNewConstMetric(
 			collector.printerBedTemp, prometheus.GaugeValue, // collector
-			float64(printer.Temperature.Bed.Actual),                         // value
+			float64(printer.Telemetry.TempBed),                              // value
 			s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path) // labels
 
 		nozzleTemp := prometheus.MustNewConstMetric(
