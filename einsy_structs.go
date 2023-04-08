@@ -289,10 +289,6 @@ type einsyVersion struct {
 	Hostname string `json:"hostname"`
 }
 
-type einsySerialNumber struct {
-	Serial string `json:"serial"`
-}
-
 type einsyPorts struct {
 	Ports []struct {
 		Path        string `json:"path"`
