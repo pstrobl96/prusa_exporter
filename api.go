@@ -59,3 +59,17 @@ func accessLegacyApi(path string, address string) *http.Response {
 	}
 	return res
 }
+
+func accessEinsyApi(path string, address string, apiKey string) *http.Response {
+	url := string("http://" + address + "/api/" + path)
+	var res *http.Response
+	var err error
+	req, _ := http.NewRequest("GET", url, nil)
+	client := &http.Client{}
+	req.Header.Add("X-Api-Key", apiKey)
+	res, err = client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	return res
+}
