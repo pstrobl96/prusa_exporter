@@ -5,6 +5,7 @@ printers:
     type: mini
     apikey: y5oHKhNgu7PrCRx
   - address: 192.168.20.150 #mk4
+
     username: maker
     pass: rQ95KK2dP5nktnU
     name: ja_nevim
