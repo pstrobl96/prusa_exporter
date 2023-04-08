@@ -11,8 +11,7 @@ printers:
     type: <mini or xl>
   einsy:
   - address: <address_of_printer>
-    username: <username>
-    pass: <password>
+    apikey: <your_printer_apikey> # you need to generate api key in printer settings
     name: <your_printer_name>
     type: <mk2.5 or mk3>
   legacy:
