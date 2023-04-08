@@ -30,8 +30,7 @@ printers:
     type: <mini or xl>
   einsy:
   - address: <address_of_printer>
-    username: <username>
-    pass: <password>
+    apiKey: <your_printer_apikey>
     name: <your_printer_name>
     type: <mk2.5 or mk3>
   legacy:
