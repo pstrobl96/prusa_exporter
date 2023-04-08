@@ -13,7 +13,8 @@ func main() {
 
 	buddyCollector := newBuddyCollector()
 	legacyCollector := newLegacyCollector()
-	prometheus.MustRegister(buddyCollector, legacyCollector)
+	einsyCollector := newEinsyCollector()
+	prometheus.MustRegister(buddyCollector, legacyCollector, einsyCollector)
 
 	log.Println("Metrics registered")
 
