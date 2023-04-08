@@ -55,7 +55,7 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 	return body
 }
 
-func accessLegacyApi(path string, address string) *http.Response {
+func accessLegacyApi(path string, address string) []byte {
 	url := string("http://" + address + "/api/" + path)
 	var res *http.Response
 	var err error
@@ -65,7 +65,13 @@ func accessLegacyApi(path string, address string) *http.Response {
 	if err != nil {
 		panic(err)
 	}
-	return res
+
+	defer res.Body.Close()
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		panic(err)
+	}
+	return body
 }
 
 func accessEinsyApi(path string, address string, apiKey string) []byte {
