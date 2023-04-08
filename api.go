@@ -46,3 +46,16 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 	}
 	return res
 }
+
+func accessLegacyApi(path string, address string) *http.Response {
+	url := string("http://" + address + "/api/" + path)
+	var res *http.Response
+	var err error
+	req, _ := http.NewRequest("GET", url, nil)
+	client := &http.Client{}
+	res, err = client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	return res
+}
