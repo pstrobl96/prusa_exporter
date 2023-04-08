@@ -2,9 +2,9 @@
 
 This is implementation of Prometheus exporter for Prusas printers running Buddy board and Prusa Link Web - Like Prusa Mini or MK4 or XL. You can check any number of printers if you want to as long it has accesible Prusa Link API.
 
-### printers.yaml
+### buddy.yaml
 
-Exporter loads printers.yaml (file with connections to printers) from environment variable called **PRUSA_EXPORTER_PRINTERS**. If you want to put this file in folder, where exporter is located then just set it to *printers.yaml*.
+Exporter loads buddy.yaml (file with connections to printers) from environment variable called **BUDDY_EXPORTER_CONFIG**. If you want to put this file in folder, where exporter is located then just set it to *buddy.yaml*.
 
 ### Grafana Dashboard
 
@@ -12,20 +12,32 @@ I also prepared one dashboard that you can find in grafana folder.
 
 ![dashboard](./grafana/buddy.png)
 
-#### Format of printers.yaml
+#### Format of buddy.yaml
+
+In code block bellow you can see template for buddy.yaml config file. Type value is not that important, you can set anything you want. However this value would be written to labels in metrics, so be aware of that.
+
 ```
 printers:
-  apiKeys:
-  - address: <your_printer_ip>
-    apikey: <your_prusa_link_apikey>
-    name: <familiar_name_of_printer>
-    type: <mini>
-password:
-  - address: <your_printer_ip>
-    username: <your_prusa_link_username>
-    password: <your_prusa_link_password>
-    name: <familiar_name_of_printer>
-    type: <xl_or_mk4>
+  buddy:
+  - address: <address_of_printer>
+    name: <your_printer_name>
+    type: mini
+    apikey: <your_printer_apikey>
+  - address: <address_of_printer>
+    username: maker # I'm not aware that there is posibility to change user name in XL or MK4 printers - default is maker
+    pass: <password>
+    name: <your_printer_name>
+    type: <mini or xl>
+  einsy:
+  - address: <address_of_printer>
+    username: <username>
+    pass: <password>
+    name: <your_printer_name>
+    type: <mk2.5 or mk3>
+  legacy:
+  - address: <address_of_printer>
+    name: <your_printer_name>
+    type: mini
 
 ```
 

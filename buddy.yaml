@@ -1,26 +1,21 @@
 printers:
   buddy:
-  - address: 192.168.20.243 #mini
-    name: adimini
-    type: mini
-    apikey: y5oHKhNgu7PrCRx
-  - address: 192.168.20.150 #mk4
-
-    username: maker
-    pass: rQ95KK2dP5nktnU
-    name: ja_nevim
-    type: mk4
-  einsy:
-  - address:
-    apikey: <your_printer_apikey>
-    name: MMUnster
-    type: mk3
   - address: <address_of_printer>
-    username: maker
+    name: <your_printer_name>
+    type: mini
+    apikey: <your_printer_apikey>
+  - address: <address_of_printer>
+    username: maker # I'm not aware that there is posibility to change user name in XL or MK4 printers - default is maker
     pass: <password>
-    name: shrek
-    type: mk3
+    name: <your_printer_name>
+    type: <mini or xl>
+  einsy:
+  - address: <address_of_printer>
+    username: <username>
+    pass: <password>
+    name: <your_printer_name>
+    type: <mk2.5 or mk3>
   legacy:
-  - address: 192.168.20.149
-    name: ol_but_reliable
+  - address: <address_of_printer>
+    name: <your_printer_name>
     type: mini
