@@ -1,4 +1,4 @@
-module pubel.dev/test
+module pubel.dev/buddy-link-exporter
 
 go 1.20
 

@@ -3,56 +3,10 @@ package main
 import (
 	"encoding/base64"
 	"errors"
-	"log"
 	"net/http"
-	"os"
 
 	"github.com/icholy/digest"
-	"gopkg.in/yaml.v3"
 )
-
-type config struct {
-	Printers struct {
-		APIKey []struct {
-			Address string `yaml:"address"`
-			Apikey  string `yaml:"apikey"`
-			Name    string `yaml:"name"`
-			Type    string `yaml:"type"`
-		} `yaml:"apiKey"`
-		Password []struct {
-			Address  string `yaml:"address"`
-			Username string `yaml:"username"`
-			Pass     string `yaml:"pass"`
-			Name     string `yaml:"name"`
-			Type     string `yaml:"type"`
-		} `yaml:"password"`
-	} `yaml:"printers"`
-}
-
-type scrapeItem struct {
-	Address  string
-	ApiKey   string
-	Username string
-	Password string
-	Name     string
-	Type     string
-}
-
-type scrape struct {
-	Printers []scrapeItem
-}
-
-func loadCfg(path string) config {
-	f, err := os.ReadFile(path)
-	if err != nil {
-		log.Fatal(err)
-	}
-	var p config
-	if err := yaml.Unmarshal(f, &p); err != nil {
-		log.Fatal(err)
-	}
-	return p
-}
 
 func basicAuth(username, password string) string {
 	auth := username + ":" + password
@@ -66,7 +20,7 @@ func generateHeader(apiKey string, username string, pass string) (string, string
 	return "X-Api-Key", apiKey, nil
 }
 
-func accessApi(path string, address string, apiKey string, username string, password string) *http.Response {
+func accessBuddyApi(path string, address string, apiKey string, username string, password string) *http.Response {
 	url := string("http://" + address + "/api/" + path)
 	var res *http.Response
 	var err error

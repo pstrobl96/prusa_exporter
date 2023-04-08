@@ -2,10 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
-	"os"
 
 	"github.com/prometheus/client_golang/prometheus"
 )
@@ -95,7 +93,7 @@ type job struct {
 }
 
 func getVersion(address string, apiKey string, username string, password string) version {
-	resp := accessApi("version", address, apiKey, username, password)
+	resp := accessBuddyApi("version", address, apiKey, username, password)
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -112,7 +110,7 @@ func getVersion(address string, apiKey string, username string, password string)
 }
 
 func getFiles(address string, apiKey string, username string, password string) files {
-	resp := accessApi("files", address, apiKey, username, password)
+	resp := accessBuddyApi("files", address, apiKey, username, password)
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -129,7 +127,7 @@ func getFiles(address string, apiKey string, username string, password string) f
 }
 
 func getJob(address string, apiKey string, username string, password string) job {
-	resp := accessApi("job", address, apiKey, username, password)
+	resp := accessBuddyApi("job", address, apiKey, username, password)
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -146,7 +144,7 @@ func getJob(address string, apiKey string, username string, password string) job
 }
 
 func getPrinter(address string, apiKey string, username string, password string) printer {
-	resp := accessApi("printer", address, apiKey, username, password)
+	resp := accessBuddyApi("printer", address, apiKey, username, password)
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -160,23 +158,6 @@ func getPrinter(address string, apiKey string, username string, password string)
 	}
 
 	return result
-}
-
-func getCfg() config {
-	cfgFile := os.Getenv("PRUSA_EXPORTER_PRINTERS")
-	if cfgFile == "" {
-		pwd, err := os.Getwd()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-		fmt.Println(pwd)
-		cfgFile = pwd + "/printers.yaml"
-	}
-
-	log.Println("Using config - " + cfgFile)
-
-	return loadCfg(cfgFile)
 }
 
 type buddyCollector struct {
@@ -272,110 +253,14 @@ func (collector *buddyCollector) Describe(ch chan<- *prometheus.Desc) {
 }
 
 func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
-	cfg := getCfg()
-	for _, s := range cfg.Printers.Password {
-		log.Println("Scraping " + s.Address)
-		printer := getPrinter(s.Address, "", s.Username, s.Pass)
-		files := getFiles(s.Address, "", s.Username, s.Pass)
-		version := getVersion(s.Address, "", s.Username, s.Pass)
-		job := getJob(s.Address, "", s.Username, s.Pass)
-		bedTemp := prometheus.MustNewConstMetric(
-			collector.printerBedTemp, prometheus.GaugeValue, // collector
-			float64(printer.Temperature.Bed.Actual),                         // value
-			s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path) // labels
+	cfg := loadCfg(getCfgFile())
 
-		nozzleTemp := prometheus.MustNewConstMetric(
-			collector.printerNozzleTemp, prometheus.GaugeValue,
-			float64(printer.Temperature.Tool0.Actual),
-			s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
-
-		printProgress := prometheus.MustNewConstMetric(
-			collector.printerPrintProgress, prometheus.GaugeValue,
-			float64(job.Progress.Completion),
-			s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
-
-		printSpeed := prometheus.MustNewConstMetric(
-			collector.printerPrintSpeed, prometheus.GaugeValue,
-			float64(printer.Telemetry.PrintSpeed),
-			s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
-
-		printTimeRemaining := prometheus.MustNewConstMetric(
-			collector.printerPrintTimeRemaining, prometheus.GaugeValue,
-			float64(job.Progress.PrintTimeLeft),
-			s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
-
-		printingMetric := 0
-		if job.State == "Printing" {
-			printingMetric = 1
-		}
-
-		printing := prometheus.MustNewConstMetric(
-			collector.printerPrinting, prometheus.GaugeValue,
-			float64(printingMetric),
-			s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
-
-		printTime := prometheus.MustNewConstMetric(
-			collector.printerPrintTime, prometheus.GaugeValue,
-			float64(job.Progress.PrintTime),
-			s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
-
-		targetTempBed := prometheus.MustNewConstMetric(
-			collector.printerTargetTempBed, prometheus.GaugeValue,
-			float64(printer.Temperature.Bed.Target),
-			s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
-
-		targetTempNozzle := prometheus.MustNewConstMetric(
-			collector.printerTargetTempNozzle, prometheus.GaugeValue,
-			float64(printer.Temperature.Tool0.Target),
-			s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
-
-		filamentLoaded := 0
-		if printer.Telemetry.Material != "---" {
-			filamentLoaded = 1
-		}
-
-		material := prometheus.MustNewConstMetric(
-			collector.printerMaterial, prometheus.GaugeValue,
-			float64(filamentLoaded),
-			s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, printer.Telemetry.Material)
-
-		printerVersion := prometheus.MustNewConstMetric(
-			collector.printerVersion, prometheus.GaugeValue,
-			1,
-			s.Address, s.Type, s.Name, version.API, version.Server, version.Text)
-
-		printerFiles := prometheus.MustNewConstMetric(
-			collector.printerFiles, prometheus.GaugeValue,
-			float64(len(files.Files[0].Children)),
-			s.Address, s.Type, s.Name, files.Files[0].Display)
-
-		zHeight := prometheus.MustNewConstMetric(
-			collector.printerZHeight, prometheus.GaugeValue,
-			printer.Telemetry.ZHeight,
-			s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
-
-		ch <- bedTemp
-		ch <- nozzleTemp
-		ch <- printProgress
-		ch <- printSpeed
-		ch <- printTimeRemaining
-		ch <- printing
-		ch <- printTime
-		ch <- targetTempBed
-		ch <- targetTempNozzle
-		ch <- material
-		ch <- printerVersion
-		ch <- printerFiles
-		ch <- zHeight
-
-	}
-	for _, s := range cfg.Printers.APIKey {
-		log.Println("Scraping " + s.Address)
-		printer := getPrinter(s.Address, s.Apikey, "", "")
-		files := getFiles(s.Address, s.Apikey, "", "")
-		version := getVersion(s.Address, s.Apikey, "", "")
-		job := getJob(s.Address, s.Apikey, "", "")
-
+	for _, s := range cfg.Printers.Buddy {
+		log.Println("Buddy scraping at " + s.Address)
+		printer := getPrinter(s.Address, s.Apikey, s.Username, s.Pass)
+		files := getFiles(s.Address, s.Apikey, s.Username, s.Pass)
+		version := getVersion(s.Address, s.Apikey, s.Username, s.Pass)
+		job := getJob(s.Address, s.Apikey, s.Username, s.Pass)
 		bedTemp := prometheus.MustNewConstMetric(
 			collector.printerBedTemp, prometheus.GaugeValue, // collector
 			float64(printer.Temperature.Bed.Actual),                         // value
