@@ -11,8 +11,9 @@ import (
 func main() {
 	log.Println("Buddy Prusa Link Prometheus exporter starting")
 
-	collector := newBuddyCollector()
-	prometheus.MustRegister(collector)
+	buddyCollector := newBuddyCollector()
+	legacyCollector := newLegacyCollector()
+	prometheus.MustRegister(buddyCollector, legacyCollector)
 
 	log.Println("Metrics registered")
 
