@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"log"
 	"strconv"
 	"strings"
@@ -25,15 +24,10 @@ type legacyTelemetry struct {
 
 func getLegacyTelemetry(address string) legacyTelemetry {
 	resp := accessLegacyApi("telemetry", address)
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		panic(err)
-	}
 
 	var result legacyTelemetry
 
-	if err := json.Unmarshal(body, &result); err != nil {
+	if err := json.Unmarshal(resp, &result); err != nil {
 		log.Println("Can not unmarshal JSON")
 	}
 
