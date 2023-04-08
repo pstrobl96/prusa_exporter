@@ -19,12 +19,10 @@ type config struct {
 			Pass     string `yaml:"pass,omitempty"`
 		} `yaml:"buddy"`
 		Einsy []struct {
-			Address  interface{} `yaml:"address"`
-			Apikey   string      `yaml:"apikey,omitempty"`
-			Name     string      `yaml:"name"`
-			Type     string      `yaml:"type"`
-			Username string      `yaml:"username,omitempty"`
-			Pass     string      `yaml:"pass,omitempty"`
+			Address string `yaml:"address"`
+			Apikey  string `yaml:"apikey"`
+			Name    string `yaml:"name"`
+			Type    string `yaml:"type"`
 		} `yaml:"einsy"`
 		Legacy []struct {
 			Address string `yaml:"address"`
