@@ -1,164 +1,10 @@
 package main
 
 import (
-	"encoding/json"
-	"io/ioutil"
 	"log"
 
 	"github.com/prometheus/client_golang/prometheus"
 )
-
-type version struct {
-	API      string `json:"api"`
-	Server   string `json:"server"`
-	Text     string `json:"text"`
-	Hostname string `json:"hostname"`
-}
-
-type files struct {
-	Files []struct {
-		Name     string `json:"name"`
-		Path     string `json:"path"`
-		Display  string `json:"display"`
-		Type     string `json:"type"`
-		Origin   string `json:"origin"`
-		Children []struct {
-			Name    string `json:"name"`
-			Display string `json:"display"`
-			Path    string `json:"path"`
-			Origin  string `json:"origin"`
-			Refs    struct {
-				Resource       string `json:"resource"`
-				ThumbnailSmall string `json:"thumbnailSmall"`
-				ThumbnailBig   string `json:"thumbnailBig"`
-				Download       string `json:"download"`
-			} `json:"refs"`
-		} `json:"children"`
-	} `json:"files"`
-}
-
-type printer struct {
-	Telemetry struct {
-		TempBed    float64 `json:"temp-bed"`
-		TempNozzle float64 `json:"temp-nozzle"`
-		PrintSpeed int     `json:"print-speed"`
-		ZHeight    float64 `json:"z-height"`
-		Material   string  `json:"material"`
-	} `json:"telemetry"`
-	Temperature struct {
-		Tool0 struct {
-			Actual  float64 `json:"actual"`
-			Target  float64 `json:"target"`
-			Display float64 `json:"display"`
-			Offset  int     `json:"offset"`
-		} `json:"tool0"`
-		Bed struct {
-			Actual float64 `json:"actual"`
-			Target float64 `json:"target"`
-			Offset int     `json:"offset"`
-		} `json:"bed"`
-	} `json:"temperature"`
-	State struct {
-		Text  string `json:"text"`
-		Flags struct {
-			Operational   bool `json:"operational"`
-			Paused        bool `json:"paused"`
-			Printing      bool `json:"printing"`
-			Cancelling    bool `json:"cancelling"`
-			Pausing       bool `json:"pausing"`
-			SdReady       bool `json:"sdReady"`
-			Error         bool `json:"error"`
-			ClosedOnError bool `json:"closedOnError"`
-			Ready         bool `json:"ready"`
-			Busy          bool `json:"busy"`
-		} `json:"flags"`
-	} `json:"state"`
-}
-
-type job struct {
-	State string `json:"state"`
-	Job   struct {
-		EstimatedPrintTime int `json:"estimatedPrintTime"`
-		File               struct {
-			Name    string `json:"name"`
-			Path    string `json:"path"`
-			Display string `json:"display"`
-		} `json:"file"`
-	} `json:"job"`
-	Progress struct {
-		Completion    float64 `json:"completion"`
-		PrintTime     int     `json:"printTime"`
-		PrintTimeLeft int     `json:"printTimeLeft"`
-	} `json:"progress"`
-}
-
-func getVersion(address string, apiKey string, username string, password string) version {
-	resp := accessBuddyApi("version", address, apiKey, username, password)
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		panic(err)
-	}
-
-	var result version
-
-	if err := json.Unmarshal(body, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
-	}
-
-	return result
-}
-
-func getFiles(address string, apiKey string, username string, password string) files {
-	resp := accessBuddyApi("files", address, apiKey, username, password)
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		panic(err)
-	}
-
-	var result files
-
-	if err := json.Unmarshal(body, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
-	}
-
-	return result
-}
-
-func getJob(address string, apiKey string, username string, password string) job {
-	resp := accessBuddyApi("job", address, apiKey, username, password)
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		panic(err)
-	}
-
-	var result job
-
-	if err := json.Unmarshal(body, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
-	}
-
-	return result
-}
-
-func getPrinter(address string, apiKey string, username string, password string) printer {
-	resp := accessBuddyApi("printer", address, apiKey, username, password)
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		panic(err)
-	}
-
-	var result printer
-
-	if err := json.Unmarshal(body, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
-	}
-
-	return result
-}
 
 type buddyCollector struct {
 	printerNozzleTemp         *prometheus.Desc
@@ -234,8 +80,6 @@ func newBuddyCollector() *buddyCollector {
 }
 
 func (collector *buddyCollector) Describe(ch chan<- *prometheus.Desc) {
-
-	//Update this section with the each metric you create for a given collector
 	ch <- collector.printerNozzleTemp
 	ch <- collector.printerBedTemp
 	ch <- collector.printerVersion
@@ -257,10 +101,10 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 
 	for _, s := range cfg.Printers.Buddy {
 		log.Println("Buddy scraping at " + s.Address)
-		printer := getPrinter(s.Address, s.Apikey, s.Username, s.Pass)
-		files := getFiles(s.Address, s.Apikey, s.Username, s.Pass)
-		version := getVersion(s.Address, s.Apikey, s.Username, s.Pass)
-		job := getJob(s.Address, s.Apikey, s.Username, s.Pass)
+		printer := getBuddyPrinter(s.Address, s.Apikey, s.Username, s.Pass)
+		files := getBuddyFiles(s.Address, s.Apikey, s.Username, s.Pass)
+		version := getBuddyVersion(s.Address, s.Apikey, s.Username, s.Pass)
+		job := getBuddyJob(s.Address, s.Apikey, s.Username, s.Pass)
 		bedTemp := prometheus.MustNewConstMetric(
 			collector.printerBedTemp, prometheus.GaugeValue, // collector
 			float64(printer.Temperature.Bed.Actual),                         // value
