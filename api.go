@@ -21,10 +21,11 @@ func generateHeader(apiKey string, username string, pass string) (string, string
 	return "X-Api-Key", apiKey, nil
 }
 
-func accessBuddyApi(path string, address string, apiKey string, username string, password string) *http.Response {
+func accessBuddyApi(path string, address string, apiKey string, username string, password string) []byte {
 	url := string("http://" + address + "/api/" + path)
 	var res *http.Response
 	var err error
+
 	if apiKey == "" {
 		client := &http.Client{
 			Transport: &digest.Transport{
@@ -45,7 +46,13 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 			panic(err)
 		}
 	}
-	return res
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	res.Body.Close()
+	return body
 }
 
 func accessLegacyApi(path string, address string) *http.Response {
