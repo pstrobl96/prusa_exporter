@@ -4,7 +4,9 @@ import (
 	"encoding/base64"
 	"errors"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"time"
 
 	"github.com/icholy/digest"
 )
@@ -55,23 +57,24 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 	return body
 }
 
-func accessLegacyApi(path string, address string) []byte {
+func accessLegacyApi(path string, address string) ([]byte, error) {
 	url := string("http://" + address + "/api/" + path)
 	var res *http.Response
 	var err error
 	req, _ := http.NewRequest("GET", url, nil)
-	client := &http.Client{}
+	client := &http.Client{Timeout: 1 * time.Second}
 	res, err = client.Do(req)
 	if err != nil {
-		panic(err)
+		log.Println(err.Error())
+		return nil, err
+	} else {
+		defer res.Body.Close()
+		body, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			log.Println(err.Error())
+		}
+		return body, nil
 	}
-
-	defer res.Body.Close()
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		panic(err)
-	}
-	return body
 }
 
 func accessEinsyApi(path string, address string, apiKey string) []byte {
