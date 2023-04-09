@@ -83,8 +83,8 @@ type einsyPrinter struct {
 		Material   string  `json:"material"`
 		ZHeight    float64 `json:"z-height"`
 		PrintSpeed int     `json:"print-speed"`
-		AxisX      any     `json:"axis_x"`
-		AxisY      any     `json:"axis_y"`
+		AxisX      float64 `json:"axis_x"`
+		AxisY      float64 `json:"axis_y"`
 		AxisZ      float64 `json:"axis_z"`
 	} `json:"telemetry"`
 	Storage struct {
@@ -201,12 +201,7 @@ type einsyFiles struct {
 					LayerHeight        float64 `json:"layerHeight"`
 				} `json:"gcodeAnalysis"`
 			} `json:"children,omitempty"`
-			Hash  any `json:"hash,omitempty"`
-			Refs0 struct {
-				Download  string `json:"download"`
-				Icon      any    `json:"icon"`
-				Thumbnail string `json:"thumbnail"`
-			} `json:"refs,omitempty"`
+			Hash          any `json:"hash,omitempty"`
 			GcodeAnalysis struct {
 				EstimatedPrintTime int     `json:"estimatedPrintTime"`
 				Material           string  `json:"material"`
