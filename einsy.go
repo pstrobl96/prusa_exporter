@@ -95,10 +95,10 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 		version := getEinsyVersion(s.Address, s.Apikey)
 		files := getEinsyFiles(s.Address, s.Apikey)
 		cameras := getEinsyCameras(s.Address, s.Apikey)
-		connection := getEinsyConnection(s.Address, s.Apikey)
 		info := getEinsyInfo(s.Address, s.Apikey)
 		logs := getEinsyLogs(s.Address, s.Apikey)
 		settings := getEinsySettings(s.Address, s.Apikey)
+		ports := getEinsyPorts(s.Address, s.Apikey)
 
 		nozzleTemp := prometheus.MustNewConstMetric(
 			collector.printerNozzleTemp, prometheus.GaugeValue,
@@ -191,10 +191,13 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 			ch <- logFilesDates
 		}
 
-		printerInfo := prometheus.MustNewConstMetric(
-			collector.printerInfo, prometheus.GaugeValue,
-			1,
-			s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, version.API, version.Server, version.Text, info.Name, info.Location, info.Serial, info.Hostname, connection.Options.PrinterProfiles[0].Name)
+		if len(ports.Ports) > 0 {
+			printerInfo := prometheus.MustNewConstMetric(
+				collector.printerInfo, prometheus.GaugeValue,
+				1,
+				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, version.API, version.Server, version.Text, info.Name, info.Location, info.Serial, info.Hostname, ports.Ports[0].Description)
+			ch <- printerInfo
+		}
 
 		farmMode := 0
 		if settings.Printer.FarmMode {
@@ -265,6 +268,5 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- printerVersion
 		ch <- zHeight
 		ch <- printerFarmMode
-		ch <- printerInfo
 	}
 }

@@ -77,21 +77,21 @@ func accessLegacyApi(path string, address string) ([]byte, error) {
 	}
 }
 
-func accessEinsyApi(path string, address string, apiKey string) []byte {
+func accessEinsyApi(path string, address string, apiKey string) ([]byte, error) {
 	url := string("http://" + address + "/api/" + path)
-	req, _ := http.NewRequest(http.MethodGet, url, nil)
-	client := &http.Client{}
+	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("X-Api-Key", apiKey)
+	client := &http.Client{Timeout: time.Duration(scrapeTimeout) * time.Second}
 	res, err := client.Do(req)
 	if err != nil {
-		panic(err)
+		log.Println(err.Error())
+		return nil, err
+	} else {
+		defer res.Body.Close()
+		body, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			log.Println(err.Error())
+		}
+		return body, nil
 	}
-
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		panic(err)
-	}
-
-	res.Body.Close()
-	return body
 }

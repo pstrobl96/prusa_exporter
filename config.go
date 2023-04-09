@@ -11,7 +11,7 @@ import (
 
 var configPath string
 var metricsPort string
-var scrapeTimeout int
+var scrapeTimeout float64
 var loadedConfig config
 
 type config struct {
@@ -73,21 +73,19 @@ func getMetricsPort() string {
 	return metricsPort
 }
 
-func getScrapeTimeout() int {
-	var result int
+func getScrapeTimeout() float64 {
+	result := 0.05
 	metricsPort := os.Getenv("BUDDY_EXPORTER_SCRAPE_TIMEOUT")
-	if metricsPort == "" {
-		result = 1
-	} else {
-		parsed, err := strconv.Atoi(metricsPort)
+	if metricsPort != "" {
+		parsed, err := strconv.ParseFloat(metricsPort, 64)
 		if err != nil {
-			result = 1
+			result = 0.05
 		} else {
 			result = parsed
 		}
 	}
 
-	log.Println("Scraping interval - " + strconv.Itoa(result) + " sec")
+	log.Println("Scraping interval - " + strconv.FormatFloat(result, 'E', -1, 32) + " sec")
 
 	return result
 }
