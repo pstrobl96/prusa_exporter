@@ -96,7 +96,7 @@ func (collector *einsyCollector) Describe(ch chan<- *prometheus.Desc) {
 }
 
 func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
-	cfg := loadCfg(configPath)
+	cfg := loadedConfig
 
 	for _, s := range cfg.Printers.Einsy {
 		log.Println("Einsy scraping at " + s.Address)
