@@ -71,73 +71,80 @@ func (collector *legacyCollector) Collect(ch chan<- prometheus.Metric) {
 
 	for _, s := range cfg.Printers.Legacy {
 		log.Println("Legacy scraping at " + s.Address)
-		telemetry := getLegacyTelemetry(s.Address)
+		telemetry, err := getLegacyTelemetry(s.Address)
 
-		nozzleTemp := prometheus.MustNewConstMetric(
-			collector.printerNozzleTemp, prometheus.GaugeValue,
-			float64(telemetry.TempNozzle),
-			s.Address, s.Type, s.Name, telemetry.ProjectName)
+		if err == nil {
+			nozzleTemp := prometheus.MustNewConstMetric(
+				collector.printerNozzleTemp, prometheus.GaugeValue,
+				float64(telemetry.TempNozzle),
+				s.Address, s.Type, s.Name, telemetry.ProjectName)
 
-		bedTemp := prometheus.MustNewConstMetric(
-			collector.printerBedTemp, prometheus.GaugeValue, // collector
-			float64(telemetry.TempBed),                       // value
-			s.Address, s.Type, s.Name, telemetry.ProjectName) // labels
+			bedTemp := prometheus.MustNewConstMetric(
+				collector.printerBedTemp, prometheus.GaugeValue, // collector
+				float64(telemetry.TempBed),                       // value
+				s.Address, s.Type, s.Name, telemetry.ProjectName) // labels
 
-		printProgress := prometheus.MustNewConstMetric(
-			collector.printerPrintProgress, prometheus.GaugeValue,
-			float64(telemetry.Progress)/100,
-			s.Address, s.Type, s.Name, telemetry.ProjectName)
+			printProgress := prometheus.MustNewConstMetric(
+				collector.printerPrintProgress, prometheus.GaugeValue,
+				float64(telemetry.Progress)/100,
+				s.Address, s.Type, s.Name, telemetry.ProjectName)
 
-		printSpeed := prometheus.MustNewConstMetric(
-			collector.printerPrintSpeed, prometheus.GaugeValue,
-			float64(telemetry.PrintingSpeed),
-			s.Address, s.Type, s.Name, telemetry.ProjectName)
+			printSpeed := prometheus.MustNewConstMetric(
+				collector.printerPrintSpeed, prometheus.GaugeValue,
+				float64(telemetry.PrintingSpeed),
+				s.Address, s.Type, s.Name, telemetry.ProjectName)
 
-		time_est, _ := strconv.ParseFloat(telemetry.TimeEst, 32)
+			time_est, _ := strconv.ParseFloat(telemetry.TimeEst, 32)
 
-		printTimeRemaining := prometheus.MustNewConstMetric(
-			collector.printerPrintTimeRemaining, prometheus.GaugeValue,
-			time_est,
-			s.Address, s.Type, s.Name, telemetry.ProjectName)
+			printTimeRemaining := prometheus.MustNewConstMetric(
+				collector.printerPrintTimeRemaining, prometheus.GaugeValue,
+				time_est,
+				s.Address, s.Type, s.Name, telemetry.ProjectName)
 
-		printingMetric := 0
-		if telemetry.TimeEst != "" {
-			printingMetric = 1
+			printingMetric := 0
+			if telemetry.TimeEst != "" {
+				printingMetric = 1
+			}
+
+			printing := prometheus.MustNewConstMetric(
+				collector.printerPrinting, prometheus.GaugeValue,
+				float64(printingMetric),
+				s.Address, s.Type, s.Name, telemetry.ProjectName)
+
+			printTime := prometheus.MustNewConstMetric(
+				collector.printerPrintTime, prometheus.GaugeValue,
+				float64(parseDuration(telemetry.PrintDur)),
+				s.Address, s.Type, s.Name, telemetry.ProjectName)
+
+			filamentLoaded := 0
+			if telemetry.Material != "---" {
+				filamentLoaded = 1
+			}
+
+			material := prometheus.MustNewConstMetric(
+				collector.printerMaterial, prometheus.GaugeValue,
+				float64(filamentLoaded),
+				s.Address, s.Type, s.Name, telemetry.ProjectName, telemetry.Material)
+
+			zHeight := prometheus.MustNewConstMetric(
+				collector.printerZHeight, prometheus.GaugeValue,
+				telemetry.PosZMm,
+				s.Address, s.Type, s.Name, telemetry.ProjectName)
+
+			ch <- bedTemp
+			ch <- nozzleTemp
+			ch <- printProgress
+			ch <- printSpeed
+			ch <- printTimeRemaining
+			ch <- printing
+			ch <- printTime
+			ch <- material
+			ch <- zHeight
+		} else {
+			println("DINGUS")
+			log.Println(err.Error())
+
+			//log.Panicln()
 		}
-
-		printing := prometheus.MustNewConstMetric(
-			collector.printerPrinting, prometheus.GaugeValue,
-			float64(printingMetric),
-			s.Address, s.Type, s.Name, telemetry.ProjectName)
-
-		printTime := prometheus.MustNewConstMetric(
-			collector.printerPrintTime, prometheus.GaugeValue,
-			float64(parseDuration(telemetry.PrintDur)),
-			s.Address, s.Type, s.Name, telemetry.ProjectName)
-
-		filamentLoaded := 0
-		if telemetry.Material != "---" {
-			filamentLoaded = 1
-		}
-
-		material := prometheus.MustNewConstMetric(
-			collector.printerMaterial, prometheus.GaugeValue,
-			float64(filamentLoaded),
-			s.Address, s.Type, s.Name, telemetry.ProjectName, telemetry.Material)
-
-		zHeight := prometheus.MustNewConstMetric(
-			collector.printerZHeight, prometheus.GaugeValue,
-			telemetry.PosZMm,
-			s.Address, s.Type, s.Name, telemetry.ProjectName)
-
-		ch <- bedTemp
-		ch <- nozzleTemp
-		ch <- printProgress
-		ch <- printSpeed
-		ch <- printTimeRemaining
-		ch <- printing
-		ch <- printTime
-		ch <- material
-		ch <- zHeight
 	}
 }

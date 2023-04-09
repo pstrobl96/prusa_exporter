@@ -5,14 +5,14 @@ import (
 	"log"
 )
 
-func getLegacyTelemetry(address string) legacyTelemetry {
-	resp := accessLegacyApi("telemetry", address)
-
+func getLegacyTelemetry(address string) (legacyTelemetry, error) {
+	resp, err := accessLegacyApi("telemetry", address)
 	var result legacyTelemetry
 
-	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+	if err == nil {
+		if err = json.Unmarshal(resp, &result); err != nil {
+			log.Println("Can not unmarshal JSON")
+		}
 	}
-
-	return result
+	return result, err
 }
