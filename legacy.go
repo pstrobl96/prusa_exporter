@@ -67,7 +67,7 @@ func parseDuration(time string) float64 {
 }
 
 func (collector *legacyCollector) Collect(ch chan<- prometheus.Metric) {
-	cfg := loadCfg(configPath)
+	cfg := loadedConfig
 
 	for _, s := range cfg.Printers.Legacy {
 		log.Println("Legacy scraping at " + s.Address)

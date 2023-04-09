@@ -97,7 +97,7 @@ func (collector *buddyCollector) Describe(ch chan<- *prometheus.Desc) {
 }
 
 func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
-	cfg := loadCfg(configPath)
+	cfg := loadedConfig
 
 	for _, s := range cfg.Printers.Buddy {
 		log.Println("Buddy scraping at " + s.Address)
