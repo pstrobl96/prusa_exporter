@@ -10,7 +10,13 @@ Exporter loads buddy.yaml (file with connections to printers) from environment v
 
 I also prepared one dashboard that you can find in grafana folder.
 
+#### Buddy
+
 ![dashboard](./grafana/buddy.png)
+
+#### Legacy
+
+![dashboard](./grafana/legacy.png)
 
 #### Format of buddy.yaml
 
