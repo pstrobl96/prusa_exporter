@@ -62,7 +62,7 @@ func accessLegacyApi(path string, address string) ([]byte, error) {
 	var res *http.Response
 	var err error
 	req, _ := http.NewRequest("GET", url, nil)
-	client := &http.Client{Timeout: 1 * time.Second}
+	client := &http.Client{Timeout: time.Duration(scrapeTimeout) * time.Second}
 	res, err = client.Do(req)
 	if err != nil {
 		log.Println(err.Error())

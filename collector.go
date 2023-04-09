@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -30,23 +29,6 @@ type config struct {
 			Type    string `yaml:"type"`
 		} `yaml:"legacy"`
 	} `yaml:"printers"`
-}
-
-func getCfgFile() string {
-	cfgFile := os.Getenv("BUDDY_EXPORTER_CONFIG")
-	if cfgFile == "" {
-		pwd, err := os.Getwd()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-		fmt.Println(pwd)
-		cfgFile = pwd + "/buddy.yaml"
-	}
-
-	log.Println("Using config - " + cfgFile)
-
-	return cfgFile
 }
 
 func loadCfg(path string) config {
