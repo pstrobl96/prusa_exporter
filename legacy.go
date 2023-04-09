@@ -111,7 +111,7 @@ func (collector *legacyCollector) Collect(ch chan<- prometheus.Metric) {
 
 		printProgress := prometheus.MustNewConstMetric(
 			collector.printerPrintProgress, prometheus.GaugeValue,
-			float64(telemetry.Progress),
+			float64(telemetry.Progress)/100,
 			s.Address, s.Type, s.Name, telemetry.ProjectName)
 
 		printSpeed := prometheus.MustNewConstMetric(
@@ -126,9 +126,9 @@ func (collector *legacyCollector) Collect(ch chan<- prometheus.Metric) {
 			time_est,
 			s.Address, s.Type, s.Name, telemetry.ProjectName)
 
-		printingMetric := 1
+		printingMetric := 0
 		if telemetry.TimeEst != "" {
-			printingMetric = 0
+			printingMetric = 1
 		}
 
 		printing := prometheus.MustNewConstMetric(
