@@ -10,7 +10,7 @@ import (
 
 func main() {
 	log.Println("Buddy Prusa Link Prometheus exporter starting")
-
+	loadEnvVars()
 	buddyCollector := newBuddyCollector()
 	legacyCollector := newLegacyCollector()
 	einsyCollector := newEinsyCollector()
@@ -19,5 +19,5 @@ func main() {
 	log.Println("Metrics registered")
 
 	http.Handle("/metrics", promhttp.Handler())
-	log.Fatal(http.ListenAndServe(":10009", nil))
+	log.Fatal(http.ListenAndServe(":"+metricsPort, nil))
 }
