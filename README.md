@@ -1,14 +1,14 @@
 ## Buddy Link Prometheus Exporter
 
-This is implementation of Prometheus exporter for Prusas printers running Buddy board and Prusa Link Web - Like Prusa Mini or MK4 or XL. You can check any number of printers if you want to as long it has accesible Prusa Link API.
+This is an implementation of Prometheus Exporter for Prusa printers running boards named Buddy or Einsy (with Prusa Link installed) like Prusa MK4, XL, Mini or MK3S. Multi-target is supported so you can check any number of printers as long it has accessible Prusa Link API (Even the old Prusa Connect Local).
 
 ### buddy.yaml
 
-Exporter loads buddy.yaml (file with connections to printers) from environment variable called **BUDDY_EXPORTER_CONFIG**. If you want to put this file in folder, where exporter is located then just set it to *buddy.yaml*.
+Exporter loads buddy.yaml (file with connections to printers) from environment variable called **BUDDY_EXPORTER_CONFIG**. If you want to put this file in folder, where exporter is located then just set it to *buddy.yaml*. This file is loaded only at start of exporter so be sure restart it after change.
 
 ### Grafana Dashboard
 
-I also prepared one dashboard that you can find in grafana folder.
+I also prepared one dashboard per board that you can find in grafana folder.
 
 #### Buddy
 
@@ -17,6 +17,10 @@ I also prepared one dashboard that you can find in grafana folder.
 #### Legacy
 
 ![dashboard](./grafana/legacy.png)
+
+#### Einsy
+
+![dashboard](./grafana/einsy.png)
 
 #### Format of buddy.yaml
 
@@ -49,11 +53,13 @@ printers:
 ### Where to find exporter
 
 Exporter runs at port 10009, but you can choose different port with `BUDDY_EXPORTER_PORT` environment variable.
+
 ### How to install exporter
 
 #### Docker
 
 I've made dockerfile. Enjoy
+
 #### Old way
 
 I've created shell script named [install_service.sh](install_service.sh). Copy its content to machine where you want to run exporter. Edit your buddy.yaml and you are good to go. You can also change `BUDDY_EXPORTER_PORT` variable to change where exporter should run.
