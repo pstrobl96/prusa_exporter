@@ -170,10 +170,13 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 			1,
 			s.Address, s.Type, s.Name, version.API, version.Server, version.Text)
 
-		printerFiles := prometheus.MustNewConstMetric(
-			collector.printerFiles, prometheus.GaugeValue,
-			float64(len(files.Files[0].Children)),
-			s.Address, s.Type, s.Name, files.Files[0].Display)
+		if len(files.Files) > 0 {
+			printerFiles := prometheus.MustNewConstMetric(
+				collector.printerFiles, prometheus.GaugeValue,
+				float64(len(files.Files[0].Children)),
+				s.Address, s.Type, s.Name, files.Files[0].Display)
+			ch <- printerFiles
+		}
 
 		zHeight := prometheus.MustNewConstMetric(
 			collector.printerZHeight, prometheus.GaugeValue,
@@ -191,7 +194,6 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- targetTempNozzle
 		ch <- material
 		ch <- printerVersion
-		ch <- printerFiles
 		ch <- zHeight
 
 	}

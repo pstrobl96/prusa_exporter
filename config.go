@@ -74,12 +74,12 @@ func getMetricsPort() string {
 }
 
 func getScrapeTimeout() float64 {
-	result := 0.05
+	result := 1.0
 	metricsPort := os.Getenv("BUDDY_EXPORTER_SCRAPE_TIMEOUT")
 	if metricsPort != "" {
 		parsed, err := strconv.ParseFloat(metricsPort, 64)
 		if err != nil {
-			result = 0.05
+			result = 1.0
 		} else {
 			result = parsed
 		}

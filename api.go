@@ -27,7 +27,7 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 	url := string("http://" + address + "/api/" + path)
 	var res *http.Response
 	var err error
-
+	var body []byte
 	if apiKey == "" {
 		client := &http.Client{
 			Transport: &digest.Transport{
@@ -37,7 +37,7 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 		}
 		res, err = client.Get(url)
 		if err != nil {
-			panic(err)
+			log.Println(err.Error())
 		}
 	} else {
 		req, _ := http.NewRequest("GET", url, nil)
@@ -45,15 +45,19 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 		req.Header.Add("X-Api-Key", apiKey)
 		res, err = client.Do(req)
 		if err != nil {
-			panic(err)
+			log.Println(err.Error())
 		}
 	}
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		panic(err)
+	if err == nil {
+		body, err = ioutil.ReadAll(res.Body)
+		res.Body.Close()
+		if err != nil {
+			log.Println(err.Error())
+		}
+	} else {
+		log.Println(err.Error())
 	}
 
-	res.Body.Close()
 	return body
 }
 
