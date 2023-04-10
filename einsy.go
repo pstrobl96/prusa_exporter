@@ -56,7 +56,7 @@ func newEinsyCollector() *einsyCollector {
 		printerAxisY:              prometheus.NewDesc("prusa_einsy_axis_y", "Return coordinates - y axis of printer", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
 		printerAxisZ:              prometheus.NewDesc("prusa_einsy_axis_z", "Return coordinates - z axis of printer", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
 		printerState:              prometheus.NewDesc("prusa_einsy_state", "Return state of printer", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path", "printer_state"}, nil),
-		printerNozzleSize:         prometheus.NewDesc("prusa_einsy_ports", "Return size of nozzle", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
+		printerNozzleSize:         prometheus.NewDesc("prusa_einsy_nozzle_size", "Return size of nozzle", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
 	}
 }
 
