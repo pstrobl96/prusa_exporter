@@ -1,8 +1,6 @@
 package main
 
 import (
-	"log"
-
 	"github.com/prometheus/client_golang/prometheus"
 )
 
@@ -100,16 +98,16 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 	cfg := loadedConfig
 
 	for _, s := range cfg.Printers.Buddy {
-		log.Println("Buddy scraping at " + s.Address)
+		logger.Debug("Buddy scraping at " + s.Address)
 		if head("http://" + s.Address) {
 			printer := getBuddyPrinter(s.Address, s.Apikey, s.Username, s.Pass)
 			files := getBuddyFiles(s.Address, s.Apikey, s.Username, s.Pass)
 			version := getBuddyVersion(s.Address, s.Apikey, s.Username, s.Pass)
 			job := getBuddyJob(s.Address, s.Apikey, s.Username, s.Pass)
 			bedTemp := prometheus.MustNewConstMetric(
-				collector.printerBedTemp, prometheus.GaugeValue, // collector
-				float64(printer.Temperature.Bed.Actual),                         // value
-				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path) // labels
+				collector.printerBedTemp, prometheus.GaugeValue,
+				float64(printer.Temperature.Bed.Actual),
+				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 			nozzleTemp := prometheus.MustNewConstMetric(
 				collector.printerNozzleTemp, prometheus.GaugeValue,
@@ -197,7 +195,7 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 			ch <- printerVersion
 			ch <- zHeight
 		} else {
-			log.Println(s.Address + " is unreachable")
+			logger.Error(s.Address + " is unreachable")
 		}
 	}
 }

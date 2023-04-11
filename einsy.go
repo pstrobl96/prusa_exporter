@@ -1,8 +1,6 @@
 package main
 
 import (
-	"log"
-
 	"github.com/prometheus/client_golang/prometheus"
 )
 
@@ -88,7 +86,7 @@ func (collector *einsyCollector) Describe(ch chan<- *prometheus.Desc) {
 func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 
 	for _, s := range loadedConfig.Printers.Einsy {
-		log.Println("Einsy scraping at " + s.Address)
+		logger.Debug("Einsy scraping at " + s.Address)
 		if head("http://" + s.Address) {
 
 			printer := getEinsyPrinter(s.Address, s.Apikey)
@@ -270,7 +268,7 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 			ch <- zHeight
 			ch <- printerFarmMode
 		} else {
-			log.Println(s.Address + " is unreachable")
+			logger.Error(s.Address + " is unreachable")
 		}
 	}
 }

@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"log"
 )
 
 func getEinsyJob(address string, apiKey string) einsyJob {
@@ -11,7 +10,7 @@ func getEinsyJob(address string, apiKey string) einsyJob {
 	var result einsyJob
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
@@ -23,7 +22,7 @@ func getEinsyCameras(address string, apiKey string) einsyCameras {
 	var result einsyCameras
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
@@ -35,7 +34,7 @@ func getEinsyPrinter(address string, apiKey string) einsyPrinter {
 	var result einsyPrinter
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
@@ -47,7 +46,7 @@ func getEinsyStorage(address string, apiKey string) einsyStorage {
 	var result einsyStorage
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
@@ -59,7 +58,7 @@ func getEinsySettings(address string, apiKey string) einsySettings {
 	var result einsySettings
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
@@ -71,7 +70,7 @@ func getEinsyConnection(address string, apiKey string) einsyConection {
 	var result einsyConection
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
@@ -83,7 +82,7 @@ func getEinsyFiles(address string, apiKey string) einsyFiles {
 	var result einsyFiles
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
@@ -95,7 +94,7 @@ func getEinsyLogs(address string, apiKey string) einsyLogs {
 	var result einsyLogs
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
@@ -107,7 +106,7 @@ func getEinsyInfo(address string, apiKey string) einsyInfo {
 	var result einsyInfo
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
@@ -119,7 +118,7 @@ func getEinsyStatus(address string, apiKey string) einsyStatus {
 	var result einsyStatus
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
@@ -131,7 +130,7 @@ func getEinsyVersion(address string, apiKey string) einsyVersion {
 	var result einsyVersion
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
@@ -143,7 +142,7 @@ func getEinsyPorts(address string, apiKey string) einsyPorts {
 	var result einsyPorts
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result

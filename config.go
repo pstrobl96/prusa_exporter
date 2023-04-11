@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 
+	"golang.org/x/exp/slog"
 	"gopkg.in/yaml.v3"
 )
 
@@ -13,6 +13,7 @@ var configPath string
 var metricsPort string
 var scrapeTimeout float64
 var loadedConfig config
+var logger *slog.Logger
 
 type config struct {
 	Printers struct {
@@ -57,7 +58,7 @@ func getCfgFile() string {
 		cfgFile = pwd + "/buddy.yaml"
 	}
 
-	log.Println("Using config - " + cfgFile)
+	logger.Info("Using config - " + cfgFile)
 
 	return cfgFile
 }
@@ -68,7 +69,7 @@ func getMetricsPort() string {
 		metricsPort = "10009"
 	}
 
-	log.Println("Using port - " + metricsPort)
+	logger.Info("Using port - " + metricsPort)
 
 	return metricsPort
 }
@@ -85,7 +86,7 @@ func getScrapeTimeout() float64 {
 		}
 	}
 
-	log.Println("Scraping interval - " + strconv.FormatFloat(result, 'E', -1, 32) + " sec")
+	logger.Info("Scraping interval - " + strconv.FormatFloat(result, 'E', -1, 32) + " sec")
 
 	return result
 }
@@ -93,11 +94,11 @@ func getScrapeTimeout() float64 {
 func parseCfg(path string) config {
 	f, err := os.ReadFile(path)
 	if err != nil {
-		log.Fatal(err)
+		logger.Error(err.Error())
 	}
 	var p config
 	if err := yaml.Unmarshal(f, &p); err != nil {
-		log.Fatal(err)
+		logger.Error(err.Error())
 	}
 	return p
 }

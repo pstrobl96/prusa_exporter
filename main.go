@@ -1,22 +1,24 @@
 package main
 
 import (
-	"log"
 	"net/http"
+	"os"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"golang.org/x/exp/slog"
 )
 
 func main() {
-	log.Println("Buddy Prusa Link Prometheus exporter starting")
+	logger = slog.New(slog.NewTextHandler(os.Stdout))
+	logger.Info("Buddy Prusa Link Prometheus exporter starting")
 	loadEnvVars()
 	buddyCollector := newBuddyCollector()
 	legacyCollector := newLegacyCollector()
 	einsyCollector := newEinsyCollector()
 	prometheus.MustRegister(buddyCollector, legacyCollector, einsyCollector)
 
-	log.Println("Metrics registered")
+	logger.Info("Metrics registered")
 	http.Handle("/metrics", promhttp.Handler())
-	log.Fatal(http.ListenAndServe(":"+metricsPort, nil))
+	logger.Error(http.ListenAndServe(":"+metricsPort, nil).Error())
 }

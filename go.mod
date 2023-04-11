@@ -5,6 +5,7 @@ go 1.20
 require (
 	github.com/icholy/digest v0.1.22
 	github.com/prometheus/client_golang v1.14.0
+	golang.org/x/exp v0.0.0-20230321023759-10a507213a29
 	gopkg.in/yaml.v3 v3.0.1
 )
 

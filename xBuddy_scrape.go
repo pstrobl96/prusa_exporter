@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"log"
 )
 
 func getBuddyVersion(address string, apiKey string, username string, password string) buddyVersion {
@@ -11,7 +10,7 @@ func getBuddyVersion(address string, apiKey string, username string, password st
 	var result buddyVersion
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
@@ -23,7 +22,7 @@ func getBuddyFiles(address string, apiKey string, username string, password stri
 	var result buddyFiles
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
@@ -35,7 +34,7 @@ func getBuddyJob(address string, apiKey string, username string, password string
 	var result buddyJob
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
@@ -47,7 +46,7 @@ func getBuddyPrinter(address string, apiKey string, username string, password st
 	var result buddyPrinter
 
 	if err := json.Unmarshal(resp, &result); err != nil {
-		log.Println("Can not unmarshal JSON")
+		logger.Error("Can not unmarshal JSON")
 	}
 
 	return result
