@@ -11,6 +11,20 @@ import (
 	"github.com/icholy/digest"
 )
 
+func head(s string) bool {
+	r, e := http.Head(s)
+	return e == nil && r.StatusCode == 200
+}
+
+func connTest(s string) bool {
+	r, e := http.Get(s)
+	return e == nil && r.StatusCode == 200
+}
+
+func getURL(path string, address string) string {
+	return string("http://" + address + "/api/" + path)
+}
+
 func basicAuth(username, password string) string {
 	auth := username + ":" + password
 	return base64.StdEncoding.EncodeToString([]byte(auth))
@@ -24,7 +38,7 @@ func generateHeader(apiKey string, username string, pass string) (string, string
 }
 
 func accessBuddyApi(path string, address string, apiKey string, username string, password string) []byte {
-	url := string("http://" + address + "/api/" + path)
+	url := getURL(path, address)
 	var res *http.Response
 	var err error
 	var body []byte
@@ -62,7 +76,7 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 }
 
 func accessLegacyApi(path string, address string) ([]byte, error) {
-	url := string("http://" + address + "/api/" + path)
+	url := getURL(path, address)
 	var res *http.Response
 	var err error
 	req, _ := http.NewRequest("GET", url, nil)
@@ -82,7 +96,7 @@ func accessLegacyApi(path string, address string) ([]byte, error) {
 }
 
 func accessEinsyApi(path string, address string, apiKey string) ([]byte, error) {
-	url := string("http://" + address + "/api/" + path)
+	url := getURL(path, address)
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("X-Api-Key", apiKey)
 	client := &http.Client{Timeout: time.Duration(scrapeTimeout) * time.Second}
