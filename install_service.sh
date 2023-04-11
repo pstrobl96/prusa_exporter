@@ -20,6 +20,7 @@ echo "Go installed"
 
 source ~/.bashrc
 
+rm -rf /etc/buddy-link-prometheus-exporter
 cd /etc
 git clone https://github.com/pstrobl96/buddy-link-prometheus-exporter.git
 
