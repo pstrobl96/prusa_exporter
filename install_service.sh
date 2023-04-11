@@ -20,18 +20,18 @@ echo "Go installed"
 
 source ~/.bashrc
 
-rm -rf /etc/buddy-link-prometheus-exporter
+rm -rf /etc/buddy-prometheus-exporter
 cd /etc
-git clone https://github.com/pstrobl96/buddy-link-prometheus-exporter.git
+git clone https://github.com/pstrobl96/buddy-prometheus-exporter.git
 
-cd /etc/buddy-link-prometheus-exporter
+cd /etc/buddy-prometheus-exporter
 go build
 
 touch /etc/systemd/system/buddy.service
-rm /etc/buddy-link-prometheus-exporter/buddy.yaml
-touch /etc/buddy-link-prometheus-exporter/buddy.yaml
+rm /etc/buddy-prometheus-exporter/buddy.yaml
+touch /etc/buddy-prometheus-exporter/buddy.yaml
 
-cat <<EOT >> /etc/buddy-link-prometheus-exporter/buddy.yml
+cat <<EOT >> /etc/buddy-prometheus-exporter/buddy.yml
 printers:
   buddy:
   - address: 192.168.0.2
@@ -69,9 +69,9 @@ Type=simple
 Restart=always
 RestartSec=1
 User=root
-Environment=BUDDY_EXPORTER_CONFIG=/etc/buddy-link-prometheus-exporter/buddy.yaml
+Environment=BUDDY_EXPORTER_CONFIG=/etc/buddy-prometheus-exporter/buddy.yaml
 Environment=BUDDY_EXPORTER_PORT=10009
-ExecStart=/etc/buddy-link-prometheus-exporter/buddy-link-exporter
+ExecStart=/etc/buddy-prometheus-exporter/buddy-exporter
 
 [Install]
 WantedBy=multi-user.target
