@@ -17,7 +17,6 @@ func main() {
 	prometheus.MustRegister(buddyCollector, legacyCollector, einsyCollector)
 
 	log.Println("Metrics registered")
-
 	http.Handle("/metrics", promhttp.Handler())
 	log.Fatal(http.ListenAndServe(":"+metricsPort, nil))
 }
