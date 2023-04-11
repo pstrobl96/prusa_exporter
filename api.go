@@ -4,7 +4,6 @@ import (
 	"encoding/base64"
 	"errors"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"time"
 
@@ -51,7 +50,7 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 		}
 		res, err = client.Get(url)
 		if err != nil {
-			log.Println(err.Error())
+			logger.Error(err.Error())
 		}
 	} else {
 		req, _ := http.NewRequest("GET", url, nil)
@@ -59,17 +58,17 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 		req.Header.Add("X-Api-Key", apiKey)
 		res, err = client.Do(req)
 		if err != nil {
-			log.Println(err.Error())
+			logger.Error(err.Error())
 		}
 	}
 	if err == nil {
 		body, err = ioutil.ReadAll(res.Body)
 		res.Body.Close()
 		if err != nil {
-			log.Println(err.Error())
+			logger.Error(err.Error())
 		}
 	} else {
-		log.Println(err.Error())
+		logger.Error(err.Error())
 	}
 
 	return body
@@ -83,13 +82,13 @@ func accessLegacyApi(path string, address string) ([]byte, error) {
 	client := &http.Client{Timeout: time.Duration(scrapeTimeout) * time.Second}
 	res, err = client.Do(req)
 	if err != nil {
-		log.Println(err.Error())
+		logger.Error(err.Error())
 		return nil, err
 	} else {
 		defer res.Body.Close()
 		body, err := ioutil.ReadAll(res.Body)
 		if err != nil {
-			log.Println(err.Error())
+			logger.Error(err.Error())
 		}
 		return body, nil
 	}
@@ -102,13 +101,13 @@ func accessEinsyApi(path string, address string, apiKey string) ([]byte, error) 
 	client := &http.Client{Timeout: time.Duration(scrapeTimeout) * time.Second}
 	res, err := client.Do(req)
 	if err != nil {
-		log.Println(err.Error())
+		logger.Error(err.Error())
 		return nil, err
 	} else {
 		defer res.Body.Close()
 		body, err := ioutil.ReadAll(res.Body)
 		if err != nil {
-			log.Println(err.Error())
+			logger.Error(err.Error())
 		}
 		return body, nil
 	}

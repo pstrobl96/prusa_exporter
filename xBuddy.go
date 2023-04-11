@@ -1,8 +1,6 @@
 package main
 
 import (
-	"log"
-
 	"github.com/prometheus/client_golang/prometheus"
 )
 
@@ -100,7 +98,7 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 	cfg := loadedConfig
 
 	for _, s := range cfg.Printers.Buddy {
-		log.Println("Buddy scraping at " + s.Address)
+		logger.Debug("Buddy scraping at " + s.Address)
 		if head("http://" + s.Address) {
 			printer := getBuddyPrinter(s.Address, s.Apikey, s.Username, s.Pass)
 			files := getBuddyFiles(s.Address, s.Apikey, s.Username, s.Pass)
@@ -197,7 +195,7 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 			ch <- printerVersion
 			ch <- zHeight
 		} else {
-			log.Println(s.Address + " is unreachable")
+			logger.Error(s.Address + " is unreachable")
 		}
 	}
 }

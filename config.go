@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 
+	"golang.org/x/exp/slog"
 	"gopkg.in/yaml.v3"
 )
 
@@ -13,6 +14,7 @@ var configPath string
 var metricsPort string
 var scrapeTimeout float64
 var loadedConfig config
+var logger *slog.Logger
 
 type config struct {
 	Printers struct {
@@ -57,7 +59,7 @@ func getCfgFile() string {
 		cfgFile = pwd + "/buddy.yaml"
 	}
 
-	log.Println("Using config - " + cfgFile)
+	logger.Info("Using config - " + cfgFile)
 
 	return cfgFile
 }
@@ -68,7 +70,7 @@ func getMetricsPort() string {
 		metricsPort = "10009"
 	}
 
-	log.Println("Using port - " + metricsPort)
+	logger.Info("Using port - " + metricsPort)
 
 	return metricsPort
 }
@@ -85,7 +87,7 @@ func getScrapeTimeout() float64 {
 		}
 	}
 
-	log.Println("Scraping interval - " + strconv.FormatFloat(result, 'E', -1, 32) + " sec")
+	logger.Info("Scraping interval - " + strconv.FormatFloat(result, 'E', -1, 32) + " sec")
 
 	return result
 }
