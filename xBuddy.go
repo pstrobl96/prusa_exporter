@@ -105,9 +105,9 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 			version := getBuddyVersion(s.Address, s.Apikey, s.Username, s.Pass)
 			job := getBuddyJob(s.Address, s.Apikey, s.Username, s.Pass)
 			bedTemp := prometheus.MustNewConstMetric(
-				collector.printerBedTemp, prometheus.GaugeValue, // collector
-				float64(printer.Temperature.Bed.Actual),                         // value
-				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path) // labels
+				collector.printerBedTemp, prometheus.GaugeValue,
+				float64(printer.Temperature.Bed.Actual),
+				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 			nozzleTemp := prometheus.MustNewConstMetric(
 				collector.printerNozzleTemp, prometheus.GaugeValue,

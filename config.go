@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 
@@ -95,11 +94,11 @@ func getScrapeTimeout() float64 {
 func parseCfg(path string) config {
 	f, err := os.ReadFile(path)
 	if err != nil {
-		log.Fatal(err)
+		logger.Error(err.Error())
 	}
 	var p config
 	if err := yaml.Unmarshal(f, &p); err != nil {
-		log.Fatal(err)
+		logger.Error(err.Error())
 	}
 	return p
 }
