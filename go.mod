@@ -1,4 +1,4 @@
-module pubel.dev/buddy-link-exporter
+module pubel.dev/buddy-prometheus-exporter
 
 go 1.20
 
