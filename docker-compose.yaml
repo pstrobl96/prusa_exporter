@@ -1,0 +1,112 @@
+version: "3"
+services:
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    expose:
+      - 9100
+    networks:
+      - monitoring
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    expose:
+      - 9090
+    networks:
+      - monitoring
+  #
+  # Core services. These services allow a Grafana Agent to send data somewhere
+  # and visualize it in Grafana.
+  #
+  # Backends: grafana, loki, cortex, tempo
+  # Example services: avalanche
+  #
+
+  loki:
+    image: grafana/loki:2.6.1
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+      - "3100:3100"
+
+  cortex:
+    image: cortexproject/cortex:v1.8.1
+    volumes:
+      - ./cortex/config:/etc/cortex-config
+    entrypoint:
+      - /bin/cortex
+      - -config.file=/etc/cortex-config/cortex.yaml
+    ports:
+      - "9009:9009"
+
+  tempo:
+    image: grafana/tempo:1.5.0
+    command:
+      - "-search.enabled=true"
+      - "-storage.trace.backend=local"                  # tell tempo where to permanently put traces
+      - "-storage.trace.local.path=/tmp/tempo/traces"
+      - "-storage.trace.wal.path=/tmp/tempo/wal"        # tell tempo where to store the wal
+      - "-auth.enabled=false"                           # disables the requirement for the X-Scope-OrgID header
+      - "-server.http-listen-port=3200"
+    ports:
+      - "3200:3200"
+      - "4317:4317"
+
+  agent:
+    profiles: [agent]
+    image: grafana/agent:latest
+    volumes:
+      - ./agent/config:/etc/agent-config
+    entrypoint:
+      - /bin/agent
+      - -server.http.address=0.0.0.0:12345
+      - -config.file=/etc/agent-config/agent.yaml
+      - -metrics.wal-directory=/tmp/agent/wal
+      - -enable-features=integrations-next
+      - -config.expand-env
+      - -config.enable-read-api
+    environment:
+      HOSTNAME: agent
+      REMOTE_WRITE_HOST: prometheus:9090
+      LOKI_HOST: loki:3100
+      TEMPO_HOST: tempo:4317
+      AVALANCHE_HOST: avalanche:9001
+      MYSQL_HOST: mysql:3306
+      POSTGRES_HOST: postgres:5432
+      REDIS_HOST: redis:6379
+      DNSMASQ_HOST: dnsmasq:53
+      MEMCACHED_HOST: memcached:11211
+      CONSUL_HOST: consul:8500
+      ELASTICSEARCH_HOST: elasticsearch:9200
+      KAFKA_HOST: kafka:9093
+      MONGODB_HOST: mongodb:27017
+    ports:
+      - "12345:12345"
+    depends_on:
+      - cortex
+      - loki
+      - tempo
+
+volumes:
+  elasticsearch_data:
+    driver: local
