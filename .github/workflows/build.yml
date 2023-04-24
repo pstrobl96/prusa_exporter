@@ -32,8 +32,6 @@ jobs:
 
   docker-image:
     needs: build-amd64
-    env:
-      IMAGE_NAME: ${{ github.repository }}
     name: create docker image
     runs-on: ubuntu-latest
     steps:
