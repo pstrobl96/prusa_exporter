@@ -11,6 +11,6 @@ RUN go mod download
 
 COPY *.go ./
 
-RUN go build -o /buddy-link-prometheus-exporter
+RUN go build -o /buddy-prometheus-exporter
 
-CMD [ "/buddy-link-prometheus-exporter" ]
+CMD [ "/buddy-prometheus-exporter" ]
