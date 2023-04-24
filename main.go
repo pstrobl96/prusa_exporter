@@ -11,7 +11,7 @@ import (
 
 func main() {
 	logger = slog.New(slog.NewTextHandler(os.Stdout))
-	logger.Info("Buddy Prusa Link Prometheus exporter starting")
+	logger.Info("Buddy Link Prometheus exporter starting")
 	loadEnvVars()
 	buddyCollector := newBuddyCollector()
 	legacyCollector := newLegacyCollector()
