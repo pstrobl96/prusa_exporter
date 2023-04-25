@@ -1,4 +1,4 @@
-[![Go](https://github.com/pstrobl96/buddy-prometheus-exporter/actions/workflows/go.yml/badge.svg?branch=main)](https://github.com/pstrobl96/buddy-prometheus-exporter/actions/workflows/go.yml)
+[![ci](https://github.com/pstrobl96/buddy-prometheus-exporter/actions/workflows/ci.yml/badge.svg)](https://github.com/pstrobl96/buddy-prometheus-exporter/actions/workflows/ci.yml) ![issues](https://img.shields.io/github/issues/pstrobl96/buddy-prometheus-exporter) ![go](https://img.shields.io/github/go-mod/go-version/pstrobl96/buddy-prometheus-exporter) ![tag](https://img.shields.io/github/v/tag/pstrobl96/buddy-prometheus-exporter) ![license](https://img.shields.io/github/license/pstrobl96/buddy-prometheus-exporter)
 
 ## Buddy Link Prometheus Exporter
 
