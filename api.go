@@ -1,8 +1,6 @@
 package main
 
 import (
-	"encoding/base64"
-	"errors"
 	"io/ioutil"
 	"net/http"
 	"time"
@@ -22,18 +20,6 @@ func connTest(s string) bool {
 
 func getURL(path string, address string) string {
 	return string("http://" + address + "/api/" + path)
-}
-
-func basicAuth(username, password string) string {
-	auth := username + ":" + password
-	return base64.StdEncoding.EncodeToString([]byte(auth))
-}
-
-func generateHeader(apiKey string, username string, pass string) (string, string, error) {
-	if apiKey == "" && (username == "" || pass == "") {
-		return "", "", errors.New("no auth provided")
-	}
-	return "X-Api-Key", apiKey, nil
 }
 
 func accessBuddyApi(path string, address string, apiKey string, username string, password string) []byte {

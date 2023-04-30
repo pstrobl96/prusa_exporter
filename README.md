@@ -1,3 +1,5 @@
+[![ci](https://github.com/pstrobl96/buddy-prometheus-exporter/actions/workflows/ci.yml/badge.svg)](https://github.com/pstrobl96/buddy-prometheus-exporter/actions/workflows/ci.yml) ![issues](https://img.shields.io/github/issues/pstrobl96/buddy-prometheus-exporter) ![go](https://img.shields.io/github/go-mod/go-version/pstrobl96/buddy-prometheus-exporter) ![tag](https://img.shields.io/github/v/tag/pstrobl96/buddy-prometheus-exporter) ![license](https://img.shields.io/github/license/pstrobl96/buddy-prometheus-exporter)
+
 ## Buddy Link Prometheus Exporter
 
 This is an implementation of Prometheus Exporter for Prusa printers running boards named Buddy or Einsy (with Prusa Link installed) like Prusa MK4, XL, Mini or MK3S. Multi-target is supported so you can check any number of printers as long it has accessible Prusa Link API (Even the old Prusa Connect Local).
