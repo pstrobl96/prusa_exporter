@@ -96,7 +96,7 @@ type einsyPrinter struct {
 	} `json:"storage"`
 }
 
-type einsyStorage struct {
+type einsyStorage struct { // currently unused
 	StorageList []struct {
 		Type        string `json:"type"`
 		Path        string `json:"path"`
@@ -120,7 +120,7 @@ type einsySettings struct {
 	} `json:"printer"`
 }
 
-type einsyConection struct {
+type einsyConection struct { // currently unused
 	Current struct {
 		Baudrate       int    `json:"baudrate"`
 		Port           string `json:"port"`
@@ -233,7 +233,7 @@ type einsyInfo struct {
 	Port             int     `json:"port"`
 }
 
-type einsyStatus struct {
+type einsyStatus struct { // currently unused
 	Storage []struct {
 		Path      string `json:"path"`
 		ReadOnly  bool   `json:"read_only"`
