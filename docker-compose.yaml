@@ -1,7 +1,13 @@
 version: "3"
+
+networks:
+  prusa:
+
+volumes:
+  prometheus_data:
 services:
   node-exporter:
-    image: prom/node-exporter:latest
+    image: prom/node-exporter:v1.5.0
     container_name: node-exporter
     restart: unless-stopped
     volumes:
@@ -16,7 +22,7 @@ services:
     expose:
       - 9100
     networks:
-      - monitoring
+      - prusa
 
   prometheus:
     image: prom/prometheus:v2.37.7
@@ -34,20 +40,27 @@ services:
     expose:
       - 9090
     networks:
-      - monitoring
+      - prusa
 
-  loki:
-    image: grafana/loki:2.8.1
-    container_name: loki
+  promtail:
+    image: grafana/promtail:2.8.0
     volumes:
-      - ./config/loki.yml:/etc/loki/local-config.yaml
-    command: -config.file=/etc/loki/local-config.yaml
-    expose:
-      - 3100
+      - ./config/promtail_my.yaml:/etc/promtail/config.yml
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - prusa
 
   buddy:
     image: pubeldev/buddy-prometheus-exporter:latest
     container_name: buddy
-    command: -config.file=/etc/loki/local-config.yaml
-    ports:
-      - "3100:3100"
+    environment:
+      - BUDDY_EXPORTER_PORT=10009
+      - BUDDY_EXPORTER_SCRAPE_TIMEOUT=1
+      - BUDDY_EXPORTER_CONFIG=/etc/buddy-prometheus-exporter/buddy.yaml
+    volumes:
+      - ${PWD}/config/buddy_my.yaml:/etc/buddy-prometheus-exporter/buddy.yaml
+    expose:
+      - 10009
+    networks:
+      - prusa
