@@ -2,7 +2,6 @@ version: "3"
 
 networks:
   prusa:
-    driver: host
 
 volumes:
   prometheus_data:
