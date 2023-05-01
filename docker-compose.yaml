@@ -19,11 +19,11 @@ services:
       - monitoring
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v2.37.7
     container_name: prometheus
     restart: unless-stopped
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -35,78 +35,19 @@ services:
       - 9090
     networks:
       - monitoring
-  #
-  # Core services. These services allow a Grafana Agent to send data somewhere
-  # and visualize it in Grafana.
-  #
-  # Backends: grafana, loki, cortex, tempo
-  # Example services: avalanche
-  #
 
   loki:
-    image: grafana/loki:2.6.1
+    image: grafana/loki:2.8.1
+    container_name: loki
+    volumes:
+      - ./config/loki.yml:/etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml
+    expose:
+      - 3100
+
+  buddy:
+    image: pubeldev/buddy-prometheus-exporter:latest
+    container_name: buddy
     command: -config.file=/etc/loki/local-config.yaml
     ports:
       - "3100:3100"
-
-  cortex:
-    image: cortexproject/cortex:v1.8.1
-    volumes:
-      - ./cortex/config:/etc/cortex-config
-    entrypoint:
-      - /bin/cortex
-      - -config.file=/etc/cortex-config/cortex.yaml
-    ports:
-      - "9009:9009"
-
-  tempo:
-    image: grafana/tempo:1.5.0
-    command:
-      - "-search.enabled=true"
-      - "-storage.trace.backend=local"                  # tell tempo where to permanently put traces
-      - "-storage.trace.local.path=/tmp/tempo/traces"
-      - "-storage.trace.wal.path=/tmp/tempo/wal"        # tell tempo where to store the wal
-      - "-auth.enabled=false"                           # disables the requirement for the X-Scope-OrgID header
-      - "-server.http-listen-port=3200"
-    ports:
-      - "3200:3200"
-      - "4317:4317"
-
-  agent:
-    profiles: [agent]
-    image: grafana/agent:latest
-    volumes:
-      - ./agent/config:/etc/agent-config
-    entrypoint:
-      - /bin/agent
-      - -server.http.address=0.0.0.0:12345
-      - -config.file=/etc/agent-config/agent.yaml
-      - -metrics.wal-directory=/tmp/agent/wal
-      - -enable-features=integrations-next
-      - -config.expand-env
-      - -config.enable-read-api
-    environment:
-      HOSTNAME: agent
-      REMOTE_WRITE_HOST: prometheus:9090
-      LOKI_HOST: loki:3100
-      TEMPO_HOST: tempo:4317
-      AVALANCHE_HOST: avalanche:9001
-      MYSQL_HOST: mysql:3306
-      POSTGRES_HOST: postgres:5432
-      REDIS_HOST: redis:6379
-      DNSMASQ_HOST: dnsmasq:53
-      MEMCACHED_HOST: memcached:11211
-      CONSUL_HOST: consul:8500
-      ELASTICSEARCH_HOST: elasticsearch:9200
-      KAFKA_HOST: kafka:9093
-      MONGODB_HOST: mongodb:27017
-    ports:
-      - "12345:12345"
-    depends_on:
-      - cortex
-      - loki
-      - tempo
-
-volumes:
-  elasticsearch_data:
-    driver: local
