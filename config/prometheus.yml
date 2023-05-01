@@ -24,10 +24,19 @@ scrape_configs:
       - targets: ["localhost:9090"]
   - job_name: "buddy"
     static_configs:
-      - targets: ["localhost:10009"]
+      - targets: ["buddy:10009"]
+  - job_name: "node-exporter"
+    static_configs:
+      - targets: ["node-exporter:10009"]
 
 remote_write:
 - url: https://prometheus-prod-01-eu-west-0.grafana.net/api/prom/push
   basic_auth:
     username: "userName"
     password: "apiKey"
+  queue_config:
+    min_shards: 50
+    retry_on_http_429: true
+    min_backoff: 2s
+  metadata_config:
+    send_interval: 2m
