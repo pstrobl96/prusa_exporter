@@ -78,8 +78,9 @@ type buddyJob struct {
 		} `json:"file"`
 	} `json:"job"`
 	Progress struct {
+		PrintTimeLeft int     `json:"printTimeLeft"`
 		Completion    float64 `json:"completion"`
 		PrintTime     int     `json:"printTime"`
-		PrintTimeLeft int     `json:"printTimeLeft"`
 	} `json:"progress"`
 }
+

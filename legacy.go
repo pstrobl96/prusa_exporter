@@ -70,7 +70,7 @@ func (collector *legacyCollector) Collect(ch chan<- prometheus.Metric) {
 
 	for _, s := range cfg.Printers.Legacy {
 		logger.Debug("Legacy scraping at " + s.Address)
-		if connTest(getURL(s.Address, "telemetry")) {
+		if connTest("http://" + s.Address) {
 			telemetry := getLegacyTelemetry(s.Address)
 
 			nozzleTemp := prometheus.MustNewConstMetric(

@@ -99,7 +99,7 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 
 	for _, s := range cfg.Printers.Buddy {
 		logger.Debug("Buddy scraping at " + s.Address)
-		if head("http://" + s.Address) {
+		if connTest("http://" + s.Address) {
 			printer := getBuddyPrinter(s.Address, s.Apikey, s.Username, s.Pass)
 			files := getBuddyFiles(s.Address, s.Apikey, s.Username, s.Pass)
 			version := getBuddyVersion(s.Address, s.Apikey, s.Username, s.Pass)
