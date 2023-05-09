@@ -140,12 +140,12 @@ I also prepared one dashboard per board that you can find in grafana folder.
 
 ### Buddy
 
-![dashboard](./grafana/buddy.png)
+![dashboard](docs/examples/grafana/buddy.png)
 
 ### Legacy
 
-![dashboard](./grafana/legacy.png)
+![dashboard](docs/examples/grafana/legacy.png)
 
 ### Einsy
 
-![dashboard](./grafana/einsy.png)
+![dashboard](docs/examples/grafana/einsy.png)
