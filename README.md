@@ -4,17 +4,27 @@
 
 This is an implementation of Prometheus Exporter for Prusa printers running boards named Buddy or Einsy (with Prusa Link installed) like Prusa MK4, XL, Mini or MK3S. Multi-target is supported so you can check any number of printers as long it has accessible Prusa Link API (Even the old Prusa Connect Local).
 
-## buddy.yaml
-
-Exporter loads buddy.yaml (file with connections to printers) from environment variable called **BUDDY_EXPORTER_CONFIG**. If you want to put this file in folder, where exporter is located then just set it to *buddy.yaml*. This file is loaded only at start of exporter so be sure restart it after change. Config can be found here.
+However with Einsy boards - that in MK3, you need to use newest version of Prusa Link which is 0.7.0rc3 because there are much more metrics to scrape than in older version. You can find it in [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/tree/0.7.0rc3).
 
 ## Where to find exporter
 
 Exporter runs at port 10009, but you can choose different port with `BUDDY_EXPORTER_PORT` environment variable. Metrics are accessible at `/metrics` endpoint.
 
 ## Roadmap
-LOREM
 
+This list contains what would be implemented in the future.
+
+- [x] Scrape of metrics from [Prusa Link](https://github.com/prusa3d/Prusa-Link/tree/0.7.0rc3)
+- [x] Use of Grafana Cloud
+- [x] CI pipeline with Docker Hub publish
+- [ ] Local instance of Grafana / Prometheus / Loki
+- [ ] Raspberry Pi Image
+- [ ] Odroid C4 Image
+- [ ] [Helm chart](#20) for K8s
+- [ ] Camera image [logging](#18)
+- [ ] Implementation with [exporter-toolkit](#22)
+- [ ] Support for [connection](#21) to Einsy with username and password
+- [ ] Show printed [gcode](#19) in dashboard
 
 ## Environment variables
 
@@ -38,6 +48,8 @@ Configuration files needs to be placed in directory config. You can just copy fo
 cp -r docs/examples/config config
 ```
 ##### buddy.yaml
+
+Exporter loads [buddy.yaml](docs/examples/config/buddy.yaml) (file with connections to printers) from environment variable called `BUDDY_EXPORTER_CONFIG`. If you want to put this file in folder, where exporter is located then just set it to `buddy.yaml`. This file is loaded only at start of exporter so be sure restart it after change.
 
 In code block bellow you can see template for buddy.yaml config file. Value of `type` is not that important, you can set anything you want. However this value would be written to labels in metrics, so be aware of that.
 
@@ -65,6 +77,7 @@ printers:
     name: <your_printer_name>
     type: mini
 ```
+
 ##### prometheus.yml
 
 In [prometheus.yml](docs/examples/config/prometheus.yml) you need to change remote write block. This block is responsible for writing data to Grafana Cloud instance. You can get all values in config of your Grafana instance. You can get more information in [Grafana Docs](https://grafana.com/docs/grafana-cloud/data-configuration/metrics/metrics-prometheus/).
@@ -104,7 +117,7 @@ Starting of exporter is simple. Just change directory to where docker-compose.ya
 docker compose up
 ```
 
-:tada: if everthing went alright your instance is up and running.
+:tada: if everthing went alright your instance is up and running and you can find metrics at [/metrics](http://localhost:10009/metrics) endpoint.
 
 ## Grafana Dashboards
 
