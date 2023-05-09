@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 9,
   "links": [],
   "liveNow": true,
   "panels": [
@@ -44,7 +44,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "z13BmGY4k"
+        "uid": "${ds_prom}"
       },
       "description": "",
       "fieldConfig": {
@@ -147,12 +147,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "z13BmGY4k"
+            "uid": "${ds_prom}"
           },
           "editorMode": "code",
           "expr": "max by (printer_name)(prusa_buddy_nozzle_temperature{printer_name=\"$printer\"}) ",
@@ -163,7 +163,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "z13BmGY4k"
+            "uid": "${ds_prom}"
           },
           "editorMode": "code",
           "expr": "max by (printer_name)(prusa_buddy_nozzle_target_temperature{printer_name=\"$printer\"})",
@@ -175,7 +175,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "z13BmGY4k"
+            "uid": "${ds_prom}"
           },
           "editorMode": "code",
           "expr": "max by (printer_name)(prusa_buddy_bed_temperature{printer_name=\"$printer\"}) ",
@@ -187,7 +187,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "z13BmGY4k"
+            "uid": "${ds_prom}"
           },
           "editorMode": "code",
           "expr": "max by (printer_name)(prusa_buddy_bed_target_temperature{printer_name=\"$printer\"})",
@@ -262,7 +262,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
       "targets": [
         {
           "datasource": {
@@ -324,7 +324,7 @@
         },
         "textMode": "name"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
       "targets": [
         {
           "datasource": {
@@ -387,7 +387,7 @@
         },
         "textMode": "name"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
       "targets": [
         {
           "datasource": {
@@ -408,7 +408,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "z13BmGY4k"
+        "uid": "${ds_prom}"
       },
       "fieldConfig": {
         "defaults": {
@@ -453,12 +453,12 @@
         },
         "textMode": "name"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "z13BmGY4k"
+            "uid": "${ds_prom}"
           },
           "editorMode": "code",
           "expr": "max by (printer_filament)(prusa_buddy_material{printer_name=\"$printer\"})",
@@ -548,7 +548,7 @@
         },
         "textMode": "name"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
       "targets": [
         {
           "datasource": {
@@ -616,7 +616,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
       "targets": [
         {
           "datasource": {
@@ -680,7 +680,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
       "targets": [
         {
           "datasource": {
@@ -745,7 +745,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
       "targets": [
         {
           "datasource": {
@@ -810,7 +810,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
       "targets": [
         {
           "datasource": {
@@ -891,7 +891,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
       "targets": [
         {
           "datasource": {
@@ -1793,8 +1793,8 @@
       {
         "current": {
           "selected": false,
-          "text": "ja_nevim",
-          "value": "ja_nevim"
+          "text": "adimini",
+          "value": "adimini"
         },
         "datasource": {
           "type": "prometheus",
@@ -1820,8 +1820,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Prometheus",
-          "value": "Prometheus"
+          "text": "grafanacloud-pubel-prom",
+          "value": "grafanacloud-pubel-prom"
         },
         "hide": 0,
         "includeAll": false,
@@ -1844,8 +1844,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Buddy",
+  "title": "Buddy / Detail",
   "uid": "RXaNIGY4z",
-  "version": 17,
+  "version": 3,
   "weekStart": ""
 }
