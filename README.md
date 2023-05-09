@@ -6,6 +6,21 @@ This is an implementation of Prometheus Exporter for Prusa printers running boar
 
 However with Einsy boards - that in MK3, you need to use newest version of Prusa Link which is 0.7.0rc3 because there are much more metrics to scrape than in older version. You can find it in [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/tree/0.7.0rc3).
 
+- [Where to find exporter](#where-to-find-exporter)
+- [Roadmap](#roadmap)
+- [Environment variables](#environment-variables)
+- [How to install exporter](#how-to-install-exporter)
+  * [Docker Compose](#docker-compose)
+    + [Config](#config)
+      - [buddy.yaml](#buddyyaml)
+      - [prometheus.yml](#prometheusyml)
+      - [promtail.yml](#promtailyml)
+    + [Starting](#starting)
+- [Grafana Dashboards](#grafana-dashboards)
+  * [Buddy](#buddy)
+  * [Legacy](#legacy)
+  * [Einsy](#einsy)
+
 ## Where to find exporter
 
 Exporter runs at port 10009, but you can choose different port with `BUDDY_EXPORTER_PORT` environment variable. Metrics are accessible at `/metrics` endpoint.
@@ -28,8 +43,8 @@ This list contains what would be implemented in the future.
 
 ## Environment variables
 
-`BUDDY_EXPORTER_CONFIG` - path to exporter buddy.yaml config file
-`BUDDY_EXPORTER_PORT` - port where metrics would be exposed
+`BUDDY_EXPORTER_CONFIG` - path to exporter buddy.yaml config file  
+`BUDDY_EXPORTER_PORT` - port where metrics would be exposed  
 `BUDDY_EXPORTER_SCRAPE_TIMEOUT` - timeout for printer scraping - not for Prometheus scrape
 
 ## How to install exporter
