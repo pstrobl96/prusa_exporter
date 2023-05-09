@@ -149,3 +149,7 @@ I also prepared one dashboard per board that you can find in grafana folder.
 ### Einsy
 
 ![dashboard](docs/examples/grafana/einsy.png)
+
+### Overview - preview
+
+![dashboard](docs/examples/grafana/overview.png)
