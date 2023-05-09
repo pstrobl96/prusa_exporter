@@ -1,32 +1,47 @@
 [![ci](https://github.com/pstrobl96/buddy-prometheus-exporter/actions/workflows/ci.yml/badge.svg)](https://github.com/pstrobl96/buddy-prometheus-exporter/actions/workflows/ci.yml) ![issues](https://img.shields.io/github/issues/pstrobl96/buddy-prometheus-exporter) ![go](https://img.shields.io/github/go-mod/go-version/pstrobl96/buddy-prometheus-exporter) ![tag](https://img.shields.io/github/v/tag/pstrobl96/buddy-prometheus-exporter) ![license](https://img.shields.io/github/license/pstrobl96/buddy-prometheus-exporter)
 
-## Buddy Link Prometheus Exporter
+# Buddy Link Prometheus Exporter
 
 This is an implementation of Prometheus Exporter for Prusa printers running boards named Buddy or Einsy (with Prusa Link installed) like Prusa MK4, XL, Mini or MK3S. Multi-target is supported so you can check any number of printers as long it has accessible Prusa Link API (Even the old Prusa Connect Local).
 
-### buddy.yaml
+## buddy.yaml
 
-Exporter loads buddy.yaml (file with connections to printers) from environment variable called **BUDDY_EXPORTER_CONFIG**. If you want to put this file in folder, where exporter is located then just set it to *buddy.yaml*. This file is loaded only at start of exporter so be sure restart it after change.
+Exporter loads buddy.yaml (file with connections to printers) from environment variable called **BUDDY_EXPORTER_CONFIG**. If you want to put this file in folder, where exporter is located then just set it to *buddy.yaml*. This file is loaded only at start of exporter so be sure restart it after change. Config can be found here.
 
-### Grafana Dashboard
+## Where to find exporter
 
-I also prepared one dashboard per board that you can find in grafana folder.
+Exporter runs at port 10009, but you can choose different port with `BUDDY_EXPORTER_PORT` environment variable. Metrics are accessible at `/metrics` endpoint.
 
-#### Buddy
+## Roadmap
+LOREM
 
-![dashboard](./grafana/buddy.png)
 
-#### Legacy
+## Environment variables
 
-![dashboard](./grafana/legacy.png)
+`BUDDY_EXPORTER_CONFIG` - path to exporter buddy.yaml config file
+`BUDDY_EXPORTER_PORT` - port where metrics would be exposed
+`BUDDY_EXPORTER_SCRAPE_TIMEOUT` - timeout for printer scraping - not for Prometheus scrape
 
-#### Einsy
+## How to install exporter
 
-![dashboard](./grafana/einsy.png)
+### Docker Compose
 
-#### Format of buddy.yaml
+I've created docker-compose.yaml file, that can be used for deploy of exporter. You would need [Docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/linux/) plugin installed. Right now it is possible to use `docker compose up` only with Linux because I do not build image for Linux.
 
-In code block bellow you can see template for buddy.yaml config file. Type value is not that important, you can set anything you want. However this value would be written to labels in metrics, so be aware of that.
+#### Config
+
+In [config](docs/examples/config) folder are configuration files for exporter itself, Prometheus and Promtail. You need change few thing here and there to get it up and running. Of course you can change everything you want. Every api key for Grafana Cloud cloud be found in [grafana.com](https://grafana.com/) -> My Account -> Grafana Cloud instance -> Send Metrics / Send Logs.
+
+Configuration files needs to be placed in directory config. You can just copy folder from examples and it will work.
+
+```
+cp -r docs/examples/config config
+```
+##### buddy.yaml
+
+In code block bellow you can see template for buddy.yaml config file. Value of `type` is not that important, you can set anything you want. However this value would be written to labels in metrics, so be aware of that.
+
+Unfortunately for Einsy boards there is no way how to log with username and password. You need to generate apikey in Prusa Link settings. This would be resolved in future release.
 
 ```
 printers:
@@ -39,7 +54,7 @@ printers:
     username: maker # I'm not aware that there is posibility to change user name in XL or MK4 printers - default is maker
     pass: <password>
     name: <your_printer_name>
-    type: <mini or xl>
+    type: <mini/xl/mk4>
   einsy:
   - address: <address_of_printer>
     apiKey: <your_printer_apikey>
@@ -49,46 +64,60 @@ printers:
   - address: <address_of_printer>
     name: <your_printer_name>
     type: mini
+```
+##### prometheus.yml
+
+In [prometheus.yml](docs/examples/config/prometheus.yml) you need to change remote write block. This block is responsible for writing data to Grafana Cloud instance. You can get all values in config of your Grafana instance. You can get more information in [Grafana Docs](https://grafana.com/docs/grafana-cloud/data-configuration/metrics/metrics-prometheus/).
+
+| key      | value                                  |
+|----------|----------------------------------------|
+| url      | this is where your instance is running |
+| username | name that is used for login            |
+| password | unique key used for login              |
 
 ```
+remote_write:
+- url: https://prometheus-prod-01-eu-west-0.grafana.net/api/prom/push
+  basic_auth:
+    username: "userName"
+    password: "apiKey"
+```
 
-### Where to find exporter
+##### promtail.yml
 
-Exporter runs at port 10009, but you can choose different port with `BUDDY_EXPORTER_PORT` environment variable.
+In [promtail.yml](docs/examples/config/promtail.yml) you need to change clients block. Thanks to this block promtail would sent logs to Grafana Cloud Loki instance instead of local Loki. More details of log ingestion in [Grafana docs](https://grafana.com/docs/grafana-cloud/data-configuration/logs/collect-logs-with-promtail/).
 
-### How to install exporter
-
-#### Docker
-
-I've made dockerfile. Enjoy
-
-#### Old way
-
-I've created shell script named [install_service.sh](install_service.sh). Copy its content to machine where you want to run exporter. Edit your buddy.yaml and you are good to go. You can also change `BUDDY_EXPORTER_PORT` variable to change where exporter should run.
+| key      | value                                                 |
+|----------|-------------------------------------------------------|
+| url      | this is string that you can generate in Grafana Cloud |
 
 ```
-printers:
-  buddy:
-  - address: 192.168.0.2
-    name: printer1
-    type: mini
-    apikey: APIKEY
-  - address: 192.168.0.3
-    username: maker
-    pass: PASSWORD
-    name: printer2
-    type: mk4
-  einsy:
-  - address: 192.168.0.4
-    apikey: APIKEY
-    name: printer3
-    type: mk3
-  - address: 192.168.0.5
-    apikey: APIKEY
-    name: printer4
-    type: mk3
-  legacy:
-  - address: 192.168.0.6
-    name: ol_but_reliable
-    type: mini
+clients:
+  - url: https://<User Name>:<Your Grafana.com API Key>@logs-prod-eu-west-0.grafana.net/loki/api/v1/push
 ```
+
+#### Starting
+
+Starting of exporter is simple. Just change directory to where docker-compose.yaml and configs are and run following command.
+
+```
+docker compose up
+```
+
+:tada: if everthing went alright your instance is up and running.
+
+## Grafana Dashboards
+
+I also prepared one dashboard per board that you can find in grafana folder.
+
+### Buddy
+
+![dashboard](./grafana/buddy.png)
+
+### Legacy
+
+![dashboard](./grafana/legacy.png)
+
+### Einsy
+
+![dashboard](./grafana/einsy.png)
