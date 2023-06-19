@@ -1,5 +1,6 @@
 package main
 
+/*
 type legacyTelemetry struct {
 	TempNozzle    int     `json:"temp_nozzle"`
 	TempBed       int     `json:"temp_bed"`
@@ -12,3 +13,4 @@ type legacyTelemetry struct {
 	TimeEst       string  `json:"time_est"`
 	ProjectName   string  `json:"project_name"`
 }
+*/

@@ -60,7 +60,7 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 	return body
 }
 
-func accessLegacyApi(path string, address string) ([]byte, error) {
+/*func accessLegacyApi(path string, address string) ([]byte, error) {
 	url := getURL(path, address)
 	var res *http.Response
 	var err error
@@ -78,7 +78,7 @@ func accessLegacyApi(path string, address string) ([]byte, error) {
 		}
 		return body, nil
 	}
-}
+}*/
 
 func accessEinsyApi(path string, address string, apiKey string) ([]byte, error) {
 	url := getURL(path, address)

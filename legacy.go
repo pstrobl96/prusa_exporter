@@ -1,12 +1,6 @@
 package main
 
-import (
-	"strconv"
-	"strings"
-
-	"github.com/prometheus/client_golang/prometheus"
-)
-
+/*
 type legacyCollector struct {
 	printerNozzleTemp         *prometheus.Desc
 	printerBedTemp            *prometheus.Desc
@@ -145,3 +139,4 @@ func (collector *legacyCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 	}
 }
+*/

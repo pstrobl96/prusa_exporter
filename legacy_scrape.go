@@ -1,10 +1,6 @@
 package main
 
-import (
-	"encoding/json"
-)
-
-func getLegacyTelemetry(address string) legacyTelemetry {
+/*func getLegacyTelemetry(address string) legacyTelemetry {
 	resp, err := accessLegacyApi("telemetry", address)
 	var result legacyTelemetry
 
@@ -15,3 +11,4 @@ func getLegacyTelemetry(address string) legacyTelemetry {
 	}
 	return result
 }
+*/
