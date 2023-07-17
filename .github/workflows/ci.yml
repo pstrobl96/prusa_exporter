@@ -17,7 +17,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.20.6'
+        go-version: '1.20'
         check-latest: true
         architecture: x64
 
@@ -63,4 +63,4 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7,darwin/arm64,darwin/amd64
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
