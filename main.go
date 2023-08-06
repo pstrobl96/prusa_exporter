@@ -14,9 +14,8 @@ func main() {
 	logger.Info("Buddy Link Prometheus exporter starting")
 	loadEnvVars()
 	buddyCollector := newBuddyCollector()
-	//legacyCollector := newLegacyCollector()
 	einsyCollector := newEinsyCollector()
-	prometheus.MustRegister(buddyCollector, /*legacyCollector,*/ einsyCollector)
+	prometheus.MustRegister(buddyCollector, einsyCollector)
 
 	logger.Info("Metrics registered")
 	http.Handle("/metrics", promhttp.Handler())
