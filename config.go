@@ -86,7 +86,7 @@ func getScrapeTimeout() float64 {
 		}
 	}
 
-	logger.Info("Scraping interval - " + strconv.FormatFloat(result, 'E', -1, 32) + " sec")
+	logger.Info("Scraping interval - " + strconv.FormatFloat(result, 'g', 5, 64) + " sec")
 
 	return result
 }
