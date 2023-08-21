@@ -14,10 +14,10 @@ func head(s string) bool {
 	return e == nil && r.StatusCode == 200
 }
 
-func connTest(s string) bool {
-	r, e := http.Get(s)
-	return e == nil && r.StatusCode == 200
-}
+//func connTest(s string) bool {
+//	r, e := http.Get(s)
+//	return e == nil && r.StatusCode == 200
+//}
 
 func getURL(path string, address string) string {
 	return string("http://" + address + "/api/" + path)

@@ -44,18 +44,18 @@ func getEinsyPrinter(address string, apiKey string) einsyPrinter {
 	return result
 }
 
-func getEinsyStorage(address string, apiKey string) einsyStorage { // currently unused
-	resp, _ := accessEinsyApi("v1/storage", address, apiKey)
-
-	var result einsyStorage
-
-	if e := json.Unmarshal(resp, &result); e != nil {
-		log.Error().Msg("Can not unmarshal JSON")
-
-	}
-
-	return result
-}
+//func getEinsyStorage(address string, apiKey string) einsyStorage { // currently unused
+//	resp, _ := accessEinsyApi("v1/storage", address, apiKey)
+//
+//	var result einsyStorage
+//
+//	if e := json.Unmarshal(resp, &result); e != nil {
+//		log.Error().Msg("Can not unmarshal JSON")
+//
+//	}
+//
+//	return result
+//}
 
 func getEinsySettings(address string, apiKey string) einsySettings {
 	resp, _ := accessEinsyApi("settings", address, apiKey)
@@ -70,18 +70,18 @@ func getEinsySettings(address string, apiKey string) einsySettings {
 	return result
 }
 
-func getEinsyConnection(address string, apiKey string) einsyConection { // currently unused
-	resp, _ := accessEinsyApi("connection", address, apiKey)
-
-	var result einsyConection
-
-	if e := json.Unmarshal(resp, &result); e != nil {
-		log.Error().Msg("Can not unmarshal JSON")
-
-	}
-
-	return result
-}
+// func getEinsyConnection(address string, apiKey string) einsyConection { // currently unused
+// 	resp, _ := accessEinsyApi("connection", address, apiKey)
+// 
+// 	var result einsyConection
+// 
+// 	if e := json.Unmarshal(resp, &result); e != nil {
+// 		log.Error().Msg("Can not unmarshal JSON")
+// 
+// 	}
+// 
+// 	return result
+// }
 
 func getEinsyFiles(address string, apiKey string) einsyFiles {
 	resp, _ := accessEinsyApi("files", address, apiKey)
@@ -122,18 +122,18 @@ func getEinsyInfo(address string, apiKey string) einsyInfo {
 	return result
 }
 
-func getEinsyStatus(address string, apiKey string) einsyStatus { // currently unused
-	resp, _ := accessEinsyApi("v1/status", address, apiKey)
-
-	var result einsyStatus
-
-	if e := json.Unmarshal(resp, &result); e != nil {
-		log.Error().Msg("Can not unmarshal JSON")
-
-	}
-
-	return result
-}
+// func getEinsyStatus(address string, apiKey string) einsyStatus { // currently unused
+// 	resp, _ := accessEinsyApi("v1/status", address, apiKey)
+// 
+// 	var result einsyStatus
+// 
+// 	if e := json.Unmarshal(resp, &result); e != nil {
+// 		log.Error().Msg("Can not unmarshal JSON")
+// 
+// 	}
+// 
+// 	return result
+// }
 
 func getEinsyVersion(address string, apiKey string) einsyVersion {
 	resp, _ := accessEinsyApi("version", address, apiKey)
