@@ -45,6 +45,7 @@ jobs:
       run: go test -race -vet=off ./...
 
   build:
+    needs: audit
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
