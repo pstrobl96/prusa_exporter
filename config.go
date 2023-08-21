@@ -5,17 +5,21 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
-	"golang.org/x/exp/slog"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"gopkg.in/yaml.v3"
 )
 
+var loadedConfig config
+var envVars envVariables
+
+var logLevel string
 var configPath string
 var metricsPort string
 var scrapeTimeout float64
-var loadedConfig config
-var logger *slog.Logger
 
 type config struct {
 	Printers struct {
@@ -38,11 +42,74 @@ type config struct {
 	} `yaml:"printers"`
 }
 
+type envVariables struct {
+	configPath string
+	metricsPort string
+	scrapeTimeout float64
+	reloadInteval int
+}
+
 func loadEnvVars() {
+	logLevel := setLogLevel("")
 	configPath = getCfgFile()
 	metricsPort = getMetricsPort()
 	scrapeTimeout = getScrapeTimeout()
 	loadedConfig = probeCfgFile(parseCfg(configPath))
+
+	log.Info().Msg("Log level - " + logLevel)
+	log.Info().Msg("Using config - " + configPath)
+
+
+}
+
+func loadEnvVarsToStruct() envVariables {
+	log.Info().Msg(os.Getenv("BUDDY_LOG_LEVEL"))
+	var result envVariables
+	result.configPath = getCfgFile()
+	result.metricsPort = getMetricsPort()
+	result.scrapeTimeout = getScrapeTimeout()
+
+	
+	configPath = getCfgFile()
+	metricsPort = getMetricsPort()
+	scrapeTimeout = getScrapeTimeout()
+	loadedConfig = probeCfgFile(parseCfg(configPath))
+
+	log.Info().Msg("Log level - " + logLevel)
+	log.Info().Msg("Using config - " + configPath)
+
+	return result
+
+}
+
+func setLogLevel(level string) string {
+	if logLevel == "" {
+		logLevel = "info"
+	}
+
+	logLevel = strings.ToLower(logLevel)
+	var zeroLogLevel zerolog.Level
+
+	switch logLevel {
+	case "info":
+		zeroLogLevel = zerolog.InfoLevel
+	case "debug":
+		zeroLogLevel = zerolog.DebugLevel
+	case "trace":
+		zeroLogLevel = zerolog.TraceLevel
+	case "error":
+		zeroLogLevel = zerolog.ErrorLevel		
+	case "panic":
+		zeroLogLevel = zerolog.PanicLevel
+	case "fatal":
+		zeroLogLevel = zerolog.FatalLevel
+	default:
+		zeroLogLevel = zerolog.InfoLevel
+	}
+
+	zerolog.SetGlobalLevel(zeroLogLevel)
+
+	return logLevel
 }
 
 func getCfgFile() string {
@@ -53,11 +120,8 @@ func getCfgFile() string {
 			fmt.Println(e)
 			os.Exit(1)
 		}
-		fmt.Println(pwd)
 		cfgFile = pwd + "/buddy.yaml"
 	}
-
-	logger.Info("Using config - " + cfgFile)
 
 	return cfgFile
 }
@@ -66,7 +130,7 @@ func probeCfgFile(parsedConfig config) config {
 	for _, s := range parsedConfig.Printers.Buddy {
 		if !head(s.Address) {
 			s.Reachable = false
-			logger.Info("NOT REACHABLE - " + s.Address)
+			log.Error().Msg(s.Address + " is not reachable")
 		} else {
 			s.Reachable = true
 		}
@@ -80,7 +144,7 @@ func getMetricsPort() string {
 		metricsPort = "10009"
 	}
 
-	logger.Info("Using port - " + metricsPort)
+	log.Info().Msg("Using port - " + metricsPort)
 
 	return metricsPort
 }
@@ -97,7 +161,7 @@ func getScrapeTimeout() float64 {
 		}
 	}
 
-	logger.Info("Scraping interval - " + strconv.FormatFloat(result, 'g', 5, 64) + " sec")
+	log.Info().Msg("Scraping interval - " + strconv.FormatFloat(result, 'g', 5, 64) + " sec")
 
 	return result
 }
@@ -105,11 +169,11 @@ func getScrapeTimeout() float64 {
 func parseCfg(path string) config {
 	f, e := os.ReadFile(path)
 	if e != nil {
-		logger.Error(e.Error())
+		log.Error().Msg(e.Error())
 	}
 	var p config
 	if e := yaml.Unmarshal(f, &p); e != nil {
-		logger.Error(e.Error())
+		log.Error().Msg(e.Error())
 	}
 	return p
 }
@@ -126,7 +190,7 @@ func configReloader() {
 		select {
 		case <-t.C: // Activate periodically
 			loadEnvVars()
-			fmt.Println("tick")
+			log.Debug().Msg("Config reloaded")
 		}
 	}
 }

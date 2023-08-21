@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/icholy/digest"
+	"github.com/rs/zerolog/log"
 )
 
 func head(s string) bool {
@@ -36,7 +37,7 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 		}
 		res, err = client.Get(url)
 		if err != nil {
-			logger.Error(err.Error())
+			log.Error().Msg(err.Error())
 		}
 	} else {
 		req, _ := http.NewRequest("GET", url, nil)
@@ -44,17 +45,17 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 		req.Header.Add("X-Api-Key", apiKey)
 		res, err = client.Do(req)
 		if err != nil {
-			logger.Error(err.Error())
+			log.Error().Msg(err.Error())
 		}
 	}
 	if err == nil {
 		body, err = ioutil.ReadAll(res.Body)
 		res.Body.Close()
 		if err != nil {
-			logger.Error(err.Error())
+			log.Error().Msg(err.Error())
 		}
 	} else {
-		logger.Error(err.Error())
+		log.Error().Msg(err.Error())
 	}
 
 	return body
@@ -68,13 +69,13 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 	client := &http.Client{Timeout: time.Duration(scrapeTimeout) * time.Second}
 	res, err = client.Do(req)
 	if err != nil {
-		logger.Error(err.Error())
+		log.Error().Msg(err.Error())
 		return nil, err
 	} else {
 		defer res.Body.Close()
 		body, err := ioutil.ReadAll(res.Body)
 		if err != nil {
-			logger.Error(err.Error())
+			log.Error().Msg(err.Error())
 		}
 		return body, nil
 	}
@@ -87,13 +88,13 @@ func accessEinsyApi(path string, address string, apiKey string) ([]byte, error) 
 	client := &http.Client{Timeout: time.Duration(scrapeTimeout) * time.Second}
 	res, err := client.Do(req)
 	if err != nil {
-		logger.Error(err.Error())
+		log.Error().Msg(err.Error())
 		return nil, err
 	} else {
 		defer res.Body.Close()
 		body, err := ioutil.ReadAll(res.Body)
 		if err != nil {
-			logger.Error(err.Error())
+			log.Error().Msg(err.Error())
 		}
 		return body, nil
 	}

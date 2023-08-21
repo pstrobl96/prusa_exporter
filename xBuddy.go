@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/rs/zerolog/log"
 )
 
 type buddyCollector struct {
@@ -98,7 +99,7 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 	cfg := loadedConfig
 
 	for _, s := range cfg.Printers.Buddy {
-		logger.Debug("Buddy scraping at " + s.Address)
+		log.Debug().Msg("Buddy scraping at " + s.Address)
 		if s.Reachable {
 			printer := getBuddyPrinter(s.Address, s.Apikey, s.Username, s.Pass)
 			files := getBuddyFiles(s.Address, s.Apikey, s.Username, s.Pass)
@@ -195,7 +196,7 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 			ch <- printerVersion
 			ch <- zHeight
 		} else {
-			logger.Error(s.Address + " is unreachable")
+			log.Error().Msg(s.Address + " is unreachable")
 		}
 	}
 }

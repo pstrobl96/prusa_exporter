@@ -2,23 +2,29 @@ package main
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"golang.org/x/exp/slog"
+
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
+	"github.com/rs/zerolog/pkgerrors"
 )
 
 func main() {
-	logger = slog.New(slog.NewTextHandler(os.Stdout))
-	logger.Info("Buddy Link Prometheus exporter starting")
+
+	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
+	zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
+	zerolog.SetGlobalLevel(zerolog.InfoLevel)
+	log.Info().Msg("Buddy Link Prometheus exporter starting")
 	loadEnvVars()
 	go configReloader()
+
 	buddyCollector := newBuddyCollector()
 	einsyCollector := newEinsyCollector()
 	prometheus.MustRegister(buddyCollector, einsyCollector)
-
-	logger.Info("Metrics registered")
+	log.Info().Msg("Metrics registered")
 	http.Handle("/metrics", promhttp.Handler())
-	logger.Error(http.ListenAndServe(":"+metricsPort, nil).Error())
+
+	log.Fatal().Msg(http.ListenAndServe(":"+metricsPort, nil).Error())
 }

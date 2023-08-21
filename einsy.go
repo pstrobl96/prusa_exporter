@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/rs/zerolog/log"
 )
 
 type einsyCollector struct {
@@ -86,7 +87,7 @@ func (collector *einsyCollector) Describe(ch chan<- *prometheus.Desc) {
 func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 
 	for _, s := range loadedConfig.Printers.Einsy {
-		logger.Debug("Einsy scraping at " + s.Address)
+		log.Debug().Msg("Einsy scraping at " + s.Address)
 		if s.Reachable {
 
 			printer := getEinsyPrinter(s.Address, s.Apikey)
@@ -268,7 +269,7 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 			ch <- zHeight
 			ch <- printerFarmMode
 		} else {
-			logger.Error(s.Address + " is unreachable")
+			log.Error().Msg(s.Address + " is unreachable")
 		}
 	}
 }

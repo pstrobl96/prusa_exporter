@@ -2,6 +2,8 @@ package main
 
 import (
 	"encoding/json"
+
+	"github.com/rs/zerolog/log"
 )
 
 func getBuddyVersion(address string, apiKey string, username string, password string) buddyVersion {
@@ -10,7 +12,7 @@ func getBuddyVersion(address string, apiKey string, username string, password st
 	var result buddyVersion
 
 	if e := json.Unmarshal(resp, &result); e != nil {
-		logger.Error("Can not unmarshal JSON")
+		log.Error().Msg("Can not unmarshal JSON")
 	}
 
 	return result
@@ -22,7 +24,7 @@ func getBuddyFiles(address string, apiKey string, username string, password stri
 	var result buddyFiles
 
 	if e := json.Unmarshal(resp, &result); e != nil {
-		logger.Error("Can not unmarshal JSON")
+		log.Error().Msg("Can not unmarshal JSON")
 	}
 
 	return result
@@ -34,7 +36,7 @@ func getBuddyJob(address string, apiKey string, username string, password string
 	var result buddyJob
 
 	if e := json.Unmarshal(resp, &result); e != nil {
-		logger.Error("Can not unmarshal JSON")
+		log.Error().Msg("Can not unmarshal JSON")
 	}
 
 	return result
@@ -46,7 +48,7 @@ func getBuddyPrinter(address string, apiKey string, username string, password st
 	var result buddyPrinter
 
 	if e := json.Unmarshal(resp, &result); e != nil {
-		logger.Error("Can not unmarshal JSON")
+		log.Error().Msg("Can not unmarshal JSON")
 	}
 
 	return result
