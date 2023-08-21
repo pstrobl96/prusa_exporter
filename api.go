@@ -85,7 +85,7 @@ func accessEinsyApi(path string, address string, apiKey string) ([]byte, error) 
 	url := getURL(path, address)
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("X-Api-Key", apiKey)
-	client := &http.Client{Timeout: time.Duration(scrapeTimeout) * time.Second}
+	client := &http.Client{Timeout: time.Duration(config.Exporter.ScrapeTimeout) * time.Second}
 	res, err := client.Do(req)
 	if err != nil {
 		log.Error().Msg(err.Error())

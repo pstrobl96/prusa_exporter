@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 
@@ -13,84 +12,44 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-var loadedConfig config
-var envVars envVariables
+var config configuration
 
-var logLevel string
-var configPath string
-var metricsPort string
-var scrapeTimeout float64
-
-type config struct {
+type configuration struct {
 	Printers struct {
 		Buddy []struct {
 			Address   string `yaml:"address"`
 			Name      string `yaml:"name"`
 			Type      string `yaml:"type"`
-			Apikey    string `yaml:"apikey,omitempty"`
 			Username  string `yaml:"username,omitempty"`
 			Pass      string `yaml:"pass,omitempty"`
-			Reachable bool 
+			Apikey    string `yaml:"apikey,omitempty"`
+			Reachable bool
 		} `yaml:"buddy"`
 		Einsy []struct {
 			Address   string `yaml:"address"`
 			Apikey    string `yaml:"apikey"`
 			Name      string `yaml:"name"`
 			Type      string `yaml:"type"`
-			Reachable bool 
+			Reachable bool
 		} `yaml:"einsy"`
 	} `yaml:"printers"`
-}
-
-type envVariables struct {
-	configPath string
-	metricsPort string
-	scrapeTimeout float64
-	reloadInteval int
-}
-
-func loadEnvVars() {
-	logLevel := setLogLevel("")
-	configPath = getCfgFile()
-	metricsPort = getMetricsPort()
-	scrapeTimeout = getScrapeTimeout()
-	loadedConfig = probeCfgFile(parseCfg(configPath))
-
-	log.Info().Msg("Log level - " + logLevel)
-	log.Info().Msg("Using config - " + configPath)
-
-
-}
-
-func loadEnvVarsToStruct() envVariables {
-	log.Info().Msg(os.Getenv("BUDDY_LOG_LEVEL"))
-	var result envVariables
-	result.configPath = getCfgFile()
-	result.metricsPort = getMetricsPort()
-	result.scrapeTimeout = getScrapeTimeout()
-
-	
-	configPath = getCfgFile()
-	metricsPort = getMetricsPort()
-	scrapeTimeout = getScrapeTimeout()
-	loadedConfig = probeCfgFile(parseCfg(configPath))
-
-	log.Info().Msg("Log level - " + logLevel)
-	log.Info().Msg("Using config - " + configPath)
-
-	return result
-
+	Exporter struct {
+		MetricsPort   int    `yaml:"metrics_port"`
+		ScrapeTimeout int    `yaml:"scrape_timeout"`
+		ReloadInteval int    `yaml:"reload_inteval"`
+		LogLevel      string `yaml:"log_level"`
+	} `yaml:"exporter"`
 }
 
 func setLogLevel(level string) string {
-	if logLevel == "" {
-		logLevel = "info"
+	if level == "" {
+		level = "info"
 	}
 
-	logLevel = strings.ToLower(logLevel)
+	level = strings.ToLower(level)
 	var zeroLogLevel zerolog.Level
 
-	switch logLevel {
+	switch level {
 	case "info":
 		zeroLogLevel = zerolog.InfoLevel
 	case "debug":
@@ -109,10 +68,14 @@ func setLogLevel(level string) string {
 
 	zerolog.SetGlobalLevel(zeroLogLevel)
 
-	return logLevel
+	return level
 }
 
-func getCfgFile() string {
+func loadConfigFile() {
+	config = probeConfigFile(parseConfig(getConfigPath()))	
+}
+
+func getConfigPath() string {
 	cfgFile := os.Getenv("BUDDY_EXPORTER_CONFIG")
 	if cfgFile == "" {
 		pwd, e := os.Getwd()
@@ -126,56 +89,28 @@ func getCfgFile() string {
 	return cfgFile
 }
 
-func probeCfgFile(parsedConfig config) config {
-	for _, s := range parsedConfig.Printers.Buddy {
-		if !head(s.Address) {
-			s.Reachable = false
-			log.Error().Msg(s.Address + " is not reachable")
-		} else {
-			s.Reachable = true
-		}
-	}
-	return parsedConfig
-}
-
-func getMetricsPort() string {
-	metricsPort := os.Getenv("BUDDY_EXPORTER_PORT")
-	if metricsPort == "" {
-		metricsPort = "10009"
-	}
-
-	log.Info().Msg("Using port - " + metricsPort)
-
-	return metricsPort
-}
-
-func getScrapeTimeout() float64 {
-	result := 1.0
-	metricsPort := os.Getenv("BUDDY_EXPORTER_SCRAPE_TIMEOUT")
-	if metricsPort != "" {
-		parsed, e := strconv.ParseFloat(metricsPort, 64)
-		if e != nil {
-			result = 1.0
-		} else {
-			result = parsed
-		}
-	}
-
-	log.Info().Msg("Scraping interval - " + strconv.FormatFloat(result, 'g', 5, 64) + " sec")
-
-	return result
-}
-
-func parseCfg(path string) config {
+func parseConfig(path string) configuration {
 	f, e := os.ReadFile(path)
 	if e != nil {
 		log.Error().Msg(e.Error())
 	}
-	var p config
+	var p configuration
 	if e := yaml.Unmarshal(f, &p); e != nil {
 		log.Error().Msg(e.Error())
 	}
 	return p
+}
+
+func probeConfigFile(parsedConfig configuration) configuration {
+	for _, s := range parsedConfig.Printers.Buddy {
+		if head(s.Address) {
+			s.Reachable = true
+		} else {
+			s.Reachable = false
+			log.Error().Msg(s.Address + " is not reachable")
+		}
+	}
+	return parsedConfig
 }
 
 func testConnection(s string) (bool, error) {
@@ -189,7 +124,7 @@ func configReloader() {
 	for {
 		select {
 		case <-t.C: // Activate periodically
-			loadEnvVars()
+			loadConfigFile()
 			log.Debug().Msg("Config reloaded")
 		}
 	}
