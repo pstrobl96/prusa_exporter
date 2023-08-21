@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 	"os"
 	"strings"
 	"time"
@@ -113,19 +112,24 @@ func probeConfigFile(parsedConfig configuration) configuration {
 	return parsedConfig
 }
 
-func testConnection(s string) (bool, error) {
-	r, e := http.Head(s)
-	return r.StatusCode == 200, e
-}
+// func testConnection(s string) (bool, error) {
+// 	r, e := http.Head(s)
+// 	return r.StatusCode == 200, e
+// }
 
 func configReloader() {
-	t := time.NewTicker(300 * time.Second)
-	defer t.Stop()
-	for {
-		select {
-		case <-t.C: // Activate periodically
-			loadConfigFile()
-			log.Debug().Msg("Config reloaded")
-		}
+    ticker := time.NewTicker(1 * time.Second)
+
+	for t := range ticker.C {
+		log.Info().Msg(fmt.Sprintf("Tick at: %v\n", t.UTC()))
+		loadConfigFile()
 	}
+	//defer t.Stop()
+	//for {
+	//	select {
+	//	case <-t.C: // Activate periodically
+	//		loadConfigFile()
+	//		log.Debug().Msg("Config reloaded")
+	//	}
+	//}
 }

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"io/ioutil"
+	"io"
 	"net/http"
 	"time"
 
@@ -14,10 +14,10 @@ func head(s string) bool {
 	return e == nil && r.StatusCode == 200
 }
 
-func connTest(s string) bool {
-	r, e := http.Get(s)
-	return e == nil && r.StatusCode == 200
-}
+//func connTest(s string) bool {
+//	r, e := http.Get(s)
+//	return e == nil && r.StatusCode == 200
+//}
 
 func getURL(path string, address string) string {
 	return string("http://" + address + "/api/" + path)
@@ -49,7 +49,7 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 		}
 	}
 	if err == nil {
-		body, err = ioutil.ReadAll(res.Body)
+		body, err = io.ReadAll(res.Body)
 		res.Body.Close()
 		if err != nil {
 			log.Error().Msg(err.Error())
@@ -73,7 +73,7 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 		return nil, err
 	} else {
 		defer res.Body.Close()
-		body, err := ioutil.ReadAll(res.Body)
+		body, err := io.ReadAll(res.Body)
 		if err != nil {
 			log.Error().Msg(err.Error())
 		}
@@ -92,7 +92,7 @@ func accessEinsyApi(path string, address string, apiKey string) ([]byte, error) 
 		return nil, err
 	} else {
 		defer res.Body.Close()
-		body, err := ioutil.ReadAll(res.Body)
+		body, err := io.ReadAll(res.Body)
 		if err != nil {
 			log.Error().Msg(err.Error())
 		}

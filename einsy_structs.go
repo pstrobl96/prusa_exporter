@@ -96,19 +96,19 @@ type einsyPrinter struct {
 	} `json:"storage"`
 }
 
-type einsyStorage struct { // currently unused
-	StorageList []struct {
-		Type        string `json:"type"`
-		Path        string `json:"path"`
-		Available   bool   `json:"available"`
-		FreeSpace   int64  `json:"free_space,omitempty"`
-		TotalSpace  int64  `json:"total_space,omitempty"`
-		ReadOnly    bool   `json:"read_only"`
-		Name        string `json:"name"`
-		PrintFiles  int    `json:"print_files"`
-		SystemFiles int    `json:"system_files"`
-	} `json:"storage_list"`
-}
+// type einsyStorage struct { // currently unused
+// 	StorageList []struct {
+// 		Type        string `json:"type"`
+// 		Path        string `json:"path"`
+// 		Available   bool   `json:"available"`
+// 		FreeSpace   int64  `json:"free_space,omitempty"`
+// 		TotalSpace  int64  `json:"total_space,omitempty"`
+// 		ReadOnly    bool   `json:"read_only"`
+// 		Name        string `json:"name"`
+// 		PrintFiles  int    `json:"print_files"`
+// 		SystemFiles int    `json:"system_files"`
+// 	} `json:"storage_list"`
+// }
 
 type einsySettings struct {
 	APIKey   string `json:"api-key"`
@@ -120,40 +120,40 @@ type einsySettings struct {
 	} `json:"printer"`
 }
 
-type einsyConection struct { // currently unused
-	Current struct {
-		Baudrate       int    `json:"baudrate"`
-		Port           string `json:"port"`
-		PrinterProfile string `json:"printerProfile"`
-		State          string `json:"state"`
-	} `json:"current"`
-	Options struct {
-		Ports           []string `json:"ports"`
-		Baudrates       []int    `json:"baudrates"`
-		PrinterProfiles []struct {
-			ID   string `json:"id"`
-			Name string `json:"name"`
-		} `json:"printerProfiles"`
-		Autoconnect bool `json:"autoconnect"`
-	} `json:"options"`
-	Connect struct {
-		Hostname     string `json:"hostname"`
-		Port         int    `json:"port"`
-		TLS          bool   `json:"tls"`
-		Registration string `json:"registration"`
-		Code         any    `json:"code"`
-	} `json:"connect"`
-	States struct {
-		Printer struct {
-			Ok      bool   `json:"ok"`
-			Message string `json:"message"`
-		} `json:"printer"`
-		Connect struct {
-			Ok      bool   `json:"ok"`
-			Message string `json:"message"`
-		} `json:"connect"`
-	} `json:"states"`
-}
+// type einsyConection struct { // currently unused
+// 	Current struct {
+// 		Baudrate       int    `json:"baudrate"`
+// 		Port           string `json:"port"`
+// 		PrinterProfile string `json:"printerProfile"`
+// 		State          string `json:"state"`
+// 	} `json:"current"`
+// 	Options struct {
+// 		Ports           []string `json:"ports"`
+// 		Baudrates       []int    `json:"baudrates"`
+// 		PrinterProfiles []struct {
+// 			ID   string `json:"id"`
+// 			Name string `json:"name"`
+// 		} `json:"printerProfiles"`
+// 		Autoconnect bool `json:"autoconnect"`
+// 	} `json:"options"`
+// 	Connect struct {
+// 		Hostname     string `json:"hostname"`
+// 		Port         int    `json:"port"`
+// 		TLS          bool   `json:"tls"`
+// 		Registration string `json:"registration"`
+// 		Code         any    `json:"code"`
+// 	} `json:"connect"`
+// 	States struct {
+// 		Printer struct {
+// 			Ok      bool   `json:"ok"`
+// 			Message string `json:"message"`
+// 		} `json:"printer"`
+// 		Connect struct {
+// 			Ok      bool   `json:"ok"`
+// 			Message string `json:"message"`
+// 		} `json:"connect"`
+// 	} `json:"states"`
+// }
 
 type einsyFiles struct {
 	Files []struct {
@@ -233,43 +233,43 @@ type einsyInfo struct {
 	Port             int     `json:"port"`
 }
 
-type einsyStatus struct { // currently unused
-	Storage []struct {
-		Path      string `json:"path"`
-		ReadOnly  bool   `json:"read_only"`
-		FreeSpace int64  `json:"free_space,omitempty"`
-		Name      string `json:"name"`
-	} `json:"storage"`
-	Printer struct {
-		State         string  `json:"state"`
-		TempNozzle    float64 `json:"temp_nozzle"`
-		TempBed       float64 `json:"temp_bed"`
-		AxisZ         float64 `json:"axis_z"`
-		Flow          int     `json:"flow"`
-		Speed         int     `json:"speed"`
-		FanHotend     int     `json:"fan_hotend"`
-		FanPrint      int     `json:"fan_print"`
-		StatusConnect struct {
-			Ok      bool   `json:"ok"`
-			Message string `json:"message"`
-		} `json:"status_connect"`
-		StatusPrinter struct {
-			Ok      bool   `json:"ok"`
-			Message string `json:"message"`
-		} `json:"status_printer"`
-		TargetNozzle float64 `json:"target_nozzle"`
-		TargetBed    float64 `json:"target_bed"`
-	} `json:"printer"`
-	Camera struct {
-		ID string `json:"id"`
-	} `json:"camera"`
-	Job struct {
-		ID            int     `json:"id"`
-		Progress      float64 `json:"progress"`
-		TimeRemaining int     `json:"time_remaining"`
-		TimePrinting  int     `json:"time_printing"`
-	} `json:"job"`
-}
+// type einsyStatus struct { // currently unused
+// 	Storage []struct {
+// 		Path      string `json:"path"`
+// 		ReadOnly  bool   `json:"read_only"`
+// 		FreeSpace int64  `json:"free_space,omitempty"`
+// 		Name      string `json:"name"`
+// 	} `json:"storage"`
+// 	Printer struct {
+// 		State         string  `json:"state"`
+// 		TempNozzle    float64 `json:"temp_nozzle"`
+// 		TempBed       float64 `json:"temp_bed"`
+// 		AxisZ         float64 `json:"axis_z"`
+// 		Flow          int     `json:"flow"`
+// 		Speed         int     `json:"speed"`
+// 		FanHotend     int     `json:"fan_hotend"`
+// 		FanPrint      int     `json:"fan_print"`
+// 		StatusConnect struct {
+// 			Ok      bool   `json:"ok"`
+// 			Message string `json:"message"`
+// 		} `json:"status_connect"`
+// 		StatusPrinter struct {
+// 			Ok      bool   `json:"ok"`
+// 			Message string `json:"message"`
+// 		} `json:"status_printer"`
+// 		TargetNozzle float64 `json:"target_nozzle"`
+// 		TargetBed    float64 `json:"target_bed"`
+// 	} `json:"printer"`
+// 	Camera struct {
+// 		ID string `json:"id"`
+// 	} `json:"camera"`
+// 	Job struct {
+// 		ID            int     `json:"id"`
+// 		Progress      float64 `json:"progress"`
+// 		TimeRemaining int     `json:"time_remaining"`
+// 		TimePrinting  int     `json:"time_printing"`
+// 	} `json:"job"`
+// }
 
 type einsyVersion struct {
 	API          string `json:"api"`
