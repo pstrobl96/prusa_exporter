@@ -13,6 +13,7 @@ func main() {
 	logger = slog.New(slog.NewTextHandler(os.Stdout))
 	logger.Info("Buddy Link Prometheus exporter starting")
 	loadEnvVars()
+	go configReloader()
 	buddyCollector := newBuddyCollector()
 	einsyCollector := newEinsyCollector()
 	prometheus.MustRegister(buddyCollector, einsyCollector)

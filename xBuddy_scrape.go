@@ -9,7 +9,7 @@ func getBuddyVersion(address string, apiKey string, username string, password st
 
 	var result buddyVersion
 
-	if err := json.Unmarshal(resp, &result); err != nil {
+	if e := json.Unmarshal(resp, &result); e != nil {
 		logger.Error("Can not unmarshal JSON")
 	}
 
@@ -21,7 +21,7 @@ func getBuddyFiles(address string, apiKey string, username string, password stri
 
 	var result buddyFiles
 
-	if err := json.Unmarshal(resp, &result); err != nil {
+	if e := json.Unmarshal(resp, &result); e != nil {
 		logger.Error("Can not unmarshal JSON")
 	}
 
@@ -33,7 +33,7 @@ func getBuddyJob(address string, apiKey string, username string, password string
 
 	var result buddyJob
 
-	if err := json.Unmarshal(resp, &result); err != nil {
+	if e := json.Unmarshal(resp, &result); e != nil {
 		logger.Error("Can not unmarshal JSON")
 	}
 
@@ -45,7 +45,7 @@ func getBuddyPrinter(address string, apiKey string, username string, password st
 
 	var result buddyPrinter
 
-	if err := json.Unmarshal(resp, &result); err != nil {
+	if e := json.Unmarshal(resp, &result); e != nil {
 		logger.Error("Can not unmarshal JSON")
 	}
 

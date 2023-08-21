@@ -87,7 +87,7 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 
 	for _, s := range loadedConfig.Printers.Einsy {
 		logger.Debug("Einsy scraping at " + s.Address)
-		if head("http://" + s.Address) {
+		if s.Reachable {
 
 			printer := getEinsyPrinter(s.Address, s.Apikey)
 			job := getEinsyJob(s.Address, s.Apikey)
