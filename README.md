@@ -23,7 +23,7 @@ However with Einsy boards - that in MK3, you need to use newest version of Prusa
 
 ## Where to find exporter
 
-Exporter runs at port 10009, but you can choose different port with `BUDDY_EXPORTER_PORT` environment variable. Metrics are accessible at `/metrics` endpoint.
+Exporter runs at port 10009, but you can choose different port in buddy.yaml that is used for configuration. Metrics are accessible at `/metrics` endpoint.
 
 ## Roadmap
 
@@ -40,12 +40,6 @@ This list contains what would be implemented in the future.
 - [ ] Implementation with [exporter-toolkit](#22)
 - [ ] Support for [connection](#21) to Einsy with username and password
 - [ ] Show printed [gcode](#19) in dashboard
-
-## Environment variables
-
-`BUDDY_EXPORTER_CONFIG` - path to exporter buddy.yaml config file  
-`BUDDY_EXPORTER_PORT` - port where metrics would be exposed  
-`BUDDY_EXPORTER_SCRAPE_TIMEOUT` - timeout for printer scraping - not for Prometheus scrape
 
 ## How to install exporter
 
@@ -64,11 +58,26 @@ cp -r docs/examples/config config
 ```
 ##### buddy.yaml
 
-Exporter loads [buddy.yaml](docs/examples/config/buddy.yaml) (file with connections to printers) from environment variable called `BUDDY_EXPORTER_CONFIG`. If you want to put this file in folder, where exporter is located then just set it to `buddy.yaml`. This file is loaded only at start of exporter so be sure restart it after change.
+Exporter loads [buddy.yaml](docs/examples/config/buddy.yaml) from environment variable called `BUDDY_EXPORTER_CONFIG`. If you want to put this file in folder, where exporter is located then just set it to `buddy.yaml`. Exporter has implemented config reloader that runs by default every 300 seconds (5 minutes).
+
+In config file you would find two sections - exporter and printers. First one is used for configuration of exporter itself. 
+
+```
+exporter:
+  metrics_port: 10009 # exporter port
+  scrape_timeout: 1 # scrape timeout of Prusa Link
+  reload_inteval: 300 # interval in seconds for config reloader
+  log_level: info
+```
+
+`metrics_port`: you can set whatever you want. It is the port where Prometheus would scrape metrics endpoint. **Required**
+`scrape_timeout`: Value in seconds that implies timeout of scraping Prusa Link devices. Not necessary needed for Einsy but needed for Buddy becuase printer sometimes do not return values. **Required**
+`reload_inteval`: Because feature of config reloading is implemeneted, you need to specify interval of reloading. **Required**
+`log_level`: log level of logger, default is info. **Not required**
 
 In code block bellow you can see template for buddy.yaml config file. Value of `type` is not that important, you can set anything you want. However this value would be written to labels in metrics, so be aware of that.
 
-Unfortunately for Einsy boards there is no way how to log with username and password. You need to generate apikey in Prusa Link settings. This would be resolved in future release.
+For now there is no way how to log in with username and password to for Einsy (Raspberry Pi Zero) boards. You need to generate apikey in Prusa Link settings. This would be resolved in future release.
 
 ```
 printers:
