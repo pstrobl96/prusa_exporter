@@ -1,6 +1,6 @@
 module pubel.dev/buddy-prometheus-exporter
 
-go 1.20
+go 1.21
 
 require (
 	github.com/icholy/digest v0.1.22

@@ -118,10 +118,10 @@ func probeConfigFile(parsedConfig configuration) configuration {
 // }
 
 func configReloader() {
-    ticker := time.NewTicker(1 * time.Second)
+    ticker := time.NewTicker(time.Duration(config.Exporter.ReloadInteval) * time.Second)
 
 	for t := range ticker.C {
-		log.Info().Msg(fmt.Sprintf("Tick at: %v\n", t.UTC()))
+		log.Info().Msg(fmt.Sprintf("Config reloaded at: %v\n", t.UTC()))
 		loadConfigFile()
 	}
 	//defer t.Stop()
