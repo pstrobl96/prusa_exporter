@@ -13,24 +13,28 @@ import (
 
 var config configuration
 
+type buddy struct {
+	Address   string `yaml:"address"`
+	Name      string `yaml:"name"`
+	Type      string `yaml:"type"`
+	Username  string `yaml:"username,omitempty"`
+	Pass      string `yaml:"pass,omitempty"`
+	Apikey    string `yaml:"apikey,omitempty"`
+	Reachable bool
+}
+
+type einsy struct {
+	Address   string `yaml:"address"`
+	Apikey    string `yaml:"apikey"`
+	Name      string `yaml:"name"`
+	Type      string `yaml:"type"`
+	Reachable bool
+}
+
 type configuration struct {
 	Printers struct {
-		Buddy []struct {
-			Address   string `yaml:"address"`
-			Name      string `yaml:"name"`
-			Type      string `yaml:"type"`
-			Username  string `yaml:"username,omitempty"`
-			Pass      string `yaml:"pass,omitempty"`
-			Apikey    string `yaml:"apikey,omitempty"`
-			Reachable bool
-		} `yaml:"buddy"`
-		Einsy []struct {
-			Address   string `yaml:"address"`
-			Apikey    string `yaml:"apikey"`
-			Name      string `yaml:"name"`
-			Type      string `yaml:"type"`
-			Reachable bool
-		} `yaml:"einsy"`
+		Buddy[] buddy `yaml:"buddy"`
+		Einsy[] einsy `yaml:"einsy"`
 	} `yaml:"printers"`
 	Exporter struct {
 		MetricsPort   int    `yaml:"metrics_port"`
