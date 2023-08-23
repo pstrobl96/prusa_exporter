@@ -21,17 +21,16 @@ func initProcedure() {
 }
 
 func main() {
-	
+
 	log.Info().Msg("Buddy Link Prometheus exporter starting")
-	initProcedure() // initialize 
+	initProcedure()     // initialize
 	go configReloader() // run reloader as goroutine
 	log.Info().Msg("Initialized")
-	
+
 	buddyCollector := newBuddyCollector()
 	einsyCollector := newEinsyCollector()
 	prometheus.MustRegister(buddyCollector, einsyCollector)
 	log.Info().Msg("Metrics registered")
 	http.Handle("/metrics", promhttp.Handler())
-	log.Fatal().Msg(http.ListenAndServe(":"+ strconv.Itoa(config.Exporter.MetricsPort)	, nil).Error())
+	log.Fatal().Msg(http.ListenAndServe(":"+strconv.Itoa(config.Exporter.MetricsPort), nil).Error())
 }
-
