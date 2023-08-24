@@ -155,10 +155,11 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 					float64(BoolToFloat(strings.Contains(job.State, "Printing"))), getLabels(s, job)...)
 
 				printerVersion := prometheus.MustNewConstMetric(collector.printerVersion, prometheus.GaugeValue,
-					1, getLabels(s, job, printer.Telemetry.Material, version.API, version.Server, version.Text)...)
+					1, getLabels(s, job, version.API, version.Server, version.Text)...)
 
 				material := prometheus.MustNewConstMetric(collector.printerMaterial, prometheus.GaugeValue,
-					float64(BoolToFloat(strings.Contains(printer.Telemetry.Material, "---"))), getLabels(s, job, printer.Telemetry.Material)...)
+					float64(BoolToFloat(strings.Contains(printer.Telemetry.Material, "---"))),
+					getLabels(s, job, printer.Telemetry.Material)...)
 
 				if len(files.Files) > 0 {
 					printerFiles := prometheus.MustNewConstMetric(collector.printerFiles, prometheus.GaugeValue,
