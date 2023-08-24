@@ -71,7 +71,7 @@ func setLogLevel(level string) string {
 	}
 
 	zerolog.SetGlobalLevel(zeroLogLevel)
-
+	print(level)
 	return level
 }
 

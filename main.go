@@ -15,16 +15,16 @@ import (
 func initProcedure() {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 	zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
-
-	setLogLevel(config.Exporter.LogLevel)
 	loadConfigFile()
+	setLogLevel(config.Exporter.LogLevel)
 }
 
 func main() {
-
 	log.Info().Msg("Buddy Link Prometheus exporter starting")
-	initProcedure()     // initialize
-	go configReloader() // run reloader as goroutine
+	initProcedure()                         // initialize
+	if config.Exporter.ReloadInteval != 0 { // do not run reloader if interval is set to zero
+		go configReloader() // run reloader as goroutine
+	}
 	log.Info().Msg("Initialized")
 
 	buddyCollector := newBuddyCollector()
