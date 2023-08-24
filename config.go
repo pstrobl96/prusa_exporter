@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 	"strings"
 	"time"
@@ -33,8 +34,8 @@ type einsy struct {
 
 type configuration struct {
 	Printers struct {
-		Buddy[] buddy `yaml:"buddy"`
-		Einsy[] einsy `yaml:"einsy"`
+		Buddy []buddy `yaml:"buddy"`
+		Einsy []einsy `yaml:"einsy"`
 	} `yaml:"printers"`
 	Exporter struct {
 		MetricsPort   int    `yaml:"metrics_port"`
@@ -60,7 +61,7 @@ func setLogLevel(level string) string {
 	case "trace":
 		zeroLogLevel = zerolog.TraceLevel
 	case "error":
-		zeroLogLevel = zerolog.ErrorLevel		
+		zeroLogLevel = zerolog.ErrorLevel
 	case "panic":
 		zeroLogLevel = zerolog.PanicLevel
 	case "fatal":
@@ -75,7 +76,7 @@ func setLogLevel(level string) string {
 }
 
 func loadConfigFile() {
-	config = probeConfigFile(parseConfig(getConfigPath()))	
+	config = probeConfigFile(parseConfig(getConfigPath()))
 }
 
 func getConfigPath() string {
@@ -105,35 +106,29 @@ func parseConfig(path string) configuration {
 }
 
 func probeConfigFile(parsedConfig configuration) configuration {
-	for _, s := range parsedConfig.Printers.Buddy {
-		if head(s.Address) {
-			s.Reachable = true
+	for i, s := range parsedConfig.Printers.Buddy {
+		if testConnection(s.Address) {
+			parsedConfig.Printers.Buddy[i].Reachable = true
 		} else {
-			s.Reachable = false
+			parsedConfig.Printers.Buddy[i].Reachable = false
 			log.Error().Msg(s.Address + " is not reachable")
 		}
 	}
 	return parsedConfig
 }
 
-// func testConnection(s string) (bool, error) {
-// 	r, e := http.Head(s)
-// 	return r.StatusCode == 200, e
-// }
+func testConnection(s string) bool {
+	req, _ := http.NewRequest("GET", "http://"+s+"/", nil)
+	client := &http.Client{Timeout: time.Duration(config.Exporter.ScrapeTimeout) * time.Second}
+	r, e := client.Do(req)
+	return e == nil && r.StatusCode == 200
+}
 
 func configReloader() {
-    ticker := time.NewTicker(time.Duration(config.Exporter.ReloadInteval) * time.Second)
+	ticker := time.NewTicker(time.Duration(config.Exporter.ReloadInteval) * time.Second)
 
 	for t := range ticker.C {
 		log.Info().Msg(fmt.Sprintf("Config reloaded at: %v\n", t.UTC()))
 		loadConfigFile()
 	}
-	//defer t.Stop()
-	//for {
-	//	select {
-	//	case <-t.C: // Activate periodically
-	//		loadConfigFile()
-	//		log.Debug().Msg("Config reloaded")
-	//	}
-	//}
 }

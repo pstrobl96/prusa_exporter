@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -115,6 +116,7 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 	for _, s := range cfg.Printers.Buddy {
 		log.Debug().Msg("Buddy scraping at " + s.Address)
 		if !s.Reachable {
+			fmt.Println("eTET")
 			log.Trace().Msg(s.Address + " is unreachable while scraping")
 		} else {
 			version, files, job, printer, err := getBuddyResponse(s)
