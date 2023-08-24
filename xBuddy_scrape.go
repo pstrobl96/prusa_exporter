@@ -18,6 +18,8 @@ func getBuddyResponse(config buddy) (buddyVersion, buddyFiles, buddyJob, buddyPr
 
 	var e error
 
+	log.Debug().Msg("Getting response from " + config.Address)
+
 	if e = json.Unmarshal(version, &resultVersion); e != nil {
 		log.Error().Msg("Can not unmarshal version JSON")
 	}
