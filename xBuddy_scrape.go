@@ -7,10 +7,10 @@ import (
 )
 
 func getBuddyResponse(config buddy) (buddyVersion, buddyFiles, buddyJob, buddyPrinter, error) {
-	version := accessBuddyApi("version", config.Address, config.Apikey, config.Username, config.Pass)
-	files := accessBuddyApi("files", config.Address, config.Apikey, config.Username, config.Pass)
-	job := accessBuddyApi("job", config.Address, config.Apikey, config.Username, config.Pass)
-	printer := accessBuddyApi("printer", config.Address, config.Apikey, config.Username, config.Pass)
+	version := accessBuddyAPI("version", config.Address, config.Apikey, config.Username, config.Pass)
+	files := accessBuddyAPI("files", config.Address, config.Apikey, config.Username, config.Pass)
+	job := accessBuddyAPI("job", config.Address, config.Apikey, config.Username, config.Pass)
+	printer := accessBuddyAPI("printer", config.Address, config.Apikey, config.Username, config.Pass)
 	var resultVersion buddyVersion
 	var resultFiles buddyFiles
 	var resultJob buddyJob

@@ -13,7 +13,7 @@ func getURL(path string, address string) string {
 	return string("http://" + address + "/api/" + path)
 }
 
-func accessBuddyApi(path string, address string, apiKey string, username string, password string) []byte {
+func accessBuddyAPI(path string, address string, apiKey string, username string, password string) []byte {
 	url := getURL(path, address)
 	var res *http.Response
 	var err error
@@ -51,16 +51,13 @@ func accessBuddyApi(path string, address string, apiKey string, username string,
 	return body
 }
 
-func accessEinsyApi(path string, address string, apiKey string) ([]byte, error) {
+func accessEinsyAPI(path string, address string, apiKey string) ([]byte, error) {
 	url := getURL(path, address)
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("X-Api-Key", apiKey)
 	client := &http.Client{Timeout: time.Duration(config.Exporter.ScrapeTimeout) * time.Second}
 	res, err := client.Do(req)
-	if err != nil {
-		log.Error().Msg(err.Error())
-		return nil, err
-	} else {
+	if err == nil {
 		defer res.Body.Close()
 		body, err := io.ReadAll(res.Body)
 		if err != nil {
@@ -68,4 +65,7 @@ func accessEinsyApi(path string, address string, apiKey string) ([]byte, error) 
 		}
 		return body, nil
 	}
+
+	log.Error().Msg(err.Error())
+	return nil, err
 }

@@ -98,12 +98,13 @@ func (collector *buddyCollector) Describe(ch chan<- *prometheus.Desc) {
 
 }
 
+// BoolToFloat is used for basic parsing boolean to float64
 func BoolToFloat(boolean bool) float64 {
-	if boolean {
-		return 1.0
-	} else {
+	if !boolean {
 		return 0.0
 	}
+
+	return 1.0
 }
 
 func getLabels(s buddy, job buddyJob, labelValues ...string) []string {

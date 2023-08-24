@@ -83,4 +83,3 @@ type buddyJob struct {
 		PrintTime     int     `json:"printTime"`
 	} `json:"progress"`
 }
-

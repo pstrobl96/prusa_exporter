@@ -7,7 +7,7 @@ import (
 )
 
 func getEinsyJob(address string, apiKey string) einsyJob {
-	resp, _ := accessEinsyApi("job", address, apiKey)
+	resp, _ := accessEinsyAPI("job", address, apiKey)
 
 	var result einsyJob
 
@@ -19,7 +19,7 @@ func getEinsyJob(address string, apiKey string) einsyJob {
 }
 
 func getEinsyCameras(address string, apiKey string) einsyCameras {
-	resp, _ := accessEinsyApi("v1/cameras", address, apiKey)
+	resp, _ := accessEinsyAPI("v1/cameras", address, apiKey)
 
 	var result einsyCameras
 
@@ -32,7 +32,7 @@ func getEinsyCameras(address string, apiKey string) einsyCameras {
 }
 
 func getEinsyPrinter(address string, apiKey string) einsyPrinter {
-	resp, _ := accessEinsyApi("printer", address, apiKey)
+	resp, _ := accessEinsyAPI("printer", address, apiKey)
 
 	var result einsyPrinter
 
@@ -45,7 +45,7 @@ func getEinsyPrinter(address string, apiKey string) einsyPrinter {
 }
 
 //func getEinsyStorage(address string, apiKey string) einsyStorage { // currently unused
-//	resp, _ := accessEinsyApi("v1/storage", address, apiKey)
+//	resp, _ := accessEinsyAPI("v1/storage", address, apiKey)
 //
 //	var result einsyStorage
 //
@@ -58,7 +58,7 @@ func getEinsyPrinter(address string, apiKey string) einsyPrinter {
 //}
 
 func getEinsySettings(address string, apiKey string) einsySettings {
-	resp, _ := accessEinsyApi("settings", address, apiKey)
+	resp, _ := accessEinsyAPI("settings", address, apiKey)
 
 	var result einsySettings
 
@@ -71,20 +71,20 @@ func getEinsySettings(address string, apiKey string) einsySettings {
 }
 
 // func getEinsyConnection(address string, apiKey string) einsyConection { // currently unused
-// 	resp, _ := accessEinsyApi("connection", address, apiKey)
-// 
+// 	resp, _ := accessEinsyAPI("connection", address, apiKey)
+//
 // 	var result einsyConection
-// 
+//
 // 	if e := json.Unmarshal(resp, &result); e != nil {
 // 		log.Error().Msg("Can not unmarshal JSON")
-// 
+//
 // 	}
-// 
+//
 // 	return result
 // }
 
 func getEinsyFiles(address string, apiKey string) einsyFiles {
-	resp, _ := accessEinsyApi("files", address, apiKey)
+	resp, _ := accessEinsyAPI("files", address, apiKey)
 
 	var result einsyFiles
 
@@ -97,7 +97,7 @@ func getEinsyFiles(address string, apiKey string) einsyFiles {
 }
 
 func getEinsyLogs(address string, apiKey string) einsyLogs {
-	resp, _ := accessEinsyApi("logs", address, apiKey)
+	resp, _ := accessEinsyAPI("logs", address, apiKey)
 
 	var result einsyLogs
 
@@ -110,7 +110,7 @@ func getEinsyLogs(address string, apiKey string) einsyLogs {
 }
 
 func getEinsyInfo(address string, apiKey string) einsyInfo {
-	resp, _ := accessEinsyApi("v1/info", address, apiKey)
+	resp, _ := accessEinsyAPI("v1/info", address, apiKey)
 
 	var result einsyInfo
 
@@ -123,20 +123,20 @@ func getEinsyInfo(address string, apiKey string) einsyInfo {
 }
 
 // func getEinsyStatus(address string, apiKey string) einsyStatus { // currently unused
-// 	resp, _ := accessEinsyApi("v1/status", address, apiKey)
-// 
+// 	resp, _ := accessEinsyAPI("v1/status", address, apiKey)
+//
 // 	var result einsyStatus
-// 
+//
 // 	if e := json.Unmarshal(resp, &result); e != nil {
 // 		log.Error().Msg("Can not unmarshal JSON")
-// 
+//
 // 	}
-// 
+//
 // 	return result
 // }
 
 func getEinsyVersion(address string, apiKey string) einsyVersion {
-	resp, _ := accessEinsyApi("version", address, apiKey)
+	resp, _ := accessEinsyAPI("version", address, apiKey)
 
 	var result einsyVersion
 
@@ -149,7 +149,7 @@ func getEinsyVersion(address string, apiKey string) einsyVersion {
 }
 
 func getEinsyPorts(address string, apiKey string) einsyPorts {
-	resp, _ := accessEinsyApi("ports", address, apiKey)
+	resp, _ := accessEinsyAPI("ports", address, apiKey)
 
 	var result einsyPorts
 
