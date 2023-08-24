@@ -96,7 +96,7 @@ func getConfigPath() string {
 func parseConfig(path string) configuration {
 	f, e := os.ReadFile(path)
 	if e != nil {
-		log.Error().Msg(e.Error())
+		log.Panic().Msg(e.Error())
 	}
 	var p configuration
 	if e := yaml.Unmarshal(f, &p); e != nil {
