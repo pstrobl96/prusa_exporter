@@ -102,12 +102,12 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 
 			nozzleTemp := prometheus.MustNewConstMetric(
 				collector.printerNozzleTemp, prometheus.GaugeValue,
-				float64(printer.Temperature.Tool0.Actual),
+				printer.Temperature.Tool0.Actual,
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 			bedTemp := prometheus.MustNewConstMetric(
 				collector.printerBedTemp, prometheus.GaugeValue, // collector
-				float64(printer.Telemetry.TempBed),                              // value
+				printer.Telemetry.TempBed,                                       // value
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path) // labels
 
 			printerVersion := prometheus.MustNewConstMetric(
@@ -127,12 +127,12 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 
 			targetTempBed := prometheus.MustNewConstMetric(
 				collector.printerTargetTempBed, prometheus.GaugeValue,
-				float64(printer.Temperature.Bed.Target),
+				printer.Temperature.Bed.Target,
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 			targetTempNozzle := prometheus.MustNewConstMetric(
 				collector.printerTargetTempNozzle, prometheus.GaugeValue,
-				float64(printer.Temperature.Tool0.Target),
+				printer.Temperature.Tool0.Target,
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 			for _, v := range files.Files {
@@ -155,7 +155,7 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 
 			printProgress := prometheus.MustNewConstMetric(
 				collector.printerPrintProgress, prometheus.GaugeValue,
-				float64(job.Progress.Completion),
+				job.Progress.Completion,
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 			printingMetric := 0
@@ -222,17 +222,17 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 
 			printerAxisX := prometheus.MustNewConstMetric(
 				collector.printerAxisX, prometheus.GaugeValue,
-				float64(printer.Telemetry.AxisX),
+				printer.Telemetry.AxisX,
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 			printerAxisY := prometheus.MustNewConstMetric(
 				collector.printerAxisY, prometheus.GaugeValue,
-				float64(printer.Telemetry.AxisY),
+				printer.Telemetry.AxisY,
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 			printerAxisZ := prometheus.MustNewConstMetric(
 				collector.printerAxisZ, prometheus.GaugeValue,
-				float64(printer.Telemetry.AxisZ),
+				printer.Telemetry.AxisZ,
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 			stateMetric := 0
