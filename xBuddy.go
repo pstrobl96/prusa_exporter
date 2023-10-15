@@ -75,8 +75,12 @@ func newBuddyCollector() *buddyCollector {
 			append(defaultLabels, "printer_filament"),
 			nil),
 		printerPrintTime: prometheus.NewDesc("prusa_buddy_print_time",
-			"Returns information about loaded filament. Returns 0 if there is no loaded filament",
+			"Returns information about current print time.",
 			defaultLabels,
+			nil),
+		printerUp: prometheus.NewDesc("prusa_buddy_up",
+			"Return information about online pritners. If printer is registered as offline then returned value is 0.",
+			{"printer_address", "printer_model", "printer_name"},
 			nil),
 	}
 }
@@ -95,7 +99,7 @@ func (collector *buddyCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerPrintProgress
 	ch <- collector.printerPrinting
 	ch <- collector.printerMaterial
-
+	ch <- collector.printerUp
 }
 
 // BoolToFloat is used for basic parsing boolean to float64
@@ -116,6 +120,11 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 	for _, s := range cfg.Printers.Buddy {
 		log.Debug().Msg("Buddy scraping at " + s.Address)
 		if !s.Reachable {
+			printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
+				0, s.Address, s.Type, s.Name)
+			
+			ch <- printerUp
+
 			log.Debug().Msg(s.Address + " is unreachable while scraping")
 		} else {
 			version, files, job, printer, err := getBuddyResponse(s)
@@ -166,6 +175,9 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 					ch <- printerFiles
 				}
 
+				printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
+					1, getLabels(s, job)...)
+
 				ch <- bedTemp
 				ch <- nozzleTemp
 				ch <- printProgress
@@ -178,6 +190,7 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 				ch <- material
 				ch <- printerVersion
 				ch <- zHeight
+				ch <- printerUp
 			}
 		}
 	}
