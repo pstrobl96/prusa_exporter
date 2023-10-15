@@ -70,10 +70,10 @@ func getEinsySettings(address string, apiKey string) einsySettings {
 	return result
 }
 
-// func getEinsyConnection(address string, apiKey string) einsyConection { // currently unused
+// func getEinsyConnection(address string, apiKey string) einsyConnection { // currently unused
 // 	resp, _ := accessEinsyAPI("connection", address, apiKey)
 //
-// 	var result einsyConection
+// 	var result einsyConnection
 //
 // 	if e := json.Unmarshal(resp, &result); e != nil {
 // 		log.Error().Msg("Can not unmarshal JSON")

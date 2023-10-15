@@ -42,46 +42,6 @@ type buddyFiles struct {
 	} `json:"files"`
 }
 
-/*
-type buddyPrinter struct {
-	Telemetry struct {
-		TempBed    float64 `json:"temp-bed"`
-		TempNozzle float64 `json:"temp-nozzle"`
-		PrintSpeed int     `json:"print-speed"`
-		ZHeight    float64 `json:"z-height"`
-		Material   string  `json:"material"`
-	} `json:"telemetry"`
-	Temperature struct {
-		Tool0 struct {
-			Actual  float64 `json:"actual"`
-			Target  float64 `json:"target"`
-			Display float64 `json:"display"`
-			Offset  int     `json:"offset"`
-		} `json:"tool0"`
-		Bed struct {
-			Actual float64 `json:"actual"`
-			Target float64 `json:"target"`
-			Offset int     `json:"offset"`
-		} `json:"bed"`
-	} `json:"temperature"`
-	State struct {
-		Text  string `json:"text"`
-		Flags struct {
-			Operational   bool `json:"operational"`
-			Paused        bool `json:"paused"`
-			Printing      bool `json:"printing"`
-			Cancelling    bool `json:"cancelling"`
-			Pausing       bool `json:"pausing"`
-			SdReady       bool `json:"sdReady"`
-			Error         bool `json:"error"`
-			ClosedOnError bool `json:"closedOnError"`
-			Ready         bool `json:"ready"`
-			Busy          bool `json:"busy"`
-		} `json:"flags"`
-	} `json:"state"`
-}
-*/
-
 type buddyPrinter struct {
 	Telemetry struct {
 		TempBed    float64 `json:"temp-bed"`
@@ -174,6 +134,8 @@ type buddyStatus struct {
 		TargetBed    float64 `json:"target_bed"`
 		TempNozzle   float64 `json:"temp_nozzle"`
 		TargetNozzle float64 `json:"target_nozzle"`
+		AxisX        float64 `json:"axis_x"`
+		AxisY        float64 `json:"axis_y"`
 		AxisZ        float64 `json:"axis_z"`
 		Flow         int     `json:"flow"`
 		Speed        int     `json:"speed"`

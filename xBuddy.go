@@ -21,6 +21,17 @@ type buddyCollector struct {
 	printerPrintProgress      *prometheus.Desc
 	printerPrinting           *prometheus.Desc
 	printerMaterial           *prometheus.Desc
+	printerUp                 *prometheus.Desc
+	printerNozzleSize         *prometheus.Desc
+	printerStatus             *prometheus.Desc
+	printerAxisX              *prometheus.Desc
+	printerAxisY              *prometheus.Desc
+	printerAxisZ              *prometheus.Desc
+	printerFlow               *prometheus.Desc
+	printerInfo               *prometheus.Desc
+	printerMMU                *prometheus.Desc
+	printerFanHotend          *prometheus.Desc
+	printerFanPrint           *prometheus.Desc
 }
 
 func newBuddyCollector() *buddyCollector {
@@ -79,8 +90,48 @@ func newBuddyCollector() *buddyCollector {
 			defaultLabels,
 			nil),
 		printerUp: prometheus.NewDesc("prusa_buddy_up",
-			"Return information about online pritners. If printer is registered as offline then returned value is 0.",
-			{"printer_address", "printer_model", "printer_name"},
+			"Return information about online printers. If printer is registered as offline then returned value is 0.",
+			[]string{"printer_address", "printer_model", "printer_name"},
+			nil),
+		printerNozzleSize: prometheus.NewDesc("prusa_buddy_nozzle_size",
+			"Returns information about selected nozzle size.",
+			defaultLabels,
+			nil),
+		printerStatus: prometheus.NewDesc("prusa_buddy_status",
+			"Returns information status of printer.",
+			append(defaultLabels, "printer_state"), // flags are defined by number :pug-dance:
+			nil),
+		printerAxisX: prometheus.NewDesc("prusa_buddy_axis_x",
+			"Returns information about position of axis X.",
+			defaultLabels,
+			nil),
+		printerAxisY: prometheus.NewDesc("prusa_buddy_axis_y",
+			"Returns information about position of axis Y.",
+			defaultLabels,
+			nil),
+		printerAxisZ: prometheus.NewDesc("prusa_buddy_axis_z",
+			"Returns information about position of axis Z.",
+			defaultLabels,
+			nil),
+		printerFlow: prometheus.NewDesc("prusa_buddy_print_flow",
+			"Returns information about of filament flow.",
+			defaultLabels,
+			nil),
+		printerInfo: prometheus.NewDesc("prusa_buddy_info",
+			"Returns information about printer.",
+			append(defaultLabels, "printer_serial", "printer_hostname"),
+			nil),
+		printerMMU: prometheus.NewDesc("prusa_buddy_mmu",
+			"Returns information if MMU is enabled.",
+			defaultLabels,
+			nil),
+		printerFanHotend: prometheus.NewDesc("prusa_buddy_fan_hotend",
+			"Returns information about speed of hotend fan in rpm.",
+			defaultLabels,
+			nil),
+		printerFanPrint: prometheus.NewDesc("prusa_buddy_fan_print",
+			"Returns information about speed of print fan in rpm.",
+			defaultLabels,
 			nil),
 	}
 }
@@ -100,6 +151,16 @@ func (collector *buddyCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerPrinting
 	ch <- collector.printerMaterial
 	ch <- collector.printerUp
+	ch <- collector.printerNozzleSize
+	ch <- collector.printerStatus
+	ch <- collector.printerAxisX
+	ch <- collector.printerAxisY
+	ch <- collector.printerAxisZ
+	ch <- collector.printerFlow
+	ch <- collector.printerInfo
+	ch <- collector.printerMMU
+	ch <- collector.printerFanHotend
+	ch <- collector.printerFanPrint
 }
 
 // BoolToFloat is used for basic parsing boolean to float64
@@ -109,6 +170,34 @@ func BoolToFloat(boolean bool) float64 {
 	}
 
 	return 1.0
+}
+
+func getFlag(printer buddyPrinter) float64 {
+	if printer.State.Flags.Operational {
+		return 1
+	} else if printer.State.Flags.Operational {
+		return 2
+	} else if printer.State.Flags.Paused {
+		return 3
+	} else if printer.State.Flags.Printing {
+		return 4
+	} else if printer.State.Flags.Cancelling {
+		return 5
+	} else if printer.State.Flags.Pausing {
+		return 6
+	} else if printer.State.Flags.Error {
+		return 7
+	} else if printer.State.Flags.SdReady {
+		return 8
+	} else if printer.State.Flags.ClosedOnError {
+		return 9
+	} else if printer.State.Flags.Ready {
+		return 10
+	} else if printer.State.Flags.Busy {
+		return 11
+	} else {
+		return 0
+	}
 }
 
 func getLabels(s buddy, job buddyJob, labelValues ...string) []string {
@@ -122,24 +211,24 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 		if !s.Reachable {
 			printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
 				0, s.Address, s.Type, s.Name)
-			
+
 			ch <- printerUp
 
 			log.Debug().Msg(s.Address + " is unreachable while scraping")
 		} else {
-			version, files, job, printer, status, info, storage, err := getBuddyResponse(s)
+			version, files, job, printer, status, info, _, err := getBuddyResponse(s)
 
 			if err != nil {
 				log.Error().Msg(err.Error())
 			} else {
 				bedTemp := prometheus.MustNewConstMetric(collector.printerBedTemp, prometheus.GaugeValue,
-					float64(printer.Temperature.Bed.Actual), getLabels(s, job)...)
+					printer.Temperature.Bed.Actual, getLabels(s, job)...)
 
 				nozzleTemp := prometheus.MustNewConstMetric(collector.printerNozzleTemp, prometheus.GaugeValue,
-					float64(printer.Temperature.Tool0.Actual), getLabels(s, job)...)
+					printer.Temperature.Tool0.Actual, getLabels(s, job)...)
 
 				printProgress := prometheus.MustNewConstMetric(collector.printerPrintProgress, prometheus.GaugeValue,
-					float64(job.Progress.Completion), getLabels(s, job)...)
+					job.Progress.Completion, getLabels(s, job)...)
 
 				printSpeed := prometheus.MustNewConstMetric(collector.printerPrintSpeed, prometheus.GaugeValue,
 					float64(printer.Telemetry.PrintSpeed), getLabels(s, job)...)
@@ -151,22 +240,22 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 					float64(job.Progress.PrintTime), getLabels(s, job)...)
 
 				targetTempBed := prometheus.MustNewConstMetric(collector.printerTargetTempBed, prometheus.GaugeValue,
-					float64(printer.Temperature.Bed.Target), getLabels(s, job)...)
+					printer.Temperature.Bed.Target, getLabels(s, job)...)
 
 				targetTempNozzle := prometheus.MustNewConstMetric(collector.printerTargetTempNozzle, prometheus.GaugeValue,
-					float64(printer.Temperature.Tool0.Target), getLabels(s, job)...)
+					printer.Temperature.Tool0.Target, getLabels(s, job)...)
 
 				zHeight := prometheus.MustNewConstMetric(collector.printerZHeight, prometheus.GaugeValue,
 					printer.Telemetry.ZHeight, getLabels(s, job)...)
 
 				printing := prometheus.MustNewConstMetric(collector.printerPrinting, prometheus.GaugeValue,
-					float64(BoolToFloat(strings.Contains(job.State, "Printing"))), getLabels(s, job)...)
+					BoolToFloat(strings.Contains(job.State, "Printing")), getLabels(s, job)...)
 
 				printerVersion := prometheus.MustNewConstMetric(collector.printerVersion, prometheus.GaugeValue,
 					1, getLabels(s, job, version.API, version.Server, version.Text)...)
 
 				material := prometheus.MustNewConstMetric(collector.printerMaterial, prometheus.GaugeValue,
-					float64(BoolToFloat(strings.Contains(printer.Telemetry.Material, "---"))),
+					BoolToFloat(!strings.Contains(printer.Telemetry.Material, "---")),
 					getLabels(s, job, printer.Telemetry.Material)...)
 
 				if len(files.Files) > 0 {
@@ -176,8 +265,39 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 				}
 
 				printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
-					1, getLabels(s, job)...)
+					1, s.Address, s.Type, s.Name)
 
+				printerNozzleSize := prometheus.MustNewConstMetric(collector.printerNozzleSize, prometheus.GaugeValue,
+					info.NozzleDiameter, getLabels(s, job)...)
+
+				printerStatus := prometheus.MustNewConstMetric(collector.printerStatus, prometheus.GaugeValue,
+					getFlag(printer), getLabels(s, job, status.Printer.State)...)
+
+				printerAxisX := prometheus.MustNewConstMetric(collector.printerAxisX, prometheus.GaugeValue,
+					status.Printer.AxisX, getLabels(s, job)...)
+
+				printerAxisY := prometheus.MustNewConstMetric(collector.printerAxisY, prometheus.GaugeValue,
+					status.Printer.AxisY, getLabels(s, job)...)
+
+				printerAxisZ := prometheus.MustNewConstMetric(collector.printerAxisZ, prometheus.GaugeValue,
+					status.Printer.AxisZ, getLabels(s, job)...)
+
+				printerFlow := prometheus.MustNewConstMetric(collector.printerAxisZ, prometheus.GaugeValue,
+					float64(status.Printer.Flow), getLabels(s, job)...)
+
+				printerInfo := prometheus.MustNewConstMetric(collector.printerAxisZ, prometheus.GaugeValue,
+					1, getLabels(s, job, info.Serial, info.Hostname)...)
+
+				printerMMU := prometheus.MustNewConstMetric(collector.printerMMU, prometheus.GaugeValue,
+					BoolToFloat(info.Mmu), getLabels(s, job)...)
+
+				printerFanHotend := prometheus.MustNewConstMetric(collector.printerFanHotend, prometheus.GaugeValue,
+					float64(status.Printer.FanHotend), getLabels(s, job)...)
+
+				printerFanPrint := prometheus.MustNewConstMetric(collector.printerFanPrint, prometheus.GaugeValue,
+					float64(status.Printer.FanPrint), getLabels(s, job)...)
+
+				ch <- printerStatus
 				ch <- bedTemp
 				ch <- nozzleTemp
 				ch <- printProgress
@@ -191,6 +311,15 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 				ch <- printerVersion
 				ch <- zHeight
 				ch <- printerUp
+				ch <- printerNozzleSize
+				ch <- printerAxisX
+				ch <- printerAxisY
+				ch <- printerAxisZ
+				ch <- printerFlow
+				ch <- printerInfo
+				ch <- printerMMU
+				ch <- printerFanHotend
+				ch <- printerFanPrint
 			}
 		}
 	}
