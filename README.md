@@ -51,11 +51,9 @@ I've created docker-compose.yaml file, that can be used for deploy of exporter. 
 
 In [config](docs/examples/config) folder are configuration files for exporter itself, Prometheus and Promtail. You need change few thing here and there to get it up and running. Of course you can change everything you want. Every api key for Grafana Cloud cloud be found in [grafana.com](https://grafana.com/) -> My Account -> Grafana Cloud instance -> Send Metrics / Send Logs.
 
-Configuration files needs to be placed in directory config. You can just copy folder from examples and it will work.
+However I prepared also config for on premise Prometheus and Loki if you do not want to use Cloud solution and you want to have your data somewhere local. You can find these [configs](docs/examples/config/on_premise) in on_premise subfolder.  
 
-```
-cp -r docs/examples/config config
-```
+
 ##### buddy.yaml
 
 Exporter loads [buddy.yaml](docs/examples/config/buddy.yaml) from environment variable called `BUDDY_EXPORTER_CONFIG`. If you want to put this file in folder, where exporter is located then just set it to `buddy.yaml`. Exporter has implemented config reloader that runs by default every 300 seconds (5 minutes).
