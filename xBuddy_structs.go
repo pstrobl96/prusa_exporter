@@ -1,14 +1,5 @@
 package main
 
-/*
-type buddyVersion struct {
-	API      string `json:"api"`
-	Server   string `json:"server"`
-	Text     string `json:"text"`
-	Hostname string `json:"hostname"`
-}
-*/
-
 type buddyVersion struct {
 	API            string  `json:"api"`
 	Server         string  `json:"server"`
