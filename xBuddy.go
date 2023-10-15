@@ -127,7 +127,7 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 
 			log.Debug().Msg(s.Address + " is unreachable while scraping")
 		} else {
-			version, files, job, printer, err := getBuddyResponse(s)
+			version, files, job, printer, status, info, storage, err := getBuddyResponse(s)
 
 			if err != nil {
 				log.Error().Msg(err.Error())
