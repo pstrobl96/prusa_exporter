@@ -282,10 +282,10 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 				printerAxisZ := prometheus.MustNewConstMetric(collector.printerAxisZ, prometheus.GaugeValue,
 					status.Printer.AxisZ, getLabels(s, job)...)
 
-				printerFlow := prometheus.MustNewConstMetric(collector.printerAxisZ, prometheus.GaugeValue,
+				printerFlow := prometheus.MustNewConstMetric(collector.printerFlow, prometheus.GaugeValue,
 					float64(status.Printer.Flow), getLabels(s, job)...)
 
-				printerInfo := prometheus.MustNewConstMetric(collector.printerAxisZ, prometheus.GaugeValue,
+				printerInfo := prometheus.MustNewConstMetric(collector.printerInfo, prometheus.GaugeValue,
 					1, getLabels(s, job, info.Serial, info.Hostname)...)
 
 				printerMMU := prometheus.MustNewConstMetric(collector.printerMMU, prometheus.GaugeValue,
