@@ -10,7 +10,7 @@ import (
 type buddyCollector struct {
 	printerNozzleTemp         *prometheus.Desc
 	printerBedTemp            *prometheus.Desc
-	printerVersion            *prometheus.Desc // info from version
+	printerVersion            *prometheus.Desc
 	printerZHeight            *prometheus.Desc
 	printerPrintSpeed         *prometheus.Desc
 	printerTargetTempNozzle   *prometheus.Desc

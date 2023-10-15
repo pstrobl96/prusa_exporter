@@ -38,10 +38,10 @@ type configuration struct {
 		Einsy []einsy `yaml:"einsy"`
 	} `yaml:"printers"`
 	Exporter struct {
-		MetricsPort   int    `yaml:"metrics_port"`
-		ScrapeTimeout int    `yaml:"scrape_timeout"`
-		ReloadInteval int    `yaml:"reload_inteval"`
-		LogLevel      string `yaml:"log_level"`
+		MetricsPort    int    `yaml:"metrics_port"`
+		ScrapeTimeout  int    `yaml:"scrape_timeout"`
+		ReloadInterval int    `yaml:"reload_interval"`
+		LogLevel       string `yaml:"log_level"`
 	} `yaml:"exporter"`
 }
 
@@ -125,7 +125,7 @@ func testConnection(s string) bool {
 }
 
 func configReloader() {
-	ticker := time.NewTicker(time.Duration(config.Exporter.ReloadInteval) * time.Second)
+	ticker := time.NewTicker(time.Duration(config.Exporter.ReloadInterval) * time.Second)
 
 	for t := range ticker.C {
 		log.Info().Msg(fmt.Sprintf("Config reloaded at: %v\n", t.UTC()))

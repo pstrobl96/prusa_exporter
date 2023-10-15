@@ -1,7 +1,7 @@
 exporter:
   metrics_port: 10009 # exporter port
   scrape_timeout: 1 # scrape timeout of Prusa Link
-  reload_inteval: 300 # interval in seconds for config reloader
+  reload_interval: 300 # interval in seconds for config reloader
   log_level: info
 printers:
   buddy:
