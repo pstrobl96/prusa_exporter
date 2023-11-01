@@ -1,4 +1,4 @@
-module pstrobl96/buddy-prometheus-exporter
+module github.com/pstrobl96/buddy-prometheus-exporter
 
 go 1.20
 
