@@ -80,14 +80,14 @@ func loadConfigFile() {
 }
 
 func getConfigPath() string {
-	cfgFile := os.Getenv("BUDDY_EXPORTER_CONFIG")
+	cfgFile := os.Getenv("PRUSA_EXPORTER_CONFIG")
 	if cfgFile == "" {
 		pwd, e := os.Getwd()
 		if e != nil {
 			fmt.Println(e)
 			os.Exit(1)
 		}
-		cfgFile = pwd + "/buddy.yaml"
+		cfgFile = pwd + "/prusa.yaml"
 	}
 
 	return cfgFile

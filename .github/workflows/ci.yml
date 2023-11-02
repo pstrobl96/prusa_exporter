@@ -5,8 +5,8 @@ name: ci
 
 on:
   push:
-    tags:
-      - v*.**.**
+    branches:
+      - rename
 
 jobs:
 
@@ -90,7 +90,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: pubeldev/buddy-prometheus-exporter
+          images: pubeldev/prusa_exporter
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4

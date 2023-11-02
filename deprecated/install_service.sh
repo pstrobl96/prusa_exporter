@@ -20,18 +20,18 @@ echo "Go installed"
 
 source ~/.bashrc
 
-rm -rf /etc/buddy-prometheus-exporter
+rm -rf /etc/prusa_exporter
 cd /etc
-git clone https://github.com/pstrobl96/buddy-prometheus-exporter.git
+git clone https://github.com/pstrobl96/prusa_exporter.git
 
-cd /etc/buddy-prometheus-exporter
+cd /etc/prusa_exporter
 go build
 
-touch /etc/systemd/system/buddy.service
-rm /etc/buddy-prometheus-exporter/buddy.yaml
-touch /etc/buddy-prometheus-exporter/buddy.yaml
+touch /etc/systemd/system/prusa.service
+rm /etc/prusa_exporter/prusa.yaml
+touch /etc/prusa_exporter/prusa.yaml
 
-cat <<EOT >> /etc/buddy-prometheus-exporter/buddy.yml
+cat <<EOT >> /etc/prusa_exporter/prusa.yml
 printers:
   buddy:
   - address: 192.168.0.2
@@ -58,9 +58,9 @@ printers:
     type: mini
 EOT
 
-cat <<EOT >> /etc/systemd/system/buddy.service
+cat <<EOT >> /etc/systemd/system/prusa.service
 [Unit]
-Description=Buddy exporter service
+Description=Prusa exporter service
 After=network.target
 StartLimitIntervalSec=0
 
@@ -69,16 +69,16 @@ Type=simple
 Restart=always
 RestartSec=1
 User=root
-Environment=BUDDY_EXPORTER_CONFIG=/etc/buddy-prometheus-exporter/buddy.yaml
-Environment=BUDDY_EXPORTER_PORT=10009
-ExecStart=/etc/buddy-prometheus-exporter/buddy-exporter
+Environment=PRUSA_EXPORTER_CONFIG=/etc/prusa_exporter/prusa.yaml
+Environment=PRUSA_EXPORTER_PORT=10009
+ExecStart=/etc/prusa_exporter/prusa_exporter
 
 [Install]
 WantedBy=multi-user.target
 EOT
 
 systemctl daemon-reload
-systemctl enable buddy
-systemctl start buddy
+systemctl enable prusa
+systemctl start prusa
 
 echo "Done"

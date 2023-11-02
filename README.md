@@ -1,18 +1,18 @@
-[![ci](https://github.com/pstrobl96/buddy-prometheus-exporter/actions/workflows/ci.yml/badge.svg)](https://github.com/pstrobl96/buddy-prometheus-exporter/actions/workflows/ci.yml) ![issues](https://img.shields.io/github/issues/pstrobl96/buddy-prometheus-exporter) ![go](https://img.shields.io/github/go-mod/go-version/pstrobl96/buddy-prometheus-exporter) ![tag](https://img.shields.io/github/v/tag/pstrobl96/buddy-prometheus-exporter) ![license](https://img.shields.io/github/license/pstrobl96/buddy-prometheus-exporter)
+[![ci](https://github.com/pstrobl96/prusa_exporter/actions/workflows/ci.yml/badge.svg)](https://github.com/pstrobl96/prusa_exporter/actions/workflows/ci.yml) ![issues](https://img.shields.io/github/issues/pstrobl96/prusa_exporter) ![go](https://img.shields.io/github/go-mod/go-version/pstrobl96/prusa_exporter) ![tag](https://img.shields.io/github/v/tag/pstrobl96/prusa_exporter) ![license](https://img.shields.io/github/license/pstrobl96/prusa_exporter)
 
-# Buddy Link Prometheus Exporter
+# Prusa Exporter - formerly Buddy Link Prometheus Exporter
 
 This is an implementation of Prometheus Exporter for Prusa printers running Buddy boards (Prusa Mk4, XL, and Mini) or Einsy boards (Prusa Mk3s with Prusa Link installed). Multi-target is supported so you can check any number of printers as long it has accessible Prusa Link API. This works even for the old Prusa Connect Local.
 
 For Mk3s with Einsy board you need to use version 0.7.0rc3 of Prusa Link or higher, because there are many more metrics to scrape than in the older versions. You can find the most up to date version in the [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/releases).
 
-- [Where to find buddy exporter](#where-to-find-buddy-exporter)
+- [Where to find prusa exporter](#where-to-find-prusa-exporter)
 - [Roadmap](#roadmap)
 - [Environment variables](#environment-variables)
-- [How to install buddy exporter](#how-to-install-buddy-exporter)
+- [How to install prusa exporter](#how-to-install-prusa-exporter)
   * [Docker Compose](#docker-compose)
     + [Config](#config)
-      - [buddy.yaml](#buddyyaml)
+      - [prusa.yaml](#prusayaml)
       - [prometheus.yml](#prometheusyml)
       - [promtail.yml](#promtailyml)
     + [Starting](#starting)
@@ -21,9 +21,9 @@ For Mk3s with Einsy board you need to use version 0.7.0rc3 of Prusa Link or high
   * [Legacy](#legacy)
   * [Einsy](#einsy)
 
-## Where to find buddy exporter
+## Where to find prusa exporter
 
-Buddy exporter runs on port 10009, but you can choose different port in `buddy.yaml`. Metrics are accessible at `/metrics` endpoint.
+Prusa exporter runs on port 10009, but you can choose different port in `prusa.yaml`. Metrics are accessible at `/metrics` endpoint.
 
 ## Roadmap
 
@@ -41,7 +41,7 @@ This list contains current and future features along with completion status:
 - [ ] Support for [connection](#21) to Einsy with username and password
 - [ ] Show printed [gcode](#19) in dashboard
 
-## How to install buddy exporter
+## How to install prusa exporter
 
 ### Docker Compose
 
@@ -49,14 +49,14 @@ I've created docker-compose.yaml file, that can be used for deploy of exporter. 
 
 #### Config
 
-Please take a look at the [sample configuration examples](docs/examples/config) for buddy exporter, Prometheus, and Promtail. You will need to change few things to get it up and running. Of course you can change everything you want. If you are using Grafana Cloud, you can find your API key at [grafana.com](https://grafana.com/) -> My Account -> Grafana Cloud instance -> Send Metrics / Send Logs.
+Please take a look at the [sample configuration examples](docs/examples/config) for prusa exporter, Prometheus, and Promtail. You will need to change few things to get it up and running. Of course you can change everything you want. If you are using Grafana Cloud, you can find your API key at [grafana.com](https://grafana.com/) -> My Account -> Grafana Cloud instance -> Send Metrics / Send Logs.
 
 I also prepared a configuration for on-premise Prometheus and Loki if you do not want to use Cloud solution and you want to have your data somewhere local. You can find these [on-premise configs](docs/examples/config/on_premise) in the on_premise subfolder.  
 
 
-##### buddy.yaml
+##### prusa.yaml
 
-Buddy exporter loads [buddy.yaml](docs/examples/config/buddy.yaml) from an environment variable called `$BUDDY_EXPORTER_CONFIG`. If you put this file in the same folder where buddy exporter is located then simply set it to `buddy.yaml`. Buddy exporter has implemented a config reloader that runs by default every 300 seconds (5 minutes).
+Prusa exporter loads [prusa.yaml](docs/examples/config/prusa.yaml) from an environment variable called `$PRUSA_EXPORTER_CONFIG`. If you put this file in the same folder where prusa exporter is located then simply set it to `prusa.yaml`. Prusa exporter has implemented a config reloader that runs by default every 300 seconds (5 minutes).
 
 You will find two sections in the config file, `exporter` and `printers`.
 

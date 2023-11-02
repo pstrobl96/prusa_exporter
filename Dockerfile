@@ -13,8 +13,8 @@ RUN go mod download
 
 COPY *.go ./
 
-RUN go build -o /buddy-prometheus-exporter
+RUN go build -o /prusa_exporter
 
 EXPOSE 10009
 
-CMD [ "/buddy-prometheus-exporter" ]
+CMD [ "/prusa_exporter" ]
