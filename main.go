@@ -26,11 +26,11 @@ func main() {
 		go configReloader() // run reloader as goroutine
 	}
 	log.Info().Msg("Initialized")
-
 	buddyCollector := newBuddyCollector()
 	einsyCollector := newEinsyCollector()
 	prometheus.MustRegister(buddyCollector, einsyCollector)
 	log.Info().Msg("Metrics registered")
 	http.Handle("/metrics", promhttp.Handler())
+	log.Info().Msg("Listening at port: " + strconv.Itoa(config.Exporter.MetricsPort))
 	log.Fatal().Msg(http.ListenAndServe(":"+strconv.Itoa(config.Exporter.MetricsPort), nil).Error())
 }
