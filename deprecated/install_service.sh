@@ -28,8 +28,8 @@ cd /etc/prusa_exporter
 go build
 
 touch /etc/systemd/system/prusa.service
-rm /etc/prusa_exporter/prusa.yaml
-touch /etc/prusa_exporter/prusa.yaml
+rm /etc/prusa_exporter/prusa.yml
+touch /etc/prusa_exporter/prusa.yml
 
 cat <<EOT >> /etc/prusa_exporter/prusa.yml
 printers:
@@ -69,7 +69,7 @@ Type=simple
 Restart=always
 RestartSec=1
 User=root
-Environment=PRUSA_EXPORTER_CONFIG=/etc/prusa_exporter/prusa.yaml
+Environment=PRUSA_EXPORTER_CONFIG=/etc/prusa_exporter/prusa.yml
 Environment=PRUSA_EXPORTER_PORT=10009
 ExecStart=/etc/prusa_exporter/prusa_exporter
 
