@@ -1,7 +1,7 @@
 version: "3"
 
 networks:
-  buddy:
+  prusa:
 
 volumes:
   prometheus_data:
@@ -23,14 +23,14 @@ services:
     ports:
       - "9100:9100"
     networks:
-      - buddy
+      - prusa
 
   prometheus:
     image: prom/prometheus:v2.37.7
     container_name: prometheus
     restart: unless-stopped
     volumes:
-      - ./examples/config/on_premise/prometheus.yaml:/etc/prometheus/prometheus.yml
+      - ./docs/examples/config/on_premise/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -42,29 +42,29 @@ services:
     ports:
       - "9090:9090"
     networks:
-      - buddy
+      - prusa
 
   promtail:
     image: grafana/promtail:2.8.0
     container_name: promtail
     volumes:
-      - ./examples/config/on_premise/promtail.yaml:/etc/promtail/config.yml
+      - ./docs/examples/config/on_premise/promtail.yaml:/etc/promtail/config.yml
       - /var/log:/var/log
     command: -config.file=/etc/promtail/config.yml
     networks:
-      - buddy
+      - prusa
 
-  buddy:
-    image: pubeldev/buddy-prometheus-exporter:latest
-    container_name: buddy
+  exporter:
+    image: pubeldev/prusa_exporter:latest
+    container_name: exporter
     volumes:
       - type: bind
-        source: ./examples/config/on_premise/buddy.yaml
-        target: /app/buddy.yaml
+        source: ./docs/examples/config/on_premise/prusa.yaml
+        target: /app/prusa.yaml
     ports:
       - "10009:10009"
     networks:
-      - buddy
+      - prusa
 
   grafana:
     image: grafana/grafana:latest
@@ -72,7 +72,7 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - buddy
+      - prusa
 
   loki:
     image: grafana/loki:2.9.1
@@ -80,7 +80,7 @@ services:
     ports:
       - "3100:3100"
     volumes:
-      - ./examples/config/on_premise/loki.yaml:/etc/loki/local-config.yaml
+      - ./docs/examples/config/on_premise/loki.yaml:/etc/loki/local-config.yaml
     command: -config.file=/etc/loki/local-config.yaml
     networks:
-      - buddy
+      - prusa

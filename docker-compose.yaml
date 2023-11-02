@@ -29,7 +29,7 @@ services:
     container_name: prometheus
     restart: unless-stopped
     volumes:
-      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./docs/examples/config/on_premise/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -47,23 +47,23 @@ services:
     image: grafana/promtail:2.8.0
     container_name: promtail
     volumes:
-      - ./config/promtail.yaml:/etc/promtail/config.yml
+      - ./docs/examples/config/on_premise/promtail.yaml:/etc/promtail/config.yml
       - /var/log:/var/log
     command: -config.file=/etc/promtail/config.yml
     networks:
       - prusa
 
-  buddy:
-    image: pubeldev/buddy-prometheus-exporter:latest
-    container_name: buddy
+  exporter:
+    image: pubeldev/prusa_exporter:latest
+    container_name: exporter
     environment:
-      - BUDDY_EXPORTER_PORT=10009
-      - BUDDY_EXPORTER_SCRAPE_TIMEOUT=1
-      #- BUDDY_EXPORTER_CONFIG=/etc/buddy-prometheus-exporter/buddy.yaml
+      - PRUSA_EXPORTER_PORT=10009
+      - PRUSA_EXPORTER_SCRAPE_TIMEOUT=1
+      #- PRUSA_EXPORTER_CONFIG=/etc/prusa_exporter/prusa.yaml
     volumes:
       - type: bind
-        source: ./config/buddy.yaml
-        target: /app/buddy.yaml
+        source: ./docs/examples/config/on_premise/prusa.yaml
+        target: /app/prusa.yaml
     ports:
       - "10009:10009"
     networks:
