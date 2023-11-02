@@ -5,8 +5,8 @@ name: ci
 
 on:
   push:
-    branches:
-      - rename
+    tags:
+      - v*.**.**
 
 jobs:
 
