@@ -1,0 +1,25 @@
+exporter:
+  metrics_port: 10009 # exporter port
+  scrape_timeout: 1 # scrape timeout of Prusa Link
+  reload_interval: 300 # interval in seconds for config reloader
+  log_level: info
+printers:
+  buddy:
+  - address: <address_of_printer>
+    name: <your_printer_name>
+    type: mini
+    apikey: <your_printer_apikey>
+  - address: <address_of_printer>
+    username: maker # I'm not aware that there is posibility to change user name in XL or MK4 printers - default is maker
+    pass: <password>
+    name: <your_printer_name>
+    type: <mk4 or xl>
+  einsy:
+  - address: <address_of_printer>
+    apikey: <your_printer_apikey> # you need to generate api key in printer settings
+    name: <your_printer_name>
+    type: <mk2.5 or mk3>
+  legacy:
+  - address: <address_of_printer>
+    name: <your_printer_name>
+    type: mini
