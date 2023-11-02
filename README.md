@@ -12,7 +12,7 @@ For Mk3s with Einsy board you need to use version 0.7.0rc3 of Prusa Link or high
 - [How to install prusa exporter](#how-to-install-prusa-exporter)
   * [Docker Compose](#docker-compose)
     + [Config](#config)
-      - [prusa.yaml](#prusayaml)
+      - [prusa.yml](#prusayaml)
       - [prometheus.yml](#prometheusyml)
       - [promtail.yml](#promtailyml)
     + [Starting](#starting)
@@ -23,7 +23,7 @@ For Mk3s with Einsy board you need to use version 0.7.0rc3 of Prusa Link or high
 
 ## Where to find prusa exporter
 
-Prusa exporter runs on port 10009, but you can choose different port in `prusa.yaml`. Metrics are accessible at `/metrics` endpoint.
+Prusa exporter runs on port 10009, but you can choose different port in `prusa.yml`. Metrics are accessible at `/metrics` endpoint.
 
 ## Roadmap
 
@@ -54,9 +54,9 @@ Please take a look at the [sample configuration examples](docs/examples/config) 
 I also prepared a configuration for on-premise Prometheus and Loki if you do not want to use Cloud solution and you want to have your data somewhere local. You can find these [on-premise configs](docs/examples/config/on_premise) in the on_premise subfolder.  
 
 
-##### prusa.yaml
+##### prusa.yml
 
-Prusa exporter loads [prusa.yaml](docs/examples/config/prusa.yaml) from an environment variable called `$PRUSA_EXPORTER_CONFIG`. If you put this file in the same folder where prusa exporter is located then simply set it to `prusa.yaml`. Prusa exporter has implemented a config reloader that runs by default every 300 seconds (5 minutes).
+Prusa exporter loads [prusa.yml](docs/examples/config/prusa.yml) from an environment variable called `$PRUSA_EXPORTER_CONFIG`. If you put this file in the same folder where prusa exporter is located then simply set it to `prusa.yml`. Prusa exporter has implemented a config reloader that runs by default every 300 seconds (5 minutes).
 
 You will find two sections in the config file, `exporter` and `printers`.
 

@@ -59,11 +59,11 @@ services:
     environment:
       - PRUSA_EXPORTER_PORT=10009
       - PRUSA_EXPORTER_SCRAPE_TIMEOUT=1
-      #- PRUSA_EXPORTER_CONFIG=/etc/prusa_exporter/prusa.yaml
+      #- PRUSA_EXPORTER_CONFIG=/etc/prusa_exporter/prusa.yml
     volumes:
       - type: bind
-        source: ./docs/examples/config/on_premise/prusa.yaml
-        target: /app/prusa.yaml
+        source: ./docs/examples/config/on_premise/prusa.yml
+        target: /app/prusa.yml
     ports:
       - "10009:10009"
     networks:

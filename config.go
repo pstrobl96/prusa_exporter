@@ -87,7 +87,7 @@ func getConfigPath() string {
 			fmt.Println(e)
 			os.Exit(1)
 		}
-		cfgFile = pwd + "/prusa.yaml"
+		cfgFile = pwd + "/prusa.yml"
 	}
 
 	return cfgFile

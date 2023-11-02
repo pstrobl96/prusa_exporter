@@ -59,8 +59,8 @@ services:
     container_name: exporter
     volumes:
       - type: bind
-        source: ./docs/examples/config/on_premise/prusa.yaml
-        target: /app/prusa.yaml
+        source: ./docs/examples/config/on_premise/prusa.yml
+        target: /app/prusa.yml
     ports:
       - "10009:10009"
     networks:
