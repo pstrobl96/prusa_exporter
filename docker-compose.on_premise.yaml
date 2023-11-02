@@ -30,7 +30,7 @@ services:
     container_name: prometheus
     restart: unless-stopped
     volumes:
-      - ./examples/config/on_premise/prometheus.yaml:/etc/prometheus/prometheus.yml
+      - ./docs/examples/config/on_premise/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -48,7 +48,7 @@ services:
     image: grafana/promtail:2.8.0
     container_name: promtail
     volumes:
-      - ./examples/config/on_premise/promtail.yaml:/etc/promtail/config.yml
+      - ./docs/examples/config/on_premise/promtail.yaml:/etc/promtail/config.yml
       - /var/log:/var/log
     command: -config.file=/etc/promtail/config.yml
     networks:
@@ -59,7 +59,7 @@ services:
     container_name: exporter
     volumes:
       - type: bind
-        source: ./examples/config/on_premise/prusa.yaml
+        source: ./docs/examples/config/on_premise/prusa.yaml
         target: /app/prusa.yaml
     ports:
       - "10009:10009"
@@ -80,7 +80,7 @@ services:
     ports:
       - "3100:3100"
     volumes:
-      - ./examples/config/on_premise/loki.yaml:/etc/loki/local-config.yaml
+      - ./docs/examples/config/on_premise/loki.yaml:/etc/loki/local-config.yaml
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - prusa
