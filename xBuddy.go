@@ -53,8 +53,8 @@ func newBuddyCollector() *buddyCollector {
 			"Current height of Z",
 			defaultLabels,
 			nil),
-		printerPrintSpeed: prometheus.NewDesc("prusa_buddy_print_speed",
-			"Current setting of printer speed in percents (%)",
+		printerPrintSpeed: prometheus.NewDesc("prusa_buddy_print_speed_ratio",
+			"Current setting of printer speed in ratio (0.0-1.0)",
 			defaultLabels,
 			nil),
 		printerTargetTempNozzle: prometheus.NewDesc("prusa_buddy_nozzle_target_temperature",
@@ -113,8 +113,8 @@ func newBuddyCollector() *buddyCollector {
 			"Returns information about position of axis Z.",
 			defaultLabels,
 			nil),
-		printerFlow: prometheus.NewDesc("prusa_buddy_print_flow",
-			"Returns information about of filament flow.",
+		printerFlow: prometheus.NewDesc("prusa_buddy_print_flow_ratio",
+			"Returns information about of filament flow in ratio (0.0 - 1.0).",
 			defaultLabels,
 			nil),
 		printerInfo: prometheus.NewDesc("prusa_buddy_info",
@@ -231,7 +231,7 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 					job.Progress.Completion, getLabels(s, job)...)
 
 				printSpeed := prometheus.MustNewConstMetric(collector.printerPrintSpeed, prometheus.GaugeValue,
-					float64(printer.Telemetry.PrintSpeed), getLabels(s, job)...)
+					float64(printer.Telemetry.PrintSpeed)/100, getLabels(s, job)...)
 
 				printTimeRemaining := prometheus.MustNewConstMetric(collector.printerPrintTimeRemaining, prometheus.GaugeValue,
 					float64(job.Progress.PrintTimeLeft), getLabels(s, job)...)
@@ -283,7 +283,7 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 					status.Printer.AxisZ, getLabels(s, job)...)
 
 				printerFlow := prometheus.MustNewConstMetric(collector.printerFlow, prometheus.GaugeValue,
-					float64(status.Printer.Flow), getLabels(s, job)...)
+					float64(status.Printer.Flow)/100, getLabels(s, job)...)
 
 				printerInfo := prometheus.MustNewConstMetric(collector.printerInfo, prometheus.GaugeValue,
 					1, getLabels(s, job, info.Serial, info.Hostname)...)
