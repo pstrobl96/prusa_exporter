@@ -44,30 +44,30 @@ jobs:
     - name: Run tests
       run: go test -race -vet=off ./...
 
-  build:
-    needs: audit
-    runs-on: ubuntu-22.04
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.21.0'
-        check-latest: true
-        architecture: x64
-
-    - name: Install dependencies
-      run: go get .
-
-    - name: Verify dependencies
-      run: go mod verify
-
-    - name: Build
-      run: go build -v ./...
+#  build:
+#    needs: audit
+#    runs-on: ubuntu-22.04
+#    steps:
+#    - uses: actions/checkout@v3
+#
+#    - name: Set up Go
+#      uses: actions/setup-go@v4
+#      with:
+#        go-version: '1.21.0'
+#        check-latest: true
+#        architecture: x64
+#
+#    - name: Install dependencies
+#      run: go get .
+#
+#    - name: Verify dependencies
+#      run: go mod verify
+#
+#    - name: Build
+#      run: go build -v ./...
   
   docker-image:
-    needs: build
+    needs: audit
     name: create docker image
     runs-on: ubuntu-latest
     steps:
