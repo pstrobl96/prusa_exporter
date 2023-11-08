@@ -2,17 +2,18 @@
 
 # Prusa Exporter - formerly Buddy Link Prometheus Exporter
 
-This is an implementation of Prometheus Exporter for Prusa printers running Buddy boards (Prusa Mk4, XL, and Mini) or Einsy boards (Prusa Mk3s with Prusa Link installed). Multi-target is supported so you can check any number of printers as long it has accessible Prusa Link API. This works even for the old Prusa Connect Local.
+This is an implementation of Prometheus Exporter for Prusa printers running Buddy boards (Prusa MK4, XL, and Mini) or Einsy boards (Prusa MK3(S(+)) with Prusa Link installed). Multi-target is supported so you can check any number of printers as long it has accessible Prusa Link API. This works even for the old Prusa Connect Local.
 
-For Mk3s with Einsy board you need to use version 0.7.0rc3 of Prusa Link or higher, because there are many more metrics to scrape than in the older versions. You can find the most up to date version in the [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/releases).
+For Mk3s with Einsy board you need to use at least version 0.7.0rc3 of Prusa Link or higher, because there are many more metrics to scrape than in the older versions. You can find the most up to date version in the [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/releases).
 
 - [Where to find prusa exporter](#where-to-find-prusa-exporter)
 - [Roadmap](#roadmap)
 - [Environment variables](#environment-variables)
 - [How to install prusa exporter](#how-to-install-prusa-exporter)
+  * [Git Clone](#git-clone)
   * [Docker Compose](#docker-compose)
     + [Config](#config)
-      - [prusa.yml](#prusayaml)
+      - [prusa.yml](#prusayml)
       - [prometheus.yml](#prometheusyml)
       - [promtail.yml](#promtailyml)
     + [Starting](#starting)
@@ -32,16 +33,19 @@ This list contains current and future features along with completion status:
 - [x] Scrape of metrics from [Prusa Link](https://github.com/prusa3d/Prusa-Link/tree/0.7.0rc3)
 - [x] Use of Grafana Cloud
 - [x] CI pipeline with Docker Hub publish
-- [ ] Local instance of Grafana / Prometheus / Loki
+- [x] Local instance of Grafana / Prometheus / Loki
 - [ ] Raspberry Pi Image
 - [ ] Odroid C4 Image
-- [ ] [Helm chart](#20) for K8s
-- [ ] Camera image [logging](#18)
 - [ ] Implementation with [exporter-toolkit](#22)
 - [ ] Support for [connection](#21) to Einsy with username and password
-- [ ] Show printed [gcode](#19) in dashboard
 
 ## How to install prusa exporter
+
+### Git Clone
+
+First things first. You need to clone the repo and that which is very easy, right?
+
+`git clone https://github.com/prusa3d/Prusa-Firmware-Buddy.git`
 
 ### Docker Compose
 
@@ -116,8 +120,8 @@ In [prometheus.yml](docs/examples/config/prometheus.yml) you need to change the 
 remote_write:
 - url: https://prometheus-prod-01-eu-west-0.grafana.net/api/prom/push
   basic_auth:
-    username: "userName"
-    password: "apiKey"
+    username: userName
+    password: apiKey
 ```
 
 ##### promtail.yml
@@ -165,52 +169,4 @@ I also prepared one dashboard per board which you can find in the [docs/examples
 
 ## Metrics example
 
-```
-prusa_buddy_axis_x{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} -8.1 
-
-prusa_buddy_axis_y{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} -9.1 
-
-prusa_buddy_axis_z{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} -1 
-
-prusa_buddy_bed_target_temperature{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 0 
-
-prusa_buddy_bed_temperature{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 21.3 
-
-prusa_buddy_fan_hotend{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 0 
-
-prusa_buddy_fan_print{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 0 
-
-prusa_buddy_files{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer",printer_storage="USB"} 5 
-
-prusa_buddy_info{printer_address="192.168.0.2",printer_hostname="PrusaMK4",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer",printer_serial="10101-07117692302090107"} 1 
-
-prusa_buddy_material{printer_address="192.168.0.2",printer_filament="PETG",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 1 
-
-prusa_buddy_mmu{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 0 
-
-prusa_buddy_nozzle_size{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 0.4 
-
-prusa_buddy_nozzle_target_temperature{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 0 
-
-prusa_buddy_nozzle_temperature{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 23 
-
-prusa_buddy_print_flow{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 100 
-
-prusa_buddy_print_speed{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 100 
-
-prusa_buddy_print_time{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 0 
-
-prusa_buddy_printing{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 0 
-
-prusa_buddy_printing_progress{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 0 
-
-prusa_buddy_printing_time_remaining{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} 0 
-
-prusa_buddy_status{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer",printer_state="IDLE"} 1
-
-prusa_buddy_up{printer_address="192.168.0.2",printer_model="",printer_name="test_printer"} 1
-
-prusa_buddy_version{printer_address="192.168.0.2",printer_api="2.0.0",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer",printer_server="2.1.2",printer_text="PrusaLink"} 1
-
-prusa_buddy_z_height{printer_address="192.168.0.2",printer_job_name="",printer_job_path="",printer_model="",printer_name="test_printer"} -1
-```
+Example how metrics looks can be found in ![this](docs/examples/metrics_example.md) file.
