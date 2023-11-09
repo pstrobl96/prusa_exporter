@@ -1,0 +1,8 @@
+name: rpi
+
+on:
+  push:
+    tags:
+      - v*.**
+
+jobs: # TODO
