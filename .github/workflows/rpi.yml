@@ -20,8 +20,10 @@ jobs:
           apt-get install -y curl apt-utils
           curl -sSL https://get.docker.com | sh
           apt-get install docker-compose-plugin
-          systemctl enable docker
-          systemctl start docker
+          crontab -l > crontab_new 
+          echo '@reboot /opt/prusa_exporter/first_run.sh' >> crontab_new
+          crontab crontab_new
+          rm crontab_new
           CHROOT
 
           cd /boot
@@ -31,8 +33,19 @@ jobs:
           mkdir /opt/prusa_exporter
           cd /opt/prusa_exporter
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docker-compose.rpi-cloud.yaml -o docker-compose.yaml
+          
+          touch first-run.sh
 
+          first-run.sh <<-RUN
+          #!/bin/bash
+          systemctl enable docker
+          systemctl start docker
+          cd /opt/prusa_exporter
           docker compose -d up
+          rm /opt/prusa_exporter/first_run.sh          
+          RUN
+
+          chmod +x first-run.sh
 
           EOF
           } && 
