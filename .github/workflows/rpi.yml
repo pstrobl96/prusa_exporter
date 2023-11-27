@@ -15,7 +15,7 @@ jobs:
           cat > exporter-stage/package-exporter/00-run.sh <<-EOF
           #!/bin/bash -e
           
-          on_chroot << EOF
+          on_chroot <<EOF
           apt-get update
           apt-get install -y curl apt-utils
           curl -sSL https://get.docker.com | sh
