@@ -21,11 +21,11 @@ jobs:
           systemctl enable docker
           systemctl start docker
           cd /boot
-          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/main/docs/examples/config/grafana_cloud/prusa.yml -o prusa.yml
-          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/main/docs/examples/config/grafana_cloud/agent.yaml -o agent.yaml
+          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/prusa.yml -o prusa.yml
+          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/agent.yaml -o agent.yaml
           mkdir /opt/prusa_exporter
           cd /opt/prusa_exporter
-          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/main/docker-compose.rpi-cloud.yaml -o docker-compose.yaml
+          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docker-compose.rpi-cloud.yaml -o docker-compose.yaml
           docker compose -d up
           EOF
           } &&
