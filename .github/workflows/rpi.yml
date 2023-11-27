@@ -12,25 +12,32 @@ jobs:
       - run: |
           mkdir -p exporter-stage/package-exporter &&
           {
-          cat > exporter-stage/package-exporter/00-run-chroot.sh <<-EOF
-          #!/bin/bash
+          cat > exporter-stage/package-exporter/00-run.sh <<-EOF
+          #!/bin/bash -e
+          
+          on_chroot << EOF
           apt-get update
-          apt-get install -y curl
+          apt-get install -y curl apt-utils
           curl -sSL https://get.docker.com | sh
           apt-get install docker-compose-plugin
           systemctl enable docker
           systemctl start docker
+          EOF
+
           cd /boot
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/prusa.yml -o prusa.yml
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/agent.yaml -o agent.yaml
+
           mkdir /opt/prusa_exporter
           cd /opt/prusa_exporter
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docker-compose.rpi-cloud.yaml -o docker-compose.yaml
-          docker compose -d up
-          EOF
-          } &&
-          chmod +x exporter-stage/package-exporter/00-run-chroot.sh
 
+          docker compose -d up
+
+          EOF
+          } && 
+          chmod +x exporter-stage/package-exporter/00-run.sh
+           
       - uses: usimd/pi-gen-action@v1
         id: build
         with:
@@ -39,7 +46,7 @@ jobs:
           image-name: prusa_exporter-image
           stage-list: stage0 stage1 stage2 ./exporter-stage
       
-      - uses: actions/upload-artifact@v3
-        with:
-          name: pi-gen-image
-          path: ${{ steps.build.outputs.image-path }}
+      #- uses: actions/upload-artifact@v3
+      #  with:
+      #    name: pi-gen-image
+      #    path: ${{ steps.build.outputs.image-path }}
