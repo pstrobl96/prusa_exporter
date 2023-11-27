@@ -15,14 +15,14 @@ jobs:
           cat > exporter-stage/package-exporter/00-run.sh <<-EOF
           #!/bin/bash -e
           
-          on_chroot <<EOF
+          on_chroot <<-CHROOT
           apt-get update
           apt-get install -y curl apt-utils
           curl -sSL https://get.docker.com | sh
           apt-get install docker-compose-plugin
           systemctl enable docker
           systemctl start docker
-          EOF
+          CHROOT
 
           cd /boot
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/prusa.yml -o prusa.yml
