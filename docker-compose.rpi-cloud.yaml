@@ -1,0 +1,37 @@
+version: "3"
+
+networks:
+  prusa:
+
+services:
+  exporter:
+    image: pubeldev/prusa_exporter:latest
+    container_name: exporter
+    volumes:
+      - type: bind
+        source: ./docs/examples/config/grafana_cloud/prusa.yml
+        #source: /boot/prusa.yml
+        target: /app/prusa.yml
+    ports:
+      - "10009:10009"
+    networks:
+      - prusa
+  agent:
+    image: grafana/agent:latest
+    volumes:
+      - type: bind
+        source: ./docs/examples/config/grafana_cloud/agent.yaml
+        #source: /boot/agent.yaml
+        target: /etc/agent-config/agent.yaml
+    entrypoint:
+      - /bin/grafana-agent
+      - -server.http.address=0.0.0.0:12345
+      - -config.file=/etc/agent-config/agent.yaml
+      - -metrics.wal-directory=/tmp/agent/wal
+    ports:
+      - "12345:12345"
+    networks:
+      - prusa
+    depends_on:
+      - exporter
+  
