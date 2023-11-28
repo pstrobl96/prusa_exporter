@@ -23,9 +23,7 @@ jobs:
           cd /opt/prusa_exporter
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docker-compose.rpi-cloud.yaml -o docker-compose.yaml
 
-
           on_chroot << CHROOT
-          curl -sSL https://get.docker.com | sh
           systemctl enable docker
           systemctl start docker
           cd /opt/prusa_exporter
@@ -44,7 +42,7 @@ jobs:
           EOF
           } &&
           chmod +x exporter-stage/prerun.sh &&
-          echo "apt-utils curl systemd" >  exporter-stage/package-exporter/01-packages
+          echo "apt-utils curl systemd docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-ce-rootless-extras docker-buildx-plugin" >  exporter-stage/package-exporter/01-packages
            
       - uses: usimd/pi-gen-action@v1
         id: build
