@@ -40,9 +40,9 @@ jobs:
             systemctl start docker
             cd /opt/prusa_exporter
             docker compose -d up
-            CHROOT
+          CHROOT
           EOF
-          
+
           } && chmod +x exporter-stage/package-exporter/02-run.sh 
            
       - uses: usimd/pi-gen-action@v1
