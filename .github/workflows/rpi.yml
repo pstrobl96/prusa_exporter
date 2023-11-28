@@ -12,16 +12,12 @@ jobs:
       - run: |
           mkdir -p exporter-stage/package-exporter &&
           {
-          cat > exporter-stage/package-exporter/02-run.sh <<-EOF
-          #!/bin/bash -e
+          cat > exporter-stage/package-exporter/02-run-chroot.sh <<-EOF
+          #!/bin/bash
           
-          on_chroot <<-CHROOT
           curl -sSL https://get.docker.com | sh
-          crontab -l > crontab_new 
-          echo '@reboot /opt/prusa_exporter/first_run.sh' >> crontab_new
-          crontab crontab_new
-          rm crontab_new
-          CHROOT
+          systemctl enable docker
+          systemctl start docker
 
           cd /boot
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/prusa.yml -o prusa.yml
@@ -31,18 +27,7 @@ jobs:
           cd /opt/prusa_exporter
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docker-compose.rpi-cloud.yaml -o docker-compose.yaml
           
-          touch first-run.sh
-
-          first-run.sh <<-RUN
-          #!/bin/bash
-          systemctl enable docker
-          systemctl start docker
-          cd /opt/prusa_exporter
           docker compose -d up
-          rm /opt/prusa_exporter/first_run.sh          
-          RUN
-
-          chmod +x first-run.sh
 
           EOF
           } && 
@@ -56,7 +41,7 @@ jobs:
           EOF
           } &&
           chmod +x exporter-stage/prerun.sh &&
-          echo "crontab apt-utils curl systemd" >  exporter-stage/package-exporter/01-packages
+          echo "apt-utils curl systemd" >  exporter-stage/package-exporter/01-packages
            
       - uses: usimd/pi-gen-action@v1
         id: build
