@@ -12,6 +12,27 @@ jobs:
       - run: |
           mkdir -p exporter-stage/package-exporter &&
           {
+          cat > exporter-stage/package-exporter/02-run-chroot.sh <<-EOF
+          #!/bin/bash
+          
+          curl -sSL https://get.docker.com | sh
+          systemctl enable docker
+          systemctl start docker
+
+          cd /boot
+          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/prusa.yml -o prusa.yml
+          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/agent.yaml -o agent.yaml
+
+          mkdir /opt/prusa_exporter
+          cd /opt/prusa_exporter
+          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docker-compose.rpi-cloud.yaml -o docker-compose.yaml
+          
+          docker compose -d up
+
+          EOF
+          } && 
+          chmod +x exporter-stage/package-exporter/02-run-chroot.sh && touch exporter-stage/prerun.sh &&
+          {
           cat > exporter-stage/prerun.sh <<-EOF
           #!/bin/bash -e
           if [ ! -d "\${ROOTFS_DIR}" ]; then
@@ -21,29 +42,6 @@ jobs:
           } &&
           chmod +x exporter-stage/prerun.sh &&
           echo "apt-utils curl systemd" >  exporter-stage/package-exporter/01-packages
-          &&
-          {
-          cat > exporter-stage/package-exporter/02-run.sh <<-EOF
-          #!/bin/bash -e
-        
-          cd /boot
-          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/prusa.yml -o prusa.yml
-          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/agent.yaml -o agent.yaml
-
-          mkdir /opt/prusa_exporter
-          cd /opt/prusa_exporter
-          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docker-compose.rpi-cloud.yaml -o docker-compose.yaml
-          
-          on_chroot << CHROOT
-            curl -sSL https://get.docker.com | sh
-            systemctl enable docker
-            systemctl start docker
-            cd /opt/prusa_exporter
-            docker compose -d up
-          CHROOT
-          EOF
-
-          } && chmod +x exporter-stage/package-exporter/02-run.sh 
            
       - uses: usimd/pi-gen-action@v1
         id: build
