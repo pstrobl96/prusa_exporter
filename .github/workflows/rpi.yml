@@ -7,7 +7,7 @@ on:
 
 jobs: 
   pi-gen-exporter:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     steps:
       - run: |
           mkdir -p exporter-stage/package-exporter &&
