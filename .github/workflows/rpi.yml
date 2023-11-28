@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          mkdir -p exporter-stage/package-exporter &&
+          mkdir -p exporter-stage/00-install-packages &&
           {
           cat > exporter-stage/prerun.sh <<-EOF
           #!/bin/bash -e
