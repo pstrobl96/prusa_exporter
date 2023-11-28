@@ -12,42 +12,58 @@ jobs:
       - run: |
           mkdir -p exporter-stage/package-exporter &&
           {
-          cat > exporter-stage/package-exporter/02-run.sh <<-EOF
-          #!/bin/bash -e
-
-          cd /boot
-          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/prusa.yml -o prusa.yml
-          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/agent.yaml -o agent.yaml
-
-          mkdir /opt/prusa_exporter
-          cd /opt/prusa_exporter
-          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docker-compose.rpi-cloud.yaml -o docker-compose.yaml
-
-          on_chroot << CHROOT
-          systemctl enable docker
-          systemctl start docker
-          cd /opt/prusa_exporter
-          docker compose -d up
-          CHROOT
-
-          EOF
-          } && 
-          chmod +x exporter-stage/package-exporter/02-run.sh && touch exporter-stage/prerun.sh &&
-          {
           cat > exporter-stage/prerun.sh <<-EOF
           #!/bin/bash -e
-          if [ ! -d "\${ROOTFS_DIR}" ]; then
+
+          if [ ! -d "${ROOTFS_DIR}" ]; then
             copy_previous
           fi
           EOF
           } &&
           chmod +x exporter-stage/prerun.sh &&
-          echo "apt-utils curl systemd docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-ce-rootless-extras docker-buildx-plugin" >  exporter-stage/package-exporter/01-packages
+          {
+          cat > exporter-stage/firstrun.sh <<-EOF
+          #!/bin/bash -e
+
+          docker compose -f /opt/prusa_exporter/docker-compose.yaml up -d
+          EOF
+          } &&
+          chmod +x exporter-stage/first.sh &&
+          {
+          cat > exporter-stage/00-install-packages/00-packages <<-PCK
+          apt-utils
+          curl
+          apt-transport-https 
+          ca-certificates
+          gnupg
+          PCK
+          } && 
+          {
+          cat > exporter-stage/package-exporter/01-run.sh <<-RUN
+          #!/bin/bash -e
+
+          on_chroot << EOF
+          curl -fsSL https://get.docker.com -o get-docker.sh
+          sh ./get-docker.sh
+          systemctl enable docker
+          systemctl start docker
+
+          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/prusa.yml -o /boot/prusa.yml
+          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/agent.yaml -o /boot/agent.yaml
+
+          rm -rf /opt/prusa_exporter
+
+          mkdir /opt/prusa_exporter
+          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docker-compose.rpi-cloud.yaml -o /opt/prusa_exporter/docker-compose.yaml
+
+          EOF
+
+          RUN
+          } && chmod +x exporter-stage/package-exporter/01-run.sh 
            
       - uses: usimd/pi-gen-action@v1
         id: build
         with:
-          verbose-output: true
           hostname: prusa_pi
           image-name: prusa_exporter-image
           stage-list: stage0 stage1 stage2 ./exporter-stage

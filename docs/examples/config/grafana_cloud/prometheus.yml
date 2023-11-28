@@ -30,10 +30,10 @@ scrape_configs:
       - targets: ["node-exporter:9100"]
 
 remote_write:
-- url: https://prometheus-prod-01-eu-west-0.grafana.net/api/prom/push
+- url: <YOUR CLOUD URL>
   basic_auth:
-    username: "userName"
-    password: "apiKey"
+    username: "1273787"
+    password: "glc_eyJvIjoiOTgzNzQyIiwibiI6InN0YWNrLTc4Mjk0My1obS1yZWFkLXRlc3R0ZXN0IiwiayI6ImExOGJwczduUjFzVFIxdjN0MWRFMTQ5aCIsIm0iOnsiciI6InByb2QtZXUtd2VzdC0yIn19"
   queue_config:
     min_shards: 50
     retry_on_http_429: true
