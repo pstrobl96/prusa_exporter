@@ -28,7 +28,7 @@ jobs:
           docker compose -f /opt/prusa_exporter/docker-compose.yaml up -d
           EOF
           } &&
-          chmod +x exporter-stage/first.sh &&
+          chmod +x exporter-stage/firstrun.sh &&
           {
           cat > exporter-stage/00-install-packages/00-packages <<-PCK
           apt-utils
