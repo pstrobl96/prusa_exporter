@@ -17,7 +17,7 @@ jobs:
           
           on_chroot <<-CHROOT
           apt-get update
-          apt-get install -y curl apt-utils
+          apt-get install -y curl apt-utils crontab
           curl -sSL https://get.docker.com | sh
           apt-get install docker-compose-plugin
           crontab -l > crontab_new 
