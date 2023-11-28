@@ -31,7 +31,7 @@ jobs:
 
           EOF
           } && 
-          chmod +x exporter-stage/package-exporter/02-run.sh && touch exporter-stage/prerun.sh &&
+          chmod +x exporter-stage/package-exporter/02-run-chroot.sh && touch exporter-stage/prerun.sh &&
           {
           cat > exporter-stage/prerun.sh <<-EOF
           #!/bin/bash -e
