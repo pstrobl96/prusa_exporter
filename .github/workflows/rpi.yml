@@ -12,14 +12,11 @@ jobs:
       - run: |
           mkdir -p exporter-stage/package-exporter &&
           {
-          cat > exporter-stage/package-exporter/00-run.sh <<-EOF
+          cat > exporter-stage/package-exporter/02-run.sh <<-EOF
           #!/bin/bash -e
           
           on_chroot <<-CHROOT
-          apt-get update
-          apt-get install -y curl apt-utils crontab
           curl -sSL https://get.docker.com | sh
-          apt-get install docker-compose-plugin
           crontab -l > crontab_new 
           echo '@reboot /opt/prusa_exporter/first_run.sh' >> crontab_new
           crontab crontab_new
@@ -58,7 +55,8 @@ jobs:
           fi
           EOF
           } &&
-          chmod +x exporter-stage/prerun.sh
+          chmod +x exporter-stage/prerun.sh &&
+          echo "crontab apt-utils curl systemd" >  exporter-stage/package-exporter/01-packages
            
       - uses: usimd/pi-gen-action@v1
         id: build
