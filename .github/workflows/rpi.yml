@@ -12,12 +12,8 @@ jobs:
       - run: |
           mkdir -p exporter-stage/package-exporter &&
           {
-          cat > exporter-stage/package-exporter/02-run-chroot.sh <<-EOF
-          #!/bin/bash
-          
-          curl -sSL https://get.docker.com | sh
-          systemctl enable docker
-          systemctl start docker
+          cat > exporter-stage/package-exporter/02-run.sh <<-EOF
+          #!/bin/bash -e
 
           cd /boot
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/prusa.yml -o prusa.yml
@@ -26,12 +22,19 @@ jobs:
           mkdir /opt/prusa_exporter
           cd /opt/prusa_exporter
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docker-compose.rpi-cloud.yaml -o docker-compose.yaml
-          
+
+
+          on_chroot << CHROOT
+          curl -sSL https://get.docker.com | sh
+          systemctl enable docker
+          systemctl start docker
+          cd /opt/prusa_exporter
           docker compose -d up
+          CHROOT
 
           EOF
           } && 
-          chmod +x exporter-stage/package-exporter/02-run-chroot.sh && touch exporter-stage/prerun.sh &&
+          chmod +x exporter-stage/package-exporter/02-run.sh && touch exporter-stage/prerun.sh &&
           {
           cat > exporter-stage/prerun.sh <<-EOF
           #!/bin/bash -e
