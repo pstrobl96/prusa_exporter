@@ -39,7 +39,7 @@ jobs:
           PCK
           } && 
           {
-          cat > exporter-stage/package-exporter/01-run.sh <<-RUN
+          cat > exporter-stage/00-install-packages/01-run.sh <<-RUN
           #!/bin/bash -e
 
           on_chroot << EOF
@@ -59,7 +59,7 @@ jobs:
           EOF
 
           RUN
-          } && chmod +x exporter-stage/package-exporter/01-run.sh 
+          } && chmod +x exporter-stage/00-install-packages/01-run.sh 
            
       - uses: usimd/pi-gen-action@v1
         id: build
