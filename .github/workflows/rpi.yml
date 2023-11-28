@@ -49,7 +49,16 @@ jobs:
 
           EOF
           } && 
-          chmod +x exporter-stage/package-exporter/00-run.sh
+          chmod +x exporter-stage/package-exporter/00-run.sh &&
+          {
+          cat > test-stage/prerun.sh <<-EOF
+          #!/bin/bash -e
+          if [ ! -d "\${ROOTFS_DIR}" ]; then
+            copy_previous
+          fi
+          EOF
+          } &&
+          chmod +x exporter-stage/prerun.sh
            
       - uses: usimd/pi-gen-action@v1
         id: build
