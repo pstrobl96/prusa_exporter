@@ -2,6 +2,8 @@ name: rpi
 
 on:
   push:
+    tags:
+      - v*.**
     branches:
       - features/rpi-image 
 

@@ -9,8 +9,7 @@ services:
     container_name: exporter
     volumes:
       - type: bind
-        source: ./docs/examples/config/grafana_cloud/prusa.yml
-        #source: /boot/prusa.yml
+        source: /boot/prusa.yml
         target: /app/prusa.yml
     ports:
       - "10009:10009"
@@ -20,8 +19,7 @@ services:
     image: grafana/agent:latest
     volumes:
       - type: bind
-        source: ./docs/examples/config/grafana_cloud/agent.yaml
-        #source: /boot/agent.yaml
+        source: /boot/agent.yaml
         target: /etc/agent-config/agent.yaml
     entrypoint:
       - /bin/grafana-agent
