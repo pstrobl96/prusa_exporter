@@ -70,7 +70,7 @@ jobs:
           image-name: prusa_exporter-image
           stage-list: stage0 stage1 stage2 ./exporter-stage
       
-      #- uses: actions/upload-artifact@v3
-      #  with:
-      #    name: pi-gen-image
-      #    path: ${{ steps.build.outputs.image-path }}
+      - uses: actions/upload-artifact@v3
+        with:
+          name: pi-gen-image
+          path: ${{ steps.build.outputs.image-path }}
