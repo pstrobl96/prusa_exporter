@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
     volumes:
       - type: bind
-        source: /boot/prusa.yml
+        source: /boot/firmware/prusa.yml
         target: /app/prusa.yml
     ports:
       - "10009:10009"
@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
     volumes:
       - type: bind
-        source: /boot/agent.yaml
+        source: /boot/firmware/agent.yaml
         target: /etc/agent-config/agent.yaml
     entrypoint:
       - /bin/grafana-agent
