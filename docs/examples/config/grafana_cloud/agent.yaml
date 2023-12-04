@@ -1,5 +1,5 @@
 ###
-# Minimal setup for Grafana Agent scrape and remote write to Grafna Cloud. 
+# Minimal setup for Grafana Agent scrape and remote write to Grafana Cloud. 
 ###
 
 server:
