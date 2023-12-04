@@ -7,6 +7,7 @@ services:
   exporter:
     image: pubeldev/prusa_exporter:latest
     container_name: exporter
+    restart: unless-stopped
     volumes:
       - type: bind
         source: /boot/prusa.yml
@@ -17,6 +18,8 @@ services:
       - prusa
   agent:
     image: grafana/agent:latest
+    container_name: grafana_agent
+    restart: unless-stopped
     volumes:
       - type: bind
         source: /boot/agent.yaml
