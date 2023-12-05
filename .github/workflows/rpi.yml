@@ -24,14 +24,6 @@ jobs:
           } &&
           chmod +x exporter-stage/prerun.sh &&
           {
-          cat > exporter-stage/firstrun.sh <<-EOF
-          #!/bin/bash -e
-
-          docker compose -f /opt/prusa_exporter/docker-compose.yaml up -d
-          EOF
-          } &&
-          chmod +x exporter-stage/firstrun.sh &&
-          {
           cat > exporter-stage/00-install-packages/00-packages <<-PCK
           apt-utils
           curl
