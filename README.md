@@ -51,6 +51,65 @@ First things first. You need to clone the repo and that which is very easy, righ
 
 I've created docker-compose.yaml file, that can be used for deploy of exporter. You would need [Docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/linux/) plugin installed. Right now it is possible to use `docker compose up` only with Linux because I do not build image for Linux.
 
+### Raspberry Pi
+
+I also created Raspberry Pi image that can be flashed to memory card. If you choose this path you'll need following.
+
+- Raspberry Pi (*4 and 5 tested*) with 64 bit support
+- At least *Class 10* and at least *16 gigs* Memory card 
+
+Of course all other accessories like computer, card reader, power supply etc. are mandatory. 
+
+#### Downloading image 
+
+Download image from [releases page](https://github.com/pstrobl96/prusa_exporter/releases) or alternatively you can choose CI pipeline run and download particular artifact. After downloading the *zip* file extract the image to your favorite folder. You'll get image_{date_of_build}-prusa_exporter-image.img.xz file that you need to flash to your memory card.
+
+#### Raspberry Pi Imager
+
+[Download](https://www.raspberrypi.com/software/) and install Raspberry Pi Imager. You can alternatively use different tool but rpi-imager is easiest in terms of settings. 
+
+![rpiimager0](docs/readme/rpiimager0.png)
+
+After installing open the Raspberry Pi Imager. **Don't** click `Choose Device` instead of that click on `Choose OS`. Scroll down, you'll find `Use Custom`. Select downloaded image.
+
+![rpiimager1](docs/readme/rpiimager1.png)
+
+![rpiimager2](docs/readme/rpiimager2.png)
+
+Now connect memory card to your computer and click `Choose Storage`. **BEWARE** - you can mistakenly choose wrong storage media and flashing process includes formating your drive. Now select your Raspberry Pi memory card. Now click `Next`.
+
+![rpiimager3](docs/readme/rpiimager3.png)
+
+Now it depends if you want to connect via LAN or WiFi.
+
+##### WiFi
+
+If you want to use wireless ethernet, then click at `Edit Settings`. Click at `Configure wireless LAN` and write your WiFi name (SSID) and password. Don't forget to select correct Wireless LAN country. Next be sure that `Eject media when finished` is **unchecked** . Click `Save` and after that click on `Yes`. If you are sure that all content of your memory card would be erased, click `Yes`.
+
+![rpiimager4](docs/readme/rpiimager4.png)
+
+![rpiimager7](docs/readme/rpiimager7.png)
+
+![rpiimager6](docs/readme/rpiimager6.png)
+
+##### LAN
+
+If you want to use wired ethernet, then click at `Edit Settings`, click `Options` and be sure that `Eject media when finished` is **unchecked** . Click `Save` and after that click on `Yes`. If you are sure that all content of your memory card would be erased, click `Yes`.
+
+![rpiimager7](docs/readme/rpiimager7.png)
+
+![rpiimager6](docs/readme/rpiimager6.png)
+
+#### Flashing
+
+Now wait for the Raspberry Pi Imager to complete the flash process.
+
+#### Config
+
+Now we need to configure *Grafana Agent* and *prusa_exporter*. After flashing you should see new partition connected to system, can be called `boot` or `bootfs`. In Windows you'll get also letter of partition, nowadays most probably `D:` - can varies. If you don't see new partition. Eject memory card from the system and reconnect it. 
+
+In boot partition you'll find two files agent.yaml and prusa.yml. Configuration is mentioned in next part of README.
+
 #### Config
 
 Please take a look at the [sample configuration examples](docs/examples/config) for prusa exporter, Prometheus, and Promtail. You will need to change few things to get it up and running. Of course you can change everything you want. If you are using Grafana Cloud, you can find your API key at [grafana.com](https://grafana.com/) -> My Account -> Grafana Cloud instance -> Send Metrics / Send Logs.
@@ -74,7 +133,8 @@ exporter:
   log_level: info
 ```
 
-`metrics_port`: you can set whatever you want. It is the port where Prometheus would scrape metrics endpoint. **Required**
+`metrics_port`: you can set whatever you want. It is the p![dashboard](docs/examples/grafana/overview.png)
+ort where Prometheus would scrape metrics endpoint. **Required**
 `scrape_timeout`: Value in seconds that implies timeout of scraping Prusa Link devices. Not necessary needed for Einsy but needed for Buddy becuase printer sometimes do not return values. **Required**
 `reload_inteval`: Because feature of config reloading is implemeneted, you need to specify interval of reloading. **Required**
 `log_level`: log level of logger, default is info. **Optional**
@@ -142,7 +202,8 @@ clients:
 Starting of exporter is simple. Just change directory to where docker-compose.yaml and configs are and run following command.
 
 ```
-docker compose up
+docker compose up![dashboard](docs/examples/grafana/overview.png)
+
 ```
 
 :tada: if everthing went alright your instance is up and running and you can find metrics at [/metrics](http://localhost:10009/metrics) endpoint.
