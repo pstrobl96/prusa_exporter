@@ -34,7 +34,7 @@ This list contains current and future features along with completion status:
 - [x] Use of Grafana Cloud
 - [x] CI pipeline with Docker Hub publish
 - [x] Local instance of Grafana / Prometheus / Loki
-- [ ] Raspberry Pi Image
+- [x] Raspberry Pi Image
 - [ ] Odroid C4 Image
 - [ ] Implementation with [exporter-toolkit](#22)
 - [ ] Support for [connection](#21) to Einsy with username and password
@@ -108,14 +108,13 @@ Now wait for the Raspberry Pi Imager to complete the flash process.
 
 Now we need to configure *Grafana Agent* and *prusa_exporter*. After flashing you should see new partition connected to system, can be called `boot` or `bootfs`. In Windows you'll get also letter of partition, nowadays most probably `D:` - can varies. If you don't see new partition. Eject memory card from the system and reconnect it. 
 
-In boot partition you'll find two files agent.yaml and prusa.yml. Configuration is mentioned in next part of README.
+In boot partition you'll find two files `agent.yaml` and `prusa.yml`. Configuration is mentioned in next part of README.
 
 #### Config
 
 Please take a look at the [sample configuration examples](docs/examples/config) for prusa exporter, Prometheus, and Promtail. You will need to change few things to get it up and running. Of course you can change everything you want. If you are using Grafana Cloud, you can find your API key at [grafana.com](https://grafana.com/) -> My Account -> Grafana Cloud instance -> Send Metrics / Send Logs.
 
 I also prepared a configuration for on-premise Prometheus and Loki if you do not want to use Cloud solution and you want to have your data somewhere local. You can find these [on-premise configs](docs/examples/config/on_premise) in the on_premise subfolder.  
-
 
 ##### prusa.yml
 
@@ -133,8 +132,7 @@ exporter:
   log_level: info
 ```
 
-`metrics_port`: you can set whatever you want. It is the p![dashboard](docs/examples/grafana/overview.png)
-ort where Prometheus would scrape metrics endpoint. **Required**
+`metrics_port`: you can set whatever you want. It is the port where Prometheus would scrape metrics endpoint. **Required**
 `scrape_timeout`: Value in seconds that implies timeout of scraping Prusa Link devices. Not necessary needed for Einsy but needed for Buddy becuase printer sometimes do not return values. **Required**
 `reload_inteval`: Because feature of config reloading is implemeneted, you need to specify interval of reloading. **Required**
 `log_level`: log level of logger, default is info. **Optional**
@@ -217,7 +215,7 @@ clients:
 Starting of exporter is simple. Just change directory to where docker-compose.yaml and configs are and run following command.
 
 ```
-docker compose up![dashboard](docs/examples/grafana/overview.png)
+docker compose up
 
 ```
 
