@@ -58,8 +58,7 @@ jobs:
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docker-compose.rpi-cloud.yaml -o /opt/prusa_exporter/docker-compose.yaml
 
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/services/prusa-exporter-docker.service -o /etc/systemd/system/prusa-exporter.service
-          systemctl daemon-reload
-          systemctl enable prusa_exporter
+          systemctl enable prusa-exporter
 
           EOF
 
