@@ -61,12 +61,6 @@ jobs:
         id: build
         with:
           hostname: prusa_pi
-          username: jo
-          password: originalraspberry
-          keyboard-keymap: us
-          keyboard-layout: English (US)
-          locale: en_US.UTF-8
-          timezone: Europe/Prague
           compression-level: 9
           compression: xz
           image-name: prusa_exporter-image
