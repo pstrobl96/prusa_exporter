@@ -8,7 +8,7 @@ on:
       - features/rpi-image 
 
 jobs: 
-  pi-gen-exporter:
+  image-creation:
     runs-on: ubuntu-latest
     steps:
       - run: |
@@ -69,6 +69,14 @@ jobs:
         id: build
         with:
           hostname: prusa_pi
+          username: jo
+          password: originalraspberry
+          keyboard-keymap: us
+          keyboard-layout: English (US)
+          locale: en_US.UTF-8
+          timezone: Europe/Prague
+          compression-level: 9
+          compression: xz
           image-name: prusa_exporter-image
           stage-list: stage0 stage1 stage2 ./exporter-stage
       
