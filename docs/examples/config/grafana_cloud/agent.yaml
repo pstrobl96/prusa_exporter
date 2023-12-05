@@ -1,7 +1,3 @@
-###
-# Minimal setup for Grafana Agent scrape and remote write to Grafana Cloud. 
-###
-
 server:
   log_level: info
 

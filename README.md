@@ -166,6 +166,21 @@ printers:
     type: mini **optional**
 ```
 
+##### agent.yml
+
+Grafana Agent is used in Raspberry Pi image and currently works only with Grafana Cloud - if you don't configure it different way. You need to change `url`, `username` and `password`. You can get these values in configuration of your Grafana Cloud. How you can find in [Grafana Cloud documentation](https://grafana.com/docs/grafana-cloud/send-data/metrics/metrics-prometheus/).
+
+```
+metrics:
+  global:
+    scrape_interval: 15s
+    remote_write:
+    - url: <YOUR CLOUD METRICS URL>
+      basic_auth:
+        username: "<YOUR CLOUD METRICS USERNAME>"
+        password: "<YOUR CLOUD METRICS PASSWORD>"
+```
+
 ##### prometheus.yml
 
 In [prometheus.yml](docs/examples/config/prometheus.yml) you need to change the `remote_write` section. This section is responsible for writing data to Grafana Cloud instance. You can get all values in config of your Grafana instance. You can get more information in [Grafana Docs](https://grafana.com/docs/grafana-cloud/data-configuration/metrics/metrics-prometheus/).
