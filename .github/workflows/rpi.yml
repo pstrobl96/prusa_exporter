@@ -48,7 +48,6 @@ jobs:
           curl -fsSL https://get.docker.com -o get-docker.sh
           sh ./get-docker.sh
           systemctl enable docker
-          systemctl start docker
 
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/prusa.yml -o /boot/firmware/prusa.yml
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/examples/config/grafana_cloud/agent.yaml -o /boot/firmware/agent.yaml
@@ -57,6 +56,10 @@ jobs:
 
           mkdir /opt/prusa_exporter
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docker-compose.rpi-cloud.yaml -o /opt/prusa_exporter/docker-compose.yaml
+
+          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/features/rpi-image/docs/services/prusa-exporter-docker.service -o /etc/systemd/system/prusa-exporter.service
+          systemctl daemon-reload
+          systemctl enable prusa_exporter
 
           EOF
 
