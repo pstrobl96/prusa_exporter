@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 	"os"
@@ -80,7 +81,9 @@ func loadConfigFile() {
 }
 
 func getConfigPath() string {
-	cfgFile := os.Getenv("PRUSA_EXPORTER_CONFIG")
+	var cfgFile string
+	flag.StringVar(&cfgFile, "config.file", "", "Path to prusa.yml config file") // later will use flag.Args
+	flag.Parse()
 	if cfgFile == "" {
 		pwd, e := os.Getwd()
 		if e != nil {

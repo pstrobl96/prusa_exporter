@@ -2,8 +2,6 @@
 
 FROM golang:1.20-alpine
 
-MAINTAINER Pavel Strobl "mail@pubel.dev"
-
 WORKDIR /app
 
 COPY go.mod ./
