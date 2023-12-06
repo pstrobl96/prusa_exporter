@@ -8,19 +8,28 @@ For Mk3s with Einsy board you need to use at least version 0.7.0rc3 of Prusa Lin
 
 - [Where to find prusa exporter](#where-to-find-prusa-exporter)
 - [Roadmap](#roadmap)
-- [Environment variables](#environment-variables)
 - [How to install prusa exporter](#how-to-install-prusa-exporter)
-  * [Git Clone](#git-clone)
-  * [Docker Compose](#docker-compose)
-    + [Config](#config)
-      - [prusa.yml](#prusayml)
-      - [prometheus.yml](#prometheusyml)
-      - [promtail.yml](#promtailyml)
-    + [Starting](#starting)
+   * [Git Clone](#git-clone)
+   * [Docker Compose](#docker-compose)
+   * [Raspberry Pi](#raspberry-pi)
+      + [Downloading image ](#downloading-image)
+      + [Raspberry Pi Imager](#raspberry-pi-imager)
+         - [WiFi](#wifi)
+         - [LAN](#lan)
+      + [Flashing](#flashing)
+      + [Config](#config)
+   * [Config](#config-1)
+      + [prusa.yml](#prusayml)
+      + [agent.yml](#agentyml)
+      + [prometheus.yml](#prometheusyml)
+      + [promtail.yml](#promtailyml)
+   * [Starting](#starting)
 - [Grafana Dashboards](#grafana-dashboards)
-  * [Buddy](#buddy)
-  * [Legacy](#legacy)
-  * [Einsy](#einsy)
+   * [Buddy](#buddy)
+   * [Legacy](#legacy)
+   * [Einsy](#einsy)
+   * [Overview - preview](#overview-preview)
+- [Metrics example](#metrics-example)
 
 ## Where to find prusa exporter
 
@@ -110,13 +119,13 @@ Now we need to configure *Grafana Agent* and *prusa_exporter*. After flashing yo
 
 In boot partition you'll find two files `agent.yaml` and `prusa.yml`. Configuration is mentioned in next part of README.
 
-#### Config
+### Config
 
 Please take a look at the [sample configuration examples](docs/examples/config) for prusa exporter, Prometheus, and Promtail. You will need to change few things to get it up and running. Of course you can change everything you want. If you are using Grafana Cloud, you can find your API key at [grafana.com](https://grafana.com/) -> My Account -> Grafana Cloud instance -> Send Metrics / Send Logs.
 
 I also prepared a configuration for on-premise Prometheus and Loki if you do not want to use Cloud solution and you want to have your data somewhere local. You can find these [on-premise configs](docs/examples/config/on_premise) in the on_premise subfolder.  
 
-##### prusa.yml
+#### prusa.yml
 
 Prusa exporter loads [prusa.yml](docs/examples/config/prusa.yml) from an environment variable called `$PRUSA_EXPORTER_CONFIG`. If you put this file in the same folder where prusa exporter is located then simply set it to `prusa.yml`. Prusa exporter has implemented a config reloader that runs by default every 300 seconds (5 minutes).
 
@@ -133,8 +142,11 @@ exporter:
 ```
 
 `metrics_port`: you can set whatever you want. It is the port where Prometheus would scrape metrics endpoint. **Required**
+
 `scrape_timeout`: Value in seconds that implies timeout of scraping Prusa Link devices. Not necessary needed for Einsy but needed for Buddy becuase printer sometimes do not return values. **Required**
+
 `reload_inteval`: Because feature of config reloading is implemeneted, you need to specify interval of reloading. **Required**
+
 `log_level`: log level of logger, default is info. **Optional**
 
 `printers` is used for configuring your target printers. Please note that `type` is informational and optional; if you define it it will be part of your metric labelset.
@@ -164,7 +176,7 @@ printers:
     type: mini **optional**
 ```
 
-##### agent.yml
+#### agent.yml
 
 Grafana Agent is used in Raspberry Pi image and currently works only with Grafana Cloud - if you don't configure it different way. You need to change `url`, `username` and `password`. You can get these values in configuration of your Grafana Cloud. How you can find in [Grafana Cloud documentation](https://grafana.com/docs/grafana-cloud/send-data/metrics/metrics-prometheus/).
 
@@ -179,7 +191,7 @@ metrics:
         password: "<YOUR CLOUD METRICS PASSWORD>"
 ```
 
-##### prometheus.yml
+#### prometheus.yml
 
 In [prometheus.yml](docs/examples/config/prometheus.yml) you need to change the `remote_write` section. This section is responsible for writing data to Grafana Cloud instance. You can get all values in config of your Grafana instance. You can get more information in [Grafana Docs](https://grafana.com/docs/grafana-cloud/data-configuration/metrics/metrics-prometheus/).
 
@@ -197,7 +209,7 @@ remote_write:
     password: apiKey
 ```
 
-##### promtail.yml
+#### promtail.yml
 
 In [promtail.yml](docs/examples/config/promtail.yml) you need to change the `clients` section. Thanks to this block promtail will send logs to your Grafana Cloud Loki instance instead of local Loki. More details of log ingestion in [Grafana docs](https://grafana.com/docs/grafana-cloud/data-configuration/logs/collect-logs-with-promtail/).
 
@@ -210,7 +222,7 @@ clients:
   - url: https://<User Name>:<Your Grafana.com API Key>@logs-prod-eu-west-0.grafana.net/loki/api/v1/push
 ```
 
-#### Starting
+### Starting
 
 Starting of exporter is simple. Just change directory to where docker-compose.yaml and configs are and run following command.
 
