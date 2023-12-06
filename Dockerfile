@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.20-alpine
+FROM golang:1.20.3-alpine AS builder
 
 WORKDIR /app
 
@@ -13,6 +13,10 @@ COPY *.go ./
 
 RUN go build -o /prusa_exporter
 
+FROM alpine:latest
+
+COPY --from=builder /prusa_exporter .
+
 EXPOSE 10009
 
-CMD [ "/prusa_exporter" ]
+ENTRYPOINT ["/prusa_exporter"]
