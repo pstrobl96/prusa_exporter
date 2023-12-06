@@ -76,7 +76,7 @@ Of course all other accessories like computer, card reader, power supply etc. ar
 
 #### Downloading image 
 
-Download image from [releases page](https://github.com/pstrobl96/prusa_exporter/releases) or alternatively you can choose CI pipeline run and download particular artifact. Downloaded *img.xz* file is named image_{date_of_build}-prusa_exporter-image.img.xz and needs to be flashed to the memory card.
+Download image from [releases page](https://github.com/pstrobl96/prusa_exporter/releases) or alternatively you can choose CI pipeline run and download particular artifact. Downloaded *img.xz* file is named prusa_exporter_{version}.img.xz and needs to be flashed to the memory card.
 
 #### Raspberry Pi Imager
 
