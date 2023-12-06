@@ -59,7 +59,7 @@ This list contains current and future features along with completion status:
 
 First things first. You need to clone the repo and that which is very easy, right?
 
-`git clone https://github.com/prusa3d/Prusa-Firmware-Buddy.git`
+`git clone https://github.com/pstrobl96/prusa_exporter.git`
 
 ### Docker Compose
 
