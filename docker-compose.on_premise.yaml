@@ -63,6 +63,7 @@ services:
         target: /app/prusa.yml
     ports:
       - "10009:10009"
+    command: '--config.file=/app/prusa.yml'
     networks:
       - prusa
 
