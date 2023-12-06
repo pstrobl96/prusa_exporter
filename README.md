@@ -127,7 +127,7 @@ I also prepared a configuration for on-premise Prometheus and Loki if you do not
 
 #### prusa.yml
 
-Prusa exporter loads [prusa.yml](docs/examples/config/prusa.yml) from an environment variable called `$PRUSA_EXPORTER_CONFIG`. If you put this file in the same folder where prusa exporter is located then simply set it to `prusa.yml`. Prusa exporter has implemented a config reloader that runs by default every 300 seconds (5 minutes).
+Prusa exporter loads [prusa.yml](docs/examples/config/prusa.yml) from an command flag `--config.file=<path>`. This flag can be empty and if so exporter will just try to load `prusa.yml` file located in the executable folder. Prusa exporter has implemented a config reloader that runs by default every 300 seconds (5 minutes).
 
 You will find two sections in the config file, `exporter` and `printers`.
 
