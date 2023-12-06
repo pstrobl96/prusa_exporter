@@ -19,4 +19,4 @@ COPY --from=builder /prusa_exporter .
 
 EXPOSE 10009
 
-CMD ["/prusa_exporter"]
+ENTRYPOINT ["/prusa_exporter"]
