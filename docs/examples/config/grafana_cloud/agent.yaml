@@ -15,3 +15,9 @@ metrics:
     - job_name: "prusa"
       static_configs:
         - targets: ["exporter:10009"]
+
+integrations:
+  agent:
+    enabled: true
+  node_exporter:
+    enabled: true
