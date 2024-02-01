@@ -31,9 +31,6 @@ For Mk3s with Einsy board you need to use at least version 0.7.0rc3 of Prusa Lin
    * [Starting](#starting)
 - [Grafana Dashboards](#grafana-dashboards)
    * [Buddy](#buddy)
-   * [Legacy](#legacy)
-   * [Einsy](#einsy)
-   * [Overview - preview](#overview-preview)
 - [Metrics example](#metrics-example)
 
 ## Where to find prusa exporter
@@ -52,6 +49,7 @@ This list contains current and future features along with completion status:
 - [ ] Odroid C4 Image
 - [ ] Implementation with [exporter-toolkit](#22)
 - [ ] Support for [connection](#21) to Einsy with username and password
+- [ ] Support for MK3 - it was implemented before but I want overhaul it and make it work
 
 ## How to install prusa exporter
 
@@ -162,23 +160,10 @@ Note: Currently, you can not log into Einsy (Raspberry Pi Zero) boards with user
 printers:
   buddy:
   - address: <address_of_printer>
-    name: <your_printer_name>
-    type: mini
-    apikey: <your_printer_apikey>
-  - address: <address_of_printer>
-    username: maker # I'm not aware that there is posibility to change user name in XL or MK4 printers - default is maker
+    username: maker
     pass: <password>
     name: <your_printer_name>
     type: <mini/xl/mk4> **optional**
-  einsy:
-  - address: <address_of_printer>
-    apiKey: <your_printer_apikey>
-    name: <your_printer_name>
-    type: <mk2.5 or mk3> **optional**
-  legacy:
-  - address: <address_of_printer>
-    name: <your_printer_name>
-    type: mini **optional**
 ```
 
 #### agent.yml
@@ -191,7 +176,7 @@ metrics:
     scrape_interval: 15s
     remote_write:
     - url: <YOUR CLOUD METRICS URL>
-      basic_auth:
+      basic_auth:https://grafana.com/grafana/dashboards/20393-buddy-detail/
         username: "<YOUR CLOUD METRICS USERNAME>"
         password: "<YOUR CLOUD METRICS PASSWORD>"
 ```
@@ -244,19 +229,10 @@ I also prepared one dashboard per board which you can find in the [docs/examples
 
 ### Buddy
 
+Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20393-buddy-detail/)! Just use ID `20393` when importing.  
+
 ![dashboard](docs/examples/grafana/buddy.png)
 
-### Legacy
-
-![dashboard](docs/examples/grafana/legacy.png)
-
-### Einsy
-
-![dashboard](docs/examples/grafana/einsy.png)
-
-### Overview - preview
-
-![dashboard](docs/examples/grafana/overview.png)
 
 ## Metrics example
 
