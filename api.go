@@ -1,6 +1,8 @@
 package main
 
 import (
+	"errors"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -60,18 +62,20 @@ func accessEinsyAPI(path string, address string, apiKey string) ([]byte, error) 
 	client := &http.Client{}
 	req.Header.Add("X-Api-Key", apiKey)
 	res, err = client.Do(req)
-
 	if err != nil {
 		log.Error().Msg(err.Error())
-	}
-	if err == nil {
+		return []byte{}, err
+	} else if res.StatusCode != 200 {
+		message := fmt.Sprintf("Return status code is: %d", res.StatusCode)
+		log.Error().Msg(message)
+		return []byte{}, errors.New(message)
+	} else if err == nil && res.StatusCode == 200 {
 		body, err = io.ReadAll(res.Body)
 		res.Body.Close()
 		if err != nil {
 			log.Error().Msg(err.Error())
+			return []byte{}, err
 		}
-	} else {
-		log.Error().Msg(err.Error())
 	}
 	return body, err
 }

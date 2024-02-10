@@ -110,7 +110,8 @@ func parseConfig(path string) configuration {
 
 func probeConfigFile(parsedConfig configuration) configuration {
 	for i, s := range parsedConfig.Printers.Buddy {
-		if testConnection(s.Address) {
+		conn, status := testConnection(s.Address)
+		if conn && status == 200 {
 			parsedConfig.Printers.Buddy[i].Reachable = true
 			_, _, _, _, _, info, _, err := getBuddyResponse(s)
 			if err == nil {
@@ -126,10 +127,15 @@ func probeConfigFile(parsedConfig configuration) configuration {
 		}
 	}
 	for i, s := range parsedConfig.Printers.Einsy {
-		version, _, _, _, _, _, _, _, err := getEinsyResponse(s)
-		if err == nil {
-			parsedConfig.Printers.Einsy[i].Reachable = true
-			parsedConfig.Printers.Einsy[i].Type = version.Original
+		_, status := testConnection(s.Address)
+
+		if status == 401 {
+			version, _, _, _, _, _, _, _, err := getEinsyResponse(s)
+			if err == nil && version.Text != "" {
+
+				parsedConfig.Printers.Einsy[i].Type = version.Original
+				parsedConfig.Printers.Einsy[i].Reachable = true
+			}
 		} else {
 			parsedConfig.Printers.Einsy[i].Reachable = false
 			log.Error().Msg(s.Address + " is not reachable")
@@ -138,11 +144,11 @@ func probeConfigFile(parsedConfig configuration) configuration {
 	return parsedConfig
 }
 
-func testConnection(s string) bool {
+func testConnection(s string) (bool, int) {
 	req, _ := http.NewRequest("GET", "http://"+s+"/", nil)
 	client := &http.Client{Timeout: time.Duration(config.Exporter.ScrapeTimeout) * time.Second}
 	r, e := client.Do(req)
-	return e == nil && r.StatusCode == 200
+	return e == nil && r.StatusCode == 200, r.StatusCode
 }
 
 func configReloader() {
