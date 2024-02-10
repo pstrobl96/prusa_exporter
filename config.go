@@ -129,12 +129,15 @@ func probeConfigFile(parsedConfig configuration) configuration {
 	for i, s := range parsedConfig.Printers.Einsy {
 		_, status := testConnection(s.Address)
 
-		if status == 401 {
+		if status == 401 { // yup it's weird, but it's how it works
 			version, _, _, _, _, _, _, _, err := getEinsyResponse(s)
 			if err == nil && version.Text != "" {
 
 				parsedConfig.Printers.Einsy[i].Type = version.Original
 				parsedConfig.Printers.Einsy[i].Reachable = true
+			} else {
+				parsedConfig.Printers.Einsy[i].Reachable = false
+				log.Error().Msg(s.Address + " is not reachable") // i know, i repeated code will resolve later
 			}
 		} else {
 			parsedConfig.Printers.Einsy[i].Reachable = false
