@@ -10,7 +10,7 @@ type einsyCollector struct {
 	printerBedTemp            *prometheus.Desc
 	printerVersion            *prometheus.Desc // DEPRECATED to printerVersion
 	printerZHeight            *prometheus.Desc // DEPRECATED to printerCoordinates
-	printerPrintSpeed         *prometheus.Desc
+	printerPrintSpeedRatio    *prometheus.Desc
 	printerTargetTempNozzle   *prometheus.Desc
 	printerTargetTempBed      *prometheus.Desc
 	printerFiles              *prometheus.Desc
@@ -38,7 +38,7 @@ func newEinsyCollector() *einsyCollector {
 		printerBedTemp:            prometheus.NewDesc("prusa_einsy_bed_temperature", "Current temperature of printer bed in Celsius", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
 		printerVersion:            prometheus.NewDesc("prusa_einsy_version", "DEPRECATED - Return information about printer. This metric contains information mostly about Prusa Link", []string{"printer_address", "printer_model", "printer_name", "printer_api", "printer_server", "printer_text"}, nil),
 		printerZHeight:            prometheus.NewDesc("prusa_einsy_z_height", "DEPRECATED - Current height of Z", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
-		printerPrintSpeed:         prometheus.NewDesc("prusa_einsy_print_speed", "Current setting of printer speed in percents (%)", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
+		printerPrintSpeedRatio:    prometheus.NewDesc("prusa_einsy_print_speed_ratio", "Current setting of printer speed in values from 0.0 - 1.0", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
 		printerTargetTempNozzle:   prometheus.NewDesc("prusa_einsy_nozzle_target_temperature", "Target temperature of printer nozzle in Celsius", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
 		printerTargetTempBed:      prometheus.NewDesc("prusa_einsy_bed_target_temperature", "Target temperature of printer bed in Celsius", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
 		printerFiles:              prometheus.NewDesc("prusa_einsy_files", "Number of files in storage", []string{"printer_address", "printer_model", "printer_name", "printer_storage"}, nil),
@@ -66,7 +66,7 @@ func (collector *einsyCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerBedTemp
 	ch <- collector.printerVersion
 	ch <- collector.printerZHeight
-	ch <- collector.printerPrintSpeed
+	ch <- collector.printerPrintSpeedRatio
 	ch <- collector.printerTargetTempNozzle
 	ch <- collector.printerTargetTempBed
 	ch <- collector.printerFiles
@@ -132,8 +132,8 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 			printSpeed := prometheus.MustNewConstMetric(
-				collector.printerPrintSpeed, prometheus.GaugeValue,
-				float64(printer.Telemetry.PrintSpeed),
+				collector.printerPrintSpeedRatio, prometheus.GaugeValue,
+				float64(printer.Telemetry.PrintSpeed)/100,
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 			targetTempBed := prometheus.MustNewConstMetric(
