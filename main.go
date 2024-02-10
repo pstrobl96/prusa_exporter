@@ -20,6 +20,7 @@ func initProcedure() {
 }
 
 func main() {
+	go startSyslog(10008)
 	log.Info().Msg("Prusa exporter starting")
 	initProcedure()                          // initialize
 	if config.Exporter.ReloadInterval != 0 { // do not run reloader if interval is set to zero
