@@ -126,8 +126,10 @@ func probeConfigFile(parsedConfig configuration) configuration {
 		}
 	}
 	for i, s := range parsedConfig.Printers.Einsy {
-		if testConnection(s.Address) {
+		version, _, _, _, _, _, _, err := getEinsyResponse(s)
+		if err == nil {
 			parsedConfig.Printers.Einsy[i].Reachable = true
+			parsedConfig.Printers.Einsy[i].Type = version.Original
 		} else {
 			parsedConfig.Printers.Einsy[i].Reachable = false
 			log.Error().Msg(s.Address + " is not reachable")
@@ -140,10 +142,6 @@ func testConnection(s string) bool {
 	req, _ := http.NewRequest("GET", "http://"+s+"/", nil)
 	client := &http.Client{Timeout: time.Duration(config.Exporter.ScrapeTimeout) * time.Second}
 	r, e := client.Do(req)
-	if e == nil && r.StatusCode == 401 { // if the printer is password protected, it will return 401
-		log.Warn().Msg(s + " is password protected - there is no easy way to check if it is reachable at the moment")
-		return true
-	}
 	return e == nil && r.StatusCode == 200
 }
 

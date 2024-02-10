@@ -102,6 +102,12 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 			version, files, job, printer, cameras, info, settings, e := getEinsyResponse(s)
 
 			if e != nil {
+				printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
+					0, s.Address, s.Type, s.Name)
+
+				ch <- printerUp
+
+				log.Debug().Msg(s.Address + " is unreachable while scraping")
 				log.Error().Msg(e.Error())
 				break
 			}
