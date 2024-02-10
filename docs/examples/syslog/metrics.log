@@ -1,0 +1,3125 @@
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37544,tm=28058711478,v=4 runtime,n=usb_dev u=0 -871
+stack,n=display t=0,m=857 -856
+runtime,n=display u=12 -839
+stack,n=esp_tas t=0,m=99 -824
+runtime,n=esp_tas u=0 -806
+stack,n=TmrSvc t=0,m=74 -792
+runtime,n=TmrSvc u=0 -774
+stack,n=USBH_Th t=1284,m=170 -758
+runtime,n=USBH_Th u=0 -739
+stack,n=USBH_MS t=0,m=368 -724
+runtime,n=USBH_MS u=0 -707
+stack,n=metric_ t=0,m=118 -692
+runtime,n=metric_ u=0 -674
+stack,n=media_p t=0,m=289 -609
+runtime,n=media_p u=0 -592
+stack,n=acFault t=0,m=53 -577
+runtime,n=acFault u=0 -560
+tmc_read error="value too long" 2743
+tmc_read error="value too long" 15741
+points_dropped v=38i 15796
+tmc_read error="value too long" 28741
+tmc_read error="value too long" 41745
+tmc_read error="value too long" 54743
+tmc_read error="value too long" 67754
+tmc_read error="value too long" 80742
+tmc_read error="value too long" 93743
+tmc_read error="value too long" 106741
+tmc_read error="value too long" 119741 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37545,tm=28058844259,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12975
+tmc_read error="value too long" 25965
+tmc_read error="value too long" 38965
+tmc_read error="value too long" 41948
+tmc_read error="value too long" 42052
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245262i 42157
+tmc_read,ax=? reg=111i,regn="drv_status",value=1704017i 42278
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245262i 51962
+tmc_read error="value too long" 64960
+tmc_read error="value too long" 77964
+heap free=59904i,total=89636i 80861
+filament v="PLA" 89871
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245262i 90973
+tmc_read error="value too long" 103960
+tmc_read error="value too long" 116998
+tmc_read error="value too long" 129960
+tmc_read error="value too long" 142963
+tmc_read error="value too long" 155965
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245186i 168977
+tmc_read,ax=? reg=111i,regn="drv_status",value=1114345i 181996 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37546,tm=28059039259,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12962
+tmc_read error="value too long" 25960
+tmc_read error="value too long" 38962
+tmc_read error="value too long" 51972
+tmc_read error="value too long" 64960
+tmc_read error="value too long" 77969
+tmc_read error="value too long" 103992
+tmc_read error="value too long" 116961
+tmc_read error="value too long" 142964
+tmc_read error="value too long" 155963
+tmc_read error="value too long" 181960
+tmc_read error="value too long" 194963
+tmc_read error="value too long" 220960
+tmc_read error="value too long" 233961
+fan,fan=print state=0,pwm=0,measured=0 247360
+fan,fan=heatbreak state=3,pwm=100,measured=49 247387
+tmc_read error="value too long" 259960
+media_prefetched v=8430i 267929
+tmc_read error="value too long" 272991
+tmc_read error="value too long" 298962
+tmc_read error="value too long" 311991
+volt_bed v=23.990320 326372
+volt_nozz v=23.954302 326380 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37547,tm=28059366007,v=4 curr_nozz v=0.631426 -363
+curr_inp v=-7.440805 -359
+cur_mmu_imp v=-0.013000 -354
+oc_nozz v=0i -350
+oc_inp v=0i -346
+tmc_read error="value too long" 11213
+tmc_read error="value too long" 20196
+tmc_read error="value too long" 20305
+tmc_read error="value too long" 20408
+tmc_read error="value too long" 20514
+tmc_read error="value too long" 24212
+tmc_read error="value too long" 37235
+tmc_read error="value too long" 50212
+heap free=59904i,total=89636i 63116
+tmc_read error="value too long" 63269
+tmc_read error="value too long" 76214
+tmc_read error="value too long" 89214
+tmc_read error="value too long" 102212
+tmc_read error="value too long" 115228
+tmc_read error="value too long" 128212
+tmc_read error="value too long" 141212
+tmc_read error="value too long" 154214
+tmc_read error="value too long" 167212
+tmc_read error="value too long" 180256
+tmc_read error="value too long" 193226
+tmc_read error="value too long" 206212 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37548,tm=28059572435,v=4 eth_out sent=16163016i -50
+cpu_usage v=32i 4811
+tmc_read error="value too long" 12785
+tmc_read error="value too long" 25785
+tmc_read error="value too long" 38784
+tmc_read error="value too long" 51784
+tmc_read error="value too long" 64798
+tmc_read error="value too long" 77827
+tmc_read error="value too long" 90784
+tmc_read error="value too long" 103815
+tmc_read error="value too long" 116784
+tmc_read error="value too long" 129784
+tmc_read error="value too long" 142797
+tmc_read error="value too long" 155784
+points_dropped v=38i 155853
+tmc_read error="value too long" 168784
+tmc_read error="value too long" 181805
+tmc_read error="value too long" 194784
+tmc_read error="value too long" 207784
+tmc_read error="value too long" 220853
+tmc_read error="value too long" 234796
+tmc_read error="value too long" 247784
+tmc_read error="value too long" 260787
+tmc_read error="value too long" 273789
+tmc_read error="value too long" 286785 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37549,tm=28059872270,v=4 tmc_read error="value too long" -39
+tmc_read error="value too long" 12964
+tmc_read error="value too long" 13935
+tmc_read error="value too long" 14056
+tmc_read error="value too long" 14160
+tmc_read error="value too long" 14268
+tmc_read error="value too long" 25949
+loadcell_scale v=0.019200 43997
+tmc_read error="value too long" 51950
+heap free=59904i,total=89636i 60849
+tmc_read error="value too long" 64953
+tmc_read error="value too long" 90968
+tmc_read error="value too long" 103951
+tmc_read error="value too long" 129951
+tmc_read error="value too long" 142951
+tmc_read error="value too long" 155954
+tmc_read error="value too long" 168954
+tmc_read error="value too long" 181950
+tmc_read error="value too long" 194949
+tmc_read error="value too long" 207954
+tmc_read error="value too long" 220981
+tmc_read error="value too long" 233951
+adj_z v=0.000000 242839
+heater_enabled v=1i 242846
+tmc_read error="value too long" 246949 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37550,tm=28060132256,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12965
+tmc_read error="value too long" 25965
+tmc_read error="value too long" 38963
+tmc_read error="value too long" 51966
+tmc_read error="value too long" 64965
+tmc_read error="value too long" 77963
+tmc_read error="value too long" 90963
+tmc_read error="value too long" 103963
+tmc_read error="value too long" 116963
+fan,fan=print state=0,pwm=0,measured=0 141957
+fan,fan=heatbreak state=3,pwm=100,measured=49 141984
+tmc_read error="value too long" 143002
+tmc_read error="value too long" 155963
+tmc_read error="value too long" 168964
+tmc_read error="value too long" 181963
+tmc_read error="value too long" 194965
+tmc_read error="value too long" 207963
+tmc_read error="value too long" 220980
+tmc_read error="value too long" 234967
+volt_bed v=24.062366 246293
+volt_nozz v=24.026344 246300
+curr_nozz v=1.209113 246305
+curr_inp v=-2.747095 246310 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37551,tm=28060378845,v=4 cur_mmu_imp v=-0.013000 -275
+oc_nozz v=0i -271
+oc_inp v=0i -267
+tmc_read error="value too long" 1374
+tmc_read error="value too long" 7358
+tmc_read error="value too long" 7466
+tmc_read error="value too long" 7568
+tmc_read error="value too long" 7704
+tmc_read error="value too long" 14406
+tmc_read error="value too long" 27390
+tmc_read error="value too long" 40374
+media_prefetched v=7877i 51394
+tmc_read error="value too long" 53391
+heap free=59904i,total=89636i 58275
+tmc_read error="value too long" 66411
+tmc_read error="value too long" 79374
+tmc_read error="value too long" 92376
+tmc_read error="value too long" 105374
+tmc_read error="value too long" 118420
+loadcell_threshold v=-125.000000 124539
+loadcell_threshold_cont v=-40.000000 124545
+loadcell_hysteresis v=80.000000 124550
+tmc_read error="value too long" 131386
+tmc_read error="value too long" 144377
+tmc_read error="value too long" 157374 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37552,tm=28060549257,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12964
+tmc_read error="value too long" 25962
+tmc_read error="value too long" 38977
+tmc_read error="value too long" 51964
+cpu_usage v=29i 60936
+tmc_read error="value too long" 64964
+tmc_read error="value too long" 77994
+tmc_read error="value too long" 90964
+tmc_read error="value too long" 103964
+tmc_read error="value too long" 116975
+tmc_read error="value too long" 129962
+tmc_read error="value too long" 142964
+tmc_read error="value too long" 155964
+tmc_read error="value too long" 168969
+tmc_read error="value too long" 181962
+points_dropped v=38i 182022
+tmc_read error="value too long" 194977
+tmc_read error="value too long" 207968
+tmc_read error="value too long" 220964
+tmc_read error="value too long" 233962
+tmc_read error="value too long" 246967
+tmc_read error="value too long" 259962
+tmc_read error="value too long" 272975 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37553,tm=28060822435,v=4 eth_out sent=16168116i -50
+tmc_read error="value too long" 12788
+eth_in recv=6600617i 19066
+tmc_read error="value too long" 25786
+tmc_read error="value too long" 38786
+tmc_read error="value too long" 51784
+tmc_read error="value too long" 63780
+tmc_read error="value too long" 63887
+tmc_read error="value too long" 63992
+tmc_read error="value too long" 64095
+tmc_read error="value too long" 64786
+tmc_read error="value too long" 77799
+tmc_read error="value too long" 90785
+tmc_read error="value too long" 104786
+tmc_read error="value too long" 117815
+heap free=59904i,total=89636i 118686
+tmc_read error="value too long" 130785
+tmc_read error="value too long" 144785
+tmc_read error="value too long" 157798
+tmc_read error="value too long" 170785
+tmc_read error="value too long" 183788
+tmc_read error="value too long" 196784
+tmc_read error="value too long" 209815
+tmc_read error="value too long" 222786 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37554,tm=28061058270,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12954
+tmc_read error="value too long" 38995
+tmc_read error="value too long" 51949
+tmc_read error="value too long" 77962
+tmc_read error="value too long" 90951
+tmc_read error="value too long" 103965
+tmc_read error="value too long" 116949
+tmc_read error="value too long" 129951
+tmc_read error="value too long" 155961
+tmc_read error="value too long" 168953
+tmc_read error="value too long" 195010
+fan,fan=print state=0,pwm=0,measured=0 204550
+fan,fan=heatbreak state=3,pwm=100,measured=49 204576
+tmc_read error="value too long" 207951
+tmc_read error="value too long" 220952
+tmc_read error="value too long" 233963
+tmc_read error="value too long" 246949
+tmc_read error="value too long" 259949
+tmc_read error="value too long" 272949
+tmc_read error="value too long" 285951
+tmc_read error="value too long" 298961
+tmc_read error="value too long" 311964 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37555,tm=28061383256,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 2949
+tmc_read error="value too long" 3055
+tmc_read error="value too long" 3171
+tmc_read error="value too long" 3274
+volt_bed v=24.026344 8209
+volt_nozz v=23.990320 8216
+curr_nozz v=0.342582 8221
+curr_inp v=-1.582763 8225
+cur_mmu_imp v=-0.013000 8230
+oc_nozz v=0i 8234
+oc_inp v=0i 8238
+tmc_read error="value too long" 13002
+tmc_read error="value too long" 25998
+tmc_read error="value too long" 38963
+tmc_read error="value too long" 51965
+heap free=59904i,total=89636i 61864
+tmc_read error="value too long" 65019
+tmc_read error="value too long" 77965
+tmc_read error="value too long" 90963
+tmc_read error="value too long" 103966
+print_filename v="bone dragon 10_0.4n_0.2mm_PLA_MK4_11h56m.bgcode" 104867
+media_prefetched v=7191i 110937
+tmc_read error="value too long" 116964
+tmc_read error="value too long" 142977
+tmc_read error="value too long" 155967 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37556,tm=28061552255,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12964
+tmc_read error="value too long" 25995
+tmc_read error="value too long" 38964
+tmc_read error="value too long" 51976
+adj_z v=0.000000 63856
+heater_enabled v=1i 63863
+tmc_read error="value too long" 64968
+tmc_read error="value too long" 90964
+tmc_read error="value too long" 103964
+cpu_usage v=29i 104946
+tmc_read error="value too long" 129979
+tmc_read error="value too long" 142964
+stack,n=default t=0,m=531 159219
+runtime,n=default u=6 159239
+stack,n=IDLE t=0,m=107 159253
+runtime,n=IDLE u=79 159271
+stack,n=measure t=0,m=289 159297
+runtime,n=measure u=0 159319
+stack,n=tcpip_t t=4992,m=433 159334
+runtime,n=tcpip_t u=0 159353
+stack,n=connect t=0,m=1399 159367
+runtime,n=connect u=0 159385
+stack,n=network t=0,m=749 159399
+runtime,n=network u=0 159417
+stack,n=usb_dev t=0,m=569 159431
+runtime,n=usb_dev u=0 159449
+stack,n=display t=0,m=857 159464 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37557,tm=28061712577,v=4 runtime,n=display u=12 -841
+stack,n=TmrSvc t=0,m=74 -826
+runtime,n=TmrSvc u=0 -806
+stack,n=USBH_Th t=1284,m=170 -791
+runtime,n=USBH_Th u=0 -773
+stack,n=USBH_MS t=0,m=368 -758
+runtime,n=USBH_MS u=0 -740
+stack,n=media_p t=0,m=289 -726
+runtime,n=media_p u=0 -708
+stack,n=metric_ t=0,m=118 -694
+runtime,n=metric_ u=0 -676
+stack,n=acFault t=0,m=53 -662
+runtime,n=acFault u=0 -644
+stack,n=esp_tas t=0,m=99 -630
+runtime,n=esp_tas u=0 -612
+tmc_read error="value too long" 8642
+tmc_read error="value too long" 21642
+points_dropped v=38i 21697
+tmc_read error="value too long" 47655
+tmc_read error="value too long" 60642
+tmc_read error="value too long" 86642
+tmc_read error="value too long" 99643
+tmc_read error="value too long" 125661
+tmc_read error="value too long" 138642
+tmc_read error="value too long" 151642
+tmc_read error="value too long" 164643
+tmc_read error="value too long" 173628
+tmc_read error="value too long" 173734 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37558,tm=28061886761,v=4 tmc_read error="value too long" -346
+tmc_read error="value too long" -243
+eth_out sent=16173226i -50
+tmc_read error="value too long" 3496
+tmc_read error="value too long" 16493
+is_printing v=1i 19334
+tmc_read error="value too long" 29478
+tmc_read error="value too long" 42458
+heap free=59904i,total=89636i 62358
+tmc_read error="value too long" 68463
+tmc_read error="value too long" 81458
+tmc_read error="value too long" 107471
+tmc_read error="value too long" 120459
+tmc_read error="value too long" 133458
+tmc_read error="value too long" 146459
+tmc_read error="value too long" 160489
+tmc_read error="value too long" 173458
+tmc_read error="value too long" 186471
+tmc_read error="value too long" 199458
+tmc_read error="value too long" 212458
+tmc_read error="value too long" 225460
+tmc_read error="value too long" 238458
+tmc_read error="value too long" 251459
+tmc_read error="value too long" 264471
+tmc_read error="value too long" 277458 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37559,tm=28062177254,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12965
+tmc_read error="value too long" 25965
+tmc_read error="value too long" 38997
+tmc_read error="value too long" 51978
+tmc_read error="value too long" 64967
+fan,fan=print state=0,pwm=0,measured=0 73160
+fan,fan=heatbreak state=3,pwm=100,measured=49 73186
+tmc_read error="value too long" 90969
+tmc_read error="value too long" 103969
+tmc_read error="value too long" 130022
+tmc_read error="value too long" 142965
+tmc_read error="value too long" 155965
+tmc_read error="value too long" 168965
+tmc_read error="value too long" 181965
+tmc_read error="value too long" 194965
+tmc_read error="value too long" 207980
+tmc_read error="value too long" 208961
+tmc_read error="value too long" 209067
+tmc_read error="value too long" 209169
+tmc_read error="value too long" 209276
+tmc_read error="value too long" 220967
+volt_bed v=24.026344 227128 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37560,tm=28062404586,v=4 volt_nozz v=24.026344 -197
+curr_nozz v=0.839662 -192
+curr_inp v=-6.203703 -188
+cur_mmu_imp v=-0.013000 -183
+oc_nozz v=0i -179
+oc_inp v=0i -175
+tmc_read error="value too long" 6635
+tmc_read error="value too long" 19902
+tmc_read error="value too long" 32633
+tmc_read error="value too long" 45633
+heap free=59904i,total=89636i 48535
+tmc_read error="value too long" 58648
+tmc_read error="value too long" 71640
+tmc_read error="value too long" 84636
+tmc_read error="value too long" 97635
+tmc_read error="value too long" 110633
+tmc_read error="value too long" 123636
+tmc_read error="value too long" 136646
+tmc_read error="value too long" 149634
+tmc_read error="value too long" 176633
+tmc_read error="value too long" 189635
+tmc_read error="value too long" 215648
+tmc_read error="value too long" 228633
+tmc_read error="value too long" 254633
+tmc_read error="value too long" 267634
+tmc_read error="value too long" 280635 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37561,tm=28062694413,v=4 media_prefetched v=6527i -224
+cpu_usage v=23i -205
+tmc_read error="value too long" 3886
+tmc_read error="value too long" 16806
+tmc_read error="value too long" 29820
+tmc_read error="value too long" 42811
+points_dropped v=38i 42866
+tmc_read error="value too long" 55806
+tmc_read error="value too long" 68806
+tmc_read error="value too long" 81819
+tmc_read error="value too long" 94808
+tmc_read error="value too long" 107810
+tmc_read error="value too long" 120808
+tmc_read error="value too long" 133809
+tmc_read error="value too long" 146810
+tmc_read error="value too long" 159820
+tmc_read error="value too long" 172840
+tmc_read error="value too long" 185810
+tmc_read error="value too long" 191794
+tmc_read error="value too long" 191902
+tmc_read error="value too long" 192005
+tmc_read error="value too long" 192133
+tmc_read error="value too long" 198809
+tmc_read error="value too long" 211806
+tmc_read error="value too long" 224808 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37562,tm=28062919432,v=4 eth_out sent=16177329i -51
+tmc_read error="value too long" 12802
+tmc_read error="value too long" 25789
+heap free=59904i,total=89636i 37687
+tmc_read error="value too long" 38801
+tmc_read error="value too long" 51787
+tmc_read error="value too long" 64787
+tmc_read error="value too long" 77787
+tmc_read error="value too long" 90800
+tmc_read error="value too long" 103787
+tmc_read error="value too long" 116794
+tmc_read error="value too long" 129789
+tmc_read error="value too long" 142787
+tmc_read error="value too long" 155787
+tmc_read error="value too long" 168803
+tmc_read error="value too long" 181787
+tmc_read error="value too long" 194788
+adj_z v=0.000000 196703
+heater_enabled v=1i 196710
+tmc_read error="value too long" 207792
+tmc_read error="value too long" 220787
+tmc_read error="value too long" 233787
+tmc_read error="value too long" 246806
+tmc_read error="value too long" 259787
+tmc_read error="value too long" 272787 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37563,tm=28063205255,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12965
+tmc_read error="value too long" 25964
+fan,fan=print state=0,pwm=0,measured=0 32752
+fan,fan=heatbreak state=3,pwm=100,measured=49 32779
+tmc_read error="value too long" 38992
+tmc_read error="value too long" 51964
+tmc_read error="value too long" 64964
+tmc_read error="value too long" 77964
+tmc_read error="value too long" 90964
+tmc_read error="value too long" 103966
+tmc_read error="value too long" 116973
+tmc_read error="value too long" 129964
+tmc_read error="value too long" 142995
+tmc_read error="value too long" 155968
+tmc_read error="value too long" 168967
+tmc_read error="value too long" 180951
+tmc_read error="value too long" 181056
+tmc_read error="value too long" 181158
+tmc_read error="value too long" 181261
+tmc_read error="value too long" 181967
+tmc_read error="value too long" 194968
+tmc_read error="value too long" 207964 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37564,tm=28063417341,v=4 volt_bed v=24.026344 -43
+volt_nozz v=23.918278 -36
+curr_nozz v=1.283004 -31
+curr_inp v=-1.728305 -26
+cur_mmu_imp v=-0.013000 -22
+oc_nozz v=0i -18
+oc_inp v=0i -11
+tmc_read error="value too long" 8878
+tmc_read error="value too long" 21883
+tmc_read error="value too long" 34878
+heap free=59904i,total=89636i 43780
+tmc_read error="value too long" 47879
+tmc_read error="value too long" 60880
+tmc_read error="value too long" 73879
+tmc_read error="value too long" 86878
+tmc_read error="value too long" 99878
+tmc_read error="value too long" 112878
+tmc_read error="value too long" 125878
+tmc_read error="value too long" 138880
+tmc_read error="value too long" 151924
+tmc_read error="value too long" 164880
+tmc_read error="value too long" 177881
+tmc_read error="value too long" 190882
+tmc_read error="value too long" 216879
+tmc_read error="value too long" 230290
+tmc_read error="value too long" 255878
+tmc_read error="value too long" 268883 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37565,tm=28063699257,v=4 tmc_read error="value too long" -38
+media_prefetched v=5773i 1925
+cpu_usage v=25i 1944
+tmc_read error="value too long" 12964
+tmc_read error="value too long" 25977
+tmc_read error="value too long" 38966
+points_dropped v=38i 39022
+tmc_read error="value too long" 51962
+tmc_read error="value too long" 64962
+tmc_read error="value too long" 77962
+tmc_read error="value too long" 90964
+tmc_read error="value too long" 103977
+tmc_read error="value too long" 116964
+tmc_read error="value too long" 129993
+tmc_read error="value too long" 142966
+eth_in recv=6600677i 153888
+tmc_read error="value too long" 155965
+tmc_read error="value too long" 168963
+tmc_read error="value too long" 181977
+tmc_read error="value too long" 186950
+tmc_read error="value too long" 187080
+tmc_read error="value too long" 187184
+tmc_read error="value too long" 187288
+tmc_read error="value too long" 194962
+tmc_read error="value too long" 207964 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37566,tm=28063920256,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12965
+tmc_read error="value too long" 25965
+tmc_read error="value too long" 38980
+heap free=59904i,total=89636i 44863
+fw_version v="5.1.1" 51856
+tmc_read error="value too long" 52009
+tmc_read error="value too long" 78012
+tmc_read error="value too long" 104963
+tmc_read error="value too long" 117993
+tmc_read error="value too long" 130965
+tmc_read error="value too long" 143963
+tmc_read error="value too long" 156963
+tmc_read error="value too long" 169963
+tmc_read error="value too long" 182965
+tmc_read error="value too long" 195986
+tmc_read error="value too long" 208969
+tmc_read error="value too long" 221966
+tmc_read error="value too long" 234963
+tmc_read error="value too long" 247965
+tmc_read error="value too long" 260963
+tmc_read error="value too long" 273976
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 286965 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37567,tm=28064207449,v=4 eth_out sent=16182491i -50
+tmc_read error="value too long" 12775
+fan,fan=print state=0,pwm=0,measured=0 19165
+fan,fan=heatbreak state=3,pwm=100,measured=49 19191
+tmc_read error="value too long" 25772
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245271i 38775
+tmc_read error="value too long" 51798
+tmc_read error="value too long" 64783
+tmc_read error="value too long" 77772
+tmc_read error="value too long" 90804
+tmc_read error="value too long" 103770
+tmc_read error="value too long" 116782
+tmc_read error="value too long" 129771
+tmc_read error="value too long" 142782
+tmc_read error="value too long" 155770
+tmc_read error="value too long" 168774
+tmc_read error="value too long" 178757
+tmc_read error="value too long" 178864
+tmc_read error="value too long" 178967
+tmc_read,ax=? reg=111i,regn="drv_status",value=1704008i 179072
+tmc_read error="value too long" 181772
+tmc_read error="value too long" 194773 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37568,tm=28064415296,v=4 tmc_read error="value too long" -33
+tmc_read error="value too long" 12939
+volt_bed v=24.062366 14919
+volt_nozz v=24.062366 14926
+curr_nozz v=0.315713 14931
+curr_inp v=-1.801075 14935
+cur_mmu_imp v=-0.013000 14940
+oc_nozz v=0i 14944
+oc_inp v=0i 14950
+tmc_read error="value too long" 25925
+tmc_read error="value too long" 38923
+tmc_read error="value too long" 51954
+heap free=59904i,total=89636i 53823
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245184i 64923
+tmc_read error="value too long" 77926
+tmc_read,ax=? reg=111i,regn="drv_status",value=1376378i 90939
+tmc_read error="value too long" 103926
+tmc_read,ax=? reg=111i,regn="drv_status",value=1114275i 116929
+tmc_read,ax=? reg=111i,regn="drv_status",value=1376529i 129927
+tmc_read error="value too long" 142939
+tmc_read error="value too long" 156925
+tmc_read error="value too long" 169935
+tmc_read error="value too long" 182958
+tmc_read error="value too long" 195923 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37569,tm=28064617189,v=4 adj_z v=0.000000 -46
+heater_enabled v=1i -39
+tmc_read error="value too long" 7030
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245253i 20033
+tmc_read error="value too long" 33032
+tmc_read error="value too long" 46046
+tmc_read error="value too long" 59034
+tmc_read error="value too long" 72054
+tmc_read error="value too long" 85030
+stack,n=default t=0,m=531 95159
+runtime,n=default u=7 95179
+stack,n=IDLE t=0,m=107 95193
+runtime,n=IDLE u=79 95210
+stack,n=measure t=0,m=289 95224
+runtime,n=measure u=1 95242
+stack,n=tcpip_t t=4992,m=433 95257
+runtime,n=tcpip_t u=0 95275
+stack,n=connect t=0,m=1399 95290
+runtime,n=connect u=0 95308
+stack,n=network t=0,m=749 95322
+runtime,n=network u=0 95340
+stack,n=usb_dev t=0,m=569 95354
+runtime,n=usb_dev u=0 95372
+stack,n=display t=0,m=857 95387
+runtime,n=display u=11 95404
+stack,n=USBH_MS t=0,m=368 95419
+runtime,n=USBH_MS u=0 95441
+stack,n=media_p t=0,m=289 95455 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37570,tm=28064713574,v=4 runtime,n=media_p u=0 -912
+stack,n=acFault t=0,m=53 -898
+runtime,n=acFault u=0 -880
+stack,n=TmrSvc t=0,m=74 -866
+runtime,n=TmrSvc u=0 -848
+stack,n=metric_ t=0,m=118 -834
+runtime,n=metric_ u=0 -816
+stack,n=esp_tas t=0,m=99 -802
+runtime,n=esp_tas u=0 -785
+stack,n=USBH_Th t=1284,m=170 -770
+runtime,n=USBH_Th u=0 -739
+media_prefetched v=5194i 615
+cpu_usage v=30i 634
+tmc_read error="value too long" 1648
+tmc_read error="value too long" 14647
+tmc_read error="value too long" 27658
+points_dropped v=38i 27715
+tmc_read error="value too long" 41405
+tmc_read error="value too long" 54657
+tmc_read error="value too long" 67645
+tmc_read error="value too long" 81250
+tmc_read error="value too long" 95659
+tmc_read error="value too long" 108659
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245253i 121646
+tmc_read error="value too long" 134646
+tmc_read error="value too long" 147645
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245253i 160647 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37571,tm=28064886561,v=4 tmc_read error="value too long" -356
+tmc_read error="value too long" -249
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245253i -146
+tmc_read error="value too long" -44
+tmc_read error="value too long" 670
+tmc_read error="value too long" 13671
+tmc_read error="value too long" 26658
+tmc_read error="value too long" 39660
+loadcell_scale v=0.019200 50702
+tmc_read error="value too long" 52658
+tmc_read error="value too long" 65658
+tmc_read error="value too long" 78658
+heap free=59904i,total=89636i 86558
+tmc_read error="value too long" 91668
+tmc_read error="value too long" 104658
+tmc_read error="value too long" 117659
+tmc_read error="value too long" 130658
+tmc_read error="value too long" 143659
+tmc_read error="value too long" 156658
+tmc_read error="value too long" 169673
+tmc_read error="value too long" 182660
+tmc_read error="value too long" 195665
+tmc_read error="value too long" 208660
+tmc_read error="value too long" 221689 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37572,tm=28065121257,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12975
+tmc_read error="value too long" 25962
+tmc_read error="value too long" 38966
+tmc_read error="value too long" 52381
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245199i 64964
+tmc_read error="value too long" 77977
+tmc_read error="value too long" 90976
+fan,fan=print state=0,pwm=0,measured=0 92951
+fan,fan=heatbreak state=3,pwm=100,measured=49 92977
+tmc_read error="value too long" 103965
+tmc_read error="value too long" 116962
+tmc_read error="value too long" 129964
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245250i 142964
+tmc_read error="value too long" 155965
+tmc_read error="value too long" 168978
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245250i 181966
+tmc_read error="value too long" 194962
+tmc_read error="value too long" 207998
+tmc_read error="value too long" 220964
+tmc_read error="value too long" 233966 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37573,tm=28065355428,v=4 eth_out sent=16188647i -50
+tmc_read error="value too long" 12806
+tmc_read error="value too long" 25792
+tmc_read error="value too long" 30778
+tmc_read error="value too long" 30883
+tmc_read error="value too long" 31000
+tmc_read error="value too long" 31103
+tmc_read error="value too long" 38793
+tmc_read error="value too long" 51804
+tmc_read error="value too long" 64791
+tmc_read error="value too long" 77821
+volt_bed v=24.026344 87704
+volt_nozz v=23.990320 87711
+curr_nozz v=1.024388 87716
+curr_inp v=-5.221299 87720
+cur_mmu_imp v=-0.013000 87728
+oc_nozz v=0i 87732
+oc_inp v=0i 87736
+tmc_read error="value too long" 90806
+tmc_read error="value too long" 103791
+tmc_read error="value too long" 116820
+heap free=59904i,total=89636i 121694
+tmc_read error="value too long" 129806
+tmc_read error="value too long" 142791
+tmc_read error="value too long" 155791
+loadcell_threshold v=-125.000000 157874
+tmc_read error="value too long" 168819 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37574,tm=28065526436,v=4 loadcell_threshold_cont v=-40.000000 -115
+loadcell_hysteresis v=80.000000 -108
+tmc_read,ax=? reg=111i,regn="drv_status",value=1246207i 10783
+tmc_read error="value too long" 23783
+tmc_read error="value too long" 36789
+tmc_read error="value too long" 49783
+tmc_read error="value too long" 62785
+tmc_read error="value too long" 75803
+tmc_read error="value too long" 88783
+tmc_read error="value too long" 101783
+tmc_read error="value too long" 114783
+tmc_read error="value too long" 127783
+tmc_read error="value too long" 140783
+tmc_read error="value too long" 153803
+tmc_read error="value too long" 166785
+tmc_read error="value too long" 179783
+tmc_read error="value too long" 192783
+tmc_read error="value too long" 205783
+media_prefetched v=9890i 216791
+cpu_usage v=33i 216813
+points_dropped v=38i 217088
+tmc_read error="value too long" 218784
+tmc_read error="value too long" 231826
+tmc_read error="value too long" 244783 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37575,tm=28065784256,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12999
+tmc_read error="value too long" 26001
+tmc_read error="value too long" 38963
+tmc_read error="value too long" 51976
+tmc_read error="value too long" 64963
+tmc_read error="value too long" 77963
+tmc_read error="value too long" 90967
+tmc_read error="value too long" 101947
+tmc_read error="value too long" 102054
+tmc_read error="value too long" 102156
+tmc_read error="value too long" 102261
+tmc_read error="value too long" 104965
+tmc_read error="value too long" 117963
+tmc_read error="value too long" 131703
+tmc_read error="value too long" 144965
+tmc_read error="value too long" 157963
+tmc_read error="value too long" 170967
+tmc_read error="value too long" 183965
+heap free=59904i,total=89636i 196864
+tmc_read error="value too long" 197020
+tmc_read error="value too long" 209975
+tmc_read error="value too long" 222975
+tmc_read error="value too long" 235965 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37576,tm=28066033254,v=4 tmc_read error="value too long" -35
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245234i 12970
+tmc_read error="value too long" 25965
+tmc_read error="value too long" 38980
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245184i 51979
+tmc_read error="value too long" 64966
+tmc_read error="value too long" 77965
+adj_z v=0.000000 84855
+heater_enabled v=1i 84862
+tmc_read error="value too long" 90968
+tmc_read error="value too long" 103966
+tmc_read error="value too long" 116979
+tmc_read error="value too long" 129970
+tmc_read error="value too long" 142968
+tmc_read error="value too long" 155965
+tmc_read error="value too long" 168967
+fan,fan=print state=0,pwm=0,measured=0 169561
+fan,fan=heatbreak state=3,pwm=100,measured=49 169587
+tmc_read error="value too long" 181965
+tmc_read error="value too long" 194981
+tmc_read error="value too long" 207965
+tmc_read error="value too long" 220965
+tmc_read error="value too long" 233965 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37577,tm=28066280260,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12959
+tmc_read error="value too long" 25972
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245184i 38973
+tmc_read error="value too long" 51959
+tmc_read error="value too long" 64959
+tmc_read error="value too long" 77959
+tmc_read error="value too long" 90962
+tmc_read error="value too long" 103971
+tmc_read error="value too long" 105958
+tmc_read error="value too long" 106067
+tmc_read error="value too long" 106170
+tmc_read error="value too long" 106273
+tmc_read error="value too long" 116961
+tmc_read error="value too long" 129993
+tmc_read error="value too long" 142977
+tmc_read error="value too long" 155962
+tmc_read error="value too long" 168990
+volt_bed v=24.026344 175788
+volt_nozz v=23.990320 175795
+curr_nozz v=0.439983 175803
+curr_inp v=-1.983001 175808
+cur_mmu_imp v=-0.008363 175813
+oc_nozz v=0i 175816
+oc_inp v=0i 175820 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37578,tm=28066456500,v=4 eth_out sent=16193794i -50
+tmc_read error="value too long" 5731
+tmc_read error="value too long" 18723
+heap free=59904i,total=89636i 28739
+tmc_read error="value too long" 31719
+print_filename v="bone dragon 10_0.4n_0.2mm_PLA_MK4_11h56m.bgcode" 32623
+tmc_read error="value too long" 44719
+tmc_read error="value too long" 57719
+tmc_read error="value too long" 70732
+tmc_read error="value too long" 83732
+tmc_read error="value too long" 96719
+tmc_read error="value too long" 109721
+tmc_read error="value too long" 122719
+tmc_read error="value too long" 135721
+tmc_read error="value too long" 148731
+tmc_read error="value too long" 161787
+tmc_read error="value too long" 174721
+tmc_read error="value too long" 187719
+tmc_read error="value too long" 200721
+tmc_read error="value too long" 213719
+tmc_read error="value too long" 226721
+tmc_read error="value too long" 239734
+tmc_read error="value too long" 252719 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37579,tm=28066722260,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12961
+tmc_read error="value too long" 25976
+points_dropped v=38i 26038
+media_prefetched v=9795i 28918
+cpu_usage v=28i 28937
+tmc_read error="value too long" 38961
+tmc_read error="value too long" 51972
+tmc_read error="value too long" 64962
+tmc_read error="value too long" 77964
+tmc_read error="value too long" 90959
+tmc_read error="value too long" 103961
+tmc_read error="value too long" 117013
+tmc_read,ax=? reg=111i,regn="drv_status",value=1376319i 129974
+tmc_read error="value too long" 142964
+tmc_read,ax=? reg=111i,regn="drv_status",value=1114329i 155965
+tmc_read,ax=? reg=111i,regn="drv_status",value=1114308i 163959
+tmc_read,ax=? reg=111i,regn="drv_status",value=1376476i 164064
+tmc_read error="value too long" 164167
+tmc_read error="value too long" 164315
+tmc_read,ax=? reg=111i,regn="drv_status",value=1376376i 169959
+tmc_read error="value too long" 182961 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37580,tm=28066907154,v=4 is_printing v=1i -59
+tmc_read error="value too long" 11070
+tmc_read error="value too long" 24078
+tmc_read error="value too long" 37065
+tmc_read error="value too long" 50072
+tmc_read error="value too long" 63067
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245267i 76068
+heap free=59904i,total=89636i 81966
+tmc_read error="value too long" 89096
+tmc_read error="value too long" 102079
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245267i 115065
+tmc_read error="value too long" 128066
+tmc_read error="value too long" 141076
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 154094
+tmc_read error="value too long" 167065
+tmc_read error="value too long" 180086
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 193348
+tmc_read error="value too long" 206068
+tmc_read error="value too long" 219076
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 232066
+tmc_read error="value too long" 245065 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37581,tm=28067165270,v=4 tmc_read error="value too long" -36
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 12949
+fan,fan=print state=0,pwm=0,measured=0 25151
+fan,fan=heatbreak state=3,pwm=100,measured=49 25178
+tmc_read error="value too long" 25951
+tmc_read error="value too long" 38953
+tmc_read error="value too long" 51949
+tmc_read error="value too long" 64951
+tmc_read error="value too long" 78007
+tmc_read error="value too long" 90953
+tmc_read error="value too long" 103993
+tmc_read error="value too long" 116951
+tmc_read error="value too long" 129949
+tmc_read error="value too long" 142949
+tmc_read error="value too long" 155955
+tmc_read error="value too long" 168952
+tmc_read error="value too long" 181949
+tmc_read error="value too long" 194984
+tmc_read error="value too long" 207951
+tmc_read error="value too long" 220934
+tmc_read error="value too long" 221041
+tmc_read error="value too long" 221143
+tmc_read error="value too long" 221249 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37582,tm=28067386924,v=4 tmc_read error="value too long" -44
+tmc_read error="value too long" 12299
+tmc_read error="value too long" 25297
+tmc_read error="value too long" 38295
+tmc_read error="value too long" 51297
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 64295
+tmc_read error="value too long" 77297
+volt_bed v=24.026344 82041
+volt_nozz v=23.990320 82048
+curr_nozz v=0.490363 82053
+curr_inp v=-4.275280 82057
+cur_mmu_imp v=-0.008363 82062
+oc_nozz v=0i 82066
+oc_inp v=0i 82070
+tmc_read error="value too long" 90295
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 103295
+heap free=59904i,total=89636i 106200
+tmc_read error="value too long" 116295
+tmc_read error="value too long" 129971
+tmc_read error="value too long" 143295
+tmc_read error="value too long" 156297
+tmc_read error="value too long" 169296
+tmc_read error="value too long" 182340
+tmc_read error="value too long" 195295
+tmc_read error="value too long" 208295 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37583,tm=28067595423,v=4 eth_out sent=16198932i -50
+tmc_read error="value too long" 12813
+adj_z v=0.000000 23686
+heater_enabled v=1i 23692
+tmc_read error="value too long" 25796
+tmc_read error="value too long" 38796
+tmc_read error="value too long" 51849
+tmc_read error="value too long" 64827
+tmc_read error="value too long" 77799
+tmc_read error="value too long" 90808
+tmc_read error="value too long" 103801
+stack,n=default t=0,m=531 117985
+runtime,n=default u=6 118007
+stack,n=measure t=0,m=289 118022
+runtime,n=measure u=1 118039
+stack,n=IDLE t=0,m=107 118054
+runtime,n=IDLE u=77 118071
+stack,n=tcpip_t t=4992,m=433 118085
+runtime,n=tcpip_t u=0 118104
+stack,n=connect t=0,m=1399 118118
+runtime,n=connect u=0 118136
+stack,n=network t=0,m=749 118151
+runtime,n=network u=0 118168
+stack,n=usb_dev t=0,m=569 118183
+runtime,n=usb_dev u=0 118201
+stack,n=display t=0,m=857 118215
+runtime,n=display u=13 118233
+stack,n=esp_tas t=0,m=99 118247 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37584,tm=28067714572,v=4 runtime,n=esp_tas u=0 -880
+stack,n=USBH_MS t=0,m=368 -866
+runtime,n=USBH_MS u=0 -848
+stack,n=media_p t=0,m=289 -834
+runtime,n=media_p u=0 -816
+stack,n=TmrSvc t=0,m=74 -801
+runtime,n=TmrSvc u=0 -784
+stack,n=metric_ t=0,m=118 -770
+runtime,n=metric_ u=0 -752
+stack,n=USBH_Th t=1284,m=170 -737
+runtime,n=USBH_Th u=0 -719
+stack,n=acFault t=0,m=53 -704
+runtime,n=acFault u=0 -687
+tmc_read error="value too long" 441
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 13654
+tmc_read error="value too long" 26647
+tmc_read error="value too long" 39647
+points_dropped v=38i 39705
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 52652
+tmc_read error="value too long" 65678
+tmc_read error="value too long" 78679
+tmc_read error="value too long" 91647
+tmc_read error="value too long" 104647
+tmc_read error="value too long" 117647
+media_prefetched v=9557i 126614
+cpu_usage v=29i 126636
+tmc_read error="value too long" 130647 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37585,tm=28067858254,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12977
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 25965
+tmc_read error="value too long" 27951
+tmc_read error="value too long" 28074
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 28176
+tmc_read error="value too long" 28289
+tmc_read error="value too long" 38968
+tmc_read error="value too long" 51996
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 64967
+tmc_read error="value too long" 77967
+tmc_read error="value too long" 90976
+tmc_read error="value too long" 103968
+tmc_read error="value too long" 116965
+tmc_read error="value too long" 129965
+heap free=59904i,total=89636i 138865
+tmc_read error="value too long" 142975
+tmc_read error="value too long" 155965
+tmc_read error="value too long" 168971
+tmc_read error="value too long" 181965
+tmc_read error="value too long" 194968
+tmc_read error="value too long" 207965 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37586,tm=28068079257,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12964
+tmc_read error="value too long" 25962
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 38993
+tmc_read error="value too long" 51967
+tmc_read error="value too long" 64962
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 77965
+tmc_read error="value too long" 90962
+fan,fan=print state=0,pwm=0,measured=0 98745
+fan,fan=heatbreak state=3,pwm=100,measured=50 98771
+tmc_read error="value too long" 103962
+tmc_read error="value too long" 116963
+tmc_read error="value too long" 129994
+tmc_read error="value too long" 142962
+tmc_read error="value too long" 155962
+tmc_read error="value too long" 168968
+tmc_read error="value too long" 181962
+tmc_read error="value too long" 194976
+tmc_read error="value too long" 207964
+tmc_read error="value too long" 220962
+tmc_read error="value too long" 233966
+tmc_read error="value too long" 246966 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37587,tm=28068339259,v=4 tmc_read error="value too long" -38
+tmc_read error="value too long" 12973
+tmc_read error="value too long" 25961
+tmc_read error="value too long" 38962
+tmc_read error="value too long" 46944
+tmc_read error="value too long" 47051
+tmc_read error="value too long" 47156
+tmc_read error="value too long" 47259
+tmc_read error="value too long" 51963
+tmc_read error="value too long" 64962
+tmc_read error="value too long" 77960
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 90975
+tmc_read error="value too long" 103964
+tmc_read error="value too long" 116960
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 130035
+volt_bed v=24.062366 142623
+volt_nozz v=24.062366 142630
+curr_nozz v=0.698599 142635
+curr_inp v=-2.783480 142639
+cur_mmu_imp v=-0.013000 142644
+oc_nozz v=0i 142648
+oc_inp v=0i 142652
+tmc_read error="value too long" 143017
+tmc_read error="value too long" 155960
+heap free=59904i,total=89636i 161873 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37588,tm=28068508269,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12954
+tmc_read error="value too long" 25953
+tmc_read error="value too long" 38950
+tmc_read error="value too long" 51981
+tmc_read error="value too long" 64950
+tmc_read error="value too long" 77962
+tmc_read error="value too long" 90952
+tmc_read error="value too long" 103950
+tmc_read error="value too long" 116953
+tmc_read error="value too long" 129954
+tmc_read error="value too long" 142952
+tmc_read error="value too long" 155964
+tmc_read error="value too long" 168950
+tmc_read error="value too long" 181952
+tmc_read error="value too long" 194952
+tmc_read error="value too long" 209527
+tmc_read error="value too long" 221954
+tmc_read error="value too long" 234964
+tmc_read error="value too long" 247951
+points_dropped v=38i 248007
+tmc_read error="value too long" 260955
+tmc_read error="value too long" 273981
+tmc_read error="value too long" 286950 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37589,tm=28068795425,v=4 eth_out sent=16205079i -52
+tmc_read error="value too long" 12802
+tmc_read error="value too long" 25807
+tmc_read error="value too long" 38794
+media_prefetched v=9413i 48720
+cpu_usage v=27i 48739
+tmc_read error="value too long" 51798
+tmc_read error="value too long" 64825
+tmc_read error="value too long" 77796
+tmc_read error="value too long" 90787
+tmc_read error="value too long" 90893
+tmc_read error="value too long" 90995
+tmc_read error="value too long" 91101
+tmc_read error="value too long" 91331
+tmc_read error="value too long" 103808
+tmc_read error="value too long" 116796
+tmc_read error="value too long" 129806
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 142794
+tmc_read error="value too long" 155796
+tmc_read error="value too long" 168799
+tmc_read error="value too long" 181807
+tmc_read error="value too long" 194794
+tmc_read error="value too long" 207799
+filament v="PLA" 209695 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37590,tm=28069005345,v=4 heap free=59904i,total=89636i -212
+tmc_read error="value too long" 10874
+tmc_read error="value too long" 23878
+tmc_read error="value too long" 36874
+tmc_read error="value too long" 49886
+tmc_read error="value too long" 62876
+tmc_read error="value too long" 75879
+tmc_read error="value too long" 88874
+tmc_read error="value too long" 101905
+adj_z v=0.000000 114765
+heater_enabled v=1i 114772
+tmc_read error="value too long" 114954
+tmc_read error="value too long" 127885
+tmc_read error="value too long" 140874
+tmc_read error="value too long" 153877
+fan,fan=print state=0,pwm=0,measured=0 161263
+fan,fan=heatbreak state=3,pwm=100,measured=50 161290
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 166874
+tmc_read error="value too long" 179876
+tmc_read error="value too long" 192876
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 205905
+tmc_read error="value too long" 218877
+tmc_read error="value too long" 231874 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37591,tm=28069250257,v=4 tmc_read error="value too long" -38
+tmc_read error="value too long" 13000
+tmc_read error="value too long" 25963
+tmc_read error="value too long" 38977
+tmc_read error="value too long" 51964
+tmc_read error="value too long" 64964
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 77974
+tmc_read error="value too long" 90962
+tmc_read error="value too long" 103962
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 116977
+tmc_read error="value too long" 129962
+tmc_read error="value too long" 135949
+tmc_read error="value too long" 136054
+tmc_read error="value too long" 136170
+tmc_read error="value too long" 136272
+tmc_read error="value too long" 142967
+tmc_read error="value too long" 155974
+tmc_read error="value too long" 169008
+tmc_read error="value too long" 181965
+tmc_read error="value too long" 194991
+tmc_read error="value too long" 207966
+tmc_read error="value too long" 220994 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37592,tm=28069484260,v=4 tmc_read error="value too long" -36
+volt_bed v=24.026344 10540
+volt_nozz v=23.954302 10548
+curr_nozz v=0.372810 10553
+curr_inp v=-2.128544 10557
+cur_mmu_imp v=-0.013000 10562
+oc_nozz v=0i 10565
+oc_inp v=0i 10569
+tmc_read error="value too long" 12959
+heap free=59904i,total=89636i 24860
+tmc_read error="value too long" 25990
+tmc_read error="value too long" 38976
+tmc_read error="value too long" 51959
+tmc_read error="value too long" 64962
+tmc_read error="value too long" 77959
+tmc_read error="value too long" 90959
+tmc_read error="value too long" 103961
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 116979
+tmc_read error="value too long" 129961
+tmc_read error="value too long" 142959
+tmc_read error="value too long" 155962
+eth_in recv=6601013i 164913
+tmc_read error="value too long" 168961
+tmc_read error="value too long" 181959
+tmc_read error="value too long" 194976
+tmc_read error="value too long" 207959 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37593,tm=28069705257,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12964
+tmc_read error="value too long" 25962
+tmc_read error="value too long" 38965
+tmc_read error="value too long" 51976
+points_dropped v=38i 52033
+tmc_read error="value too long" 64965
+tmc_read error="value too long" 77962
+tmc_read error="value too long" 90997
+tmc_read error="value too long" 103993
+tmc_read error="value too long" 116962
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 129977
+tmc_read error="value too long" 142966
+tmc_read error="value too long" 155965
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 168962
+tmc_read error="value too long" 180957
+tmc_read error="value too long" 181064
+tmc_read error="value too long" 181166
+tmc_read error="value too long" 181269
+tmc_read error="value too long" 181962
+tmc_read error="value too long" 194965
+tmc_read error="value too long" 207976
+tmc_read error="value too long" 220976 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37594,tm=28069926453,v=4 eth_out sent=16210185i -50
+tmc_read error="value too long" 12766
+tmc_read error="value too long" 25766
+media_prefetched v=9195i 34776
+cpu_usage v=28i 34798
+loadcell_scale v=0.019200 34863
+tmc_read error="value too long" 38782
+tmc_read error="value too long" 51768
+tmc_read error="value too long" 64779
+tmc_read error="value too long" 78263
+heap free=59904i,total=89636i 86668
+tmc_read error="value too long" 90769
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 103766
+tmc_read error="value too long" 116769
+tmc_read error="value too long" 129769
+tmc_read error="value too long" 142779
+tmc_read error="value too long" 155769
+tmc_read error="value too long" 168766
+tmc_read error="value too long" 181768
+tmc_read error="value too long" 194773
+tmc_read error="value too long" 207766
+tmc_read error="value too long" 220781
+fan,fan=print state=0,pwm=0,measured=0 227749
+fan,fan=heatbreak state=3,pwm=100,measured=50 227810 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37595,tm=28070160323,v=4 tmc_read error="value too long" -32
+tmc_read error="value too long" 12899
+tmc_read error="value too long" 25896
+tmc_read error="value too long" 38900
+tmc_read error="value too long" 51899
+tmc_read error="value too long" 64909
+tmc_read error="value too long" 77900
+tmc_read error="value too long" 90896
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 103897
+tmc_read error="value too long" 116899
+tmc_read error="value too long" 129911
+tmc_read error="value too long" 142912
+tmc_read error="value too long" 156577
+tmc_read error="value too long" 169898
+tmc_read error="value too long" 182912
+tmc_read error="value too long" 195900
+tmc_read error="value too long" 208901
+tmc_read error="value too long" 221911
+tmc_read error="value too long" 225906
+tmc_read error="value too long" 226013
+tmc_read error="value too long" 226118
+tmc_read error="value too long" 226222
+tmc_read error="value too long" 234896 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37596,tm=28070408269,v=4 tmc_read error="value too long" -46
+tmc_read error="value too long" 12951
+tmc_read error="value too long" 25971
+tmc_read error="value too long" 38957
+tmc_read error="value too long" 51995
+tmc_read error="value too long" 64983
+tmc_read error="value too long" 77962
+tmc_read error="value too long" 90954
+volt_bed v=24.026344 99446
+volt_nozz v=23.990320 99453
+curr_nozz v=0.775848 99458
+curr_inp v=-6.822253 99462
+cur_mmu_imp v=-0.013000 99467
+oc_nozz v=0i 99471
+oc_inp v=0i 99475
+tmc_read error="value too long" 103955
+heap free=59904i,total=89636i 108850
+tmc_read error="value too long" 116950
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 129966
+tmc_read error="value too long" 142950
+tmc_read error="value too long" 155950
+tmc_read error="value too long" 168951
+tmc_read error="value too long" 181951
+tmc_read error="value too long" 194950
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 207965 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37597,tm=28070621167,v=4 adj_z v=0.000000 -58
+heater_enabled v=1i -51
+tmc_read error="value too long" 8054
+tmc_read error="value too long" 21052
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 34055
+tmc_read error="value too long" 47054
+tmc_read error="value too long" 60052
+tmc_read error="value too long" 73064
+tmc_read error="value too long" 86052
+stack,n=default t=0,m=531 93280
+runtime,n=default u=6 93300
+stack,n=IDLE t=0,m=107 93315
+runtime,n=IDLE u=79 93332
+stack,n=measure t=0,m=289 93348
+runtime,n=measure u=1 93366
+stack,n=tcpip_t t=4992,m=433 93380
+runtime,n=tcpip_t u=0 93399
+stack,n=connect t=0,m=1399 93414
+runtime,n=connect u=0 93432
+stack,n=network t=0,m=749 93446
+runtime,n=network u=0 93464
+stack,n=usb_dev t=0,m=569 93478
+runtime,n=usb_dev u=0 93496
+stack,n=display t=0,m=857 93510
+runtime,n=display u=12 93528
+stack,n=USBH_MS t=0,m=368 93543
+runtime,n=USBH_MS u=0 93561
+stack,n=media_p t=0,m=289 93575 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37598,tm=28070715625,v=4 runtime,n=media_p u=0 -859
+stack,n=USBH_Th t=1284,m=170 -844
+runtime,n=USBH_Th u=0 -826
+stack,n=TmrSvc t=0,m=74 -811
+runtime,n=TmrSvc u=0 -794
+stack,n=metric_ t=0,m=118 -779
+runtime,n=metric_ u=0 -762
+stack,n=acFault t=0,m=53 -747
+runtime,n=acFault u=0 -730
+stack,n=esp_tas t=0,m=99 -715
+runtime,n=esp_tas u=0 -698
+tmc_read error="value too long" 4595
+tmc_read error="value too long" 17598
+tmc_read error="value too long" 30594
+tmc_read error="value too long" 43595
+points_dropped v=38i 43654
+tmc_read error="value too long" 56603
+tmc_read error="value too long" 69596
+tmc_read error="value too long" 82640
+tmc_read error="value too long" 95596
+tmc_read error="value too long" 108597
+tmc_read error="value too long" 121594
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 134599
+tmc_read error="value too long" 147594
+tmc_read error="value too long" 160597
+tmc_read error="value too long" 170578 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37599,tm=28070886731,v=4 tmc_read error="value too long" -421
+tmc_read error="value too long" -318
+tmc_read error="value too long" -215
+tmc_read error="value too long" 3489
+loadcell_threshold v=-125.000000 9583
+loadcell_threshold_cont v=-40.000000 9590
+loadcell_hysteresis v=80.000000 9594
+tmc_read error="value too long" 16488
+tmc_read error="value too long" 30489
+tmc_read error="value too long" 43504
+tmc_read error="value too long" 56491
+tmc_read error="value too long" 69489
+tmc_read error="value too long" 82488
+tmc_read error="value too long" 95488
+tmc_read error="value too long" 108490
+tmc_read error="value too long" 121502
+heap free=59904i,total=89636i 134389
+tmc_read error="value too long" 134559
+tmc_read error="value too long" 147488
+tmc_read error="value too long" 160488
+tmc_read error="value too long" 173489
+tmc_read error="value too long" 186490
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 199503 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37600,tm=28071086441,v=4 eth_out sent=16216304i -50
+tmc_read error="value too long" 12781
+tmc_read error="value too long" 25778
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 38778
+tmc_read error="value too long" 51778
+fan,fan=print state=0,pwm=0,measured=0 56368
+fan,fan=heatbreak state=3,pwm=100,measured=50 56394
+tmc_read error="value too long" 64778
+tmc_read error="value too long" 77786
+tmc_read error="value too long" 90821
+tmc_read error="value too long" 103779
+tmc_read error="value too long" 116778
+tmc_read error="value too long" 129778
+tmc_read error="value too long" 142780
+tmc_read error="value too long" 155783
+tmc_read error="value too long" 168781
+tmc_read error="value too long" 181778
+tmc_read error="value too long" 194778
+tmc_read error="value too long" 207778
+tmc_read error="value too long" 220780
+tmc_read error="value too long" 233782
+tmc_read error="value too long" 246781
+tmc_read error="value too long" 259778 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37601,tm=28071359257,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12962
+tmc_read error="value too long" 25964
+tmc_read error="value too long" 26949
+tmc_read error="value too long" 27054
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 27156
+tmc_read error="value too long" 27261
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 38977
+tmc_read error="value too long" 52008
+tmc_read error="value too long" 64962
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245217i 77962
+tmc_read error="value too long" 90963
+tmc_read error="value too long" 103964
+tmc_read error="value too long" 116965
+print_filename v="bone dragon 10_0.4n_0.2mm_PLA_MK4_11h56m.bgcode" 130867
+tmc_read error="value too long" 131062
+tmc_read error="value too long" 143962
+tmc_read error="value too long" 157963
+volt_bed v=24.026344 161375
+volt_nozz v=23.954302 161382
+curr_nozz v=0.581046 161387
+curr_inp v=-2.055772 161391 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37602,tm=28071521058,v=4 cur_mmu_imp v=-0.008363 -405
+oc_nozz v=0i -401
+oc_inp v=0i -397
+heap free=59904i,total=89636i 4062
+tmc_read error="value too long" 9165
+tmc_read error="value too long" 22163
+tmc_read error="value too long" 35169
+tmc_read error="value too long" 48201
+tmc_read error="value too long" 61161
+tmc_read error="value too long" 74164
+tmc_read error="value too long" 87163
+tmc_read error="value too long" 100161
+tmc_read error="value too long" 113162
+tmc_read error="value too long" 126161
+tmc_read error="value too long" 139162
+tmc_read error="value too long" 152161
+tmc_read error="value too long" 165164
+tmc_read error="value too long" 178161
+tmc_read error="value too long" 191192
+tmc_read error="value too long" 204163
+tmc_read error="value too long" 217161
+tmc_read error="value too long" 230161
+tmc_read error="value too long" 243161
+points_dropped v=38i 243217
+tmc_read error="value too long" 256163 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37603,tm=28071782459,v=4 media_prefetched v=9046i -226
+cpu_usage v=21i -205
+tmc_read error="value too long" 7762
+tmc_read error="value too long" 20804
+tmc_read error="value too long" 33761
+tmc_read error="value too long" 46765
+tmc_read error="value too long" 59760
+tmc_read error="value too long" 72760
+tmc_read error="value too long" 85762
+tmc_read error="value too long" 98775
+tmc_read error="value too long" 103760
+tmc_read error="value too long" 103878
+tmc_read error="value too long" 103983
+tmc_read error="value too long" 104085
+tmc_read error="value too long" 111760
+tmc_read error="value too long" 124762
+is_printing v=1i 125636
+tmc_read,ax=? reg=111i,regn="drv_status",value=1114200i 137766
+tmc_read,ax=? reg=111i,regn="drv_status",value=1376396i 150761
+tmc_read error="value too long" 163766
+tmc_read error="value too long" 176775
+tmc_read error="value too long" 189760
+tmc_read error="value too long" 202762
+tmc_read error="value too long" 215764 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37604,tm=28072012286,v=4 tmc_read error="value too long" -32
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 12937
+heap free=59904i,total=89636i 16846
+tmc_read error="value too long" 25948
+tmc_read error="value too long" 38964
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 51933
+tmc_read error="value too long" 64933
+tmc_read error="value too long" 77933
+tmc_read error="value too long" 90933
+tmc_read error="value too long" 104596
+adj_z v=0.000000 109825
+heater_enabled v=1i 109831
+tmc_read error="value too long" 117933
+fan,fan=print state=0,pwm=0,measured=0 118117
+fan,fan=heatbreak state=3,pwm=100,measured=50 118143
+tmc_read error="value too long" 130933
+tmc_read error="value too long" 143934
+tmc_read error="value too long" 156935
+tmc_read error="value too long" 169964
+tmc_read error="value too long" 182933
+tmc_read error="value too long" 195938
+tmc_read error="value too long" 208933
+tmc_read error="value too long" 221933 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37605,tm=28072234425,v=4 eth_out sent=16221436i -50
+tmc_read error="value too long" 12796
+tmc_read error="value too long" 25794
+tmc_read error="value too long" 38807
+tmc_read error="value too long" 51797
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 64797
+tmc_read error="value too long" 77831
+tmc_read error="value too long" 90797
+tmc_read error="value too long" 103796
+tmc_read error="value too long" 116807
+tmc_read error="value too long" 129799
+tmc_read error="value too long" 142796
+tmc_read error="value too long" 151780
+tmc_read error="value too long" 151888
+tmc_read error="value too long" 151990
+tmc_read error="value too long" 152093
+tmc_read error="value too long" 155794
+tmc_read error="value too long" 168799
+tmc_read error="value too long" 181794
+tmc_read error="value too long" 194811
+tmc_read error="value too long" 207797
+tmc_read error="value too long" 220796
+tmc_read error="value too long" 234265 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37606,tm=28072481265,v=4 tmc_read error="value too long" -39
+tmc_read error="value too long" 12957
+tmc_read error="value too long" 26007
+tmc_read error="value too long" 38965
+heap free=59904i,total=89636i 51858
+tmc_read error="value too long" 52011
+volt_bed v=24.026344 52283
+volt_nozz v=23.918278 52290
+curr_nozz v=0.335865 52295
+curr_inp v=-3.984197 52300
+cur_mmu_imp v=-0.013000 52304
+oc_nozz v=0i 52308
+oc_inp v=0i 52312
+tmc_read error="value too long" 64954
+tmc_read error="value too long" 77958
+tmc_read error="value too long" 90956
+tmc_read error="value too long" 104002
+tmc_read error="value too long" 116958
+tmc_read error="value too long" 130005
+tmc_read,ax=? reg=111i,regn="drv_status",value=1114221i 142955
+tmc_read,ax=? reg=111i,regn="drv_status",value=1376588i 155962
+tmc_read error="value too long" 168963
+tmc_read error="value too long" 181968
+tmc_read error="value too long" 194955
+tmc_read error="value too long" 208307 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37607,tm=28072702256,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12963
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 25964
+tmc_read error="value too long" 39121
+tmc_read error="value too long" 51964
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 64965
+points_dropped v=38i 65025
+tmc_read error="value too long" 77964
+tmc_read error="value too long" 90965
+media_prefetched v=8826i 93933
+cpu_usage v=25i 93953
+tmc_read error="value too long" 103964
+tmc_read error="value too long" 116977
+tmc_read error="value too long" 129994
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 142966
+tmc_read error="value too long" 155963
+tmc_read error="value too long" 168994
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 181965
+tmc_read error="value too long" 183958
+tmc_read error="value too long" 184095
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 184197
+tmc_read error="value too long" 184300 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37608,tm=28072897267,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12953
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 25956
+tmc_read error="value too long" 38952
+tmc_read error="value too long" 51953
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 64987
+tmc_read error="value too long" 77967
+tmc_read error="value too long" 91363
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 103956
+tmc_read error="value too long" 116956
+tmc_read error="value too long" 129952
+heap free=59904i,total=89636i 139854
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 142964
+tmc_read error="value too long" 155968
+tmc_read error="value too long" 168955
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 181955
+tmc_read error="value too long" 194955
+tmc_read error="value too long" 207952
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 220957
+fan,fan=print state=0,pwm=0,measured=0 221743 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37609,tm=28073119301,v=4 fan,fan=heatbreak state=3,pwm=100,measured=50 -265
+tmc_read error="value too long" 11931
+tmc_read error="value too long" 24918
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245257i 37918
+tmc_read error="value too long" 50918
+tmc_read error="value too long" 63918
+tmc_read error="value too long" 89931
+tmc_read error="value too long" 102918
+tmc_read error="value too long" 115918
+tmc_read error="value too long" 128923
+tmc_read error="value too long" 141922
+tmc_read error="value too long" 154921
+tmc_read error="value too long" 167935
+tmc_read error="value too long" 180919
+tmc_read error="value too long" 193920
+tmc_read error="value too long" 206930
+tmc_read error="value too long" 219922
+tmc_read error="value too long" 245934
+tmc_read error="value too long" 258918
+tmc_read error="value too long" 266902
+tmc_read error="value too long" 267011
+tmc_read error="value too long" 267127
+tmc_read error="value too long" 267229 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37610,tm=28073386823,v=4 eth_out sent=16226573i -56
+tmc_read error="value too long" 17435
+tmc_read error="value too long" 30401
+tmc_read error="value too long" 43396
+tmc_read error="value too long" 56411
+tmc_read error="value too long" 69396
+tmc_read error="value too long" 82442
+tmc_read error="value too long" 95396
+tmc_read error="value too long" 108428
+tmc_read error="value too long" 121400
+tmc_read error="value too long" 134446
+tmc_read error="value too long" 147396
+heap free=59904i,total=89636i 154296
+volt_bed v=24.026344 159642
+volt_nozz v=24.026344 159649
+curr_nozz v=0.906835 159654
+curr_inp v=-1.655534 159658
+cur_mmu_imp v=-0.013000 159663
+oc_nozz v=0i 159667
+oc_inp v=0i 159671
+tmc_read error="value too long" 160400
+tmc_read error="value too long" 173428
+tmc_read error="value too long" 186399
+tmc_read error="value too long" 212409
+tmc_read error="value too long" 225430
+adj_z v=0.000000 236286
+heater_enabled v=1i 236292 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37611,tm=28073625254,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12967
+tmc_read error="value too long" 25967
+tmc_read error="value too long" 39226
+tmc_read error="value too long" 51978
+tmc_read error="value too long" 64964
+tmc_read error="value too long" 77965
+stack,n=default t=0,m=531 90096
+runtime,n=default u=6 90116
+stack,n=IDLE t=0,m=107 90131
+runtime,n=IDLE u=81 90148
+stack,n=measure t=0,m=289 90162
+runtime,n=measure u=1 90180
+stack,n=tcpip_t t=4992,m=433 90194
+runtime,n=tcpip_t u=0 90213
+stack,n=connect t=0,m=1399 90227
+runtime,n=connect u=0 90245
+stack,n=network t=0,m=749 90260
+runtime,n=network u=0 90278
+stack,n=usb_dev t=0,m=569 90292
+runtime,n=usb_dev u=0 90310
+stack,n=display t=0,m=857 90324
+runtime,n=display u=10 90342
+stack,n=media_p t=0,m=289 90369
+runtime,n=media_p u=0 90387
+stack,n=USBH_Th t=1284,m=170 90401
+runtime,n=USBH_Th u=0 90422
+stack,n=acFault t=0,m=53 90437 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37612,tm=28073716667,v=4 runtime,n=acFault u=0 -959
+stack,n=TmrSvc t=0,m=74 -944
+runtime,n=TmrSvc u=0 -927
+stack,n=metric_ t=0,m=118 -913
+runtime,n=metric_ u=0 -895
+stack,n=esp_tas t=0,m=99 -880
+runtime,n=esp_tas u=0 -863
+stack,n=USBH_MS t=0,m=368 -761
+runtime,n=USBH_MS u=0 -743
+tmc_read error="value too long" 554
+tmc_read error="value too long" 13558
+tmc_read error="value too long" 26552
+tmc_read error="value too long" 39567
+tmc_read error="value too long" 52559
+points_dropped v=38i 52626
+tmc_read error="value too long" 65554
+tmc_read error="value too long" 78555
+tmc_read error="value too long" 91592
+tmc_read error="value too long" 104598
+tmc_read error="value too long" 117566
+tmc_read error="value too long" 130567
+tmc_read error="value too long" 143553
+tmc_read error="value too long" 156552
+tmc_read error="value too long" 169541
+tmc_read error="value too long" 169648
+tmc_read error="value too long" 169750 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37613,tm=28073886769,v=4 tmc_read error="value too long" -249
+tmc_read error="value too long" 182
+tmc_read error="value too long" 13450
+tmc_read error="value too long" 26463
+tmc_read error="value too long" 39453
+tmc_read error="value too long" 52481
+tmc_read error="value too long" 65452
+media_prefetched v=8090i 69377
+cpu_usage v=29i 69396
+tmc_read error="value too long" 78451
+fw_version v="5.1.1" 86342
+tmc_read error="value too long" 91452
+tmc_read error="value too long" 104463
+tmc_read error="value too long" 117760
+tmc_read error="value too long" 130453
+tmc_read error="value too long" 143451
+tmc_read error="value too long" 156450
+heap free=59904i,total=89636i 158350
+tmc_read error="value too long" 169450
+tmc_read error="value too long" 182463
+tmc_read error="value too long" 195455
+tmc_read error="value too long" 208453
+fan,fan=print state=0,pwm=0,measured=0 220847
+fan,fan=heatbreak state=3,pwm=100,measured=50 220873 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37614,tm=28074108256,v=4 tmc_read error="value too long" -34
+tmc_read error="value too long" 12974
+tmc_read error="value too long" 25963
+tmc_read error="value too long" 38978
+tmc_read error="value too long" 51968
+tmc_read error="value too long" 64965
+tmc_read error="value too long" 77965
+tmc_read error="value too long" 90966
+tmc_read error="value too long" 104000
+tmc_read error="value too long" 117010
+tmc_read error="value too long" 129963
+tmc_read error="value too long" 142963
+tmc_read error="value too long" 155964
+tmc_read error="value too long" 168966
+tmc_read error="value too long" 181968
+tmc_read error="value too long" 194980
+tmc_read error="value too long" 207963
+tmc_read error="value too long" 220966
+tmc_read error="value too long" 233966
+tmc_read error="value too long" 246965
+tmc_read error="value too long" 272977
+tmc_read error="value too long" 277962
+tmc_read error="value too long" 278068
+tmc_read error="value too long" 278170 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37615,tm=28074386784,v=4 tmc_read error="value too long" -252
+tmc_read error="value too long" 7435
+tmc_read error="value too long" 33744
+tmc_read error="value too long" 46435
+tmc_read error="value too long" 59435
+tmc_read error="value too long" 72450
+tmc_read error="value too long" 85435
+tmc_read error="value too long" 98437
+tmc_read error="value too long" 111435
+tmc_read error="value too long" 124435
+tmc_read error="value too long" 137437
+tmc_read error="value too long" 150451
+heap free=59904i,total=89636i 162472
+tmc_read error="value too long" 163437
+volt_bed v=23.954302 172600
+volt_nozz v=23.954302 172607
+curr_nozz v=0.480287 172612
+curr_inp v=-2.819865 172617
+cur_mmu_imp v=-0.013000 172621
+oc_nozz v=0i 172625
+oc_inp v=0i 172629
+tmc_read error="value too long" 176466
+tmc_read error="value too long" 189435
+tmc_read error="value too long" 202435
+tmc_read error="value too long" 215440
+tmc_read error="value too long" 228449 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37616,tm=28074615439,v=4 eth_out sent=16232680i -50
+tmc_read error="value too long" 12780
+tmc_read error="value too long" 25795
+tmc_read error="value too long" 38782
+tmc_read error="value too long" 51783
+tmc_read error="value too long" 64780
+tmc_read error="value too long" 77790
+tmc_read error="value too long" 90780
+tmc_read error="value too long" 103784
+tmc_read error="value too long" 116780
+tmc_read error="value too long" 129781
+tmc_read error="value too long" 155819
+points_dropped v=38i 155873
+tmc_read error="value too long" 168782
+tmc_read error="value too long" 194784
+tmc_read error="value too long" 207780
+tmc_read error="value too long" 233783
+tmc_read error="value too long" 246780
+tmc_read error="value too long" 270768
+tmc_read error="value too long" 270872
+tmc_read error="value too long" 270975
+tmc_read error="value too long" 271078
+tmc_read error="value too long" 272787
+tmc_read error="value too long" 285780 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37617,tm=28074927270,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12949
+tmc_read error="value too long" 25949
+tmc_read error="value too long" 38980
+tmc_read error="value too long" 51949
+tmc_read error="value too long" 64951
+media_prefetched v=7625i 76920
+cpu_usage v=28i 76940
+loadcell_scale v=0.019200 77009
+tmc_read error="value too long" 77951
+tmc_read error="value too long" 90965
+tmc_read error="value too long" 103949
+tmc_read error="value too long" 116949
+heap free=59904i,total=89636i 125852
+tmc_read error="value too long" 129949
+tmc_read error="value too long" 142951
+tmc_read error="value too long" 155951
+fan,fan=print state=0,pwm=0,measured=0 167940
+fan,fan=heatbreak state=3,pwm=100,measured=50 167966
+tmc_read error="value too long" 168961
+tmc_read error="value too long" 181949
+tmc_read error="value too long" 194951
+adj_z v=0.000000 196839
+heater_enabled v=1i 196846
+tmc_read error="value too long" 207949 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37618,tm=28075148282,v=4 tmc_read error="value too long" -34
+tmc_read error="value too long" 12939
+eth_in recv=6601181i 13864
+tmc_read error="value too long" 25950
+tmc_read error="value too long" 38937
+tmc_read error="value too long" 51937
+tmc_read error="value too long" 64972
+tmc_read error="value too long" 77937
+tmc_read error="value too long" 90942
+tmc_read error="value too long" 103950
+tmc_read error="value too long" 116939
+tmc_read error="value too long" 129940
+tmc_read error="value too long" 142941
+tmc_read error="value too long" 155937
+tmc_read error="value too long" 169670
+tmc_read error="value too long" 182964
+tmc_read error="value too long" 195937
+tmc_read error="value too long" 208938
+tmc_read error="value too long" 221949
+tmc_read error="value too long" 234940
+tmc_read error="value too long" 237948
+tmc_read error="value too long" 238058
+tmc_read error="value too long" 238160
+tmc_read error="value too long" 238263 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37619,tm=28075396254,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 13011
+tmc_read error="value too long" 25966
+tmc_read error="value too long" 38965
+tmc_read error="value too long" 51969
+tmc_read error="value too long" 64996
+tmc_read error="value too long" 77965
+tmc_read error="value too long" 90978
+tmc_read error="value too long" 103965
+tmc_read error="value too long" 116997
+tmc_read error="value too long" 129965
+tmc_read error="value too long" 142965
+tmc_read error="value too long" 156003
+heap free=59904i,total=89636i 160879
+tmc_read error="value too long" 169011
+volt_bed v=23.990320 176044
+volt_nozz v=23.990320 176051
+curr_nozz v=1.326666 176056
+curr_inp v=-5.112142 176061
+cur_mmu_imp v=-0.013000 176065
+oc_nozz v=0i 176069
+oc_inp v=0i 176073
+tmc_read error="value too long" 194999
+tmc_read error="value too long" 207969
+tmc_read error="value too long" 233965
+tmc_read error="value too long" 246978 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37620,tm=28075643515,v=4 eth_out sent=16236773i -50
+tmc_read error="value too long" 12704
+tmc_read error="value too long" 25709
+tmc_read error="value too long" 38708
+tmc_read error="value too long" 64706
+tmc_read error="value too long" 77716
+tmc_read error="value too long" 90704
+tmc_read error="value too long" 103706
+tmc_read error="value too long" 116704
+tmc_read error="value too long" 129706
+points_dropped v=38i 129763
+tmc_read error="value too long" 142704
+tmc_read error="value too long" 155721
+tmc_read error="value too long" 168704
+tmc_read error="value too long" 181704
+tmc_read error="value too long" 194705
+tmc_read error="value too long" 220704
+tmc_read error="value too long" 233718
+tmc_read error="value too long" 242690
+tmc_read error="value too long" 242810
+tmc_read error="value too long" 242918
+tmc_read error="value too long" 243022
+tmc_read error="value too long" 247706
+tmc_read error="value too long" 260735 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37621,tm=28075917253,v=4 tmc_read error="value too long" -34
+loadcell_threshold v=-125.000000 2035
+loadcell_threshold_cont v=-40.000000 2044
+loadcell_hysteresis v=80.000000 2049
+tmc_read error="value too long" 12968
+tmc_read error="value too long" 25966
+tmc_read error="value too long" 38979
+tmc_read error="value too long" 51966
+tmc_read error="value too long" 64967
+tmc_read error="value too long" 77966
+tmc_read error="value too long" 90971
+tmc_read error="value too long" 103969
+tmc_read error="value too long" 116977
+tmc_read error="value too long" 129968
+tmc_read error="value too long" 142966
+media_prefetched v=6969i 143972
+cpu_usage v=29i 143993
+heap free=59904i,total=89636i 144038
+tmc_read error="value too long" 155966
+fan,fan=print state=0,pwm=0,measured=0 166563
+fan,fan=heatbreak state=3,pwm=100,measured=50 166590
+tmc_read error="value too long" 168966
+tmc_read error="value too long" 181966
+tmc_read error="value too long" 194981 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37622,tm=28076125256,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12963
+tmc_read error="value too long" 25963
+tmc_read error="value too long" 38963
+tmc_read error="value too long" 51963
+tmc_read error="value too long" 64975
+tmc_read error="value too long" 77965
+tmc_read error="value too long" 90965
+tmc_read error="value too long" 103963
+tmc_read error="value too long" 116965
+tmc_read error="value too long" 129963
+tmc_read error="value too long" 142978
+tmc_read error="value too long" 155966
+tmc_read error="value too long" 168965
+tmc_read error="value too long" 181965
+tmc_read error="value too long" 194968
+tmc_read error="value too long" 208001
+tmc_read error="value too long" 220976
+tmc_read error="value too long" 233966
+tmc_read error="value too long" 246965
+tmc_read error="value too long" 259965
+tmc_read error="value too long" 260947
+tmc_read error="value too long" 261054
+tmc_read error="value too long" 261156 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37623,tm=28076386778,v=4 tmc_read error="value too long" -262
+tmc_read error="value too long" 11442
+tmc_read error="value too long" 25446
+tmc_read error="value too long" 38458
+tmc_read error="value too long" 51442
+tmc_read error="value too long" 65443
+tmc_read error="value too long" 78441
+tmc_read error="value too long" 91442
+print_filename v="bone dragon 10_0.4n_0.2mm_PLA_MK4_11h56m.bgcode" 104348
+tmc_read error="value too long" 105446
+tmc_read error="value too long" 118456
+tmc_read error="value too long" 131443
+tmc_read error="value too long" 144445
+tmc_read error="value too long" 157441
+tmc_read error="value too long" 170441
+heap free=59904i,total=89636i 178344
+tmc_read error="value too long" 183441
+tmc_read error="value too long" 196453
+volt_bed v=24.062366 198437
+volt_nozz v=23.954302 198444
+curr_nozz v=0.745620 198449
+curr_inp v=-2.128544 198453
+cur_mmu_imp v=-0.013000 198458
+oc_nozz v=0i 198462
+oc_inp v=0i 198468 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37624,tm=28076596283,v=4 tmc_read error="value too long" -33
+tmc_read error="value too long" 12946
+tmc_read error="value too long" 25936
+adj_z v=0.000000 28826
+heater_enabled v=1i 28832
+tmc_read error="value too long" 38936
+tmc_read error="value too long" 51940
+tmc_read error="value too long" 64947
+tmc_read error="value too long" 77938
+tmc_read error="value too long" 90938
+tmc_read error="value too long" 103936
+tmc_read error="value too long" 116968
+stack,n=default t=0,m=531 120121
+runtime,n=default u=6 120140
+stack,n=IDLE t=0,m=107 120155
+runtime,n=IDLE u=78 120172
+stack,n=measure t=0,m=289 120186
+runtime,n=measure u=1 120204
+stack,n=tcpip_t t=4992,m=433 120221
+runtime,n=tcpip_t u=0 120239
+stack,n=connect t=0,m=1399 120254
+runtime,n=connect u=0 120272
+stack,n=network t=0,m=749 120286
+runtime,n=network u=0 120304
+stack,n=usb_dev t=0,m=569 120318
+runtime,n=usb_dev u=0 120336
+stack,n=display t=0,m=857 120350 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37625,tm=28076717501,v=4 runtime,n=display u=13 -850
+stack,n=USBH_Th t=1284,m=170 -835
+runtime,n=USBH_Th u=0 -816
+stack,n=acFault t=0,m=53 -802
+runtime,n=acFault u=0 -784
+stack,n=TmrSvc t=0,m=74 -769
+runtime,n=TmrSvc u=0 -752
+stack,n=esp_tas t=0,m=99 -738
+runtime,n=esp_tas u=0 -720
+stack,n=metric_ t=0,m=118 -706
+runtime,n=metric_ u=0 -688
+stack,n=USBH_MS t=0,m=368 -674
+runtime,n=USBH_MS u=0 -656
+stack,n=media_p t=0,m=289 -642
+runtime,n=media_p u=0 -620
+eth_out sent=16241877i -52
+tmc_read error="value too long" 8720
+tmc_read error="value too long" 21731
+tmc_read error="value too long" 34719
+tmc_read error="value too long" 47718
+tmc_read error="value too long" 60720
+points_dropped v=38i 60776
+tmc_read error="value too long" 73720
+tmc_read error="value too long" 86722
+tmc_read error="value too long" 99734
+tmc_read error="value too long" 112718
+tmc_read error="value too long" 125733
+tmc_read error="value too long" 138722 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37626,tm=28076882257,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 3948
+tmc_read error="value too long" 4056
+tmc_read error="value too long" 4159
+tmc_read error="value too long" 4263
+tmc_read error="value too long" 12976
+is_printing v=1i 26838
+tmc_read error="value too long" 38962
+tmc_read error="value too long" 52289
+tmc_read error="value too long" 64962
+tmc_read error="value too long" 77962
+tmc_read error="value too long" 90977
+tmc_read error="value too long" 103965
+tmc_read error="value too long" 116963
+tmc_read error="value too long" 130997
+tmc_read error="value too long" 143962
+tmc_read error="value too long" 156962
+tmc_read error="value too long" 169977
+tmc_read error="value too long" 182965
+heap free=59904i,total=89636i 186862
+fan,fan=print state=0,pwm=0,measured=0 189156
+fan,fan=heatbreak state=3,pwm=100,measured=50 189182
+media_prefetched v=6315i 192886
+cpu_usage v=28i 192905 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37627,tm=28077078254,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12966
+tmc_read error="value too long" 25966
+tmc_read error="value too long" 38965
+tmc_read error="value too long" 51980
+tmc_read error="value too long" 64967
+tmc_read error="value too long" 77965
+tmc_read error="value too long" 91004
+tmc_read error="value too long" 103966
+tmc_read error="value too long" 116965
+tmc_read error="value too long" 129978
+tmc_read error="value too long" 142968
+tmc_read error="value too long" 155969
+tmc_read error="value too long" 168969
+tmc_read error="value too long" 181965
+tmc_read error="value too long" 194977
+tmc_read error="value too long" 207978
+tmc_read error="value too long" 233996
+tmc_read error="value too long" 246967
+tmc_read error="value too long" 259965
+tmc_read error="value too long" 272968
+tmc_read error="value too long" 285979
+tmc_read error="value too long" 298965
+tmc_read error="value too long" 307949 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37628,tm=28077386733,v=4 tmc_read error="value too long" -423
+tmc_read error="value too long" -319
+tmc_read error="value too long" -203
+tmc_read error="value too long" 3486
+tmc_read error="value too long" 16490
+tmc_read error="value too long" 42486
+tmc_read error="value too long" 55503
+tmc_read error="value too long" 81486
+tmc_read error="value too long" 94486
+tmc_read error="value too long" 120486
+tmc_read error="value too long" 133499
+tmc_read error="value too long" 146491
+tmc_read error="value too long" 159486
+tmc_read error="value too long" 172488
+heap free=59904i,total=89636i 186386
+tmc_read error="value too long" 198488
+volt_bed v=24.026344 211399
+volt_nozz v=23.990320 211406
+curr_nozz v=0.409755 211411
+curr_inp v=-2.201313 211415
+cur_mmu_imp v=-0.013000 211420
+oc_nozz v=0i 211424
+oc_inp v=0i 211428
+tmc_read error="value too long" 211796
+tmc_read error="value too long" 237487
+tmc_read error="value too long" 250521 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37629,tm=28077663287,v=4 tmc_read error="value too long" -33
+tmc_read error="value too long" 12976
+tmc_read error="value too long" 38932
+tmc_read error="value too long" 51932
+tmc_read error="value too long" 64933
+tmc_read error="value too long" 77932
+tmc_read error="value too long" 90949
+tmc_read error="value too long" 103937
+tmc_read error="value too long" 116932
+points_dropped v=38i 116988
+tmc_read error="value too long" 129934
+tmc_read error="value too long" 143294
+tmc_read,ax=? reg=111i,regn="drv_status",value=1114315i 155939
+tmc_read,ax=? reg=111i,regn="drv_status",value=1376446i 168950
+tmc_read error="value too long" 181941
+tmc_read,ax=? reg=111i,regn="drv_status",value=1114352i 194936
+tmc_read error="value too long" 207934
+tmc_read error="value too long" 220932
+tmc_read error="value too long" 222923
+tmc_read error="value too long" 223031
+tmc_read error="value too long" 223134
+tmc_read error="value too long" 223238 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37630,tm=28077886836,v=4 eth_out sent=16246972i -67
+tmc_read error="value too long" 10383
+tmc_read error="value too long" 23395
+tmc_read error="value too long" 36388
+tmc_read error="value too long" 49387
+tmc_read error="value too long" 62422
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 75386
+tmc_read error="value too long" 88387
+tmc_read error="value too long" 101396
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 114419
+tmc_read error="value too long" 127421
+tmc_read error="value too long" 140383
+tmc_read error="value too long" 153383
+tmc_read error="value too long" 166386
+fan,fan=print state=0,pwm=0,measured=0 172168
+fan,fan=heatbreak state=3,pwm=100,measured=50 172194
+tmc_read error="value too long" 179442
+heap free=59904i,total=89636i 190283
+tmc_read error="value too long" 192383
+tmc_read error="value too long" 205389
+media_prefetched v=5652i 211354
+cpu_usage v=29i 211373
+tmc_read error="value too long" 218383 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37631,tm=28078118254,v=4 tmc_read error="value too long" -35
+adj_z v=0.000000 7855
+heater_enabled v=1i 7862
+tmc_read error="value too long" 12965
+tmc_read error="value too long" 25977
+tmc_read error="value too long" 38965
+tmc_read error="value too long" 51971
+tmc_read error="value too long" 64965
+tmc_read error="value too long" 77966
+tmc_read error="value too long" 90973
+tmc_read error="value too long" 103976
+tmc_read error="value too long" 116970
+tmc_read error="value too long" 129965
+tmc_read error="value too long" 142965
+tmc_read error="value too long" 155965
+tmc_read error="value too long" 168967
+tmc_read error="value too long" 181970
+tmc_read error="value too long" 194967
+tmc_read error="value too long" 208004
+tmc_read error="value too long" 220965
+tmc_read error="value too long" 233967
+tmc_read error="value too long" 246996
+tmc_read error="value too long" 259967
+tmc_read error="value too long" 267960 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37632,tm=28078386752,v=4 tmc_read error="value too long" -401
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245798i -299
+tmc_read error="value too long" -198
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245798i 4470
+tmc_read error="value too long" 17471
+tmc_read error="value too long" 30467
+tmc_read error="value too long" 43469
+tmc_read error="value too long" 56470
+tmc_read,ax=? reg=111i,regn="drv_status",value=1376268i 69582
+tmc_read error="value too long" 82474
+tmc_read,ax=? reg=111i,regn="drv_status",value=1114329i 95473
+tmc_read,ax=? reg=111i,regn="drv_status",value=1376333i 108469
+tmc_read error="value too long" 121468
+tmc_read error="value too long" 134469
+tmc_read error="value too long" 147470
+tmc_read error="value too long" 160469
+tmc_read error="value too long" 173469
+tmc_read error="value too long" 186469
+heap free=59904i,total=89636i 194404
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245247i 199470 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37633,tm=28078599257,v=4 tmc_read error="value too long" -38
+volt_bed v=24.026344 11791
+volt_nozz v=23.990320 11798
+curr_nozz v=1.158734 11803
+curr_inp v=-1.619148 11808
+cur_mmu_imp v=-0.013000 11813
+oc_nozz v=0i 11816
+oc_inp v=0i 11820
+tmc_read error="value too long" 12964
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245247i 25975
+tmc_read error="value too long" 38964
+tmc_read error="value too long" 51962
+tmc_read error="value too long" 64996
+tmc_read error="value too long" 77965
+tmc_read error="value too long" 90998
+tmc_read error="value too long" 103975
+tmc_read error="value too long" 116964
+tmc_read error="value too long" 129966
+tmc_read error="value too long" 142965
+tmc_read error="value too long" 155963
+tmc_read error="value too long" 169430
+tmc_read error="value too long" 181973
+points_dropped v=38i 182031
+tmc_read error="value too long" 194962
+tmc_read error="value too long" 207964
+tmc_read error="value too long" 220991 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37634,tm=28078833254,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12979
+tmc_read error="value too long" 25978
+tmc_read error="value too long" 38965
+tmc_read error="value too long" 51965
+tmc_read error="value too long" 52951
+tmc_read error="value too long" 53058
+tmc_read error="value too long" 53173
+tmc_read error="value too long" 53276
+tmc_read error="value too long" 64965
+tmc_read error="value too long" 77965
+tmc_read error="value too long" 90965
+tmc_read error="value too long" 103980
+tmc_read error="value too long" 116965
+tmc_read error="value too long" 129965
+tmc_read error="value too long" 142967
+tmc_read error="value too long" 155966
+tmc_read error="value too long" 168968
+tmc_read error="value too long" 182011
+tmc_read error="value too long" 194968
+tmc_read error="value too long" 207965
+fan,fan=print state=0,pwm=0,measured=0 214357
+fan,fan=heatbreak state=3,pwm=100,measured=50 214383 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37635,tm=28079047885,v=4 eth_out sent=16252065i -50
+tmc_read error="value too long" 6336
+tmc_read error="value too long" 19334
+filament v="PLA" 28233
+tmc_read error="value too long" 32340
+heap free=59904i,total=89636i 37249
+tmc_read error="value too long" 45349
+tmc_read error="value too long" 58335
+tmc_read error="value too long" 71334
+tmc_read error="value too long" 84334
+tmc_read error="value too long" 97338
+tmc_read error="value too long" 110336
+tmc_read error="value too long" 123347
+tmc_read error="value too long" 136340
+tmc_read error="value too long" 149334
+tmc_read error="value too long" 162337
+tmc_read error="value too long" 175334
+tmc_read error="value too long" 188335
+tmc_read error="value too long" 201373
+tmc_read error="value too long" 214372
+tmc_read error="value too long" 227336
+tmc_read error="value too long" 240334
+tmc_read error="value too long" 253337
+tmc_read error="value too long" 266368 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37636,tm=28079327269,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12953
+tmc_read error="value too long" 25950
+tmc_read error="value too long" 38954
+tmc_read error="value too long" 51981
+tmc_read error="value too long" 58938
+tmc_read error="value too long" 59042
+tmc_read error="value too long" 59144
+tmc_read error="value too long" 59247
+tmc_read error="value too long" 64950
+tmc_read error="value too long" 77964
+tmc_read error="value too long" 90950
+tmc_read error="value too long" 103952
+tmc_read error="value too long" 116955
+tmc_read error="value too long" 129950
+media_prefetched v=5381i 139959
+cpu_usage v=30i 139980
+tmc_read error="value too long" 142952
+tmc_read error="value too long" 155965
+tmc_read error="value too long" 168954
+tmc_read error="value too long" 181950
+tmc_read error="value too long" 194951
+tmc_read error="value too long" 208952
+tmc_read error="value too long" 221950 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37637,tm=28079562270,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12951
+tmc_read error="value too long" 25949
+heap free=59904i,total=89636i 26851
+tmc_read error="value too long" 38951
+tmc_read,ax=? reg=111i,regn="drv_status",value=1114240i 51991
+volt_bed v=24.026344 61695
+volt_nozz v=23.918278 61702
+curr_nozz v=0.641502 61707
+curr_inp v=-1.983001 61711
+cur_mmu_imp v=-0.013000 61716
+oc_nozz v=0i 61720
+oc_inp v=0i 61724
+adj_z v=0.000000 64093
+heater_enabled v=1i 64100
+tmc_read,ax=? reg=111i,regn="drv_status",value=1376578i 64954
+tmc_read error="value too long" 77966
+tmc_read error="value too long" 90964
+tmc_read error="value too long" 103987
+tmc_read error="value too long" 116949
+tmc_read error="value too long" 129961
+tmc_read error="value too long" 142949
+stack,n=default t=0,m=531 155304
+runtime,n=default u=6 155324
+stack,n=IDLE t=0,m=107 155338
+runtime,n=IDLE u=77 155355
+stack,n=measure t=0,m=289 155369 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37638,tm=28079718703,v=4 runtime,n=measure u=1 -1046
+stack,n=tcpip_t t=4992,m=433 -1031
+runtime,n=tcpip_t u=0 -1013
+stack,n=connect t=0,m=1399 -998
+runtime,n=connect u=0 -980
+stack,n=network t=0,m=749 -966
+runtime,n=network u=0 -948
+stack,n=usb_dev t=0,m=569 -934
+runtime,n=usb_dev u=0 -916
+stack,n=display t=0,m=857 -902
+runtime,n=display u=13 -884
+stack,n=acFault t=0,m=53 -867
+runtime,n=acFault u=0 -849
+stack,n=esp_tas t=0,m=99 -835
+runtime,n=esp_tas u=0 -817
+stack,n=USBH_MS t=0,m=368 -803
+runtime,n=USBH_MS u=0 -785
+stack,n=TmrSvc t=0,m=74 -771
+runtime,n=TmrSvc u=0 -749
+stack,n=metric_ t=0,m=118 -735
+runtime,n=metric_ u=0 -717
+stack,n=media_p t=0,m=289 -703
+runtime,n=media_p u=0 -685
+stack,n=USBH_Th t=1284,m=170 -671
+runtime,n=USBH_Th u=0 -652
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245250i 869
+tmc_read error="value too long" 13518
+tmc_read error="value too long" 26521
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245250i 39548 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37639,tm=28079771254,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12965
+points_dropped v=38i 13020
+tmc_read error="value too long" 25978
+tmc_read error="value too long" 38965
+tmc_read error="value too long" 51967
+tmc_read error="value too long" 64965
+tmc_read error="value too long" 77965
+tmc_read error="value too long" 90965
+tmc_read error="value too long" 103977
+tmc_read error="value too long" 114955
+tmc_read error="value too long" 115076
+tmc_read error="value too long" 115183
+tmc_read error="value too long" 115287
+tmc_read error="value too long" 116967
+tmc_read error="value too long" 129965
+tmc_read error="value too long" 142965
+tmc_read error="value too long" 155970
+tmc_read error="value too long" 168965
+tmc_read error="value too long" 181977
+tmc_read error="value too long" 194970
+tmc_read error="value too long" 207967
+tmc_read error="value too long" 220968
+tmc_read error="value too long" 233969 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37640,tm=28080018255,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12977
+fan,fan=print state=0,pwm=0,measured=0 16949
+fan,fan=heatbreak state=3,pwm=100,measured=50 16976
+tmc_read error="value too long" 25965
+tmc_read error="value too long" 39965
+tmc_read error="value too long" 52995
+loadcell_scale v=0.019200 56041
+tmc_read error="value too long" 65965
+heap free=59904i,total=89636i 74866
+tmc_read error="value too long" 79995
+tmc_read error="value too long" 92976
+tmc_read error="value too long" 105969
+tmc_read error="value too long" 119967
+tmc_read error="value too long" 132964
+tmc_read error="value too long" 145965
+tmc_read error="value too long" 158966
+tmc_read error="value too long" 171977
+tmc_read error="value too long" 184964
+tmc_read error="value too long" 197995
+tmc_read error="value too long" 210965
+tmc_read error="value too long" 223964
+tmc_read error="value too long" 236964 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37641,tm=28080255424,v=4 eth_out sent=16258170i -50
+tmc_read error="value too long" 12854
+tmc_read error="value too long" 25795
+tmc_read error="value too long" 38797
+tmc_read error="value too long" 51795
+tmc_read error="value too long" 64795
+tmc_read error="value too long" 90234
+tmc_read error="value too long" 102795
+tmc_read error="value too long" 115797
+tmc_read error="value too long" 128795
+tmc_read error="value too long" 130779
+tmc_read error="value too long" 130886
+tmc_read error="value too long" 130988
+tmc_read error="value too long" 131091
+tmc_read error="value too long" 141797
+tmc_read error="value too long" 154795
+tmc_read error="value too long" 167807
+tmc_read error="value too long" 180796
+tmc_read error="value too long" 193795
+tmc_read error="value too long" 206796
+tmc_read error="value too long" 219797
+tmc_read error="value too long" 232807
+tmc_read error="value too long" 245810
+tmc_read error="value too long" 258795 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37642,tm=28080527260,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12959
+tmc_read error="value too long" 25959
+tmc_read error="value too long" 39005
+media_prefetched v=10220i 47931
+cpu_usage v=25i 47990
+tmc_read error="value too long" 51972
+tmc_read error="value too long" 64963
+heap free=59904i,total=89636i 69861
+tmc_read error="value too long" 77959
+tmc_read error="value too long" 91005
+tmc_read error="value too long" 103959
+volt_bed v=24.062366 109621
+volt_nozz v=24.026344 109629
+curr_nozz v=1.299797 109634
+curr_inp v=-2.092159 109638
+cur_mmu_imp v=-0.013000 109643
+oc_nozz v=0i 109647
+oc_inp v=0i 109650
+tmc_read error="value too long" 116960
+tmc_read error="value too long" 130973
+eth_in recv=6601349i 141890
+tmc_read error="value too long" 143962
+tmc_read error="value too long" 156960
+tmc_read error="value too long" 170961
+tmc_read error="value too long" 183959
+tmc_read error="value too long" 196965 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37643,tm=28080738268,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12951
+tmc_read error="value too long" 25952
+tmc_read error="value too long" 38989
+tmc_read error="value too long" 51951
+points_dropped v=38i 52038
+tmc_read error="value too long" 64956
+tmc_read error="value too long" 77965
+tmc_read error="value too long" 90951
+tmc_read error="value too long" 103951
+tmc_read error="value too long" 116951
+tmc_read error="value too long" 129997
+tmc_read error="value too long" 142951
+tmc_read error="value too long" 147951
+tmc_read error="value too long" 148057
+tmc_read error="value too long" 148162
+tmc_read error="value too long" 148265
+tmc_read error="value too long" 155966
+tmc_read error="value too long" 168951
+tmc_read error="value too long" 181954
+tmc_read error="value too long" 194951
+tmc_read error="value too long" 207954
+tmc_read error="value too long" 220951
+tmc_read error="value too long" 233963 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37644,tm=28080985257,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12962
+tmc_read error="value too long" 25964
+fan,fan=print state=0,pwm=0,measured=0 38554
+fan,fan=heatbreak state=3,pwm=100,measured=49 38583
+tmc_read error="value too long" 38963
+tmc_read error="value too long" 51963
+tmc_read error="value too long" 64977
+tmc_read error="value too long" 77962
+tmc_read error="value too long" 90968
+tmc_read error="value too long" 103964
+heap free=59904i,total=89636i 114891
+tmc_read error="value too long" 116965
+loadcell_threshold v=-125.000000 122993
+loadcell_threshold_cont v=-40.000000 123000
+loadcell_hysteresis v=80.000000 123005
+tmc_read error="value too long" 129962
+adj_z v=0.000000 141852
+heater_enabled v=1i 141859
+tmc_read error="value too long" 142975
+tmc_read error="value too long" 155963
+tmc_read error="value too long" 168962
+tmc_read error="value too long" 181996
+tmc_read error="value too long" 194962 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37645,tm=28081193259,v=4 tmc_read error="value too long" -40
+tmc_read error="value too long" 12977
+tmc_read error="value too long" 25960
+tmc_read error="value too long" 38962
+tmc_read error="value too long" 51962
+tmc_read error="value too long" 64964
+tmc_read error="value too long" 77962
+tmc_read error="value too long" 90974
+tmc_read error="value too long" 103966
+tmc_read error="value too long" 116960
+tmc_read error="value too long" 129962
+tmc_read error="value too long" 142972
+tmc_read error="value too long" 155960
+tmc_read error="value too long" 168974
+tmc_read error="value too long" 181962
+tmc_read error="value too long" 192946
+tmc_read error="value too long" 193052
+tmc_read error="value too long" 193154
+tmc_read error="value too long" 193270
+tmc_read error="value too long" 194964
+tmc_read error="value too long" 207960
+tmc_read error="value too long" 220961
+tmc_read error="value too long" 233962
+tmc_read error="value too long" 246972 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37646,tm=28081440439,v=4 eth_out sent=16263310i -53
+tmc_read error="value too long" 12785
+tmc_read error="value too long" 25780
+tmc_read error="value too long" 38814
+print_filename v="bone dragon 10_0.4n_0.2mm_PLA_MK4_11h56m.bgcode" 51685
+tmc_read error="value too long" 51840
+tmc_read error="value too long" 64780
+tmc_read error="value too long" 77798
+tmc_read error="value too long" 90782
+tmc_read error="value too long" 103783
+tmc_read error="value too long" 116781
+tmc_read error="value too long" 129780
+tmc_read error="value too long" 142780
+media_prefetched v=10139i 151784
+cpu_usage v=25i 151804
+tmc_read error="value too long" 155795
+heap free=59904i,total=89636i 163681
+tmc_read error="value too long" 168788
+tmc_read error="value too long" 181780
+tmc_read error="value too long" 194781
+tmc_read error="value too long" 207780
+volt_bed v=23.990320 209359
+volt_nozz v=23.954302 209366
+curr_nozz v=0.994160 209371 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37647,tm=28081650076,v=4 curr_inp v=-1.728305 -261
+cur_mmu_imp v=-0.013000 -257
+oc_nozz v=0i -253
+oc_inp v=0i -249
+tmc_read error="value too long" 11145
+tmc_read error="value too long" 24155
+tmc_read error="value too long" 37147
+tmc_read error="value too long" 50143
+tmc_read error="value too long" 63146
+tmc_read error="value too long" 76145
+tmc_read error="value too long" 89143
+tmc_read error="value too long" 102158
+tmc_read error="value too long" 115143
+tmc_read error="value too long" 128146
+tmc_read error="value too long" 141143
+points_dropped v=38i 141199
+tmc_read error="value too long" 154176
+tmc_read error="value too long" 167180
+tmc_read error="value too long" 180155
+tmc_read error="value too long" 193189
+tmc_read error="value too long" 206157
+tmc_read error="value too long" 219145
+tmc_read error="value too long" 232145
+tmc_read error="value too long" 236131
+tmc_read error="value too long" 236239
+tmc_read error="value too long" 236345 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37648,tm=28081886784,v=4 tmc_read error="value too long" -249
+tmc_read error="value too long" 8435
+tmc_read error="value too long" 21448
+is_printing v=1i 22324
+tmc_read error="value too long" 34435
+tmc_read error="value too long" 47449
+tmc_read error="value too long" 60437
+tmc_read error="value too long" 73435
+tmc_read error="value too long" 86435
+tmc_read error="value too long" 99444
+tmc_read error="value too long" 112435
+fan,fan=print state=0,pwm=0,measured=0 124621
+fan,fan=heatbreak state=3,pwm=100,measured=49 124647
+tmc_read error="value too long" 125439
+tmc_read error="value too long" 138436
+tmc_read error="value too long" 151435
+tmc_read error="value too long" 164437
+tmc_read error="value too long" 177439
+tmc_read error="value too long" 190494
+tmc_read error="value too long" 203477
+tmc_read error="value too long" 216436
+heap free=59904i,total=89636i 221336
+tmc_read error="value too long" 229435
+tmc_read error="value too long" 242465 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37649,tm=28082142253,v=4 tmc_read error="value too long" -34
+tmc_read error="value too long" 12968
+tmc_read error="value too long" 26000
+tmc_read error="value too long" 38967
+tmc_read error="value too long" 51966
+tmc_read error="value too long" 64966
+tmc_read error="value too long" 77966
+tmc_read error="value too long" 90968
+tmc_read error="value too long" 103970
+tmc_read error="value too long" 116967
+tmc_read error="value too long" 129966
+tmc_read error="value too long" 142966
+tmc_read error="value too long" 155982
+tmc_read error="value too long" 168966
+tmc_read error="value too long" 181970
+tmc_read error="value too long" 194971
+tmc_read error="value too long" 207966
+tmc_read error="value too long" 220969
+tmc_read error="value too long" 233982
+tmc_read error="value too long" 243963
+tmc_read error="value too long" 244069
+tmc_read error="value too long" 244171
+tmc_read error="value too long" 244274
+tmc_read error="value too long" 246978 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37650,tm=28082402254,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12967
+tmc_read error="value too long" 25966
+tmc_read error="value too long" 38966
+tmc_read error="value too long" 51966
+tmc_read error="value too long" 65011
+tmc_read error="value too long" 77965
+tmc_read error="value too long" 90996
+tmc_read error="value too long" 103965
+tmc_read error="value too long" 116965
+tmc_read error="value too long" 130000
+tmc_read error="value too long" 142981
+tmc_read error="value too long" 155965
+tmc_read error="value too long" 168967
+tmc_read error="value too long" 181965
+tmc_read error="value too long" 194966
+tmc_read error="value too long" 207968
+heap free=59904i,total=89636i 209866
+tmc_read error="value too long" 220977
+adj_z v=0.000000 225856
+heater_enabled v=1i 225863
+tmc_read error="value too long" 233965
+tmc_read error="value too long" 246968
+tmc_read error="value too long" 259965 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37651,tm=28082662424,v=4 eth_out sent=16268431i -50
+volt_bed v=23.990320 291
+volt_nozz v=23.990320 298
+curr_nozz v=1.031105 303
+curr_inp v=-2.201313 307
+cur_mmu_imp v=-0.013000 312
+oc_nozz v=0i 316
+oc_inp v=0i 320
+tmc_read error="value too long" 12797
+tmc_read error="value too long" 25795
+tmc_read error="value too long" 38808
+tmc_read error="value too long" 51795
+stack,n=default t=0,m=531 55966
+runtime,n=default u=6 55985
+stack,n=measure t=0,m=289 56012
+runtime,n=measure u=1 56030
+stack,n=display t=0,m=857 56045
+runtime,n=display u=9 56063
+stack,n=IDLE t=0,m=107 56077
+runtime,n=IDLE u=81 56094
+stack,n=connect t=0,m=1399 56108
+runtime,n=connect u=0 56126
+stack,n=network t=0,m=749 56140
+runtime,n=network u=0 56158
+stack,n=usb_dev t=0,m=569 56172
+runtime,n=usb_dev u=0 56190
+stack,n=tcpip_t t=4992,m=433 56205
+runtime,n=tcpip_t u=0 56224
+stack,n=esp_tas t=0,m=99 56238
+runtime,n=esp_tas u=0 56256
+stack,n=media_p t=0,m=289 56270 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37652,tm=28082719574,v=4 runtime,n=media_p u=0 -862
+stack,n=USBH_MS t=0,m=368 -848
+runtime,n=USBH_MS u=0 -830
+stack,n=USBH_Th t=1284,m=170 -816
+runtime,n=USBH_Th u=0 -797
+stack,n=metric_ t=0,m=118 -782
+runtime,n=metric_ u=0 -765
+stack,n=TmrSvc t=0,m=74 -750
+runtime,n=TmrSvc u=0 -732
+stack,n=acFault t=0,m=53 -718
+runtime,n=acFault u=0 -701
+tmc_read error="value too long" 7646
+tmc_read error="value too long" 20648
+tmc_read error="value too long" 33645
+tmc_read error="value too long" 46649
+tmc_read error="value too long" 59658
+tmc_read error="value too long" 72645
+points_dropped v=38i 72700
+media_prefetched v=9985i 77598
+cpu_usage v=28i 77651
+tmc_read error="value too long" 85648
+tmc_read error="value too long" 98679
+tmc_read error="value too long" 111645
+tmc_read error="value too long" 124646
+tmc_read error="value too long" 137691
+tmc_read error="value too long" 150651
+tmc_read error="value too long" 163645
+tmc_read error="value too long" 166631 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37653,tm=28082886746,v=4 tmc_read error="value too long" -434
+tmc_read error="value too long" -327
+tmc_read error="value too long" -213
+tmc_read error="value too long" 9484
+tmc_read error="value too long" 22473
+tmc_read error="value too long" 35473
+tmc_read error="value too long" 48486
+tmc_read error="value too long" 61473
+tmc_read error="value too long" 74475
+tmc_read error="value too long" 87473
+tmc_read error="value too long" 100474
+fan,fan=print state=0,pwm=0,measured=0 113265
+fan,fan=heatbreak state=3,pwm=100,measured=50 113292
+tmc_read error="value too long" 113538
+tmc_read error="value too long" 126495
+tmc_read error="value too long" 139473
+tmc_read error="value too long" 152475
+tmc_read error="value too long" 165475
+tmc_read error="value too long" 178473
+tmc_read error="value too long" 191473
+tmc_read error="value too long" 204490
+tmc_read error="value too long" 217473
+heap free=59904i,total=89636i 229373 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37654,tm=28083117256,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12965
+tmc_read error="value too long" 25963
+tmc_read error="value too long" 38964
+tmc_read error="value too long" 52010
+tmc_read error="value too long" 64998
+tmc_read error="value too long" 77963
+tmc_read error="value too long" 90963
+tmc_read error="value too long" 103965
+tmc_read error="value too long" 116965
+tmc_read error="value too long" 129978
+tmc_read error="value too long" 142963
+tmc_read error="value too long" 155966
+tmc_read error="value too long" 168965
+tmc_read error="value too long" 181963
+tmc_read error="value too long" 194965
+tmc_read error="value too long" 207976
+tmc_read error="value too long" 220978
+tmc_read error="value too long" 233963
+tmc_read error="value too long" 246964
+tmc_read error="value too long" 259968
+tmc_read error="value too long" 268949
+tmc_read error="value too long" 269057
+tmc_read error="value too long" 269159 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37655,tm=28083386798,v=4 tmc_read error="value too long" -280
+tmc_read error="value too long" 3421
+tmc_read error="value too long" 16472
+tmc_read error="value too long" 29434
+tmc_read error="value too long" 42423
+tmc_read error="value too long" 55423
+tmc_read error="value too long" 68427
+tmc_read error="value too long" 81423
+tmc_read error="value too long" 94434
+tmc_read error="value too long" 107433
+tmc_read error="value too long" 120423
+tmc_read error="value too long" 133423
+tmc_read error="value too long" 146423
+tmc_read error="value too long" 159452
+tmc_read error="value too long" 172433
+tmc_read error="value too long" 185425
+tmc_read error="value too long" 198423
+tmc_read error="value too long" 211423
+tmc_read error="value too long" 224423
+heap free=59904i,total=89636i 233321
+tmc_read error="value too long" 237421
+tmc_read error="value too long" 250435
+tmc_read error="value too long" 263424
+tmc_read error="value too long" 276421 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37656,tm=28083663456,v=4 eth_out sent=16273571i -49
+volt_bed v=24.026344 12175
+volt_nozz v=23.990320 12183
+curr_nozz v=1.363611 12188
+curr_inp v=-1.910232 12192
+cur_mmu_imp v=-0.013000 12197
+oc_nozz v=0i 12201
+oc_inp v=0i 12204
+tmc_read error="value too long" 12766
+tmc_read error="value too long" 25765
+tmc_read error="value too long" 38763
+tmc_read error="value too long" 51776
+tmc_read error="value too long" 64765
+tmc_read error="value too long" 77763
+tmc_read error="value too long" 90765
+tmc_read error="value too long" 103765
+tmc_read error="value too long" 116763
+tmc_read error="value too long" 129776
+points_dropped v=38i 129833
+tmc_read error="value too long" 142767
+tmc_read error="value too long" 155797
+tmc_read error="value too long" 168765
+tmc_read error="value too long" 181767
+tmc_read error="value too long" 194763
+tmc_read error="value too long" 207794
+tmc_read error="value too long" 220764
+tmc_read error="value too long" 222780 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37657,tm=28083886773,v=4 tmc_read error="value too long" -417
+tmc_read error="value too long" -314
+tmc_read error="value too long" -207
+tmc_read error="value too long" 11448
+tmc_read error="value too long" 24446
+tmc_read error="value too long" 38122
+tmc_read error="value too long" 51448
+tmc_read error="value too long" 64461
+tmc_read error="value too long" 77450
+fw_version v="5.1.1" 87338
+tmc_read error="value too long" 90448
+fan,fan=print state=0,pwm=0,measured=0 101845
+fan,fan=heatbreak state=3,pwm=100,measured=50 101871
+tmc_read error="value too long" 103446
+tmc_read error="value too long" 116448
+media_prefetched v=9729i 124461
+cpu_usage v=28i 124483
+tmc_read error="value too long" 129451
+tmc_read error="value too long" 142462
+tmc_read error="value too long" 155449
+tmc_read error="value too long" 168448
+tmc_read error="value too long" 181446
+tmc_read error="value too long" 194446
+tmc_read error="value too long" 207460 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37658,tm=28084107270,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12950
+heap free=59904i,total=89636i 16850
+adj_z v=0.000000 21839
+heater_enabled v=1i 21846
+tmc_read error="value too long" 25963
+tmc_read error="value too long" 38949
+tmc_read error="value too long" 51949
+tmc_read error="value too long" 64951
+tmc_read error="value too long" 77965
+tmc_read error="value too long" 90951
+tmc_read error="value too long" 103988
+tmc_read error="value too long" 116954
+tmc_read error="value too long" 129950
+tmc_read error="value too long" 142980
+tmc_read error="value too long" 155962
+tmc_read error="value too long" 168949
+tmc_read error="value too long" 181957
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245250i 195197
+tmc_read error="value too long" 207951
+tmc_read error="value too long" 220962
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245250i 233964
+tmc_read error="value too long" 246949 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37659,tm=28084367256,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12963
+tmc_read error="value too long" 18947
+tmc_read error="value too long" 19054
+tmc_read error="value too long" 19156
+tmc_read error="value too long" 19259
+tmc_read error="value too long" 25965
+tmc_read error="value too long" 38965
+tmc_read error="value too long" 52012
+tmc_read error="value too long" 64964
+tmc_read error="value too long" 77963
+tmc_read error="value too long" 90966
+tmc_read error="value too long" 103965
+tmc_read error="value too long" 116964
+tmc_read error="value too long" 129977
+tmc_read error="value too long" 142963
+tmc_read error="value too long" 155963
+tmc_read error="value too long" 168978
+tmc_read error="value too long" 181966
+tmc_read error="value too long" 194963
+tmc_read error="value too long" 208010
+tmc_read error="value too long" 220963
+tmc_read error="value too long" 233963
+tmc_read error="value too long" 246967 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37660,tm=28084627254,v=4 tmc_read error="value too long" -35
+heap free=59904i,total=89636i 866
+tmc_read error="value too long" 12965
+tmc_read error="value too long" 25982
+tmc_read error="value too long" 38965
+tmc_read error="value too long" 51967
+volt_bed v=24.062366 61294
+volt_nozz v=23.918278 61302
+curr_nozz v=0.816152 61307
+curr_inp v=-1.728305 61311
+cur_mmu_imp v=-0.013000 61316
+oc_nozz v=0i 61319
+oc_inp v=0i 61323
+tmc_read error="value too long" 64965
+tmc_read error="value too long" 77965
+tmc_read error="value too long" 90968
+tmc_read error="value too long" 103979
+tmc_read error="value too long" 116968
+tmc_read error="value too long" 129966
+tmc_read error="value too long" 142965
+tmc_read error="value too long" 155968
+tmc_read error="value too long" 168965
+points_dropped v=38i 169021
+tmc_read error="value too long" 181980
+tmc_read error="value too long" 194965
+tmc_read error="value too long" 207967
+tmc_read error="value too long" 220966 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37661,tm=28084848445,v=4 eth_out sent=16278706i -50
+tmc_read error="value too long" 12774
+tmc_read error="value too long" 25774
+tmc_read error="value too long" 37760
+tmc_read error="value too long" 37867
+tmc_read error="value too long" 37970
+tmc_read error="value too long" 38083
+tmc_read error="value too long" 38777
+tmc_read error="value too long" 51785
+tmc_read error="value too long" 64774
+tmc_read error="value too long" 77776
+tmc_read error="value too long" 90806
+tmc_read error="value too long" 103777
+tmc_read error="value too long" 116774
+fan,fan=print state=0,pwm=0,measured=0 127767
+fan,fan=heatbreak state=3,pwm=100,measured=50 127793
+tmc_read error="value too long" 129774
+tmc_read error="value too long" 142774
+tmc_read error="value too long" 155775
+tmc_read error="value too long" 168782
+tmc_read error="value too long" 181774
+tmc_read error="value too long" 194809
+tmc_read error="value too long" 207805 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37662,tm=28085069285,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12936
+tmc_read error="value too long" 25941
+media_prefetched v=9556i 32905
+cpu_usage v=28i 32928
+loadcell_scale v=0.019200 32999
+tmc_read error="value too long" 38936
+tmc_read error="value too long" 51966
+heap free=59904i,total=89636i 62835
+tmc_read error="value too long" 64973
+tmc_read error="value too long" 77934
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245250i 90934
+tmc_read error="value too long" 103936
+tmc_read error="value too long" 116934
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245250i 129936
+tmc_read error="value too long" 142949
+tmc_read error="value too long" 155936
+tmc_read error="value too long" 168937
+tmc_read error="value too long" 181937
+tmc_read error="value too long" 194965
+tmc_read error="value too long" 207978
+tmc_read error="value too long" 220948
+tmc_read error="value too long" 233936 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37663,tm=28085316258,v=4 tmc_read error="value too long" -36
+tmc_read error="value too long" 12983
+tmc_read error="value too long" 25961
+tmc_read error="value too long" 38961
+tmc_read error="value too long" 51974
+tmc_read error="value too long" 64961
+tmc_read error="value too long" 69945
+tmc_read error="value too long" 70053
+tmc_read error="value too long" 70155
+tmc_read error="value too long" 70271
+tmc_read error="value too long" 77963
+tmc_read error="value too long" 90963
+tmc_read error="value too long" 103964
+tmc_read error="value too long" 116961
+tmc_read error="value too long" 129978
+tmc_read error="value too long" 142961
+tmc_read error="value too long" 155961
+tmc_read error="value too long" 168964
+tmc_read error="value too long" 181961
+tmc_read error="value too long" 194961
+tmc_read error="value too long" 208667
+tmc_read error="value too long" 221961
+tmc_read error="value too long" 234961
+tmc_read error="value too long" 247966 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37664,tm=28085577256,v=4 tmc_read error="value too long" -35
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245250i 12963
+tmc_read error="value too long" 25975
+tmc_read error="value too long" 38970
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245250i 51965
+adj_z v=0.000000 52852
+heater_enabled v=1i 52859
+heap free=59904i,total=89636i 58863
+tmc_read error="value too long" 64968
+tmc_read error="value too long" 77968
+tmc_read error="value too long" 90963
+tmc_read error="value too long" 103977
+tmc_read error="value too long" 116995
+volt_bed v=23.990320 124209
+volt_nozz v=23.954302 124216
+curr_nozz v=1.141940 124221
+curr_inp v=-4.384435 124225
+cur_mmu_imp v=-0.013000 124230
+oc_nozz v=0i 124234
+oc_inp v=0i 124238
+tmc_read error="value too long" 129967
+stack,n=default t=0,m=531 142308
+runtime,n=default u=6 142328
+stack,n=IDLE t=0,m=107 142343
+runtime,n=IDLE u=78 142360
+stack,n=display t=0,m=857 142374
+runtime,n=display u=12 142391 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37665,tm=28085720372,v=4 stack,n=tcpip_t t=4992,m=433 -710
+runtime,n=tcpip_t u=0 -691
+stack,n=connect t=0,m=1399 -664
+runtime,n=connect u=0 -646
+stack,n=network t=0,m=749 -631
+runtime,n=network u=0 -614
+stack,n=usb_dev t=0,m=569 -599
+runtime,n=usb_dev u=0 -581
+stack,n=measure t=0,m=289 -567
+runtime,n=measure u=1 -549
+stack,n=media_p t=0,m=289 -535
+runtime,n=media_p u=0 -517
+stack,n=USBH_MS t=0,m=368 -503
+runtime,n=USBH_MS u=0 -485
+stack,n=USBH_Th t=1284,m=170 -470
+runtime,n=USBH_Th u=0 -452
+stack,n=TmrSvc t=0,m=74 -437
+runtime,n=TmrSvc u=0 -420
+stack,n=metric_ t=0,m=118 -405
+runtime,n=metric_ u=0 -388
+stack,n=acFault t=0,m=53 -373
+runtime,n=acFault u=0 -356
+stack,n=esp_tas t=0,m=99 -341
+runtime,n=esp_tas u=0 -324
+tmc_read error="value too long" 893
+tmc_read error="value too long" 13860
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245199i 26851
+tmc_read,ax=? reg=111i,regn="drv_status",value=1114298i 39863 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37666,tm=28085773271,v=4 tmc_read,ax=? reg=111i,regn="drv_status",value=1376340i -48
+tmc_read error="value too long" 12948
+tmc_read error="value too long" 25948
+points_dropped v=38i 26004
+tmc_read error="value too long" 38950
+tmc_read error="value too long" 51948
+tmc_read error="value too long" 64964
+tmc_read error="value too long" 77952
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245243i 90953
+tmc_read error="value too long" 103950
+tmc_read error="value too long" 112936
+tmc_read error="value too long" 113041
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245243i 113145
+tmc_read error="value too long" 113257
+tmc_read error="value too long" 116953
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245243i 129948
+tmc_read error="value too long" 142962
+tmc_read error="value too long" 155967
+tmc_read error="value too long" 168948
+tmc_read error="value too long" 181951
+fan,fan=print state=0,pwm=0,measured=0 191548 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37667,tm=28085965062,v=4 fan,fan=heatbreak state=3,pwm=100,measured=50 -217
+eth_out sent=16284790i -50
+tmc_read error="value too long" 3190
+tmc_read error="value too long" 16157
+tmc_read error="value too long" 29169
+tmc_read error="value too long" 42161
+tmc_read,ax=? reg=111i,regn="drv_status",value=1246207i 55162
+tmc_read error="value too long" 68157
+tmc_read error="value too long" 81161
+tmc_read error="value too long" 94157
+tmc_read error="value too long" 107169
+tmc_read error="value too long" 120157
+tmc_read error="value too long" 133175
+tmc_read error="value too long" 146157
+tmc_read error="value too long" 159841
+tmc_read error="value too long" 173164
+heap free=59904i,total=89636i 175059
+tmc_read,ax=? reg=111i,regn="drv_status",value=1114361i 186320
+tmc_read,ax=? reg=111i,regn="drv_status",value=1376426i 199161
+tmc_read error="value too long" 212160
+eth_in recv=6601517i 221083
+tmc_read error="value too long" 225160 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37668,tm=28086203254,v=4 tmc_read error="value too long" -35
+tmc_read error="value too long" 12970
+tmc_read error="value too long" 25980
+media_prefetched v=9314i 36974
+cpu_usage v=28i 36996
+loadcell_threshold v=-125.000000 37063
+loadcell_threshold_cont v=-40.000000 37068
+loadcell_hysteresis v=80.000000 37085
+tmc_read error="value too long" 38965
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 51968
+tmc_read error="value too long" 64971
+tmc_read error="value too long" 78002
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 90970
+tmc_read error="value too long" 103982
+tmc_read error="value too long" 116970
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 130011
+tmc_read error="value too long" 142966
+tmc_read error="value too long" 155966
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 169000
+tmc_read error="value too long" 181981
+tmc_read error="value too long" 182963
+tmc_read error="value too long" 183069 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37669,tm=28086386783,v=4 tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i -328
+tmc_read error="value too long" -227
+tmc_read error="value too long" 11439
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 24440
+tmc_read error="value too long" 37439
+tmc_read error="value too long" 50440
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 63439
+tmc_read error="value too long" 76453
+tmc_read error="value too long" 89442
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 102445
+print_filename v="bone dragon 10_0.4n_0.2mm_PLA_MK4_11h56m.bgcode" 106346
+tmc_read error="value too long" 115442
+tmc_read error="value too long" 128442
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 141440
+tmc_read error="value too long" 154453
+tmc_read error="value too long" 167439
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 180472
+tmc_read error="value too long" 193442
+tmc_read error="value too long" 206439 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37670,tm=28086606290,v=4 tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i -32
+tmc_read error="value too long" 12947
+tmc_read error="value too long" 25932
+heap free=59904i,total=89636i 37834
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 38964
+tmc_read error="value too long" 51937
+tmc_read error="value too long" 64932
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 77934
+tmc_read error="value too long" 90945
+tmc_read error="value too long" 104202
+volt_bed v=23.990320 108091
+volt_nozz v=24.026344 108099
+curr_nozz v=1.259493 108133
+curr_inp v=-2.092159 108137
+cur_mmu_imp v=-0.013000 108142
+oc_nozz v=0i 108146
+oc_inp v=0i 108150
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 116933
+tmc_read error="value too long" 129986
+tmc_read error="value too long" 142932
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 155932
+tmc_read error="value too long" 168947
+tmc_read error="value too long" 181932 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+map[app_name:buddy client:192.168.20.139:56440 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=37671,tm=28086801261,v=4 tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i -35
+points_dropped v=38i 83
+tmc_read error="value too long" 12966
+tmc_read error="value too long" 25961
+tmc_read error="value too long" 38961
+tmc_read error="value too long" 51977
+tmc_read error="value too long" 64961
+tmc_read error="value too long" 77962
+tmc_read error="value too long" 84947
+tmc_read error="value too long" 85055
+tmc_read error="value too long" 85157
+tmc_read error="value too long" 85275
+tmc_read error="value too long" 90962
+tmc_read error="value too long" 103964
+is_printing v=1i 108956
+tmc_read error="value too long" 129979
+tmc_read error="value too long" 142989
+fan,fan=print state=0,pwm=0,measured=0 151151
+fan,fan=heatbreak state=3,pwm=100,measured=50 151178
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 155966
+tmc_read error="value too long" 168995
+tmc_read error="value too long" 181964
+tmc_read,ax=? reg=111i,regn="drv_status",value=1245246i 194961 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
