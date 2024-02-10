@@ -6,157 +6,51 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func getEinsyJob(address string, apiKey string) einsyJob {
-	resp, _ := accessEinsyAPI("job", address, apiKey)
+func getEinsyResponse(config einsy) (einsyVersion, einsyFiles, einsyJob, einsyPrinter, einsyCameras, einsyInfo, einsySettings, error) {
 
-	var result einsyJob
+	log.Debug().Msg("Getting response from " + config.Address)
 
-	if e := json.Unmarshal(resp, &result); e != nil {
-		log.Error().Msg("Can not unmarshal JSON")
+	version, e := accessEinsyAPI("version", config.Address, config.Apikey)
+	var resultVersion einsyVersion
+	if e = json.Unmarshal(version, &resultVersion); e != nil {
+		log.Error().Msg("Can not unmarshal version JSON")
 	}
 
-	return result
-}
-
-func getEinsyCameras(address string, apiKey string) einsyCameras {
-	resp, _ := accessEinsyAPI("v1/cameras", address, apiKey)
-
-	var result einsyCameras
-
-	if e := json.Unmarshal(resp, &result); e != nil {
-		log.Error().Msg("Can not unmarshal JSON")
-
+	files, e := accessEinsyAPI("files", config.Address, config.Apikey)
+	var resultFiles einsyFiles
+	if e = json.Unmarshal(files, &resultFiles); e != nil {
+		log.Error().Msg("Can not unmarshal files JSON")
 	}
 
-	return result
-}
-
-func getEinsyPrinter(address string, apiKey string) einsyPrinter {
-	resp, _ := accessEinsyAPI("printer", address, apiKey)
-
-	var result einsyPrinter
-
-	if e := json.Unmarshal(resp, &result); e != nil {
-		log.Error().Msg("Can not unmarshal JSON")
-
+	job, e := accessEinsyAPI("job", config.Address, config.Apikey)
+	var resultJob einsyJob
+	if e = json.Unmarshal(job, &resultJob); e != nil {
+		log.Error().Msg("Can not unmarshal job JSON")
 	}
 
-	return result
-}
-
-//func getEinsyStorage(address string, apiKey string) einsyStorage { // currently unused
-//	resp, _ := accessEinsyAPI("v1/storage", address, apiKey)
-//
-//	var result einsyStorage
-//
-//	if e := json.Unmarshal(resp, &result); e != nil {
-//		log.Error().Msg("Can not unmarshal JSON")
-//
-//	}
-//
-//	return result
-//}
-
-func getEinsySettings(address string, apiKey string) einsySettings {
-	resp, _ := accessEinsyAPI("settings", address, apiKey)
-
-	var result einsySettings
-
-	if e := json.Unmarshal(resp, &result); e != nil {
-		log.Error().Msg("Can not unmarshal JSON")
-
+	printer, e := accessEinsyAPI("printer", config.Address, config.Apikey)
+	var resultPrinter einsyPrinter
+	if e = json.Unmarshal(printer, &resultPrinter); e != nil {
+		log.Error().Msg("Can not unmarshal printer JSON")
 	}
 
-	return result
-}
-
-// func getEinsyConnection(address string, apiKey string) einsyConnection { // currently unused
-// 	resp, _ := accessEinsyAPI("connection", address, apiKey)
-//
-// 	var result einsyConnection
-//
-// 	if e := json.Unmarshal(resp, &result); e != nil {
-// 		log.Error().Msg("Can not unmarshal JSON")
-//
-// 	}
-//
-// 	return result
-// }
-
-func getEinsyFiles(address string, apiKey string) einsyFiles {
-	resp, _ := accessEinsyAPI("files", address, apiKey)
-
-	var result einsyFiles
-
-	if e := json.Unmarshal(resp, &result); e != nil {
-		log.Error().Msg("Can not unmarshal JSON")
-
+	cameras, e := accessEinsyAPI("v1/cameras", config.Address, config.Apikey)
+	var resultCameras einsyCameras
+	if e = json.Unmarshal(cameras, &resultCameras); e != nil {
+		log.Error().Msg("Can not unmarshal printer JSON")
 	}
 
-	return result
-}
-
-func getEinsyLogs(address string, apiKey string) einsyLogs {
-	resp, _ := accessEinsyAPI("logs", address, apiKey)
-
-	var result einsyLogs
-
-	if e := json.Unmarshal(resp, &result); e != nil {
-		log.Error().Msg("Can not unmarshal JSON")
-
+	info, e := accessEinsyAPI("v1/info", config.Address, config.Apikey)
+	var resultInfo einsyInfo
+	if e = json.Unmarshal(info, &resultInfo); e != nil {
+		log.Error().Msg("Can not unmarshal printer JSON")
 	}
 
-	return result
-}
-
-func getEinsyInfo(address string, apiKey string) einsyInfo {
-	resp, _ := accessEinsyAPI("v1/info", address, apiKey)
-
-	var result einsyInfo
-
-	if e := json.Unmarshal(resp, &result); e != nil {
-		log.Error().Msg("Can not unmarshal JSON")
-
+	settings, e := accessEinsyAPI("settings", config.Address, config.Apikey)
+	var resultSettings einsySettings
+	if e = json.Unmarshal(settings, &resultSettings); e != nil {
+		log.Error().Msg("Can not unmarshal printer JSON")
 	}
 
-	return result
-}
-
-// func getEinsyStatus(address string, apiKey string) einsyStatus { // currently unused
-// 	resp, _ := accessEinsyAPI("v1/status", address, apiKey)
-//
-// 	var result einsyStatus
-//
-// 	if e := json.Unmarshal(resp, &result); e != nil {
-// 		log.Error().Msg("Can not unmarshal JSON")
-//
-// 	}
-//
-// 	return result
-// }
-
-func getEinsyVersion(address string, apiKey string) einsyVersion {
-	resp, _ := accessEinsyAPI("version", address, apiKey)
-
-	var result einsyVersion
-
-	if e := json.Unmarshal(resp, &result); e != nil {
-		log.Error().Msg("Can not unmarshal JSON")
-
-	}
-
-	return result
-}
-
-func getEinsyPorts(address string, apiKey string) einsyPorts {
-	resp, _ := accessEinsyAPI("ports", address, apiKey)
-
-	var result einsyPorts
-
-	if e := json.Unmarshal(resp, &result); e != nil {
-		log.Error().Msg("Can not unmarshal JSON")
-
-	}
-
-	return result
+	return resultVersion, resultFiles, resultJob, resultPrinter, resultCameras, resultInfo, resultSettings, e
 }

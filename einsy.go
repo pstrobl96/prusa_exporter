@@ -29,6 +29,7 @@ type einsyCollector struct {
 	printerAxisZ              *prometheus.Desc
 	printerState              *prometheus.Desc
 	printerNozzleSize         *prometheus.Desc
+	printerUp                 *prometheus.Desc
 }
 
 func newEinsyCollector() *einsyCollector {
@@ -56,6 +57,7 @@ func newEinsyCollector() *einsyCollector {
 		printerAxisZ:              prometheus.NewDesc("prusa_einsy_axis_z", "Return coordinates - z axis of printer", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
 		printerState:              prometheus.NewDesc("prusa_einsy_state", "Return state of printer", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path", "printer_state"}, nil),
 		printerNozzleSize:         prometheus.NewDesc("prusa_einsy_nozzle_size", "Return size of nozzle", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
+		printerUp:                 prometheus.NewDesc("prusa_einsy_up", "Return if printer is up", []string{"printer_address", "printer_model", "printer_name"}, nil),
 	}
 }
 
@@ -82,24 +84,27 @@ func (collector *einsyCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerInfo
 	ch <- collector.printerLogsDate
 	ch <- collector.printerLogs
+	ch <- collector.printerUp
 }
 
 func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
-
-	for _, s := range config.Printers.Einsy {
+	cfg := &config
+	for _, s := range cfg.Printers.Einsy {
 		log.Debug().Msg("Einsy scraping at " + s.Address)
-		if s.Reachable {
+		if !s.Reachable {
+			printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
+				0, s.Address, s.Type, s.Name)
 
-			printer := getEinsyPrinter(s.Address, s.Apikey)
-			job := getEinsyJob(s.Address, s.Apikey)
-			version := getEinsyVersion(s.Address, s.Apikey)
-			files := getEinsyFiles(s.Address, s.Apikey)
-			cameras := getEinsyCameras(s.Address, s.Apikey)
-			info := getEinsyInfo(s.Address, s.Apikey)
-			logs := getEinsyLogs(s.Address, s.Apikey)
-			settings := getEinsySettings(s.Address, s.Apikey)
-			ports := getEinsyPorts(s.Address, s.Apikey)
+			ch <- printerUp
 
+			log.Debug().Msg(s.Address + " is unreachable while scraping")
+		} else {
+			version, files, job, printer, cameras, info, settings, e := getEinsyResponse(s)
+
+			if e != nil {
+				log.Error().Msg(e.Error())
+				break
+			}
 			nozzleTemp := prometheus.MustNewConstMetric(
 				collector.printerNozzleTemp, prometheus.GaugeValue,
 				printer.Temperature.Tool0.Actual,
@@ -178,26 +183,26 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 				float64(filamentLoaded),
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, printer.Telemetry.Material)
 
-			for _, v := range logs.Files {
-				logFiles := prometheus.MustNewConstMetric(
-					collector.printerLogs, prometheus.GaugeValue,
-					float64(v.Size),
-					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, v.Name)
-				logFilesDates := prometheus.MustNewConstMetric(
-					collector.printerLogsDate, prometheus.GaugeValue,
-					float64(v.Date),
-					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, v.Name)
-				ch <- logFiles
-				ch <- logFilesDates
-			}
+			// for _, v := range logs.Files {
+			// 	logFiles := prometheus.MustNewConstMetric(
+			// 		collector.printerLogs, prometheus.GaugeValue,
+			// 		float64(v.Size),
+			// 		s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, v.Name)
+			// 	logFilesDates := prometheus.MustNewConstMetric(
+			// 		collector.printerLogsDate, prometheus.GaugeValue,
+			// 		float64(v.Date),
+			// 		s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, v.Name)
+			// 	ch <- logFiles
+			// 	ch <- logFilesDates
+			// }
 
-			if len(ports.Ports) > 0 {
-				printerInfo := prometheus.MustNewConstMetric(
-					collector.printerInfo, prometheus.GaugeValue,
-					1,
-					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, version.API, version.Server, version.Text, info.Name, info.Location, info.Serial, info.Hostname, ports.Ports[0].Description)
-				ch <- printerInfo
-			}
+			// if len(ports.Ports) > 0 {
+			// 	printerInfo := prometheus.MustNewConstMetric(
+			// 		collector.printerInfo, prometheus.GaugeValue,
+			// 		1,
+			// 		s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, version.API, version.Server, version.Text, info.Name, info.Location, info.Serial, info.Hostname, ports.Ports[0].Description)
+			// 	ch <- printerInfo
+			// }
 
 			farmMode := 0
 			if settings.Printer.FarmMode {
@@ -268,8 +273,6 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 			ch <- printerVersion
 			ch <- zHeight
 			ch <- printerFarmMode
-		} else {
-			log.Error().Msg(s.Address + " is unreachable")
 		}
 	}
 }
