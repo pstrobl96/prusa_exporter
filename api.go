@@ -1,9 +1,10 @@
 package main
 
 import (
+	"errors"
+	"fmt"
 	"io"
 	"net/http"
-	"time"
 
 	"github.com/icholy/digest"
 	"github.com/rs/zerolog/log"
@@ -26,6 +27,7 @@ func accessBuddyAPI(path string, address string, apiKey string, username string,
 			},
 		}
 		res, err = client.Get(url)
+
 		if err != nil {
 			log.Error().Msg(err.Error())
 		}
@@ -47,25 +49,33 @@ func accessBuddyAPI(path string, address string, apiKey string, username string,
 	} else {
 		log.Error().Msg(err.Error())
 	}
-
 	return body
 }
 
 func accessEinsyAPI(path string, address string, apiKey string) ([]byte, error) {
 	url := getURL(path, address)
+	var res *http.Response
+	var err error
+	var body []byte
+
 	req, _ := http.NewRequest("GET", url, nil)
-	req.Header.Set("X-Api-Key", apiKey)
-	client := &http.Client{Timeout: time.Duration(config.Exporter.ScrapeTimeout) * time.Second}
-	res, err := client.Do(req)
-	if err == nil {
-		defer res.Body.Close()
-		body, err := io.ReadAll(res.Body)
+	client := &http.Client{}
+	req.Header.Add("X-Api-Key", apiKey)
+	res, err = client.Do(req)
+	if err != nil {
+		log.Error().Msg(err.Error())
+		return []byte{}, err
+	} else if res.StatusCode != 200 {
+		message := fmt.Sprintf("Return status code is: %d", res.StatusCode)
+		log.Error().Msg(message)
+		return []byte{}, errors.New(message)
+	} else if err == nil && res.StatusCode == 200 {
+		body, err = io.ReadAll(res.Body)
+		res.Body.Close()
 		if err != nil {
 			log.Error().Msg(err.Error())
+			return []byte{}, err
 		}
-		return body, nil
 	}
-
-	log.Error().Msg(err.Error())
-	return nil, err
+	return body, err
 }
