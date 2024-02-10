@@ -105,7 +105,7 @@ func startSyslog(port int) {
 					}
 
 					syslogData[logParts["client"].(string)][match[1]] = fmt.Sprint(valueStr)
-
+					syslogData[logParts["client"].(string)]["mac"] = logParts["hostname"].(string)
 				}
 			}
 		}
