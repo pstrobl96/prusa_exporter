@@ -1528,33 +1528,7 @@ tmc_read error="value too long" 52768
 tmc_read error="value too long" 65752
 tmc_read,ax=? reg=111i,regn="drv_status",value=1441935i 78960
 tmc_read error="value too long" 104866
-tmc_read,ax=? reg=111i,regn="drv_status",value=1376265i 118975
-xlbuddy5VCurrent v=0.476317 139478
-tmc_read error="value too long" 144776
-tmc_read error="value too long" 157792
-tmc_read error="value too long" 183858
-tmc_read error="value too long" 196771
-tmc_read,ax=? reg=111i,regn="drv_status",value=1441935i 209775
-tmc_read,ax=? reg=111i,regn="drv_status",value=1376295i 222797
-tmc_read error="value too long" 235781
-24VVoltage v=24.098385 261024
-tmc_read error="value too long" 262103
-tmc_read,ax=? reg=111i,regn="drv_status",value=1376258i 274819 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
-map[app_name:buddy client:192.168.20.130:60784 facility:1 hostname:XX:XX:XX:XX:XX:XX message:msg=121747,tm=32109427206,v=4 heap free=44408i,total=76536i -45
-tmc_read error="value too long" 2030
-tmc_read error="value too long" 15060
-tmc_read,ax=? reg=111i,regn="drv_status",value=1376332i 28058
-tmc_read error="value too long" 41062
-tmc_read error="value too long" 54078
-tmc_read error="value too long" 67144
-media_prefetched v=9774i 70133
-cpu_usage v=46i 70159
-tmc_read error="value too long" 81634
-tmc_read error="value too long" 94091
-adj_z v=0.000000 94967
-tmc_read error="value too long" 107041
-tmc_read error="value too long" 120056
-tmc_read error="value too long" 133380
+tmetrics.log logs_metrics.logc_read error="value too long" 133380
 tmc_read,ax=? reg=111i,regn="drv_status",value=1376371i 146070
 tmc_read error="value too long" 159046
 tmc_read,ax=? reg=111i,regn="drv_status",value=1376506i 172054

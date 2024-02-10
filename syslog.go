@@ -2,10 +2,21 @@ package main
 
 import (
 	"fmt"
+	"regexp"
+	"strconv"
 
 	"gopkg.in/mcuadros/go-syslog.v2"
 )
 
+var syslogData = make(map[string]map[string]string)
+
+type Measurement struct {
+	Name      string
+	Value     float64
+	Timestamp int64
+}
+
+// EXPERIMENTAL - I DID IT MYSELF - NOT TESTED
 type Client struct {
 	IP                string  // ip address
 	MAC               string  // mac address
@@ -33,7 +44,7 @@ type Client struct {
 }
 
 func startSyslog(port int) {
-
+	//clients := []Client{}
 	channel := make(syslog.LogPartsChannel)
 	handler := syslog.NewChannelHandler(channel)
 
@@ -43,11 +54,73 @@ func startSyslog(port int) {
 	server.ListenUDP("0.0.0.0:" + fmt.Sprint(port))
 	server.Boot()
 
+	patterns := []struct {
+		pattern string
+		fields  []string
+	}{
+		{pattern: `(?P<name>\w+_[a-z]+) v=(?P<value>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}},
+		{pattern: `(?P<name>\w+_[a-z]+) v=(?P<value>[-\d\.]+)i (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}}, // integer
+
+		//{pattern: `(?P<name>fan,fan=[\w,]+) (?P<value>[^=]+)=(?P<subvalue>[^=]+)=(?P<subvalue2>[^ ]+) (?P<timestamp>\d+)`, fields: []string{"name", "value", "subvalue", "subvalue2", "timestamp"}},
+		// Add more patterns as needed
+	}
+
 	go func(channel syslog.LogPartsChannel) {
 		for logParts := range channel {
-			fmt.Println(logParts["client"])   // ip address
-			fmt.Println(logParts["hostname"]) // mac address
-			fmt.Println(logParts["message"])  // metrics
+
+			for _, pattern := range patterns {
+				reg, err := regexp.Compile(pattern.pattern)
+				if err != nil {
+					fmt.Println("Error compiling regexp:", err)
+					return
+				}
+
+				matches := reg.FindAllStringSubmatch(logParts["message"].(string), -1)
+				if matches == nil {
+					continue // No matches for this pattern
+				}
+
+				for _, match := range matches {
+					// Extract values based on named groups
+					var valueStr string
+					for i, field := range pattern.fields {
+						switch field {
+						case "value":
+							valueStr = match[i+1]
+						case "subvalue":
+							valueStr = match[i+1]
+						case "subvalue2":
+							// Handle combining subvalues if needed
+							if valueStr != "" {
+								valueStr += "," + match[i+1]
+							} else {
+								valueStr = match[i+1]
+							}
+
+						}
+					}
+
+					value, err := strconv.ParseFloat(valueStr, 64)
+					if err != nil {
+						fmt.Printf("Error parsing value for %s: %v\n", match[1], err)
+						continue
+					}
+
+					if syslogData[logParts["client"].(string)] == nil {
+						syslogData[logParts["client"].(string)] = make(map[string]string)
+					}
+
+					syslogData[logParts["client"].(string)][match[1]] = fmt.Sprint(value)
+
+				}
+			}
+			//time.Sleep(100 * time.Millisecond)
+			//fmt.Println(logParts["client"])   // ip address
+			//fmt.Println(logParts["hostname"]) // mac address
+			//fmt.Println(logParts["message"])  // metrics
+			//for data := range syslogData {
+			//	fmt.Println(data)
+			//}
 		}
 	}(channel)
 
