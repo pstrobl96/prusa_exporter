@@ -99,7 +99,7 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 
 			log.Debug().Msg(s.Address + " is unreachable while scraping")
 		} else {
-			version, files, job, printer, cameras, info, settings, e := getEinsyResponse(s)
+			version, files, job, printer, cameras, info, settings, ports, e := getEinsyResponse(s)
 
 			if e != nil {
 				printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
@@ -189,26 +189,11 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 				float64(filamentLoaded),
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, printer.Telemetry.Material)
 
-			// for _, v := range logs.Files {
-			// 	logFiles := prometheus.MustNewConstMetric(
-			// 		collector.printerLogs, prometheus.GaugeValue,
-			// 		float64(v.Size),
-			// 		s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, v.Name)
-			// 	logFilesDates := prometheus.MustNewConstMetric(
-			// 		collector.printerLogsDate, prometheus.GaugeValue,
-			// 		float64(v.Date),
-			// 		s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, v.Name)
-			// 	ch <- logFiles
-			// 	ch <- logFilesDates
-			// }
-
-			// if len(ports.Ports) > 0 {
-			// 	printerInfo := prometheus.MustNewConstMetric(
-			// 		collector.printerInfo, prometheus.GaugeValue,
-			// 		1,
-			// 		s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, version.API, version.Server, version.Text, info.Name, info.Location, info.Serial, info.Hostname, ports.Ports[0].Description)
-			// 	ch <- printerInfo
-			// }
+			printerInfo := prometheus.MustNewConstMetric(
+				collector.printerInfo, prometheus.GaugeValue,
+				1,
+				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, version.API, version.Server, version.Text, info.Name, info.Location, info.Serial, info.Hostname, ports.Ports[0].Description)
+			ch <- printerInfo
 
 			farmMode := 0
 			if settings.Printer.FarmMode {
@@ -261,6 +246,10 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 				info.NozzleDiameter,
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
+			printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
+				1, s.Address, s.Type, s.Name)
+
+			ch <- printerUp
 			ch <- printerState
 			ch <- printerNozzleSize
 			ch <- printerAxisX

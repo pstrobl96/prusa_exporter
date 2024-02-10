@@ -6,7 +6,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func getEinsyResponse(config einsy) (einsyVersion, einsyFiles, einsyJob, einsyPrinter, einsyCameras, einsyInfo, einsySettings, error) {
+func getEinsyResponse(config einsy) (einsyVersion, einsyFiles, einsyJob, einsyPrinter, einsyCameras, einsyInfo, einsySettings, einsyPorts, error) {
 
 	log.Debug().Msg("Getting response from " + config.Address)
 
@@ -52,5 +52,11 @@ func getEinsyResponse(config einsy) (einsyVersion, einsyFiles, einsyJob, einsyPr
 		log.Error().Msg("Can not unmarshal printer JSON")
 	}
 
-	return resultVersion, resultFiles, resultJob, resultPrinter, resultCameras, resultInfo, resultSettings, e
+	ports, e := accessEinsyAPI("ports", config.Address, config.Apikey)
+	var resultPorts einsyPorts
+	if e = json.Unmarshal(ports, &resultPorts); e != nil {
+		log.Error().Msg("Can not unmarshal printer JSON")
+	}
+
+	return resultVersion, resultFiles, resultJob, resultPrinter, resultCameras, resultInfo, resultSettings, resultPorts, e
 }

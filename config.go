@@ -126,7 +126,7 @@ func probeConfigFile(parsedConfig configuration) configuration {
 		}
 	}
 	for i, s := range parsedConfig.Printers.Einsy {
-		version, _, _, _, _, _, _, err := getEinsyResponse(s)
+		version, _, _, _, _, _, _, _, err := getEinsyResponse(s)
 		if err == nil {
 			parsedConfig.Printers.Einsy[i].Reachable = true
 			parsedConfig.Printers.Einsy[i].Type = version.Original
