@@ -15,7 +15,7 @@ type Measurement struct {
 	Timestamp int64
 }
 
-// EXPERIMENTAL - I DID IT MYSELF - NOT TESTED
+// not used - just for reference
 type Client struct {
 	IP                string  // ip address
 	MAC               string  // mac address
@@ -59,7 +59,10 @@ func startSyslog(port int) {
 	}{
 		{pattern: `(?P<name>\w+_[a-z]+) v=(?P<value>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}},
 		{pattern: `(?P<name>\w+_[a-z]+) v=(?P<value>[-\d\.]+)i (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}},  // integer
-		{pattern: `(?P<name>\w+_[a-z]+) v="(?P<value>[-\d\.]+)" (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}}, // made for string values                                  //bed_curr,n=0 v=2.138 54141
+		{pattern: `(?P<name>\w+_[a-z]+) v="(?P<value>[-\d\.]+)" (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}}, // made for string values
+		{pattern: `(?P<name>\w+(?:,[a-z]=\d+)?)[ ]v=(?P<value>[-\d\.]+),e=(?P<e>[-\d\.]+)[ ](?P<timestamp>\d+)`, fields: []string{"name", "value", "e", "timestamp"}},
+
+		//bed_curr,n=1 v=0.314,e=0.336 54182
 		// Add more patterns as needed
 	}
 
@@ -94,7 +97,6 @@ func startSyslog(port int) {
 							} else {
 								valueStr = match[i+1]
 							}
-
 						}
 					}
 
