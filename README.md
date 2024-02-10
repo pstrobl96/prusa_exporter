@@ -9,7 +9,7 @@
 
 This is an implementation of Prometheus Exporter for Prusa printers running Buddy boards (Prusa MK4, XL, and Mini) or Einsy boards (Prusa MK3(S(+)) with Prusa Link installed). Multi-target is supported so you can check any number of printers as long it has accessible Prusa Link API. This works even for the old Prusa Connect Local.
 
-For Mk3s with Einsy board you need to use at least version 0.7.0rc3 of Prusa Link or higher, because there are many more metrics to scrape than in the older versions. You can find the most up to date version in the [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/releases).
+For Mk3s with Einsy board you need to use at least version 0.7.0 of Prusa Link or higher, because there are many more metrics to scrape than in the older versions. You can find the most up to date version in the [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/releases).
 
 - [Where to find prusa exporter](#where-to-find-prusa-exporter)
 - [Roadmap](#roadmap)
@@ -46,8 +46,6 @@ This list contains current and future features along with completion status:
 - [x] CI pipeline with Docker Hub publish
 - [x] Local instance of Grafana / Prometheus / Loki
 - [x] Raspberry Pi Image
-- [ ] Odroid C4 Image
-- [ ] Implementation with [exporter-toolkit](#22)
 - [ ] Support for [connection](#21) to Einsy with username and password
 - [ ] Support for MK3 - it was implemented before but I want overhaul it and make it work
 
