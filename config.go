@@ -43,6 +43,7 @@ type configuration struct {
 		ScrapeTimeout  int    `yaml:"scrape_timeout"`
 		ReloadInterval int    `yaml:"reload_interval"`
 		LogLevel       string `yaml:"log_level"`
+		SyslogMetrics  bool   `yaml:"syslog_metrics"`
 	} `yaml:"exporter"`
 }
 
