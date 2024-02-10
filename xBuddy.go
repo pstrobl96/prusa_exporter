@@ -206,6 +206,15 @@ func getLabels(s buddy, job buddyJob, labelValues ...string) []string {
 
 func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 	cfg := &config
+	println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEE\n\n\n\n\n\n")
+	println(len(syslogData))
+	for data := range syslogData {
+		println(data)
+		println("\n")
+		for key, value := range syslogData[data] {
+			println(key + ": " + value)
+		}
+	}
 	for _, s := range cfg.Printers.Buddy {
 		log.Debug().Msg("Buddy scraping at " + s.Address)
 		if !s.Reachable {
