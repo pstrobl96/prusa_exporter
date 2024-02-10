@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"regexp"
-	"strconv"
 
 	"gopkg.in/mcuadros/go-syslog.v2"
 )
@@ -59,9 +58,8 @@ func startSyslog(port int) {
 		fields  []string
 	}{
 		{pattern: `(?P<name>\w+_[a-z]+) v=(?P<value>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}},
-		{pattern: `(?P<name>\w+_[a-z]+) v=(?P<value>[-\d\.]+)i (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}}, // integer
-
-		//{pattern: `(?P<name>fan,fan=[\w,]+) (?P<value>[^=]+)=(?P<subvalue>[^=]+)=(?P<subvalue2>[^ ]+) (?P<timestamp>\d+)`, fields: []string{"name", "value", "subvalue", "subvalue2", "timestamp"}},
+		{pattern: `(?P<name>\w+_[a-z]+) v=(?P<value>[-\d\.]+)i (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}},  // integer
+		{pattern: `(?P<name>\w+_[a-z]+) v="(?P<value>[-\d\.]+)" (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}}, // made for string values                                  //bed_curr,n=0 v=2.138 54141
 		// Add more patterns as needed
 	}
 
@@ -100,27 +98,14 @@ func startSyslog(port int) {
 						}
 					}
 
-					value, err := strconv.ParseFloat(valueStr, 64)
-					if err != nil {
-						fmt.Printf("Error parsing value for %s: %v\n", match[1], err)
-						continue
-					}
-
 					if syslogData[logParts["client"].(string)] == nil {
 						syslogData[logParts["client"].(string)] = make(map[string]string)
 					}
 
-					syslogData[logParts["client"].(string)][match[1]] = fmt.Sprint(value)
+					syslogData[logParts["client"].(string)][match[1]] = fmt.Sprint(valueStr)
 
 				}
 			}
-			//time.Sleep(100 * time.Millisecond)
-			//fmt.Println(logParts["client"])   // ip address
-			//fmt.Println(logParts["hostname"]) // mac address
-			//fmt.Println(logParts["message"])  // metrics
-			//for data := range syslogData {
-			//	fmt.Println(data)
-			//}
 		}
 	}(channel)
 
