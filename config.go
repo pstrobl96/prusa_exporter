@@ -112,6 +112,14 @@ func probeConfigFile(parsedConfig configuration) configuration {
 	for i, s := range parsedConfig.Printers.Buddy {
 		if testConnection(s.Address) {
 			parsedConfig.Printers.Buddy[i].Reachable = true
+			_, _, _, _, _, info, _, err := getBuddyResponse(s)
+			if err == nil {
+				if info.Hostname == "" {
+					parsedConfig.Printers.Buddy[i].Type = "unknown"
+				} else {
+					parsedConfig.Printers.Buddy[i].Type = info.Hostname
+				}
+			}
 		} else {
 			parsedConfig.Printers.Buddy[i].Reachable = false
 			log.Error().Msg(s.Address + " is not reachable")

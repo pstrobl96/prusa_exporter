@@ -6,12 +6,10 @@ exporter:
 printers:
   buddy:
   - address: <address_of_printer>
-    username: maker # I'm not aware that there is posibility to change user name in XL or MK4 printers - default is maker
+    username: maker 
     pass: <password>
     name: <your_printer_name>
-    type: <mk4 or xl>
   - address: <address_of_printer>
-    username: maker # I'm not aware that there is posibility to change user name in XL or MK4 printers - default is maker
+    username: maker
     pass: <password>
     name: <your_printer_name>
-    type: <mk4 or xl>
