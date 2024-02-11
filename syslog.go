@@ -214,8 +214,8 @@ func newSyslogCollector() *syslogCollector {
 			"Buddy info",
 			append(defaultLabels, "buddy_revision", "buddy_bom"),
 			nil),
-		printerCpuUsage: prometheus.NewDesc("prusa_buddy_cpu_usage",
-			"CPU usage",
+		printerCpuUsage: prometheus.NewDesc("prusa_buddy_cpu_usage_ratio",
+			"CPU usage from 0.0 to 1.0",
 			defaultLabels,
 			nil),
 		printerHeapTotal: prometheus.NewDesc("prusa_buddy_heap_total",
@@ -514,7 +514,7 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 
 					} else {
 						printerCpuUsage := prometheus.MustNewConstMetric(collector.printerCpuUsage, prometheus.GaugeValue,
-							printerCpuUsage, getLabels(s, job)...)
+							printerCpuUsage/100, getLabels(s, job)...)
 						ch <- printerCpuUsage
 					}
 					////////////////////////////// PARSE! Heap ofc
