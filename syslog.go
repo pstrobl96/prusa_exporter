@@ -17,12 +17,12 @@ type Measurement struct {
 
 // not used - just for reference
 type Client struct {
-	IP                string  // ip address
-	MAC               string  // mac address
-	CurrNozz          float64 // nozzle current - curr_nozz in SYSLOG
-	CurrInp           float64 // input current - curr_inp in SYSLOG
-	CurrMmu           float64 // mmu current - cur_mmu_imp
-	HeapFree          int     // how much heap is free - heap_free in SYSLOG
+	IP       string  // ip address
+	MAC      string  // mac address
+	CurrNozz float64 // nozzle current - curr_nozz in SYSLOG
+	CurrInp  float64 // input current - curr_inp in SYSLOG
+	CurrMmu  float64 // mmu current - cur_mmu_imp
+	//HeapFree          int     // how much heap is free - heap_free in SYSLOG
 	CpuUsage          int     // cpu use in percentage - cpu_usage in SYSLOG
 	VoltBed           int     // bed voltage - volt_bed in SYSLOG
 	HeaterEnabled     bool    // is the heater enabled - heater_enabled in SYSLOG
@@ -61,14 +61,13 @@ func startSyslog(port int) {
 		{pattern: `(?P<name>\w+_[a-z]+) v=(?P<value>[-\d\.]+)i (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}},  // integer
 		{pattern: `(?P<name>\w+_[a-z]+) v="(?P<value>[-\d\.]+)" (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}}, // made for string values
 		{pattern: `(?P<name>\w+(?:,[a-z]=\d+)?)[ ]v=(?P<value>[-\d\.]+),e=(?P<e>[-\d\.]+)[ ](?P<timestamp>\d+)`, fields: []string{"name", "value", "e", "timestamp"}},
-
-		//bed_curr,n=1 v=0.314,e=0.336 54182
-		// Add more patterns as needed
+		{pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) v=(?P<value>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}},
+		{pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) free=(?P<subvalue>[-\d\.]+)i,total=(?P<subvalue2>[-\d\.]+)i (?P<timestamp>\d+)`, fields: []string{"name", "subvalue", "subvalue2", "timestamp"}},
 	}
 
 	go func(channel syslog.LogPartsChannel) {
 		for logParts := range channel {
-
+			//fmt.Println(logParts)
 			for _, pattern := range patterns {
 				reg, err := regexp.Compile(pattern.pattern)
 				if err != nil {
