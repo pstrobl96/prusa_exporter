@@ -779,50 +779,82 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "Unknown"
+                },
+                "1": {
+                  "index": 1,
+                  "text": "Operational"
+                },
+                "2": {
+                  "index": 2,
+                  "text": "Operational"
+                },
+                "3": {
+                  "index": 3,
+                  "text": "Paused"
+                },
+                "4": {
+                  "index": 4,
+                  "text": "Printing"
+                },
+                "5": {
+                  "index": 5,
+                  "text": "Cancelling"
+                },
+                "6": {
+                  "index": 6,
+                  "text": "Pausing"
+                },
+                "7": {
+                  "index": 7,
+                  "text": "Error"
+                },
+                "8": {
+                  "index": 8,
+                  "text": "SdReady"
+                },
+                "9": {
+                  "index": 9,
+                  "text": "ClosedOnError"
+                },
+                "10": {
+                  "index": 10,
+                  "text": "Ready"
+                },
+                "11": {
+                  "index": 11,
+                  "text": "Busy"
+                },
+                "12": {
+                  "index": 12,
+                  "text": "Finished"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
+                "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
           "unitScale": true
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Printing"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Operational"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "light-yellow",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 4,
@@ -830,10 +862,10 @@
         "x": 11,
         "y": 5
       },
-      "id": 6,
+      "id": 68,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -844,7 +876,7 @@
           "values": false
         },
         "showPercentChange": false,
-        "textMode": "name",
+        "textMode": "auto",
         "wideLayout": true
       },
       "pluginVersion": "10.3.1",
@@ -855,11 +887,9 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "exemplar": false,
-          "expr": "max by (printer_name,printer_state)(prusa_einsy_state{printer_name=\"$printer\"})",
-          "instant": true,
-          "legendFormat": "{{printer_state}}",
-          "range": false,
+          "expr": "max by (pritner_state, printer_name)(prusa_einsy_status{printer_name=\"$printer\"}) ",
+          "legendFormat": "{{printer_name}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -2421,6 +2451,6 @@
   "timezone": "",
   "title": "Prusa Einsy Dashboard",
   "uid": "-hAanfLVk",
-  "version": 9,
+  "version": 10,
   "weekStart": ""
 }
