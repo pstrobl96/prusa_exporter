@@ -16,7 +16,6 @@ func initProcedure() {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 	zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
 	loadConfigFile()
-	setLogLevel(config.Exporter.LogLevel)
 }
 
 func main() {

@@ -74,12 +74,13 @@ func setLogLevel(level string) string {
 	}
 
 	zerolog.SetGlobalLevel(zeroLogLevel)
-	print(level)
 	return level
 }
 
 func loadConfigFile() {
-	config = probeConfigFile(parseConfig(getConfigPath()))
+	parsedConfig := parseConfig(getConfigPath())
+	setLogLevel(config.Exporter.LogLevel)
+	config = probeConfigFile(parsedConfig)
 }
 
 func getConfigPath() string {
@@ -89,7 +90,7 @@ func getConfigPath() string {
 	if cfgFile == "" {
 		pwd, e := os.Getwd()
 		if e != nil {
-			fmt.Println(e)
+			log.Error().Msg(e.Error())
 			os.Exit(1)
 		}
 		cfgFile = pwd + "/prusa.yml"
