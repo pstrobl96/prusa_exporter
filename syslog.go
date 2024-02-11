@@ -120,132 +120,146 @@ type syslogCollector struct {
 	printerMediaPrefetched *prometheus.Desc
 }
 
-/* func newSyslogCollector() *syslogCollector {
+func newSyslogCollector() *syslogCollector {
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
 	return &syslogCollector{
-		printerNozzleTemp: prometheus.NewDesc("prusa_buddy_nozzle_temperature",
-			"Current temperature of printer nozzle in Celsius",
+		printerVolt5V: prometheus.NewDesc("prusa_buddy_voltage_5volts",
+			"Voltage of 5 volt rail",
 			defaultLabels,
 			nil),
-		printerBedTemp: prometheus.NewDesc("prusa_buddy_bed_temperature",
-			"Current temperature of printer bed in Celsius",
+		printerVolt24V: prometheus.NewDesc("prusa_buddy_voltage_24volts",
+			"Voltage of 24 volt rail",
 			defaultLabels,
 			nil),
-		printerVersion: prometheus.NewDesc("prusa_buddy_version",
-			"Return information about printer. This metric contains information mostly about Prusa Link",
-			append(defaultLabels, "printer_api", "printer_server", "printer_text"),
-			nil),
-		printerZHeight: prometheus.NewDesc("prusa_buddy_z_height",
-			"Current height of Z",
+		printerVoltBed: prometheus.NewDesc("prusa_buddy_voltage_bed",
+			"Voltage of bed",
 			defaultLabels,
 			nil),
-		printerPrintSpeed: prometheus.NewDesc("prusa_buddy_print_speed_ratio",
-			"Current setting of printer speed in ratio (0.0-1.0)",
+		printerVoltNozzle: prometheus.NewDesc("prusa_buddy_voltage_nozzle",
+			"Voltage of nozzle",
 			defaultLabels,
 			nil),
-		printerTargetTempNozzle: prometheus.NewDesc("prusa_buddy_nozzle_target_temperature",
-			"Target temperature of printer nozzle in Celsius",
+		printerVoltSandwich5V: prometheus.NewDesc("prusa_buddy_voltage_sandwich_5volts",
+			"Voltage of sandwich 5 volt rail",
 			defaultLabels,
 			nil),
-		printerTargetTempBed: prometheus.NewDesc("prusa_buddy_bed_target_temperature",
-			"Target temperature of printer bed in Celsius",
+		printerVoltSplitter5V: prometheus.NewDesc("prusa_buddy_voltage_splitter_5volts",
+			"Voltage of splitter 5 volt rail",
 			defaultLabels,
 			nil),
-		printerFiles: prometheus.NewDesc("prusa_buddy_files",
-			"Number of files in storage",
-			append(defaultLabels, "printer_storage"),
-			nil),
-		printerPrintTimeRemaining: prometheus.NewDesc("prusa_buddy_printing_time_remaining",
-			"Returns time that remains for completion of current print",
+		printerCurrentXlbuddy5V: prometheus.NewDesc("prusa_buddy_current_xlbuddy_5volts",
+			"Current of XL buddy 5 volt rail",
 			defaultLabels,
 			nil),
-		printerPrintProgress: prometheus.NewDesc("prusa_buddy_printing_progress",
-			"Returns information about completion of current print in percents",
+		printerCurrentInput: prometheus.NewDesc("prusa_buddy_current_input",
+			"Input current",
 			defaultLabels,
 			nil),
-		printerPrinting: prometheus.NewDesc("prusa_buddy_printing",
-			"Return information about printing",
+		printerCurrentMMU: prometheus.NewDesc("prusa_buddy_current_mmu",
+			"Current of MMU",
 			defaultLabels,
 			nil),
-		printerMaterial: prometheus.NewDesc("prusa_buddy_material",
-			"Returns information about loaded filament. Returns 0 if there is no loaded filament",
-			append(defaultLabels, "printer_filament"),
+		printerCurrentBed: prometheus.NewDesc("prusa_buddy_current_bed",
+			"Current of bed",
+			append(defaultLabels, "rail" /*XL has two 24V rails for heatbed*/),
 			nil),
-		printerPrintTime: prometheus.NewDesc("prusa_buddy_print_time",
-			"Returns information about current print time.",
+		printerCurrentNozzle: prometheus.NewDesc("prusa_buddy_current_nozzle",
+			"Current of nozzle",
 			defaultLabels,
 			nil),
-		printerUp: prometheus.NewDesc("prusa_buddy_up",
-			"Return information about online printers. If printer is registered as offline then returned value is 0.",
-			[]string{"printer_address", "printer_model", "printer_name"},
-			nil),
-		printerNozzleSize: prometheus.NewDesc("prusa_buddy_nozzle_size",
-			"Returns information about selected nozzle size.",
+		printerOvercurrentNozzle: prometheus.NewDesc("prusa_buddy_overcurrent_nozzle",
+			"Overcurrent of nozzle",
 			defaultLabels,
 			nil),
-		printerStatus: prometheus.NewDesc("prusa_buddy_status",
-			"Returns information status of printer.",
-			append(defaultLabels, "printer_state"), // flags are defined by number :pug-dance:
-			nil),
-		printerAxisX: prometheus.NewDesc("prusa_buddy_axis_x",
-			"Returns information about position of axis X.",
+		printerOvercurrentInput: prometheus.NewDesc("prusa_buddy_overcurrent_input",
+			"Overcurrent of input",
 			defaultLabels,
 			nil),
-		printerAxisY: prometheus.NewDesc("prusa_buddy_axis_y",
-			"Returns information about position of axis Y.",
+		printerActiveExtruder: prometheus.NewDesc("prusa_buddy_active_extruder",
+			"Active extruder - used for XL",
 			defaultLabels,
 			nil),
-		printerAxisZ: prometheus.NewDesc("prusa_buddy_axis_z",
-			"Returns information about position of axis Z.",
+		printerDwarfMcuTemp: prometheus.NewDesc("prusa_buddy_dwarf_mcu_temp",
+			"Dwarf MCU temperature - used for XL",
 			defaultLabels,
 			nil),
-		printerFlow: prometheus.NewDesc("prusa_buddy_print_flow_ratio",
-			"Returns information about of filament flow in ratio (0.0 - 1.0).",
+		printerDwarfBoardTemp: prometheus.NewDesc("prusa_buddy_dwarf_board_temp",
+			"Dwarf board temperature - used for XL",
 			defaultLabels,
 			nil),
-		printerInfo: prometheus.NewDesc("prusa_buddy_info",
-			"Returns information about printer.",
-			append(defaultLabels, "printer_serial", "printer_hostname"),
-			nil),
-		printerMMU: prometheus.NewDesc("prusa_buddy_mmu",
-			"Returns information if MMU is enabled.",
+		printerAxisZAdjustment: prometheus.NewDesc("prusa_buddy_axis_z_adjustment",
+			"Axis Z adjustment",
 			defaultLabels,
 			nil),
-		printerFanHotend: prometheus.NewDesc("prusa_buddy_fan_hotend",
-			"Returns information about speed of hotend fan in rpm.",
+		printerHeaterEnabled: prometheus.NewDesc("prusa_buddy_heater_enabled",
+			"Heater enabled",
 			defaultLabels,
 			nil),
-		printerFanPrint: prometheus.NewDesc("prusa_buddy_fan_print",
-			"Returns information about speed of print fan in rpm.",
+		printerLoadcellScale: prometheus.NewDesc("prusa_buddy_loadcell_scale",
+			"Loadcell scale",
+			defaultLabels,
+			nil),
+		printerLoadcellThreshold: prometheus.NewDesc("prusa_buddy_loadcell_threshold",
+			"Loadcell threshold",
+			defaultLabels,
+			nil),
+		printerLoadcellHysteresis: prometheus.NewDesc("prusa_buddy_loadcell_hysteresis",
+			"Loadcell hysteresis",
+			defaultLabels,
+			nil),
+		printerBuddyInfo: prometheus.NewDesc("prusa_buddy_info",
+			"Buddy info",
+			append(defaultLabels, "buddy_revision", "buddy_bom"),
+			nil),
+		printerCpuUsage: prometheus.NewDesc("prusa_buddy_cpu_usage",
+			"CPU usage",
+			defaultLabels,
+			nil),
+		printerHeapTotal: prometheus.NewDesc("prusa_buddy_heap_total",
+			"Total heap",
+			defaultLabels,
+			nil),
+		printerHeapUsed: prometheus.NewDesc("prusa_buddy_heap_used",
+			"Used heap",
+			defaultLabels,
+			nil),
+		printerPointsDropped: prometheus.NewDesc("prusa_buddy_points_dropped",
+			"Points dropped",
+			defaultLabels,
+			nil),
+		printerMediaPrefetched: prometheus.NewDesc("prusa_buddy_media_prefetched",
+			"Media prefetched",
 			defaultLabels,
 			nil),
 	}
 }
 
 func (collector *syslogCollector) Describe(ch chan<- *prometheus.Desc) {
-	ch <- collector.printerNozzleTemp
-	ch <- collector.printerBedTemp
-	ch <- collector.printerVersion
-	ch <- collector.printerZHeight
-	ch <- collector.printerPrintSpeed
-	ch <- collector.printerTargetTempNozzle
-	ch <- collector.printerTargetTempBed
-	ch <- collector.printerFiles
-	ch <- collector.printerPrintTime
-	ch <- collector.printerPrintTimeRemaining
-	ch <- collector.printerPrintProgress
-	ch <- collector.printerPrinting
-	ch <- collector.printerMaterial
-	ch <- collector.printerUp
-	ch <- collector.printerNozzleSize
-	ch <- collector.printerStatus
-	ch <- collector.printerAxisX
-	ch <- collector.printerAxisY
-	ch <- collector.printerAxisZ
-	ch <- collector.printerFlow
-	ch <- collector.printerInfo
-	ch <- collector.printerMMU
-	ch <- collector.printerFanHotend
-	ch <- collector.printerFanPrint
+	ch <- collector.printerVolt5V
+	ch <- collector.printerVolt24V
+	ch <- collector.printerVoltBed
+	ch <- collector.printerVoltNozzle
+	ch <- collector.printerVoltSandwich5V
+	ch <- collector.printerVoltSplitter5V
+	ch <- collector.printerCurrentXlbuddy5V
+	ch <- collector.printerCurrentInput
+	ch <- collector.printerCurrentMMU
+	ch <- collector.printerCurrentBed
+	ch <- collector.printerCurrentNozzle
+	ch <- collector.printerOvercurrentNozzle
+	ch <- collector.printerOvercurrentInput
+	ch <- collector.printerActiveExtruder
+	ch <- collector.printerDwarfMcuTemp
+	ch <- collector.printerDwarfBoardTemp
+	ch <- collector.printerAxisZAdjustment
+	ch <- collector.printerHeaterEnabled
+	ch <- collector.printerLoadcellScale
+	ch <- collector.printerLoadcellThreshold
+	ch <- collector.printerLoadcellHysteresis
+	ch <- collector.printerBuddyInfo
+	ch <- collector.printerCpuUsage
+	ch <- collector.printerHeapTotal
+	ch <- collector.printerHeapUsed
+	ch <- collector.printerPointsDropped
+	ch <- collector.printerMediaPrefetched
 }
-*/
