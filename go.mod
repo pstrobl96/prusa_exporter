@@ -1,6 +1,6 @@
 module github.com/pstrobl96/prusa_exporter
 
-go 1.21.6
+go 1.21
 
 require (
 	github.com/icholy/digest v0.1.22
