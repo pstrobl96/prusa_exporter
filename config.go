@@ -14,6 +14,7 @@ import (
 )
 
 var config configuration
+var configPath string
 
 type buddy struct {
 	Address   string `yaml:"address"`
@@ -74,28 +75,32 @@ func setLogLevel(level string) string {
 	}
 
 	zerolog.SetGlobalLevel(zeroLogLevel)
-	print(level)
 	return level
 }
 
 func loadConfigFile() {
-	config = probeConfigFile(parseConfig(getConfigPath()))
+	parsedConfig := parseConfig(getConfigPath())
+	setLogLevel(config.Exporter.LogLevel)
+	config = probeConfigFile(parsedConfig)
 }
 
 func getConfigPath() string {
-	var cfgFile string
-	flag.StringVar(&cfgFile, "config.file", "", "Path to prusa.yml config file") // later will use flag.Args
-	flag.Parse()
-	if cfgFile == "" {
-		pwd, e := os.Getwd()
-		if e != nil {
-			fmt.Println(e)
-			os.Exit(1)
+	if configPath == "" {
+		var cfgFile string
+		flag.StringVar(&cfgFile, "config.file", "", "Path to prusa.yml config file") // later will use flag.Args
+		flag.Parse()
+		if cfgFile == "" {
+			pwd, e := os.Getwd()
+			if e != nil {
+				log.Error().Msg(e.Error())
+				os.Exit(1)
+			}
+			cfgFile = pwd + "/prusa.yml"
 		}
-		cfgFile = pwd + "/prusa.yml"
+		configPath = cfgFile
+		return cfgFile
 	}
-
-	return cfgFile
+	return configPath
 }
 
 func parseConfig(path string) configuration {

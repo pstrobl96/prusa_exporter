@@ -17,10 +17,5 @@ printers:
     name: <your_printer_name>
   einsy:
   - address: <address_of_printer>
-    username: maker 
-    pass: <password>
-    name: <your_printer_name>
-  - address: <address_of_printer>
-    username: maker
-    pass: <password>
+    apikey: <apikey>
     name: <your_printer_name>

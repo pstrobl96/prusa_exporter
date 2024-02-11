@@ -5,6 +5,8 @@ networks:
 
 volumes:
   prometheus_data:
+  grafana_storage:
+
 services:
   node-exporter:
     image: prom/node-exporter:v1.5.0
@@ -25,7 +27,7 @@ services:
       - prusa
 
   prometheus:
-    image: prom/prometheus:v2.37.7
+    image: prom/prometheus:v2.49.1
     container_name: prometheus
     restart: unless-stopped
     volumes:
@@ -37,7 +39,7 @@ services:
       - '--web.console.libraries=/etc/prometheus/console_libraries'
       - '--web.console.templates=/etc/prometheus/consoles'
       - '--web.enable-lifecycle'
-      - '--storage.tsdb.retention.time=1d'
+      - '--storage.tsdb.retention.time=14d'
     ports:
       - "9090:9090"
     networks:
@@ -49,7 +51,7 @@ services:
     volumes:
       - ./docs/examples/config/on_premise/promtail.yaml:/etc/promtail/config.yml
       - /var/log:/var/log
-    command: '--config.file=/etc/promtail/config.yml'
+    command: -config.file=/etc/promtail/config.yml
     networks:
       - prusa
 
@@ -58,11 +60,32 @@ services:
     container_name: exporter
     volumes:
       - type: bind
-        source: ./docs/examples/config/on_premise/prusa.yml
+        source: ./docs/examples/config/common/prusa.yml
         target: /app/prusa.yml
     ports:
       - "10008:10008"
       - "10009:10009"
     command: '--config.file=/app/prusa.yml'
+    networks:
+      - prusa
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - prusa
+    volumes:
+      - grafana_storage:/var/lib/grafana
+
+  loki:
+    image: grafana/loki:2.9.1
+    container_name: loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./docs/examples/config/on_premise/loki.yaml:/etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml
     networks:
       - prusa
