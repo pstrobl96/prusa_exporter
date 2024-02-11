@@ -26,6 +26,7 @@ func main() {
 		go configReloader() // run reloader as goroutine
 	}
 	if config.Exporter.SyslogMetrics {
+		log.Warn().Msg("Syslog metrics enabled!")
 		go startSyslog(10008)
 	}
 
