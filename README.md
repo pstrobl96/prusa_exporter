@@ -294,3 +294,4 @@ I also prepared one dashboard per board which you can find in the [docs/examples
 Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20393-buddy-detail/)! Just use ID `20393` when importing.  
 
 ![dashboard](docs/examples/grafana/buddy.png)
+![dashboard](docs/examples/grafana/buddy_syslog.png)
