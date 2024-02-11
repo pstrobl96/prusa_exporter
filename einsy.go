@@ -27,7 +27,7 @@ type einsyCollector struct {
 	printerAxisX              *prometheus.Desc
 	printerAxisY              *prometheus.Desc
 	printerAxisZ              *prometheus.Desc
-	printerState              *prometheus.Desc
+	printerStatus             *prometheus.Desc
 	printerNozzleSize         *prometheus.Desc
 	printerUp                 *prometheus.Desc
 }
@@ -55,7 +55,7 @@ func newEinsyCollector() *einsyCollector {
 		printerAxisX:              prometheus.NewDesc("prusa_einsy_axis_x", "Return coordinates - x axis of printer", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
 		printerAxisY:              prometheus.NewDesc("prusa_einsy_axis_y", "Return coordinates - y axis of printer", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
 		printerAxisZ:              prometheus.NewDesc("prusa_einsy_axis_z", "Return coordinates - z axis of printer", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
-		printerState:              prometheus.NewDesc("prusa_einsy_state", "Return state of printer", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path", "printer_state"}, nil),
+		printerStatus:             prometheus.NewDesc("prusa_einsy_status", "Return state of printer", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path", "printer_state"}, nil),
 		printerNozzleSize:         prometheus.NewDesc("prusa_einsy_nozzle_size", "Return size of nozzle", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
 		printerUp:                 prometheus.NewDesc("prusa_einsy_up", "Return if printer is up", []string{"printer_address", "printer_model", "printer_name"}, nil),
 	}
@@ -75,7 +75,7 @@ func (collector *einsyCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerPrintProgress
 	ch <- collector.printerPrinting
 	ch <- collector.printerMaterial
-	ch <- collector.printerState
+	ch <- collector.printerStatus
 	ch <- collector.printerAxisX
 	ch <- collector.printerAxisY
 	ch <- collector.printerAxisZ
@@ -85,6 +85,36 @@ func (collector *einsyCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerLogsDate
 	ch <- collector.printerLogs
 	ch <- collector.printerUp
+}
+
+func getFlagEinsy(printer einsyPrinter) float64 {
+	if printer.State.Flags.Operational {
+		return 1
+	} else if printer.State.Flags.Prepared {
+		return 2
+	} else if printer.State.Flags.Paused {
+		return 3
+	} else if printer.State.Flags.Printing {
+		return 4
+	} else if printer.State.Flags.Cancelling {
+		return 5
+	} else if printer.State.Flags.Pausing {
+		return 6
+	} else if printer.State.Flags.Error {
+		return 7
+	} else if printer.State.Flags.SdReady {
+		return 8
+	} else if printer.State.Flags.ClosedOrError {
+		return 9
+	} else if printer.State.Flags.Ready {
+		return 10
+		/*} else if printer.State.Flags.Busy {
+		return 11*/ // no busy state for Einsy
+	} else if printer.State.Flags.Finished {
+		return 12
+	} else {
+		return 0
+	}
 }
 
 func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
@@ -231,14 +261,9 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 				printer.Telemetry.AxisZ,
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
-			stateMetric := 0
-			if printer.State.Text == "Printing" {
-				stateMetric = 1
-			}
-
-			printerState := prometheus.MustNewConstMetric(
-				collector.printerState, prometheus.GaugeValue,
-				float64(stateMetric),
+			printerStatus := prometheus.MustNewConstMetric(
+				collector.printerStatus, prometheus.GaugeValue,
+				getFlagEinsy(printer),
 				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, printer.State.Text)
 
 			printerNozzleSize := prometheus.MustNewConstMetric(
@@ -250,7 +275,7 @@ func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 				1, s.Address, s.Type, s.Name)
 
 			ch <- printerUp
-			ch <- printerState
+			ch <- printerStatus
 			ch <- printerNozzleSize
 			ch <- printerAxisX
 			ch <- printerAxisY
