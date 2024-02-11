@@ -44,6 +44,7 @@ type configuration struct {
 		ReloadInterval int    `yaml:"reload_interval"`
 		LogLevel       string `yaml:"log_level"`
 		SyslogMetrics  bool   `yaml:"syslog_metrics"`
+		SyslogPort     int    `yaml:"syslog_port"`
 	} `yaml:"exporter"`
 }
 

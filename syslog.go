@@ -3,8 +3,11 @@ package main
 import (
 	"fmt"
 	"regexp"
+	"strconv"
+	"strings"
 
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/rs/zerolog/log"
 	"gopkg.in/mcuadros/go-syslog.v2"
 )
 
@@ -34,8 +37,8 @@ func startSyslog(port int) { // yep i'll leave it in one function for now
 
 	go func(channel syslog.LogPartsChannel) {
 		for logParts := range channel {
-			client_ip := logParts["client"].(string)
-			if client_ip == "" { // Skip empty client ip
+			client_ip := strings.Split(logParts["client"].(string), ":")[0] // getting rid of port and leaving only ip address
+			if client_ip == "" {                                            // Skip empty client ip
 				continue
 			} else {
 				if syslogData[client_ip] == nil {
@@ -112,7 +115,7 @@ type syslogCollector struct {
 	printerLoadcellHysteresis *prometheus.Desc
 
 	// system metrics
-	printerBuddyInfo       *prometheus.Desc // revision, bom
+	printerBuddySyslogInfo *prometheus.Desc // revision, bom
 	printerCpuUsage        *prometheus.Desc
 	printerHeapTotal       *prometheus.Desc
 	printerHeapUsed        *prometheus.Desc
@@ -207,7 +210,7 @@ func newSyslogCollector() *syslogCollector {
 			"Loadcell hysteresis",
 			defaultLabels,
 			nil),
-		printerBuddyInfo: prometheus.NewDesc("prusa_buddy_info",
+		printerBuddySyslogInfo: prometheus.NewDesc("prusa_buddy_syslog_info",
 			"Buddy info",
 			append(defaultLabels, "buddy_revision", "buddy_bom"),
 			nil),
@@ -256,10 +259,299 @@ func (collector *syslogCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerLoadcellScale
 	ch <- collector.printerLoadcellThreshold
 	ch <- collector.printerLoadcellHysteresis
-	ch <- collector.printerBuddyInfo
+	ch <- collector.printerBuddySyslogInfo
 	ch <- collector.printerCpuUsage
 	ch <- collector.printerHeapTotal
 	ch <- collector.printerHeapUsed
 	ch <- collector.printerPointsDropped
 	ch <- collector.printerMediaPrefetched
+}
+
+func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
+	cfg := &config
+	for _, s := range cfg.Printers.Buddy {
+		log.Debug().Msg("SYSLOG - Buddy scraping at " + s.Address)
+		if _, ok := syslogData[s.Address]; ok {
+			log.Debug().Msg("SYSLOG - found data for: " + s.Address)
+			if s.Reachable { // if not reachable then just do nothing
+				_, _, job, _, _, _, _, err := getBuddyResponse(s) // we need job for labels - it's not the best way to do it but it's the easiest for now
+
+				if err != nil {
+					log.Error().Msg(err.Error())
+				} else {
+
+					printerVolt5vParsed, e := strconv.ParseFloat(syslogData[s.Address]["voltage_5v"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerVolt5V := prometheus.MustNewConstMetric(collector.printerVolt5V, prometheus.GaugeValue,
+							printerVolt5vParsed, getLabels(s, job)...)
+						ch <- printerVolt5V
+					}
+
+					printerVolt24vParsed, e := strconv.ParseFloat(syslogData[s.Address]["voltage_24v"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerVolt24V := prometheus.MustNewConstMetric(collector.printerVolt24V, prometheus.GaugeValue,
+							printerVolt24vParsed, getLabels(s, job)...)
+						ch <- printerVolt24V
+					}
+
+					printerVoltBedParsed, e := strconv.ParseFloat(syslogData[s.Address]["voltage_bed"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerVoltBed := prometheus.MustNewConstMetric(collector.printerVoltBed, prometheus.GaugeValue,
+							printerVoltBedParsed, getLabels(s, job)...)
+						ch <- printerVoltBed
+					}
+
+					printerVoltNozzleParsed, e := strconv.ParseFloat(syslogData[s.Address]["voltage_nozzle"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerVoltNozzle := prometheus.MustNewConstMetric(collector.printerVoltNozzle, prometheus.GaugeValue,
+							printerVoltNozzleParsed, getLabels(s, job)...)
+						ch <- printerVoltNozzle
+					}
+
+					printerVoltSandwich5vParsed, e := strconv.ParseFloat(syslogData[s.Address]["voltage_sandwich_5v"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerVoltSandwich5V := prometheus.MustNewConstMetric(collector.printerVoltSandwich5V, prometheus.GaugeValue,
+							printerVoltSandwich5vParsed, getLabels(s, job)...)
+						ch <- printerVoltSandwich5V
+					}
+
+					printerVoltSplitter5vParsed, e := strconv.ParseFloat(syslogData[s.Address]["voltage_splitter_5v"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+
+						printerVoltSplitter5V := prometheus.MustNewConstMetric(collector.printerVoltSplitter5V, prometheus.GaugeValue,
+							printerVoltSplitter5vParsed, getLabels(s, job)...)
+						ch <- printerVoltSplitter5V
+					}
+
+					printerCurrentXlbuddy5vParsed, e := strconv.ParseFloat(syslogData[s.Address]["current_xlbuddy_5v"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerCurrentXlbuddy5V := prometheus.MustNewConstMetric(collector.printerCurrentXlbuddy5V, prometheus.GaugeValue,
+							printerCurrentXlbuddy5vParsed, getLabels(s, job)...)
+						ch <- printerCurrentXlbuddy5V
+					}
+
+					printerCurrentInputParsed, e := strconv.ParseFloat(syslogData[s.Address]["current_input"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerCurrentInput := prometheus.MustNewConstMetric(collector.printerCurrentInput, prometheus.GaugeValue,
+							printerCurrentInputParsed, getLabels(s, job)...)
+						ch <- printerCurrentInput
+					}
+
+					printerCurrentMMUParsed, e := strconv.ParseFloat(syslogData[s.Address]["current_mmu"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerCurrentMMU := prometheus.MustNewConstMetric(collector.printerCurrentMMU, prometheus.GaugeValue,
+							printerCurrentMMUParsed, getLabels(s, job)...)
+						ch <- printerCurrentMMU
+					}
+
+					printerCurrentBedParsed, e := strconv.ParseFloat(syslogData[s.Address]["current_bed"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerCurrentBed := prometheus.MustNewConstMetric(collector.printerCurrentBed, prometheus.GaugeValue,
+							printerCurrentBedParsed, getLabels(s, job, "bed")...)
+						ch <- printerCurrentBed
+					}
+
+					printerCurrentNozzleParsed, e := strconv.ParseFloat(syslogData[s.Address]["current_nozzle"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerCurrentNozzle := prometheus.MustNewConstMetric(collector.printerCurrentNozzle, prometheus.GaugeValue,
+							printerCurrentNozzleParsed, getLabels(s, job)...)
+						ch <- printerCurrentNozzle
+					}
+
+					printerOvercurrentNozzleParsed, e := strconv.ParseFloat(syslogData[s.Address]["overcurrent_nozzle"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerOvercurrentNozzle := prometheus.MustNewConstMetric(collector.printerOvercurrentNozzle, prometheus.GaugeValue,
+							printerOvercurrentNozzleParsed, getLabels(s, job)...)
+						ch <- printerOvercurrentNozzle
+					}
+
+					printerOvercurrentInputParsed, e := strconv.ParseFloat(syslogData[s.Address]["overcurrent_input"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerOvercurrentInput := prometheus.MustNewConstMetric(collector.printerOvercurrentInput, prometheus.GaugeValue,
+							printerOvercurrentInputParsed, getLabels(s, job)...)
+						ch <- printerOvercurrentInput
+					}
+
+					printerActiveExtruder, e := strconv.ParseFloat(syslogData[s.Address]["active_extruder"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerActiveExtruder := prometheus.MustNewConstMetric(collector.printerActiveExtruder, prometheus.GaugeValue,
+							printerActiveExtruder, getLabels(s, job)...)
+						ch <- printerActiveExtruder
+					}
+
+					printerDwarfMcuTemp, e := strconv.ParseFloat(syslogData[s.Address]["dwarf_mcu_temp"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerDwarfMcuTemp := prometheus.MustNewConstMetric(collector.printerDwarfMcuTemp, prometheus.GaugeValue,
+							printerDwarfMcuTemp, getLabels(s, job)...)
+						ch <- printerDwarfMcuTemp
+					}
+
+					printerDwarfBoardTemp, e := strconv.ParseFloat(syslogData[s.Address]["dwarf_board_temp"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+
+						printerDwarfBoardTemp := prometheus.MustNewConstMetric(collector.printerDwarfBoardTemp, prometheus.GaugeValue,
+							printerDwarfBoardTemp, getLabels(s, job)...)
+						ch <- printerDwarfBoardTemp
+					}
+
+					printerAxisZAdjustment, e := strconv.ParseFloat(syslogData[s.Address]["axis_z_adjustment"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerAxisZAdjustment := prometheus.MustNewConstMetric(collector.printerAxisZAdjustment, prometheus.GaugeValue,
+							printerAxisZAdjustment, getLabels(s, job)...)
+						ch <- printerAxisZAdjustment
+					}
+
+					printerHeaterEnabled, e := strconv.ParseFloat(syslogData[s.Address]["heater_enabled"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerHeaterEnabled := prometheus.MustNewConstMetric(collector.printerHeaterEnabled, prometheus.GaugeValue,
+							printerHeaterEnabled, getLabels(s, job)...)
+						ch <- printerHeaterEnabled
+					}
+
+					printerLoadcellScale, e := strconv.ParseFloat(syslogData[s.Address]["loadcell_scale"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerLoadcellScale := prometheus.MustNewConstMetric(collector.printerLoadcellScale, prometheus.GaugeValue,
+							printerLoadcellScale, getLabels(s, job)...)
+						ch <- printerLoadcellScale
+					}
+
+					printerLoadcellThreshold, e := strconv.ParseFloat(syslogData[s.Address]["loadcell_threshold"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerLoadcellThreshold := prometheus.MustNewConstMetric(collector.printerLoadcellThreshold, prometheus.GaugeValue,
+							printerLoadcellThreshold, getLabels(s, job)...)
+						ch <- printerLoadcellThreshold
+					}
+
+					printerLoadcellHysteresis, e := strconv.ParseFloat(syslogData[s.Address]["loadcell_hysteresis"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerLoadcellHysteresis := prometheus.MustNewConstMetric(collector.printerLoadcellHysteresis, prometheus.GaugeValue,
+							printerLoadcellHysteresis, getLabels(s, job)...)
+						ch <- printerLoadcellHysteresis
+					}
+
+					if syslogData[s.Address]["buddy_revision"] != "" && syslogData[s.Address]["buddy_bom"] != "" {
+						printerBuddySyslogInfo := prometheus.MustNewConstMetric(collector.printerBuddySyslogInfo, prometheus.GaugeValue,
+							1, getLabels(s, job, syslogData[s.Address]["buddy_revision"], syslogData[s.Address]["buddy_bom"])...)
+						ch <- printerBuddySyslogInfo
+					}
+
+					printerCpuUsage, e := strconv.ParseFloat(syslogData[s.Address]["cpu_usage"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerCpuUsage := prometheus.MustNewConstMetric(collector.printerCpuUsage, prometheus.GaugeValue,
+							printerCpuUsage, getLabels(s, job)...)
+						ch <- printerCpuUsage
+					}
+
+					printerHeapTotal, e := strconv.ParseFloat(syslogData[s.Address]["heap_total"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerHeapTotal := prometheus.MustNewConstMetric(collector.printerHeapTotal, prometheus.GaugeValue,
+							printerHeapTotal, getLabels(s, job)...)
+						ch <- printerHeapTotal
+					}
+
+					printerHeapUsed, e := strconv.ParseFloat(syslogData[s.Address]["heap_used"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerHeapUsed := prometheus.MustNewConstMetric(collector.printerHeapUsed, prometheus.GaugeValue,
+							printerHeapUsed, getLabels(s, job)...)
+						ch <- printerHeapUsed
+					}
+
+					printerPointsDropped, e := strconv.ParseFloat(syslogData[s.Address]["points_dropped"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerPointsDropped := prometheus.MustNewConstMetric(collector.printerPointsDropped, prometheus.GaugeValue,
+							printerPointsDropped, getLabels(s, job)...)
+						ch <- printerPointsDropped
+					}
+
+					printerMediaPrefetched, e := strconv.ParseFloat(syslogData[s.Address]["media_prefetched"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+
+						printerMediaPrefetched := prometheus.MustNewConstMetric(collector.printerMediaPrefetched, prometheus.GaugeValue,
+							printerMediaPrefetched, getLabels(s, job)...)
+						ch <- printerMediaPrefetched
+					}
+
+				}
+			}
+		}
+
+	}
 }
