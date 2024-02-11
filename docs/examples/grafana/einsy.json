@@ -1,4 +1,47 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.3.1"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -24,7 +67,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 10,
+  "id": null,
   "links": [],
   "liveNow": true,
   "panels": [
@@ -44,7 +87,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${ds_prom}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -52,7 +95,17 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -61,7 +114,9 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "celsius",
+          "unitScale": true
         },
         "overrides": [
           {
@@ -132,7 +187,7 @@
         "x": 0,
         "y": 1
       },
-      "id": 47,
+      "id": 66,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -145,14 +200,16 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "max by (printer_name)(prusa_einsy_nozzle_temperature{printer_name=\"$printer\"}) ",
@@ -163,7 +220,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "max by (printer_name)(prusa_einsy_nozzle_target_temperature{printer_name=\"$printer\"})",
@@ -175,7 +232,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "max by (printer_name)(prusa_einsy_bed_temperature{printer_name=\"$printer\"}) ",
@@ -187,7 +244,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "max by (printer_name)(prusa_einsy_bed_target_temperature{printer_name=\"$printer\"})",
@@ -203,101 +260,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${ds_prom}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Printing"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Operational"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "light-yellow",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 8,
-        "y": 1
-      },
-      "id": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "name"
-      },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "max by (printer_name,printer_state)(prusa_einsy_state{printer_name=\"$printer\"})",
-          "instant": true,
-          "legendFormat": "{{printer_state}}",
-          "range": false,
-          "refId": "A"
-        }
-      ],
-      "title": "Printer status",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prom}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -318,14 +281,16 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "lengthmm",
+          "unitScale": false
         },
         "overrides": []
       },
       "gridPos": {
         "h": 4,
         "w": 2,
-        "x": 12,
+        "x": 8,
         "y": 1
       },
       "id": 49,
@@ -341,14 +306,16 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "max by (printer_name)(prusa_einsy_nozzle_size{printer_name=\"$printer\"})",
@@ -363,7 +330,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${ds_prom}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -371,6 +338,7 @@
           "color": {
             "mode": "thresholds"
           },
+          "decimals": 2,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -380,80 +348,19 @@
                 "value": null
               }
             ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 14,
-        "y": 1
-      },
-      "id": 14,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "name"
-      },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
           },
-          "editorMode": "code",
-          "expr": "max(prusa_einsy_info{printer_name=\"$printer\"}) by (printer_type)",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Printer type",
-      "transformations": [],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prom}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
+          "unit": "percentunit",
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 18,
+        "x": 10,
         "y": 1
       },
-      "id": 15,
+      "id": 21,
       "options": {
         "colorMode": "none",
         "graphMode": "none",
@@ -466,32 +373,169 @@
           "fields": "",
           "values": false
         },
-        "textMode": "name"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max by (printer_name)(prusa_einsy_printing{printer_name=\"$printer\"})",
-          "legendFormat": "{{printer_name}}",
+          "expr": "max by (printer_name)(prusa_einsy_printing_progress{printer_name=\"$printer\"})",
+          "legendFormat": "{{printer_address}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Printer name",
+      "title": "Printing progress",
       "transformations": [],
       "type": "stat"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${ds_prom}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 13,
+        "y": 1
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "max by (printer_name)(prusa_einsy_print_time{printer_name=\"$printer\"} )",
+          "legendFormat": "{{printer_address}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Actual printing time",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 17,
+        "y": 1
+      },
+      "id": 20,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "max by (printer_name)(prusa_einsy_printing_time_remaining{printer_name=\"$printer\"})",
+          "legendFormat": "{{printer_address}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Printing time remaining",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -504,9 +548,14 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -516,7 +565,7 @@
         "x": 21,
         "y": 1
       },
-      "id": 52,
+      "id": 45,
       "options": {
         "colorMode": "none",
         "graphMode": "none",
@@ -526,33 +575,47 @@
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "",
+          "fields": "/.*/",
           "values": false
         },
-        "textMode": "name"
+        "showPercentChange": false,
+        "textMode": "name",
+        "wideLayout": true
       },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max by (printer_location)(prusa_einsy_info{printer_name=\"$printer\"})",
-          "legendFormat": "{{printer_location}}",
+          "expr": "max by (printer_filament)(prusa_einsy_material{printer_name=\"$printer\"})",
+          "format": "time_series",
+          "legendFormat": "{{printer_filament}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Printer location",
-      "transformations": [],
+      "title": "Loaded filament",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {},
+            "renameByName": {}
+          }
+        }
+      ],
       "type": "stat"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${ds_prom}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -589,7 +652,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -612,17 +676,20 @@
           "fields": "",
           "values": false
         },
-        "textMode": "name"
+        "showPercentChange": false,
+        "textMode": "name",
+        "wideLayout": true
       },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "prusa_einsy_printing{printer_name=\"$printer\"} == 1",
+          "hide": false,
           "legendFormat": "{{printer_job_name}}",
           "range": true,
           "refId": "A"
@@ -635,7 +702,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${ds_prom}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -656,13 +723,14 @@
               }
             ]
           },
-          "unit": "lengthmm"
+          "unit": "lengthmm",
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
         "h": 4,
-        "w": 3,
+        "w": 2,
         "x": 9,
         "y": 5
       },
@@ -680,14 +748,16 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "max by (printer_name)(prusa_einsy_z_height{printer_name=\"$printer\"})",
@@ -702,7 +772,134 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${ds_prom}"
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "Unknown"
+                },
+                "1": {
+                  "index": 1,
+                  "text": "Operational"
+                },
+                "2": {
+                  "index": 2,
+                  "text": "Operational"
+                },
+                "3": {
+                  "index": 3,
+                  "text": "Paused"
+                },
+                "4": {
+                  "index": 4,
+                  "text": "Printing"
+                },
+                "5": {
+                  "index": 5,
+                  "text": "Cancelling"
+                },
+                "6": {
+                  "index": 6,
+                  "text": "Pausing"
+                },
+                "7": {
+                  "index": 7,
+                  "text": "Error"
+                },
+                "8": {
+                  "index": 8,
+                  "text": "SdReady"
+                },
+                "9": {
+                  "index": 9,
+                  "text": "ClosedOnError"
+                },
+                "10": {
+                  "index": 10,
+                  "text": "Ready"
+                },
+                "11": {
+                  "index": 11,
+                  "text": "Busy"
+                },
+                "12": {
+                  "index": 12,
+                  "text": "Finished"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 11,
+        "y": 5
+      },
+      "id": 68,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "max by (pritner_state, printer_name)(prusa_einsy_status{printer_name=\"$printer\"}) ",
+          "legendFormat": "{{printer_name}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Printer status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -710,7 +907,7 @@
           "color": {
             "mode": "thresholds"
           },
-          "decimals": 2,
+          "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -721,17 +918,17 @@
               }
             ]
           },
-          "unit": "percentunit"
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 12,
+        "x": 14,
         "y": 5
       },
-      "id": 21,
+      "id": 14,
       "options": {
         "colorMode": "none",
         "graphMode": "none",
@@ -744,30 +941,32 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "name",
+        "wideLayout": true
       },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max by (printer_name)(prusa_einsy_printing_progress{printer_name=\"$printer\"})",
-          "legendFormat": "{{printer_address}}",
+          "expr": "max(prusa_einsy_info{printer_name=\"$printer\"}) by (printer_type)",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Printing progress",
+      "title": "Printer type",
       "transformations": [],
       "type": "stat"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${ds_prom}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -775,7 +974,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "decimals": 2,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -786,17 +984,17 @@
               }
             ]
           },
-          "unit": "s"
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 15,
+        "w": 2,
+        "x": 17,
         "y": 5
       },
-      "id": 19,
+      "id": 15,
       "options": {
         "colorMode": "none",
         "graphMode": "none",
@@ -809,30 +1007,32 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "name",
+        "wideLayout": true
       },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max by (printer_name)(prusa_einsy_print_time{printer_name=\"$printer\"} )",
-          "legendFormat": "{{printer_address}}",
+          "expr": "max by (printer_name)(prusa_einsy_printing{printer_name=\"$printer\"})",
+          "legendFormat": "{{printer_name}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Actual printing time",
+      "title": "Printer name",
       "transformations": [],
       "type": "stat"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${ds_prom}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -840,7 +1040,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "decimals": 2,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -851,17 +1050,17 @@
               }
             ]
           },
-          "unit": "s"
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 18,
+        "x": 19,
         "y": 5
       },
-      "id": 20,
+      "id": 52,
       "options": {
         "colorMode": "none",
         "graphMode": "none",
@@ -874,30 +1073,32 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "name",
+        "wideLayout": true
       },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max by (printer_name)(prusa_einsy_printing_time_remaining{printer_name=\"$printer\"})",
-          "legendFormat": "{{printer_address}}",
+          "expr": "max by (printer_location)(prusa_einsy_info{printer_name=\"$printer\"})",
+          "legendFormat": "{{printer_location}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Printing time remaining",
+      "title": "Printer location",
       "transformations": [],
       "type": "stat"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${ds_prom}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -927,25 +1128,24 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 101
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percentunit",
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 21,
+        "w": 2,
+        "x": 22,
         "y": 5
       },
       "id": 7,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -955,17 +1155,18 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max by (printer_name)(prusa_einsy_print_speed{printer_name=\"$printer\"})",
+          "expr": "max by (printer_name)(prusa_einsy_print_speed_ratio{printer_name=\"$printer\"})",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -977,7 +1178,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${ds_prom}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -986,6 +1187,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -999,6 +1201,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1030,7 +1233,8 @@
               }
             ]
           },
-          "unit": "celsius"
+          "unit": "celsius",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1062,7 +1266,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "max by (printer_name)(prusa_einsy_nozzle_temperature{printer_name=\"$printer\"})",
@@ -1073,7 +1277,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "max by (printer_name)(prusa_einsy_nozzle_target_temperature{printer_name=\"$printer\"})",
@@ -1089,7 +1293,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${ds_prom}"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -1098,6 +1302,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1111,6 +1316,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1142,7 +1348,8 @@
               }
             ]
           },
-          "unit": "celsius"
+          "unit": "celsius",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1174,7 +1381,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "max by (printer_name)(prusa_einsy_bed_temperature{printer_name=\"$printer\"})",
@@ -1185,7 +1392,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "max by (printer_name)(prusa_einsy_bed_target_temperature{printer_name=\"$printer\"})",
@@ -1199,7 +1406,7 @@
       "type": "timeseries"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1207,1068 +1414,13 @@
         "y": 22
       },
       "id": 58,
-      "panels": [],
-      "title": "Printer Detail",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prom}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 0,
-        "y": 23
-      },
-      "id": 51,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "name"
-      },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "editorMode": "code",
-          "expr": "max by (printer_sn)(prusa_einsy_info{printer_name=\"$printer\"})",
-          "legendFormat": "{{printer_sn}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Printer SN",
-      "transformations": [],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prom}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 4,
-        "y": 23
-      },
-      "id": 16,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "name"
-      },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "editorMode": "code",
-          "expr": "prusa_einsy_version{printer_name=\"$printer\"}",
-          "legendFormat": "{{printer_server}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Prusa Link ver",
-      "transformations": [],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prom}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 8,
-        "y": 23
-      },
-      "id": 54,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "name"
-      },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "editorMode": "code",
-          "expr": "max by (printer_api)(prusa_einsy_info{printer_name=\"$printer\"})",
-          "legendFormat": "{{printer_api}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Printer API ver",
-      "transformations": [],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prom}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 12,
-        "y": 23
-      },
-      "id": 59,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "name"
-      },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "editorMode": "code",
-          "expr": "max(prusa_einsy_info{printer_name=\"$printer\"}) by (printer_link_name)",
-          "legendFormat": "{{printer_link_name}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Printer Link name",
-      "transformations": [],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prom}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 16,
-        "y": 23
-      },
-      "id": 18,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "name"
-      },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "editorMode": "code",
-          "expr": "prusa_einsy_version{printer_name=\"$printer\"}",
-          "legendFormat": "{{printer_address}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "IP",
-      "transformations": [],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prom}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 23
-      },
-      "id": 17,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "value_and_name"
-      },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "editorMode": "code",
-          "expr": "prusa_einsy_files{printer_name=\"$printer\"}",
-          "legendFormat": "{{printer_storage}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Number of files",
-      "transformations": [],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prom}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "Infinity": {
-                  "index": 0,
-                  "text": "No value"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "max": 1,
-          "min": 0,
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 0
-              },
-              {
-                "color": "#EAB839",
-                "value": 40
-              },
-              {
-                "color": "green",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 8,
-        "x": 0,
-        "y": 27
-      },
-      "id": 9,
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "editorMode": "code",
-          "expr": "max by (printer_name)(prusa_einsy_nozzle_temperature{printer_name=\"$printer\"}) / max by (printer_name)(prusa_einsy_nozzle_target_temperature{printer_name=\"$printer\"})",
-          "legendFormat": "Nozzle",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "editorMode": "code",
-          "expr": "max by (printer_name)(prusa_einsy_bed_temperature{printer_name=\"$printer\"}) / max by (printer_name)(prusa_einsy_bed_target_temperature{printer_name=\"$printer\"})",
-          "hide": false,
-          "legendFormat": "Bed",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "Target temp success",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prom}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "0": {
-                  "color": "red",
-                  "index": 0,
-                  "text": "Off"
-                },
-                "1": {
-                  "color": "green",
-                  "index": 1,
-                  "text": "On"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 8,
-        "y": 27
-      },
-      "id": 61,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "editorMode": "code",
-          "expr": "max (prusa_einsy_farm_mode{printer_name=\"$printer\"}) by (printer)",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Farm mode",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prom}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Value"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green"
-                    },
-                    {
-                      "color": "red",
-                      "value": 80
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 12,
-        "x": 12,
-        "y": 27
-      },
-      "id": 29,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "vertical",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "name"
-      },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "max by (printer_job_path)(prusa_einsy_material{printer_name=\"$printer\", printer_job_path!=\"\"})",
-          "instant": false,
-          "legendFormat": "{{printer_job_path}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Filepath",
-      "transformations": [],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prom}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "lengthmm"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 0,
-        "y": 32
-      },
-      "id": 30,
-      "interval": "5s",
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.4.7",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "editorMode": "code",
-          "expr": "max by (printer_name)(prusa_einsy_z_height{printer_name=\"$printer\"})",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Z Height in time",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prom}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "max": 1,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 12,
-        "y": 32
-      },
-      "id": 31,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.4.7",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "editorMode": "code",
-          "expr": "max by (printer_name)(prusa_einsy_printing_progress{printer_name=\"$printer\"})",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Printing progress in time",
-      "type": "timeseries"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 42
-      },
-      "id": 65,
-      "panels": [],
-      "title": "Logs",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prom}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 43
-      },
-      "id": 63,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "enablePagination": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true
-      },
-      "pluginVersion": "9.5.2-cloud.1.f9fd074b",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "prusa_einsy_logs{printer_name=\"$printer\"}",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
-        }
-      ],
-      "title": "Panel Title",
-      "transformations": [
-        {
-          "id": "seriesToRows",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time": true,
-              "Value": false,
-              "__name__": true,
-              "instance": true,
-              "job": true,
-              "printer_address": true,
-              "printer_job_name": true,
-              "printer_job_path": true,
-              "printer_model": true,
-              "printer_name": true
-            },
-            "indexByName": {},
-            "renameByName": {
-              "Value": "Size"
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "collapsed": true,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 51
-      },
-      "id": 41,
       "panels": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "z13BmGY4k"
+            "uid": "${DS_PROMETHEUS}"
           },
-          "gridPos": {
-            "h": 3,
-            "w": 24,
-            "x": 0,
-            "y": 52
-          },
-          "id": 56,
-          "options": {
-            "code": {
-              "language": "plaintext",
-              "showLineNumbers": false,
-              "showMiniMap": false
-            },
-            "content": "### IF XYZ CHART IS BLINKING THEN TRY CHANGING TIME RANGE INTERVAL. DOES NOT WORK WHILE PRINTING. >_<",
-            "mode": "markdown"
-          },
-          "pluginVersion": "9.5.2-cloud.1.f9fd074b",
-          "title": "Panel Title",
-          "type": "text"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
-          "gridPos": {
-            "h": 20,
-            "w": 15,
-            "x": 0,
-            "y": 55
-          },
-          "id": 39,
-          "options": {
-            "dims": {
-              "x": "{__name__=\"prusa_einsy_axis_x\", instance=\"192.168.20.151:10009\", job=\"buddy\", printer_address=\"192.168.20.163\", printer_job_name=\"tux_0.15mm_PLA,PLA,PLA,PVB_MK3SMMU2S_2d23h11m.gcode\", printer_job_path=\"/SD Card/tux_0.15mm_PLA,PLA,PLA,PVB_MK3SMMU2S_2d23h11m.gcode\", printer_model=\"mk3\", printer_name=\"MMUnster\"}"
-            },
-            "hudBgColor": "#22252b",
-            "pointColor": "yellow",
-            "pointSize": 5,
-            "series": {
-              "x": "{__name__=\"prusa_einsy_axis_x\", instance=\"192.168.20.151:10009\", job=\"buddy\", printer_address=\"192.168.20.163\", printer_job_name=\"tux_0.15mm_PLA,PLA,PLA,PVB_MK3SMMU2S_2d23h11m.gcode\", printer_job_path=\"/SD Card/tux_0.15mm_PLA,PLA,PLA,PVB_MK3SMMU2S_2d23h11m.gcode\", printer_model=\"mk3\", printer_name=\"MMUnster\"}",
-              "y": "{__name__=\"prusa_einsy_axis_y\", instance=\"192.168.20.151:10009\", job=\"buddy\", printer_address=\"192.168.20.163\", printer_job_name=\"tux_0.15mm_PLA,PLA,PLA,PVB_MK3SMMU2S_2d23h11m.gcode\", printer_job_path=\"/SD Card/tux_0.15mm_PLA,PLA,PLA,PVB_MK3SMMU2S_2d23h11m.gcode\", printer_model=\"mk3\", printer_name=\"MMUnster\"}",
-              "z": "{__name__=\"prusa_einsy_axis_z\", instance=\"192.168.20.151:10009\", job=\"buddy\", printer_address=\"192.168.20.163\", printer_job_name=\"tux_0.15mm_PLA,PLA,PLA,PVB_MK3SMMU2S_2d23h11m.gcode\", printer_job_path=\"/SD Card/tux_0.15mm_PLA,PLA,PLA,PVB_MK3SMMU2S_2d23h11m.gcode\", printer_model=\"mk3\", printer_name=\"MMUnster\"}"
-            },
-            "seriesMapping": "manual",
-            "themeColor": "#ffffff"
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${ds_prom}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "prusa_einsy_axis_x{printer_name=\"$printer\"}",
-              "instant": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "X"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${ds_prom}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "prusa_einsy_axis_y{printer_name=\"$printer\"}",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "Y"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${ds_prom}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "prusa_einsy_axis_z{printer_name=\"$printer\"}",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "Z"
-            }
-          ],
-          "title": "Nozzle position",
-          "type": "grafana-xyzchart-panel"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prom}"
-          },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2280,29 +1432,31 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
                     "value": 80
                   }
                 ]
-              }
+              },
+              "unitScale": true
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 20,
-            "w": 6,
-            "x": 15,
-            "y": 55
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 23
           },
-          "id": 43,
+          "id": 67,
           "options": {
             "colorMode": "value",
             "graphMode": "area",
             "justifyMode": "auto",
-            "orientation": "horizontal",
+            "orientation": "auto",
             "reduceOptions": {
               "calcs": [
                 "lastNotNull"
@@ -2310,54 +1464,57 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+          "pluginVersion": "10.3.1",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${ds_prom}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "prusa_einsy_axis_x{printer_name=\"$printer\"}",
-              "legendFormat": "X Axis",
+              "legendFormat": "X",
               "range": true,
               "refId": "A"
             },
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${ds_prom}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "prusa_einsy_axis_y{printer_name=\"$printer\"}",
               "hide": false,
-              "legendFormat": "Y Axis",
+              "legendFormat": "Y",
               "range": true,
               "refId": "B"
             },
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${ds_prom}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
               "expr": "prusa_einsy_axis_x{printer_name=\"$printer\"}",
               "hide": false,
-              "legendFormat": "Z Axis",
+              "legendFormat": "Z",
               "range": true,
               "refId": "C"
             }
           ],
-          "title": "Panel Title",
+          "title": "Axis position",
           "type": "stat"
         },
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${ds_prom}"
+            "uid": "${DS_PROMETHEUS}"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2368,24 +1525,22 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
+                    "color": "green",
+                    "value": null
                   }
                 ]
-              }
+              },
+              "unitScale": true
             },
             "overrides": []
           },
           "gridPos": {
             "h": 4,
-            "w": 3,
-            "x": 21,
-            "y": 55
+            "w": 4,
+            "x": 4,
+            "y": 23
           },
-          "id": 45,
+          "id": 16,
           "options": {
             "colorMode": "none",
             "graphMode": "none",
@@ -2395,64 +1550,861 @@
               "calcs": [
                 "lastNotNull"
               ],
-              "fields": "/.*/",
+              "fields": "",
               "values": false
             },
-            "textMode": "name"
+            "showPercentChange": false,
+            "textMode": "name",
+            "wideLayout": true
           },
-          "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+          "pluginVersion": "10.3.1",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${ds_prom}"
+                "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "max by (printer_filament)(prusa_einsy_material{printer_name=\"$printer\"})",
-              "format": "time_series",
-              "legendFormat": "{{printer_filament}}",
+              "expr": "prusa_einsy_version{printer_name=\"$printer\"}",
+              "legendFormat": "{{printer_server}}",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Loaded filament",
-          "transformations": [
+          "title": "Prusa Link ver",
+          "transformations": [],
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 8,
+            "y": 23
+          },
+          "id": 54,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "text": {},
+            "textMode": "name",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.3.1",
+          "targets": [
             {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Time": true
-                },
-                "indexByName": {},
-                "renameByName": {}
-              }
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "code",
+              "expr": "max by (printer_api)(prusa_einsy_info{printer_name=\"$printer\"})",
+              "legendFormat": "{{printer_api}}",
+              "range": true,
+              "refId": "A"
             }
           ],
+          "title": "Printer API ver",
+          "transformations": [],
           "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 12,
+            "y": 23
+          },
+          "id": 59,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "text": {},
+            "textMode": "name",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.3.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "code",
+              "expr": "max(prusa_einsy_info{printer_name=\"$printer\"}) by (printer_link_name)",
+              "legendFormat": "{{printer_link_name}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Printer Link name",
+          "transformations": [],
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 16,
+            "y": 23
+          },
+          "id": 18,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "name",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.3.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "code",
+              "expr": "prusa_einsy_version{printer_name=\"$printer\"}",
+              "legendFormat": "{{printer_address}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "IP",
+          "transformations": [],
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 20,
+            "y": 23
+          },
+          "id": 17,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "value_and_name",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.3.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "code",
+              "expr": "prusa_einsy_files{printer_name=\"$printer\"}",
+              "legendFormat": "{{printer_storage}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Number of files",
+          "transformations": [],
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 27
+          },
+          "id": 51,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "name",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.3.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "code",
+              "expr": "max by (printer_sn)(prusa_einsy_info{printer_name=\"$printer\"})",
+              "legendFormat": "{{printer_sn}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Printer SN",
+          "transformations": [],
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "0": {
+                      "color": "red",
+                      "index": 0,
+                      "text": "Off"
+                    },
+                    "1": {
+                      "color": "green",
+                      "index": 1,
+                      "text": "On"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 4,
+            "y": 27
+          },
+          "id": 61,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.3.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "code",
+              "expr": "max (prusa_einsy_farm_mode{printer_name=\"$printer\"}) by (printer)",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Farm mode",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "Infinity": {
+                      "index": 0,
+                      "text": "No value"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "max": 1,
+              "min": 0,
+              "thresholds": {
+                "mode": "percentage",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 0
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 40
+                  },
+                  {
+                    "color": "green",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percentunit",
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 8,
+            "y": 27
+          },
+          "id": 9,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "10.3.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "code",
+              "expr": "max by (printer_name)(prusa_einsy_nozzle_temperature{printer_name=\"$printer\"}) / max by (printer_name)(prusa_einsy_nozzle_target_temperature{printer_name=\"$printer\"})",
+              "legendFormat": "Nozzle",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "code",
+              "expr": "max by (printer_name)(prusa_einsy_bed_temperature{printer_name=\"$printer\"}) / max by (printer_name)(prusa_einsy_bed_target_temperature{printer_name=\"$printer\"})",
+              "hide": false,
+              "legendFormat": "Bed",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "Target temp success",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unitScale": true
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "green",
+                          "value": null
+                        },
+                        {
+                          "color": "red",
+                          "value": 80
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 12,
+            "x": 12,
+            "y": 27
+          },
+          "id": 29,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "vertical",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "name",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.3.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "max by (printer_job_path)(prusa_einsy_material{printer_name=\"$printer\", printer_job_path!=\"\"})",
+              "instant": false,
+              "legendFormat": "{{printer_job_path}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Filepath",
+          "transformations": [],
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "lengthmm",
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 0,
+            "y": 31
+          },
+          "id": 30,
+          "interval": "5s",
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.4.7",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "code",
+              "expr": "max by (printer_name)(prusa_einsy_z_height{printer_name=\"$printer\"})",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Z Height in time",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "max": 1,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percentunit",
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 12,
+            "y": 31
+          },
+          "id": 31,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.4.7",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "code",
+              "expr": "max by (printer_name)(prusa_einsy_printing_progress{printer_name=\"$printer\"})",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Printing progress in time",
+          "type": "timeseries"
         }
       ],
-      "title": "EXPERIMENTAL",
+      "title": "Printer Detail",
       "type": "row"
     }
   ],
-  "refresh": "10s",
+  "refresh": "30s",
   "revision": 1,
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "shrek",
-          "value": "shrek"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${ds_prom}"
+          "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(prusa_einsy_print_speed, printer_name)",
+        "definition": "label_values(prusa_einsy_info,printer_name)",
         "hide": 0,
         "includeAll": false,
         "label": "Printer",
@@ -2460,8 +2412,9 @@
         "name": "printer",
         "options": [],
         "query": {
-          "query": "label_values(prusa_einsy_print_speed, printer_name)",
-          "refId": "StandardVariableQuery"
+          "qryType": 1,
+          "query": "label_values(prusa_einsy_info,printer_name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
@@ -2472,8 +2425,8 @@
       {
         "current": {
           "selected": false,
-          "text": "grafanacloud-pubel-prom",
-          "value": "grafanacloud-pubel-prom"
+          "text": "prometheus",
+          "value": "e89a25f2-8b41-4f80-ad22-9ade17988f3e"
         },
         "hide": 0,
         "includeAll": false,
@@ -2491,13 +2444,13 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Einsy / Detail",
+  "title": "Prusa Einsy Dashboard",
   "uid": "-hAanfLVk",
-  "version": 5,
+  "version": 10,
   "weekStart": ""
 }
