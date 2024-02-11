@@ -26,6 +26,7 @@ func main() {
 	if config.Exporter.ReloadInterval != 0 { // do not run reloader if interval is set to zero
 		go configReloader() // run reloader as goroutine
 	}
+
 	var syslogCollector *syslogCollector
 	if config.Exporter.SyslogMetrics {
 		log.Warn().Msg("Syslog metrics enabled!")

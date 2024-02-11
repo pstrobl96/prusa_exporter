@@ -118,7 +118,7 @@ type syslogCollector struct {
 	printerBuddySyslogInfo *prometheus.Desc // revision, bom
 	printerCpuUsage        *prometheus.Desc
 	printerHeapTotal       *prometheus.Desc
-	printerHeapUsed        *prometheus.Desc
+	printerHeapFree        *prometheus.Desc
 	printerPointsDropped   *prometheus.Desc
 	printerMediaPrefetched *prometheus.Desc
 }
@@ -127,11 +127,11 @@ func newSyslogCollector() *syslogCollector {
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
 	return &syslogCollector{
 		printerVolt5V: prometheus.NewDesc("prusa_buddy_voltage_5volts",
-			"Voltage of 5 volt rail",
+			"Voltage of 5V rail",
 			defaultLabels,
 			nil),
 		printerVolt24V: prometheus.NewDesc("prusa_buddy_voltage_24volts",
-			"Voltage of 24 volt rail",
+			"Voltage of 24V rail",
 			defaultLabels,
 			nil),
 		printerVoltBed: prometheus.NewDesc("prusa_buddy_voltage_bed",
@@ -143,15 +143,15 @@ func newSyslogCollector() *syslogCollector {
 			defaultLabels,
 			nil),
 		printerVoltSandwich5V: prometheus.NewDesc("prusa_buddy_voltage_sandwich_5volts",
-			"Voltage of sandwich 5 volt rail",
+			"Voltage of sandwich 5V rail",
 			defaultLabels,
 			nil),
 		printerVoltSplitter5V: prometheus.NewDesc("prusa_buddy_voltage_splitter_5volts",
-			"Voltage of splitter 5 volt rail",
+			"Voltage of splitter 5V rail",
 			defaultLabels,
 			nil),
 		printerCurrentXlbuddy5V: prometheus.NewDesc("prusa_buddy_current_xlbuddy_5volts",
-			"Current of XL buddy 5 volt rail",
+			"Current of xlBuddy 5V rail",
 			defaultLabels,
 			nil),
 		printerCurrentInput: prometheus.NewDesc("prusa_buddy_current_input",
@@ -222,8 +222,8 @@ func newSyslogCollector() *syslogCollector {
 			"Total heap",
 			defaultLabels,
 			nil),
-		printerHeapUsed: prometheus.NewDesc("prusa_buddy_heap_used",
-			"Used heap",
+		printerHeapFree: prometheus.NewDesc("prusa_buddy_heap_free",
+			"Free heap",
 			defaultLabels,
 			nil),
 		printerPointsDropped: prometheus.NewDesc("prusa_buddy_points_dropped",
@@ -262,7 +262,7 @@ func (collector *syslogCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerBuddySyslogInfo
 	ch <- collector.printerCpuUsage
 	ch <- collector.printerHeapTotal
-	ch <- collector.printerHeapUsed
+	ch <- collector.printerHeapFree
 	ch <- collector.printerPointsDropped
 	ch <- collector.printerMediaPrefetched
 }
@@ -280,7 +280,7 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 					log.Error().Msg(err.Error())
 				} else {
 
-					printerVolt5vParsed, e := strconv.ParseFloat(syslogData[s.Address]["voltage_5v"], 32)
+					printerVolt5vParsed, e := strconv.ParseFloat(syslogData[s.Address]["5VVoltage"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
@@ -290,7 +290,7 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerVolt5V
 					}
 
-					printerVolt24vParsed, e := strconv.ParseFloat(syslogData[s.Address]["voltage_24v"], 32)
+					printerVolt24vParsed, e := strconv.ParseFloat(syslogData[s.Address]["24VVoltage"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
@@ -300,7 +300,7 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerVolt24V
 					}
 
-					printerVoltBedParsed, e := strconv.ParseFloat(syslogData[s.Address]["voltage_bed"], 32)
+					printerVoltBedParsed, e := strconv.ParseFloat(syslogData[s.Address]["volt_bed"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
@@ -310,7 +310,7 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerVoltBed
 					}
 
-					printerVoltNozzleParsed, e := strconv.ParseFloat(syslogData[s.Address]["voltage_nozzle"], 32)
+					printerVoltNozzleParsed, e := strconv.ParseFloat(syslogData[s.Address]["volt_nozz"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
@@ -320,7 +320,7 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerVoltNozzle
 					}
 
-					printerVoltSandwich5vParsed, e := strconv.ParseFloat(syslogData[s.Address]["voltage_sandwich_5v"], 32)
+					printerVoltSandwich5vParsed, e := strconv.ParseFloat(syslogData[s.Address]["Sandwitch5VCurrent"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
@@ -330,7 +330,7 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerVoltSandwich5V
 					}
 
-					printerVoltSplitter5vParsed, e := strconv.ParseFloat(syslogData[s.Address]["voltage_splitter_5v"], 32)
+					printerVoltSplitter5vParsed, e := strconv.ParseFloat(syslogData[s.Address]["splitter_5V_current"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
@@ -341,7 +341,7 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerVoltSplitter5V
 					}
 
-					printerCurrentXlbuddy5vParsed, e := strconv.ParseFloat(syslogData[s.Address]["current_xlbuddy_5v"], 32)
+					printerCurrentXlbuddy5vParsed, e := strconv.ParseFloat(syslogData[s.Address]["xlbuddy5VCurrent"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
@@ -351,7 +351,7 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerCurrentXlbuddy5V
 					}
 
-					printerCurrentInputParsed, e := strconv.ParseFloat(syslogData[s.Address]["current_input"], 32)
+					printerCurrentInputParsed, e := strconv.ParseFloat(syslogData[s.Address]["curr_inp"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
@@ -361,7 +361,7 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerCurrentInput
 					}
 
-					printerCurrentMMUParsed, e := strconv.ParseFloat(syslogData[s.Address]["current_mmu"], 32)
+					printerCurrentMMUParsed, e := strconv.ParseFloat(syslogData[s.Address]["cur_mmu_imp"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
@@ -371,17 +371,27 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerCurrentMMU
 					}
 
-					printerCurrentBedParsed, e := strconv.ParseFloat(syslogData[s.Address]["current_bed"], 32)
+					printerCurrentBedParsed, e := strconv.ParseFloat(syslogData[s.Address]["bed_curr,n=0"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
 					} else {
 						printerCurrentBed := prometheus.MustNewConstMetric(collector.printerCurrentBed, prometheus.GaugeValue,
-							printerCurrentBedParsed, getLabels(s, job, "bed")...)
+							printerCurrentBedParsed, getLabels(s, job, "0")...)
 						ch <- printerCurrentBed
 					}
 
-					printerCurrentNozzleParsed, e := strconv.ParseFloat(syslogData[s.Address]["current_nozzle"], 32)
+					printerCurrentBedParsed, e = strconv.ParseFloat(syslogData[s.Address]["bed_curr,n=1"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+
+					} else {
+						printerCurrentBed := prometheus.MustNewConstMetric(collector.printerCurrentBed, prometheus.GaugeValue,
+							printerCurrentBedParsed, getLabels(s, job, "1")...)
+						ch <- printerCurrentBed
+					}
+
+					printerCurrentNozzleParsed, e := strconv.ParseFloat(syslogData[s.Address]["curr_nozz"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
@@ -391,7 +401,7 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerCurrentNozzle
 					}
 
-					printerOvercurrentNozzleParsed, e := strconv.ParseFloat(syslogData[s.Address]["overcurrent_nozzle"], 32)
+					printerOvercurrentNozzleParsed, e := strconv.ParseFloat(syslogData[s.Address]["oc_nozz"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
@@ -401,7 +411,7 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerOvercurrentNozzle
 					}
 
-					printerOvercurrentInputParsed, e := strconv.ParseFloat(syslogData[s.Address]["overcurrent_input"], 32)
+					printerOvercurrentInputParsed, e := strconv.ParseFloat(syslogData[s.Address]["oc_inp"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
@@ -442,7 +452,7 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerDwarfBoardTemp
 					}
 
-					printerAxisZAdjustment, e := strconv.ParseFloat(syslogData[s.Address]["axis_z_adjustment"], 32)
+					printerAxisZAdjustment, e := strconv.ParseFloat(syslogData[s.Address]["adj_z"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
@@ -507,8 +517,9 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 							printerCpuUsage, getLabels(s, job)...)
 						ch <- printerCpuUsage
 					}
+					////////////////////////////// PARSE! Heap ofc
 
-					printerHeapTotal, e := strconv.ParseFloat(syslogData[s.Address]["heap_total"], 32)
+					printerHeapTotal, e := strconv.ParseFloat(strings.Split(syslogData[s.Address]["heap"], ",")[1], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
@@ -518,14 +529,14 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerHeapTotal
 					}
 
-					printerHeapUsed, e := strconv.ParseFloat(syslogData[s.Address]["heap_used"], 32)
+					printerHeapFree, e := strconv.ParseFloat(strings.Split(syslogData[s.Address]["heap"], ",")[0], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
 					} else {
-						printerHeapUsed := prometheus.MustNewConstMetric(collector.printerHeapUsed, prometheus.GaugeValue,
-							printerHeapUsed, getLabels(s, job)...)
-						ch <- printerHeapUsed
+						printerHeapFree := prometheus.MustNewConstMetric(collector.printerHeapFree, prometheus.GaugeValue,
+							printerHeapFree, getLabels(s, job)...)
+						ch <- printerHeapFree
 					}
 
 					printerPointsDropped, e := strconv.ParseFloat(syslogData[s.Address]["points_dropped"], 32)
