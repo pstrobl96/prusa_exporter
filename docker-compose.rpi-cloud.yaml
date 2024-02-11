@@ -13,6 +13,7 @@ services:
         source: /boot/firmware/prusa.yml
         target: /app/prusa.yml
     ports:
+      - "10008:10008"
       - "10009:10009"
     command: '--config.file=/app/prusa.yml'
     networks:

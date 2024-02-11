@@ -21,14 +21,27 @@ func initProcedure() {
 
 func main() {
 	log.Info().Msg("Prusa exporter starting")
-	initProcedure()                          // initialize
+	initProcedure() // initialize
+
 	if config.Exporter.ReloadInterval != 0 { // do not run reloader if interval is set to zero
 		go configReloader() // run reloader as goroutine
 	}
+
+	if config.Exporter.SyslogMetrics {
+		log.Warn().Msg("Syslog metrics enabled!")
+		log.Warn().Msg("Syslog server starting at port: " + strconv.Itoa(config.Exporter.SyslogPort))
+		go startSyslog(config.Exporter.SyslogPort)
+	}
+
 	log.Info().Msg("Initialized")
 	buddyCollector := newBuddyCollector()
 	einsyCollector := newEinsyCollector()
-	prometheus.MustRegister(buddyCollector, einsyCollector)
+	if config.Exporter.SyslogMetrics {
+		syslogCollector := newSyslogCollector()
+		prometheus.MustRegister(buddyCollector, einsyCollector, syslogCollector)
+	} else {
+		prometheus.MustRegister(buddyCollector, einsyCollector)
+	}
 	log.Info().Msg("Metrics registered")
 	http.Handle("/metrics", promhttp.Handler())
 	log.Info().Msg("Listening at port: " + strconv.Itoa(config.Exporter.MetricsPort))
