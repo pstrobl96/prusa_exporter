@@ -32,6 +32,7 @@ func main() {
 
 	log.Info().Msg("Initialized")
 	buddyCollector := newBuddyCollector()
+	//syslogCollector := newSyslogCollector()
 	einsyCollector := newEinsyCollector()
 	prometheus.MustRegister(buddyCollector, einsyCollector)
 	log.Info().Msg("Metrics registered")
