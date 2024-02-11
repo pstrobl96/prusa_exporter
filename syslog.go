@@ -50,7 +50,7 @@ func startSyslog(port int) { // yep i'll leave it in one function for now
 				for _, pattern := range patterns {
 					reg, err := regexp.Compile(pattern.pattern)
 					if err != nil {
-						fmt.Println("Error compiling regexp:", err)
+						log.Error().Msg("Error compiling regexp: " + err.Error())
 						return
 					}
 
