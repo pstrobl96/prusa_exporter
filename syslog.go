@@ -102,18 +102,22 @@ type syslogCollector struct {
 	printerOvercurrentInput  *prometheus.Desc
 
 	// printer metrics
-	printerActiveExtruder  *prometheus.Desc
-	printerMcuTemp         *prometheus.Desc
-	printerAxisZAdjustment *prometheus.Desc
-	pritnerDwarfBoardTemp  *prometheus.Desc
-	printerHeaterEnabled   *prometheus.Desc
+	printerActiveExtruder     *prometheus.Desc
+	printerDwarfMcuTemp       *prometheus.Desc
+	printerDwarfBoardTemp     *prometheus.Desc
+	printerAxisZAdjustment    *prometheus.Desc
+	printerHeaterEnabled      *prometheus.Desc
+	printerLoadcellScale      *prometheus.Desc
+	printerLoadcellThreshold  *prometheus.Desc
+	printerLoadcellHysteresis *prometheus.Desc
 
 	// system metrics
-	printerBuddyInfo     *prometheus.Desc
-	printerCpuUsage      *prometheus.Desc
-	printerHeapTotal     *prometheus.Desc
-	printerHeapUsed      *prometheus.Desc
-	printerPointsDropped *prometheus.Desc
+	printerBuddyInfo       *prometheus.Desc // revision, bom
+	printerCpuUsage        *prometheus.Desc
+	printerHeapTotal       *prometheus.Desc
+	printerHeapUsed        *prometheus.Desc
+	printerPointsDropped   *prometheus.Desc
+	printerMediaPrefetched *prometheus.Desc
 }
 
 /* func newSyslogCollector() *syslogCollector {
