@@ -14,6 +14,7 @@ import (
 )
 
 var config configuration
+var configPath string
 
 type buddy struct {
 	Address   string `yaml:"address"`
@@ -84,19 +85,22 @@ func loadConfigFile() {
 }
 
 func getConfigPath() string {
-	var cfgFile string
-	flag.StringVar(&cfgFile, "config.file", "", "Path to prusa.yml config file") // later will use flag.Args
-	flag.Parse()
-	if cfgFile == "" {
-		pwd, e := os.Getwd()
-		if e != nil {
-			log.Error().Msg(e.Error())
-			os.Exit(1)
+	if configPath == "" {
+		var cfgFile string
+		flag.StringVar(&cfgFile, "config.file", "", "Path to prusa.yml config file") // later will use flag.Args
+		flag.Parse()
+		if cfgFile == "" {
+			pwd, e := os.Getwd()
+			if e != nil {
+				log.Error().Msg(e.Error())
+				os.Exit(1)
+			}
+			cfgFile = pwd + "/prusa.yml"
 		}
-		cfgFile = pwd + "/prusa.yml"
+		configPath = cfgFile
+		return cfgFile
 	}
-
-	return cfgFile
+	return configPath
 }
 
 func parseConfig(path string) configuration {
