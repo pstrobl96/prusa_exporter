@@ -34,6 +34,7 @@ For Mk3s with Einsy board you need to use at least version 0.7.0 of Prusa Link o
     - [Starting](#starting)
   - [Grafana Dashboards](#grafana-dashboards)
     - [Buddy](#buddy)
+    - [Einsy](#einsy)
 
 ## Where to find prusa exporter
 
@@ -301,3 +302,9 @@ Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/
 
 ![dashboard](docs/examples/grafana/buddy.png)
 ![dashboard](docs/examples/grafana/buddy_syslog.png)
+
+### Einsy
+
+Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20393-buddy-detail/)! Just use ID `20446` when importing.  
+
+![dashboard](docs/examples/grafana/einsy.png)
