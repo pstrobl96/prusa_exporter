@@ -760,7 +760,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max by (printer_name)(prusa_einsy_z_height{printer_name=\"$printer\"})",
+          "expr": "max by (printer_name)(prusa_einsy_axis_z{printer_name=\"$printer\"})",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -1499,7 +1499,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "prusa_einsy_axis_x{printer_name=\"$printer\"}",
+              "expr": "prusa_einsy_axis_z{printer_name=\"$printer\"}",
               "hide": false,
               "legendFormat": "Z",
               "range": true,
@@ -2451,6 +2451,6 @@
   "timezone": "",
   "title": "Prusa Einsy Dashboard",
   "uid": "-hAanfLVk",
-  "version": 10,
+  "version": 11,
   "weekStart": ""
 }
