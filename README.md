@@ -7,9 +7,9 @@
 
 # Prusa Exporter - formerly Buddy Link Prometheus Exporter
 
-This is an implementation of Prometheus Exporter for Prusa printers running Buddy boards (Prusa MK4, XL, and Mini) or Einsy boards (Prusa MK3(S(+)) with Prusa Link installed). Multi-target is supported so you can check any number of printers as long it has accessible Prusa Link API. This works even for the old Prusa Connect Local.
+This is an implementation of Prometheus Exporter for Prusa printers running Buddy boards (Prusa MK4, XL, and Mini) or Einsy boards (Prusa MK3(S(+)) with Prusa Link installed). Multi-target is supported out of the box so you can check any number of printers as long it has accessible Prusa Link API and you have enough computing power.
 
-For Mk3s with Einsy board you need to use at least version 0.7.0 of Prusa Link or higher, because there are many more metrics to scrape than in the older versions. You can find the most up to date version in the [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/releases).
+For MK3s with Einsy board you need to use at least version 0.7.0 of Prusa Link or higher, because there are many more metrics to scrape than in the older versions. You can find the most up to date version in the [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/releases).
 
 - [Prusa Exporter - formerly Buddy Link Prometheus Exporter](#prusa-exporter---formerly-buddy-link-prometheus-exporter)
   - [Where to find prusa exporter](#where-to-find-prusa-exporter)
@@ -52,6 +52,7 @@ This list contains current and future features along with completion status:
 - [x] Raspberry Pi Image
 - [ ] Support for [connection](#21) to Einsy with username and password
 - [x] Support for MK3 - it was implemented before but I want overhaul it and make it work
+- [x] Dashboard update
 - [ ] Optimize and get more syslog metrics
 - [ ] Automatically send syslog config gcode to buddy boards 
 - [ ] exporter toolkit implemenation
@@ -108,7 +109,7 @@ Navigate to `Network`
 Find `Metrics & Log`  
 ![syslog2](docs/readme/syslog/screenshot_2.jpg)
 
-Now click on `Allow` - Confirm and change value to `Any Host`  
+Now click on `Allow` - Confirm and change value to `Any Host`. Next switch on `Enabled Stored at Startup`  
 ![syslog3](docs/readme/syslog/screenshot_3.jpg)
 ![syslog4](docs/readme/syslog/screenshot_4.jpg)
 ![syslog5](docs/readme/syslog/screenshot_5.jpg)
@@ -117,7 +118,7 @@ Now run your configuration gcode we created before
 ![syslog6](docs/readme/syslog/screenshot_6.jpg)
 ![syslog7](docs/readme/syslog/screenshot_7.jpg)
 
-Navigate back to `Metrics & Log` and find `Current Configuration` - click on `Metrics Host` and store it as Host  
+Navigate back to `Metrics & Log` and find `Current Configuration` - click on `Metrics Host` and store it as Host   
 ![syslog8](docs/readme/syslog/screenshot_8.jpg)
 ![syslog9](docs/readme/syslog/screenshot_9.jpg)
 
@@ -314,6 +315,6 @@ Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/
 
 This dashboard is used for monitoring all of your printers. Basically - green means printing, blue means ready, yellow means warning and red is error. You need [polystat panel](https://github.com/grafana/grafana-polystat-panel) for this dashboard.
 
-Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20449)! Just use ID `20449 ` when importing.  
+Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20449)! Just use ID `20449` when importing.  
 
 ![dashboard](docs/examples/grafana/overview.png)
