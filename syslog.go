@@ -37,15 +37,15 @@ func startSyslog(port int) { // yep i'll leave it in one function for now
 
 	go func(channel syslog.LogPartsChannel) {
 		for logParts := range channel {
-			client_ip := strings.Split(logParts["client"].(string), ":")[0] // getting rid of port and leaving only ip address
-			if client_ip == "" {                                            // Skip empty client ip
+			clientIP := strings.Split(logParts["client"].(string), ":")[0] // getting rid of port and leaving only ip address
+			if clientIP == "" {                                            // Skip empty client ip
 				continue
 			} else {
-				if syslogData[client_ip] == nil {
-					syslogData[client_ip] = make(map[string]string)
+				if syslogData[clientIP] == nil {
+					syslogData[clientIP] = make(map[string]string)
 				} // Initialize map for ip address if it doesn't exist - is it unique? No. Is it a problem? No. Is it experimental? Yes.
 
-				syslogData[client_ip]["mac"] = logParts["hostname"].(string)
+				syslogData[clientIP]["mac"] = logParts["hostname"].(string)
 
 				for _, pattern := range patterns {
 					reg, err := regexp.Compile(pattern.pattern)
@@ -78,7 +78,7 @@ func startSyslog(port int) { // yep i'll leave it in one function for now
 							}
 						}
 
-						syslogData[client_ip][match[1]] = fmt.Sprint(valueStr)
+						syslogData[clientIP][match[1]] = fmt.Sprint(valueStr)
 					}
 				}
 			}
@@ -116,7 +116,7 @@ type syslogCollector struct {
 
 	// system metrics
 	printerBuddySyslogInfo *prometheus.Desc // revision, bom
-	printerCpuUsage        *prometheus.Desc
+	printerCPUUsage        *prometheus.Desc
 	printerHeapTotal       *prometheus.Desc
 	printerHeapFree        *prometheus.Desc
 	printerPointsDropped   *prometheus.Desc
@@ -214,7 +214,7 @@ func newSyslogCollector() *syslogCollector {
 			"Buddy info",
 			append(defaultLabels, "buddy_revision", "buddy_bom"),
 			nil),
-		printerCpuUsage: prometheus.NewDesc("prusa_buddy_cpu_usage_ratio",
+		printerCPUUsage: prometheus.NewDesc("prusa_buddy_cpu_usage_ratio",
 			"CPU usage from 0.0 to 1.0",
 			defaultLabels,
 			nil),
@@ -260,7 +260,7 @@ func (collector *syslogCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerLoadcellThreshold
 	ch <- collector.printerLoadcellHysteresis
 	ch <- collector.printerBuddySyslogInfo
-	ch <- collector.printerCpuUsage
+	ch <- collector.printerCPUUsage
 	ch <- collector.printerHeapTotal
 	ch <- collector.printerHeapFree
 	ch <- collector.printerPointsDropped
@@ -508,14 +508,14 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerBuddySyslogInfo
 					}
 
-					printerCpuUsage, e := strconv.ParseFloat(syslogData[s.Address]["cpu_usage"], 32)
+					printerCPUUsage, e := strconv.ParseFloat(syslogData[s.Address]["cpu_usage"], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
 
 					} else {
-						printerCpuUsage := prometheus.MustNewConstMetric(collector.printerCpuUsage, prometheus.GaugeValue,
-							printerCpuUsage/100, getLabels(s, job)...)
-						ch <- printerCpuUsage
+						printerCPUUsage := prometheus.MustNewConstMetric(collector.printerCPUUsage, prometheus.GaugeValue,
+							printerCPUUsage/100, getLabels(s, job)...)
+						ch <- printerCPUUsage
 					}
 					////////////////////////////// PARSE! Heap ofc
 
