@@ -62,6 +62,7 @@ This list contains current and future features along with completion status:
 - [ ] Unit tests
 - [ ] Create systemd service for exporter and install script
 - [ ] Properly provision on premise setup
+- [ ] CI for binaries release
 
 ## How to install prusa exporter
 
