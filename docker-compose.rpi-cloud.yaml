@@ -5,7 +5,7 @@ networks:
 
 services:
   exporter:
-    image: pubeldev/prusa_exporter:v0.9.3
+    image: pubeldev/prusa_exporter:v1.0.b1
     container_name: exporter
     restart: unless-stopped
     volumes:
