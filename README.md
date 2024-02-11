@@ -49,7 +49,14 @@ This list contains current and future features along with completion status:
 - [x] Local instance of Grafana / Prometheus / Loki
 - [x] Raspberry Pi Image
 - [ ] Support for [connection](#21) to Einsy with username and password
-- [ ] Support for MK3 - it was implemented before but I want overhaul it and make it work
+- [x] Support for MK3 - it was implemented before but I want overhaul it and make it work
+- [ ] Optimize and get more syslog metrics
+- [ ] Automatically send syslog config gcode to buddy boards 
+- [ ] exporter toolkit implemenation
+- [ ] Create endpoint for configuration update
+- [ ] Unit tests
+- [ ] Create systemd service for exporter and install script
+- [ ] Properly provision on premise setup
 
 ## How to install prusa exporter
 
