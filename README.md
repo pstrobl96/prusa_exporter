@@ -90,16 +90,16 @@ For logs you use `M340` but it is not used in this exporter. Only if you are cur
 
 After loading gcode on to flash drive you can enable the metrics in printer.
 
-Open `Settings`
+Open `Settings`  
 ![syslog0](docs/readme/syslog/screenshot_0.jpg)
 
-Navigate to `Network`
+Navigate to `Network`  
 ![syslog1](docs/readme/syslog/screenshot_1.jpg)
 
-Find `Metrics & Log`
+Find `Metrics & Log`  
 ![syslog2](docs/readme/syslog/screenshot_2.jpg)
 
-Now click on `Allow` - Confirm and change value to `Any Host`
+Now click on `Allow` - Confirm and change value to `Any Host`  
 ![syslog3](docs/readme/syslog/screenshot_3.jpg)
 ![syslog4](docs/readme/syslog/screenshot_4.jpg)
 ![syslog5](docs/readme/syslog/screenshot_5.jpg)
@@ -108,16 +108,15 @@ Now run your configuration gcode we created before
 ![syslog6](docs/readme/syslog/screenshot_6.jpg)
 ![syslog7](docs/readme/syslog/screenshot_7.jpg)
 
-Navigate back to `Metrics & Log` and find `Current Configuration` - click on `Metrics Host` and store it as Host
-
+Navigate back to `Metrics & Log` and find `Current Configuration` - click on `Metrics Host` and store it as Host  
 ![syslog8](docs/readme/syslog/screenshot_8.jpg)
 ![syslog9](docs/readme/syslog/screenshot_9.jpg)
 
-Click on `Metrics Port` and store it as Metrics Port
+Click on `Metrics Port` and store it as Metrics Port  
 ![syslog10](docs/readme/syslog/screenshot_10.jpg)
 ![syslog11](docs/readme/syslog/screenshot_11.jpg)
 
-After configuration it should look like this. Only IP address should be different. And if different port was choosen then also port.
+After configuration it should look like this. Only IP address should be different. And if different port was choosen then also port.  
 ![syslog12](docs/readme/syslog/screenshot_12.jpg)
 
 
@@ -136,11 +135,11 @@ Download image from [releases page](https://github.com/pstrobl96/prusa_exporter/
 
 #### Raspberry Pi Imager
 
-[Download](https://www.raspberrypi.com/software/) and install Raspberry Pi Imager. You can alternatively use different tool but rpi-imager is easiest in terms of settings. 
+[Download](https://www.raspberrypi.com/software/) and install Raspberry Pi Imager. You can alternatively use different tool but rpi-imager is easiest in terms of settings.  
 
 ![rpiimager0](docs/readme/rpiimager0.png)
 
-After installing open the Raspberry Pi Imager. **Don't** click `Choose Device` instead of that click on `Choose OS`. Scroll down, you'll find `Use Custom`. Select downloaded image.
+After installing open the Raspberry Pi Imager. **Don't** click `Choose Device` instead of that click on `Choose OS`. Scroll down, you'll find `Use Custom`. Select downloaded image.  
 
 ![rpiimager1](docs/readme/rpiimager1.png)
 
