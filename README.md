@@ -53,6 +53,8 @@ This list contains current and future features along with completion status:
 - [ ] Support for [connection](#21) to Einsy with username and password
 - [x] Support for MK3 - it was implemented before but I want overhaul it and make it work
 - [x] Dashboard update
+- [ ] Send logs to Grafana Cloud
+- [ ] Enable node_exporter for Grafana Cloud
 - [ ] Optimize and get more syslog metrics
 - [ ] Automatically send syslog config gcode to buddy boards 
 - [ ] exporter toolkit implemenation
