@@ -225,7 +225,7 @@ func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric) {
 					printer.Temperature.Bed.Actual, getLabels(s, job)...)
 
 				nozzleTemp := prometheus.MustNewConstMetric(collector.printerNozzleTemp, prometheus.GaugeValue,
-					printer.Temperature.Tool0.Actual, getLabels(s, job)...)
+					status.Printer.TempNozzle, getLabels(s, job)...)
 
 				printProgress := prometheus.MustNewConstMetric(collector.printerPrintProgress, prometheus.GaugeValue,
 					job.Progress.Completion, getLabels(s, job)...)
