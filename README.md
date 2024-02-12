@@ -17,6 +17,7 @@ For MK3s with Einsy board you need to use at least version 0.7.0 of Prusa Link o
   - [How to install prusa exporter](#how-to-install-prusa-exporter)
     - [Git Clone](#git-clone)
     - [Docker Compose](#docker-compose)
+    - [Logs](#logs)
     - [Metrics](#metrics)
       - [Enable SYSLOG in printer](#enable-syslog-in-printer)
     - [Raspberry Pi](#raspberry-pi)
@@ -54,7 +55,7 @@ This list contains current and future features along with completion status:
 - [x] Support for MK3 - it was implemented before but I want overhaul it and make it work
 - [x] Dashboard update
 - [ ] Configuration update
-- [ ] Send logs to Grafana Cloud
+- [x] Send logs to Grafana Cloud
 - [ ] Enable node_exporter for Grafana Cloud
 - [ ] Optimize and get more syslog metrics
 - [ ] Automatically send syslog config gcode to buddy boards 
@@ -80,6 +81,10 @@ First things first. You need to clone the repo and that which is very easy, righ
 
 I've created docker-compose.yaml file, that can be used for deploy of exporter. You would need [Docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/linux/) plugin installed. Right now it is possible to use `docker compose up` only with Linux because I do not build image for Linux.
 
+### Logs
+
+Wait. This is exporter for Prometheus right? Right? Well yes but the way how printers works with metrics is... let's say interesting? Because both metrics and logs are sent via syslog I took a chance to get logs from printer as well and forward them to Promtail or Loki push endpoint. Why I even bothered you ask? Becuase Promtail was unable to accept log data from printer, it worked only for metrics (somehow?). So I just modified my code to catch data a forward them to Loki.     
+
 ### Metrics
 
 Metrics that you can find in this exporter are "scraped" from two sources. First is Prusa Link, it is pretty usual REST API that returns all data in JSON. There is a lot of useful metrics but there are few that are missing. Like data from most of sensors and for example current or voltage. However this is not appliable to **Einsy printers like MK3, these supports only Prusa Link API.**
@@ -89,6 +94,7 @@ For Buddy - SYSLOG exists. [Syslog](https://en.wikipedia.org/wiki/Syslog) is sta
 **The issue is that if you have more printers you'll create a lot of traffic in the network.** Printer could send about 10-100 kB per second^needs more testing^. If you have more printers this number multiplies. I choose flag this feature experimental because you cannot be sure you'll get the metrics, it's UDP and printers are sending data as much as they can but it is not consistent. Between printers there are differences - obvisouly. 
 
 Example how metrics looks can be found in ![this](docs/examples/metrics_example.md) file. This file also includes Einsy and Buddy syslog metrics.
+
 
 #### Enable SYSLOG in printer
 
