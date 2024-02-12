@@ -10,7 +10,7 @@ exporter:
     logs:
       enabled: true
       port: 10007
-      loki_endpoint: http://promtail:3500
+      loki_endpoint: http://agent:3500
 printers:
   buddy:
   - address: <address_of_printer>
