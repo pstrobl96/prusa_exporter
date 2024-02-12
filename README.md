@@ -56,7 +56,7 @@ This list contains current and future features along with completion status:
 - [x] Dashboard update
 - [ ] Configuration update
 - [x] Send logs to Grafana Cloud
-- [ ] Enable node_exporter for Grafana Cloud
+- [x] Enable node_exporter for Grafana Cloud
 - [ ] Optimize and get more syslog metrics
 - [ ] Automatically send syslog config gcode to buddy boards 
 - [ ] exporter toolkit implemenation
