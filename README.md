@@ -53,6 +53,7 @@ This list contains current and future features along with completion status:
 - [ ] Support for [connection](#21) to Einsy with username and password
 - [x] Support for MK3 - it was implemented before but I want overhaul it and make it work
 - [x] Dashboard update
+- [ ] Configuration update
 - [ ] Send logs to Grafana Cloud
 - [ ] Enable node_exporter for Grafana Cloud
 - [ ] Optimize and get more syslog metrics
@@ -63,6 +64,9 @@ This list contains current and future features along with completion status:
 - [ ] Create systemd service for exporter and install script
 - [ ] Properly provision on premise setup
 - [ ] CI for binaries release
+- [ ] Enable log collection to Loki
+- [ ] SL1 support
+- [ ] README.md update
 
 ## How to install prusa exporter
 
