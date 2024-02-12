@@ -63,6 +63,7 @@ services:
         source: ./docs/examples/config/common/prusa.yml
         target: /app/prusa.yml
     ports:
+      - "10007:10007/udp"
       - "10008:10008"
       - "10009:10009"
     command: '--config.file=/app/prusa.yml'
