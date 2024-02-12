@@ -16,3 +16,9 @@ scrape_configs:
     labels:
       job: systemlogs
       __path__: /var/log/*.log
+- job_name: prusa_syslog__push
+  loki_push_api:
+    server:
+      http_listen_port: 3500
+    labels:
+      pushserver: log_push
