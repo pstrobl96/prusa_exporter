@@ -13,11 +13,13 @@ services:
         source: /boot/firmware/prusa.yml
         target: /app/prusa.yml
     ports:
-      - "10008:10008"
+      - "10007:10007/udp"
+      - "10008:10008/udp"
       - "10009:10009"
     command: '--config.file=/app/prusa.yml'
     networks:
       - prusa
+      
   agent:
     image: grafana/agent:v0.39.2
     container_name: grafana_agent

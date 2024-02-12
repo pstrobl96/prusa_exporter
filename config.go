@@ -44,8 +44,17 @@ type configuration struct {
 		ScrapeTimeout  int    `yaml:"scrape_timeout"`
 		ReloadInterval int    `yaml:"reload_interval"`
 		LogLevel       string `yaml:"log_level"`
-		SyslogMetrics  bool   `yaml:"syslog_metrics"`
-		SyslogPort     int    `yaml:"syslog_port"`
+		Syslog         struct {
+			Metrics struct {
+				Enabled bool `yaml:"enabled"`
+				Port    int  `yaml:"port"`
+			} `yaml:"metrics"`
+			Logs struct {
+				Enabled      bool   `yaml:"enabled"`
+				Port         int    `yaml:"port"`
+				LokiEndpoint string `yaml:"loki_endpoint"`
+			} `yaml:"logs"`
+		} `yaml:"syslog"`
 	} `yaml:"exporter"`
 }
 

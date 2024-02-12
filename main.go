@@ -26,21 +26,29 @@ func main() {
 		go configReloader() // run reloader as goroutine
 	}
 
-	if config.Exporter.SyslogMetrics {
+	if config.Exporter.Syslog.Metrics.Enabled {
 		log.Warn().Msg("Syslog metrics enabled!")
-		log.Warn().Msg("Syslog server starting at port: " + strconv.Itoa(config.Exporter.SyslogPort))
-		go startSyslog(config.Exporter.SyslogPort)
+		log.Warn().Msg("Syslog server starting at port: " + strconv.Itoa(config.Exporter.Syslog.Metrics.Port))
+		//go startSyslog(config.Exporter.SyslogPort)
+	}
+
+	if config.Exporter.Syslog.Logs.Enabled {
+		log.Warn().Msg("Syslog logs enabled!")
+		log.Warn().Msg("Syslog logs server starting at port: " + strconv.Itoa(config.Exporter.Syslog.Logs.Port))
+		go startSyslogLoggingService(config.Exporter.Syslog.Logs.Port, config.Exporter.Syslog.Logs.LokiEndpoint)
 	}
 
 	log.Info().Msg("Initialized")
 	buddyCollector := newBuddyCollector()
 	einsyCollector := newEinsyCollector()
-	if config.Exporter.SyslogMetrics {
+
+	if config.Exporter.Syslog.Metrics.Enabled {
 		syslogCollector := newSyslogCollector()
 		prometheus.MustRegister(buddyCollector, einsyCollector, syslogCollector)
 	} else {
 		prometheus.MustRegister(buddyCollector, einsyCollector)
 	}
+
 	log.Info().Msg("Metrics registered")
 	http.Handle("/metrics", promhttp.Handler())
 	log.Info().Msg("Listening at port: " + strconv.Itoa(config.Exporter.MetricsPort))
