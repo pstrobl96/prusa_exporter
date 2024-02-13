@@ -29,13 +29,13 @@ func main() {
 	if config.Exporter.Syslog.Metrics.Enabled {
 		log.Warn().Msg("Syslog metrics enabled!")
 		log.Warn().Msg("Syslog metrics server starting at: " + config.Exporter.Syslog.Metrics.ListenUDP)
-		go startSyslog(config.Exporter.Syslog.Metrics.ListenUDP)
+		go collectMetrics(config.Exporter.Syslog.Metrics.ListenUDP)
 	}
 
 	if config.Exporter.Syslog.Logs.Enabled {
 		log.Warn().Msg("Syslog logs enabled!")
 		log.Warn().Msg("Syslog logs server starting at: " + config.Exporter.Syslog.Logs.ListenUDP)
-		go startSyslogLoggingService(config.Exporter.Syslog.Logs.ListenUDP, config.Exporter.Syslog.Logs.LokiEndpoint)
+		go collectLogs(config.Exporter.Syslog.Logs.ListenUDP, config.Exporter.Syslog.Logs.LokiEndpoint)
 	}
 
 	log.Info().Msg("Initialized")
