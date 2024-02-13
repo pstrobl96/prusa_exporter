@@ -7,9 +7,9 @@
 
 # Prusa Exporter - formerly Buddy Link Prometheus Exporter
 
-This is an implementation of Prometheus Exporter for Prusa printers running Buddy boards (Prusa MK4, XL, and Mini) or Einsy boards (Prusa MK3(S(+)) with Prusa Link installed). Multi-target is supported out of the box so you can check any number of printers as long it has accessible Prusa Link API and you have enough computing power.
+This is an implementation of Prometheus Exporter for Prusa printers running Buddy boards (Prusa MK4, XL, and Mini), Einsy boards (Prusa MK3(S(+)) with Prusa Link installed) or resin printers (SL1). Multi-target is supported out of the box so you can check any number of printers as long it has accessible Prusa Link API and you have enough computing power.
 
-For MK3s with Einsy board you need to use at least version 0.7.0 of Prusa Link or higher, because there are many more metrics to scrape than in the older versions. You can find the most up to date version in the [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/releases).
+For MK3S with Einsy board you need to use at least version 0.7.0 of Prusa Link or higher, because there are many more metrics to scrape than in the older versions. You can find the most up to date version in the [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/releases).
 
 - [Prusa Exporter - formerly Buddy Link Prometheus Exporter](#prusa-exporter---formerly-buddy-link-prometheus-exporter)
   - [Where to find prusa exporter](#where-to-find-prusa-exporter)
@@ -37,6 +37,7 @@ For MK3s with Einsy board you need to use at least version 0.7.0 of Prusa Link o
     - [Buddy](#buddy)
     - [Einsy](#einsy)
     - [Overview](#overview)
+    - [SL](#sl)
 
 ## Where to find prusa exporter
 
@@ -66,7 +67,8 @@ This list contains current and future features along with completion status:
 - [ ] Properly provision on premise setup
 - [ ] CI for binaries release
 - [ ] Enable log collection to Loki
-- [ ] SL1 support
+- [x] SL1 support
+- [ ] 
 - [ ] README.md update
 
 ## How to install prusa exporter
@@ -231,8 +233,16 @@ You will find two sections in the config file, `exporter` and `printers`.
 exporter:
   metrics_port: 10009 # exporter port
   scrape_timeout: 1 # scrape timeout of Prusa Link
-  reload_inteval: 300 # interval in seconds for config reloader
+  reload_interval: 300 # interval in seconds for config reloader
   log_level: info
+  syslog:
+    metrics:
+      enabled: true
+      listen_udp: 0.0.0.0:10008
+    logs:
+      enabled: true
+      listen_udp: 0.0.0.0:10007
+      loki_endpoint: http://agent:3500
 ```
 
 `metrics_port`: you can set whatever you want. It is the port where Prometheus would scrape metrics endpoint. **Required**
@@ -243,22 +253,42 @@ exporter:
 
 `log_level`: log level of logger, default is info. **Optional**
 
-`syslog_metrics`: **EXPERIMENTAL** allows export metrics from syslog. **Optional**
+`syslog`: **EXPERIMENTAL** 
 
-`syslog_port`: **EXPERIMENTAL** port where should syslog run. **Optional**
+`syslog.metrics.enabled`: **EXPERIMENTAL** activates or deactivates printer syslog metrics handling. **Optional**
+
+`syslog.metrics.listen_udp`: **EXPERIMENTAL** address where should syslog metrics server run. **Optional**
+
+`syslog.logs.enabled`: **EXPERIMENTAL** activates or deactivates printer logs handling. **Optional**
+
+`syslog.logs.listen_udp`: **EXPERIMENTAL** address where should syslog log server run. **Optional**
+
+`syslog.logs.loki_endpoint`: **EXPERIMENTAL** address where should printer logs be sent. **Optional**
 
 `printers` is used for configuring your target printers. Please note that `type` is informational and optional; if you define it it will be part of your metric labelset.
 
-Note: Currently, you can not log into Einsy (Raspberry Pi Zero) boards with username and passwort. You need to generate an API key in Prusa Link settings. This will be resolved in a future release.
+Note: Currently, you can not log into Einsy (Raspberry Pi Zero) boards with username and password. You need to generate an API key in Prusa Link settings. This will be resolved in a future release.
 
 ```
 printers:
   buddy:
   - address: <address_of_printer>
+    username: maker 
+    pass: <password>
+    name: <your_printer_name>
+  - address: <address_of_printer>
     username: maker
     pass: <password>
     name: <your_printer_name>
-    type: <mini/xl/mk4> **optional**
+  einsy:
+  - address: <address_of_printer>
+    apikey: <apikey>
+    name: <your_printer_name>
+  sl:
+  - address: <address_of_printer>
+    username: maker 
+    pass: <password>
+    name: <your_printer_name>
 ```
 
 #### agent.yml
@@ -342,3 +372,11 @@ This dashboard is used for monitoring all of your printers. Basically - green me
 Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20449)! Just use ID `20449` when importing.  
 
 ![dashboard](docs/examples/grafana/overview.png)
+
+### SL
+
+This dashboard is experimental same as support of resin printers
+
+Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20474)! Just use ID `20474` when importing.  
+
+![dashboard](docs/examples/grafana/sl.png)

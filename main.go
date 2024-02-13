@@ -20,8 +20,7 @@ func initProcedure() {
 
 func main() {
 	log.Info().Msg("Prusa exporter starting")
-	initProcedure() // initialize
-
+	initProcedure()                          // initialize
 	if config.Exporter.ReloadInterval != 0 { // do not run reloader if interval is set to zero
 		go configReloader() // run reloader as goroutine
 	}
@@ -41,12 +40,13 @@ func main() {
 	log.Info().Msg("Initialized")
 	buddyCollector := newBuddyCollector()
 	einsyCollector := newEinsyCollector()
+	slCollector := newSLCollector()
 
 	if config.Exporter.Syslog.Metrics.Enabled {
 		syslogCollector := newSyslogCollector()
-		prometheus.MustRegister(buddyCollector, einsyCollector, syslogCollector)
+		prometheus.MustRegister(buddyCollector, einsyCollector, syslogCollector, slCollector)
 	} else {
-		prometheus.MustRegister(buddyCollector, einsyCollector)
+		prometheus.MustRegister(buddyCollector, einsyCollector, slCollector)
 	}
 
 	log.Info().Msg("Metrics registered")

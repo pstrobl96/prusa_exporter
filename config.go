@@ -26,6 +26,15 @@ type buddy struct {
 	Reachable bool
 }
 
+type sl struct {
+	Address   string `yaml:"address"`
+	Username  string `yaml:"username"`
+	Pass      string `yaml:"pass"`
+	Name      string `yaml:"name"`
+	Type      string `yaml:"type"`
+	Reachable bool
+}
+
 type einsy struct {
 	Address   string `yaml:"address"`
 	Apikey    string `yaml:"apikey"`
@@ -38,6 +47,7 @@ type configuration struct {
 	Printers struct {
 		Buddy []buddy `yaml:"buddy"`
 		Einsy []einsy `yaml:"einsy"`
+		Sl    []sl    `yaml:"sl"`
 	} `yaml:"printers"`
 	Exporter struct {
 		MetricsPort    int    `yaml:"metrics_port"`
@@ -142,6 +152,25 @@ func probeConfigFile(parsedConfig configuration) configuration {
 			log.Error().Msg(s.Address + " is not reachable")
 		}
 	}
+
+	for i, s := range parsedConfig.Printers.Sl {
+		conn, status := testConnection(s.Address)
+		if conn && status == 200 {
+			parsedConfig.Printers.Sl[i].Reachable = true
+			_, _, _, _, version, err := getSLResponse(s)
+			if err == nil {
+				if version.Hostname == "" {
+					parsedConfig.Printers.Sl[i].Type = "unknown"
+				} else {
+					parsedConfig.Printers.Sl[i].Type = version.Hostname
+				}
+			}
+		} else {
+			parsedConfig.Printers.Sl[i].Reachable = false
+			log.Error().Msg(s.Address + " is not reachable")
+		}
+	}
+
 	for i, s := range parsedConfig.Printers.Einsy {
 		_, status := testConnection(s.Address)
 
