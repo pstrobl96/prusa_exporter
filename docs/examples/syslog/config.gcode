@@ -1,15 +1,10 @@
 M330 SYSLOG
 M334 192.168.20.2 10008
 M340 192.168.20.2 10007
-M331 loadcell
-M331 loadcell_hp
-M331 loadcell_xy
-M331 loadcell_age
 M331 bedlet_temp
 M331 bedlet_state
 M331 dwarf_heat_curr
 M331 probe_z
-M331 probe_z_diff
 M331 bedlet_curr
 M331 bed_mcu_temp
 M331 loadcell_value
