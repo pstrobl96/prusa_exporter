@@ -62,7 +62,7 @@ func getSlLabels(s sl, labelValues ...string) []string {
 func newSLCollector() *slCollector {
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name"}
 	return &slCollector{
-		printerStatus:            prometheus.NewDesc("prusa_sl_status", "Status of the printer", append(defaultLabels, "printer_state"), nil),
+		printerStatus:            prometheus.NewDesc("prusa_sl_status", "Status of the printer", append(defaultLabels, "printer_status"), nil),
 		printerCover:             prometheus.NewDesc("prusa_sl_cover", "Status of the printer - 0 = open, 1 = closed", defaultLabels, nil),
 		printerFanBlower:         prometheus.NewDesc("prusa_sl_fan_blower", "Status of the printer blower fan", defaultLabels, nil),
 		printerFanRear:           prometheus.NewDesc("prusa_sl_fan_rear", "Status of the printer fan rear", defaultLabels, nil),
