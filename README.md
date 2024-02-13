@@ -37,6 +37,7 @@ For MK3S with Einsy board you need to use at least version 0.7.0 of Prusa Link o
     - [Buddy](#buddy)
     - [Einsy](#einsy)
     - [Overview](#overview)
+    - [SL](#sl)
 
 ## Where to find prusa exporter
 
@@ -67,6 +68,7 @@ This list contains current and future features along with completion status:
 - [ ] CI for binaries release
 - [ ] Enable log collection to Loki
 - [x] SL1 support
+- [ ] 
 - [ ] README.md update
 
 ## How to install prusa exporter
@@ -340,5 +342,13 @@ Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/
 This dashboard is used for monitoring all of your printers. Basically - green means printing, blue means ready, yellow means warning and red is error. You need [polystat panel](https://github.com/grafana/grafana-polystat-panel) for this dashboard.
 
 Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20449)! Just use ID `20449` when importing.  
+
+![dashboard](docs/examples/grafana/overview.png)
+
+### SL
+
+This dashboard is experimental same as support of resin printers
+
+Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20474)! Just use ID `20474` when importing.  
 
 ![dashboard](docs/examples/grafana/overview.png)
