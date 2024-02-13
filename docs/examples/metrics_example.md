@@ -1,3 +1,4 @@
+```
 # HELP prusa_buddy_active_extruder Active extruder - used for XL
 # TYPE prusa_buddy_active_extruder gauge
 prusa_buddy_active_extruder{printer_address="192.168.20.130",printer_job_name="multiple_grots_0.4n_0.15mm_PLA,PLA,PLA,PLA_XLIS_5h36m.bgcode",printer_job_path="/usb/MULTIP~1.BGC",printer_model="PrusaXL",printer_name="xltest"} 1
@@ -394,3 +395,4 @@ prusa_einsy_version{printer_address="192.168.20.157",printer_api="0.9.0-legacy",
 # HELP prusa_einsy_z_height DEPRECATED - Current height of Z
 # TYPE prusa_einsy_z_height gauge
 prusa_einsy_z_height{printer_address="192.168.20.157",printer_job_name="fosdem_0.2mm_PLA,PLA_MK3SMMU3_7h16m.gcode",printer_job_path="/SD Card/fosdem_0.2mm_PLA,PLA_MK3SMMU3_7h16m.gcode",printer_model="PrusaLink I3MK3S",printer_name="donkey"} 10.2
+```

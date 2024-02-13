@@ -6,10 +6,10 @@ exporter:
   syslog:
     metrics:
       enabled: true
-      port: 10008
+      listen_udp: 0.0.0.0:10008
     logs:
       enabled: true
-      port: 10007
+      listen_udp: 0.0.0.0:10007
       loki_endpoint: http://agent:3500
 printers:
   buddy:

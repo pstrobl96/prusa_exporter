@@ -28,14 +28,14 @@ func main() {
 
 	if config.Exporter.Syslog.Metrics.Enabled {
 		log.Warn().Msg("Syslog metrics enabled!")
-		log.Warn().Msg("Syslog server starting at port: " + strconv.Itoa(config.Exporter.Syslog.Metrics.Port))
-		//go startSyslog(config.Exporter.SyslogPort)
+		log.Warn().Msg("Syslog metrics server starting at: " + config.Exporter.Syslog.Metrics.ListenUDP)
+		go handleMetrics(config.Exporter.Syslog.Metrics.ListenUDP)
 	}
 
 	if config.Exporter.Syslog.Logs.Enabled {
 		log.Warn().Msg("Syslog logs enabled!")
-		log.Warn().Msg("Syslog logs server starting at port: " + strconv.Itoa(config.Exporter.Syslog.Logs.Port))
-		go startSyslogLoggingService(config.Exporter.Syslog.Logs.Port, config.Exporter.Syslog.Logs.LokiEndpoint)
+		log.Warn().Msg("Syslog logs server starting at: " + config.Exporter.Syslog.Logs.ListenUDP)
+		go handleLogs(config.Exporter.Syslog.Logs.ListenUDP, config.Exporter.Syslog.Logs.LokiEndpoint)
 	}
 
 	log.Info().Msg("Initialized")

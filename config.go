@@ -46,12 +46,12 @@ type configuration struct {
 		LogLevel       string `yaml:"log_level"`
 		Syslog         struct {
 			Metrics struct {
-				Enabled bool `yaml:"enabled"`
-				Port    int  `yaml:"port"`
+				Enabled   bool   `yaml:"enabled"`
+				ListenUDP string `yaml:"listen_udp"`
 			} `yaml:"metrics"`
 			Logs struct {
 				Enabled      bool   `yaml:"enabled"`
-				Port         int    `yaml:"port"`
+				ListenUDP    string `yaml:"listen_udp"`
 				LokiEndpoint string `yaml:"loki_endpoint"`
 			} `yaml:"logs"`
 		} `yaml:"syslog"`
