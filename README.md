@@ -233,8 +233,16 @@ You will find two sections in the config file, `exporter` and `printers`.
 exporter:
   metrics_port: 10009 # exporter port
   scrape_timeout: 1 # scrape timeout of Prusa Link
-  reload_inteval: 300 # interval in seconds for config reloader
+  reload_interval: 300 # interval in seconds for config reloader
   log_level: info
+  syslog:
+    metrics:
+      enabled: true
+      listen_udp: 0.0.0.0:10008
+    logs:
+      enabled: true
+      listen_udp: 0.0.0.0:10007
+      loki_endpoint: http://agent:3500
 ```
 
 `metrics_port`: you can set whatever you want. It is the port where Prometheus would scrape metrics endpoint. **Required**
@@ -245,22 +253,42 @@ exporter:
 
 `log_level`: log level of logger, default is info. **Optional**
 
-`syslog_metrics`: **EXPERIMENTAL** allows export metrics from syslog. **Optional**
+`syslog`: **EXPERIMENTAL** 
 
-`syslog_port`: **EXPERIMENTAL** port where should syslog run. **Optional**
+`syslog.metrics.enabled`: **EXPERIMENTAL** activates or deactivates printer syslog metrics handling. **Optional**
+
+`syslog.metrics.listen_udp`: **EXPERIMENTAL** address where should syslog metrics server run. **Optional**
+
+`syslog.logs.enabled`: **EXPERIMENTAL** activates or deactivates printer logs handling. **Optional**
+
+`syslog.logs.listen_udp`: **EXPERIMENTAL** address where should syslog log server run. **Optional**
+
+`syslog.logs.loki_endpoint`: **EXPERIMENTAL** address where should printer logs be sent. **Optional**
 
 `printers` is used for configuring your target printers. Please note that `type` is informational and optional; if you define it it will be part of your metric labelset.
 
-Note: Currently, you can not log into Einsy (Raspberry Pi Zero) boards with username and passwort. You need to generate an API key in Prusa Link settings. This will be resolved in a future release.
+Note: Currently, you can not log into Einsy (Raspberry Pi Zero) boards with username and password. You need to generate an API key in Prusa Link settings. This will be resolved in a future release.
 
 ```
 printers:
   buddy:
   - address: <address_of_printer>
+    username: maker 
+    pass: <password>
+    name: <your_printer_name>
+  - address: <address_of_printer>
     username: maker
     pass: <password>
     name: <your_printer_name>
-    type: <mini/xl/mk4> **optional**
+  einsy:
+  - address: <address_of_printer>
+    apikey: <apikey>
+    name: <your_printer_name>
+  sl:
+  - address: <address_of_printer>
+    username: maker 
+    pass: <password>
+    name: <your_printer_name>
 ```
 
 #### agent.yml
