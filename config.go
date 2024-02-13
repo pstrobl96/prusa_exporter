@@ -26,6 +26,15 @@ type buddy struct {
 	Reachable bool
 }
 
+type sl struct {
+	Address   string `yaml:"address"`
+	Name      string `yaml:"name"`
+	Type      string `yaml:"type"`
+	Username  string `yaml:"username,omitempty"`
+	Pass      string `yaml:"pass,omitempty"`
+	Reachable bool
+}
+
 type einsy struct {
 	Address   string `yaml:"address"`
 	Apikey    string `yaml:"apikey"`
