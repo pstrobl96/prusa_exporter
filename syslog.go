@@ -13,14 +13,14 @@ import (
 
 var syslogData = make(map[string]map[string]string)
 
-func startSyslog(port int) { // yep i'll leave it in one function for now
+func startSyslog(listenUDP string) { // yep i'll leave it in one function for now
 	channel := make(syslog.LogPartsChannel)
 	handler := syslog.NewChannelHandler(channel)
 
 	server := syslog.NewServer()
 	server.SetFormat(syslog.RFC5424)
 	server.SetHandler(handler)
-	server.ListenUDP("0.0.0.0:" + fmt.Sprint(port))
+	server.ListenUDP(listenUDP)
 	server.Boot()
 
 	patterns := []struct {

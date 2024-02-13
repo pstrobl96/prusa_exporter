@@ -31,13 +31,13 @@ type LokiMessage struct {
 	Streams []LogData `json:"streams"` // Embed LogData fields
 }
 
-func startSyslogLoggingService(port int, loki string) { // yep i just copied it from startSyslog, I wanted to use Promtail but it returned EOF and I was not able to get it up and running. Maybe up. However this part could be used also later for log analysis, there are data that looks interesting tho.
+func startSyslogLoggingService(listenUDP string, loki string) { // yep i just copied it from startSyslog, I wanted to use Promtail but it returned EOF and I was not able to get it up and running. Maybe up. However this part could be used also later for log analysis, there are data that looks interesting tho.
 	channel := make(syslog.LogPartsChannel)
 	handler := syslog.NewChannelHandler(channel)
 	server := syslog.NewServer()
 	server.SetFormat(syslog.RFC5424)
 	server.SetHandler(handler)
-	server.ListenUDP("0.0.0.0:" + fmt.Sprint(port))
+	server.ListenUDP(listenUDP)
 	server.Boot()
 
 	go func(channel syslog.LogPartsChannel) {
