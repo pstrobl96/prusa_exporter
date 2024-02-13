@@ -7,9 +7,9 @@
 
 # Prusa Exporter - formerly Buddy Link Prometheus Exporter
 
-This is an implementation of Prometheus Exporter for Prusa printers running Buddy boards (Prusa MK4, XL, and Mini) or Einsy boards (Prusa MK3(S(+)) with Prusa Link installed). Multi-target is supported out of the box so you can check any number of printers as long it has accessible Prusa Link API and you have enough computing power.
+This is an implementation of Prometheus Exporter for Prusa printers running Buddy boards (Prusa MK4, XL, and Mini), Einsy boards (Prusa MK3(S(+)) with Prusa Link installed) or resin printers (SL1). Multi-target is supported out of the box so you can check any number of printers as long it has accessible Prusa Link API and you have enough computing power.
 
-For MK3s with Einsy board you need to use at least version 0.7.0 of Prusa Link or higher, because there are many more metrics to scrape than in the older versions. You can find the most up to date version in the [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/releases).
+For MK3S with Einsy board you need to use at least version 0.7.0 of Prusa Link or higher, because there are many more metrics to scrape than in the older versions. You can find the most up to date version in the [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/releases).
 
 - [Prusa Exporter - formerly Buddy Link Prometheus Exporter](#prusa-exporter---formerly-buddy-link-prometheus-exporter)
   - [Where to find prusa exporter](#where-to-find-prusa-exporter)
@@ -66,7 +66,7 @@ This list contains current and future features along with completion status:
 - [ ] Properly provision on premise setup
 - [ ] CI for binaries release
 - [ ] Enable log collection to Loki
-- [ ] SL1 support
+- [x] SL1 support
 - [ ] README.md update
 
 ## How to install prusa exporter
