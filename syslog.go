@@ -5,7 +5,6 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
-	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/rs/zerolog/log"
@@ -82,36 +81,6 @@ func startSyslog(port int) { // yep i'll leave it in one function for now
 						syslogData[clientIP][match[1]] = fmt.Sprint(valueStr)
 					}
 				}
-			}
-		}
-	}(channel)
-
-	server.Wait()
-}
-
-func startSyslogLoggingService(port int, loki string) { // yep i just copied it from startSyslog, I wanted to use Promtail but it returned EOF and I was not able to get it up and running. Maybe up. However this part could be used also later for log analysis, there are data that looks interesting tho.
-	channel := make(syslog.LogPartsChannel)
-	handler := syslog.NewChannelHandler(channel)
-	server := syslog.NewServer()
-	server.SetFormat(syslog.RFC5424)
-	server.SetHandler(handler)
-	server.ListenUDP("0.0.0.0:" + fmt.Sprint(port))
-	server.Boot()
-
-	go func(channel syslog.LogPartsChannel) {
-		for logParts := range channel {
-
-			currentTime := time.Now()
-			message, err := composeLokiMessage(logParts["app_name"].(string), strings.Split(logParts["client"].(string), ":")[0], logParts["hostname"].(string), logParts["message"].(string), currentTime)
-			if err != nil {
-				log.Error().Msg(err.Error())
-				continue
-			}
-
-			_, err = sendLokiMessage(message, loki, currentTime)
-			if err != nil {
-				log.Error().Msg(err.Error())
-				continue
 			}
 		}
 	}(channel)
@@ -303,6 +272,7 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 	for _, s := range cfg.Printers.Buddy {
 		log.Debug().Msg("SYSLOG - Buddy scraping at " + s.Address)
 		if _, ok := syslogData[s.Address]; ok {
+
 			log.Debug().Msg("SYSLOG - found data for: " + s.Address)
 			if s.Reachable { // if not reachable then just do nothing
 				_, _, job, _, _, _, _, err := getBuddyResponse(s) // we need job for labels - it's not the best way to do it but it's the easiest for now
