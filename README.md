@@ -108,8 +108,19 @@ M330 SYSLOG
 M334 192.168.20.2 10008
 ```
 
-For logs you use `M340` but it is not used in this exporter. Only if you are curious.
-`M340 192.168.20.54 10008`
+For logs you can use `M340`. 
+
+```
+M340 192.168.20.2 10007
+```
+
+Or you can combine both and you'll get
+
+```
+M330 SYSLOG
+M334 192.168.20.2 10008
+M340 192.168.20.2 10007
+```
 
 After loading gcode on to flash drive you can enable the metrics in printer.
 
