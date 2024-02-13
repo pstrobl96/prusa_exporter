@@ -79,3 +79,28 @@ func accessEinsyAPI(path string, address string, apiKey string) ([]byte, error) 
 	}
 	return body, err
 }
+
+func accessSLAPI(path string, address string, username string, password string) []byte {
+	url := getURL(path, address)
+	var res *http.Response
+	var err error
+	var body []byte
+	client := &http.Client{
+		Transport: &digest.Transport{
+			Username: username,
+			Password: password,
+		},
+	}
+	res, err = client.Get(url)
+
+	if err == nil {
+		body, err = io.ReadAll(res.Body)
+		res.Body.Close()
+		if err != nil {
+			log.Error().Msg(err.Error())
+		}
+	} else {
+		log.Error().Msg(err.Error())
+	}
+	return body
+}
