@@ -29,7 +29,7 @@ func main() {
 	if config.Exporter.Syslog.Metrics.Enabled {
 		log.Warn().Msg("Syslog metrics enabled!")
 		log.Warn().Msg("Syslog server starting at port: " + strconv.Itoa(config.Exporter.Syslog.Metrics.Port))
-		//go startSyslog(config.Exporter.SyslogPort)
+		go startSyslog(config.Exporter.Syslog.Metrics.Port)
 	}
 
 	if config.Exporter.Syslog.Logs.Enabled {
