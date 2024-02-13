@@ -94,7 +94,7 @@ func startSyslogServer(listenUDP string) (syslog.LogPartsChannel, *syslog.Server
 	return channel, server
 }
 
-func collectLogs(listenUDP string, loki string) {
+func handleLogs(listenUDP string, loki string) {
 	channel, server := startSyslogServer(listenUDP)
 
 	go func(channel syslog.LogPartsChannel) {
@@ -118,7 +118,7 @@ func collectLogs(listenUDP string, loki string) {
 	server.Wait()
 }
 
-func collectMetrics(listenUDP string) { // yep i'll leave it in one function for now
+func handleMetrics(listenUDP string) {
 	channel, server := startSyslogServer(listenUDP)
 
 	patterns := []struct {
@@ -186,6 +186,7 @@ func collectMetrics(listenUDP string) { // yep i'll leave it in one function for
 	server.Wait()
 }
 
+// Prometheus part
 type syslogCollector struct {
 	// power metrics
 	printerVolt5V            *prometheus.Desc
