@@ -379,4 +379,4 @@ This dashboard is experimental same as support of resin printers
 
 Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20474)! Just use ID `20474` when importing.  
 
-![dashboard](docs/examples/grafana/overview.png)
+![dashboard](docs/examples/grafana/sl.png)
