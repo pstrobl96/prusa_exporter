@@ -189,21 +189,37 @@ func handleMetrics(listenUDP string) {
 // Prometheus part
 type syslogCollector struct {
 	// power metrics
-	printerVolt5V            *prometheus.Desc
-	printerVolt24V           *prometheus.Desc
-	printerVoltBed           *prometheus.Desc
-	printerVoltNozzle        *prometheus.Desc
-	printerVoltSandwich5V    *prometheus.Desc
-	printerVoltSplitter5V    *prometheus.Desc
-	printerCurrentXlbuddy5V  *prometheus.Desc
-	printerCurrentInput      *prometheus.Desc
-	printerCurrentMMU        *prometheus.Desc
-	printerCurrentBed        *prometheus.Desc
-	printerCurrentNozzle     *prometheus.Desc
-	printerOvercurrentNozzle *prometheus.Desc
-	printerOvercurrentInput  *prometheus.Desc
+	printerVolt5V             *prometheus.Desc
+	printerVolt24V            *prometheus.Desc
+	printerVoltBed            *prometheus.Desc
+	printerVoltNozzle         *prometheus.Desc
+	printerVoltSandwich5V     *prometheus.Desc
+	printerVoltSplitter5V     *prometheus.Desc
+	printerCurrentXlbuddy5V   *prometheus.Desc
+	printerCurrentInput       *prometheus.Desc
+	printerCurrentMMU         *prometheus.Desc
+	printerCurrentBed         *prometheus.Desc
+	printerCurrentNozzle      *prometheus.Desc
+	printerCurrentDwarfHeater *prometheus.Desc // dwarf_heat_curr
+	printerCurrentBedlet      *prometheus.Desc // bedlet_curr
+	printerOvercurrentNozzle  *prometheus.Desc
+	printerOvercurrentInput   *prometheus.Desc
 
 	// printer metrics
+	printerBedletTemp         *prometheus.Desc // bedlet_temp
+	printerBedletState        *prometheus.Desc // bedlet_state
+	printerProbeZ             *prometheus.Desc // probe_z
+	printerBedMcuTemp         *prometheus.Desc // bed_mcu_temp
+	printerLoadcellValue      *prometheus.Desc // loadcell_value
+	printerSandwitchTemp      *prometheus.Desc // temp_sandwich
+	printerSplitterTemp       *prometheus.Desc // temp_splitter
+	printerDwarfsBoardTemp    *prometheus.Desc // dwarfs_board_temp
+	printerHeatbreakTemp      *prometheus.Desc // temp_hbr
+	printerBoardTemp          *prometheus.Desc // temp_brd
+	printerChamberTemp        *prometheus.Desc // temp_chamber
+	printerMcuTemp            *prometheus.Desc // temp_mcu
+	printerFSensor            *prometheus.Desc // fsensor
+	printerSideFSensor        *prometheus.Desc // side_fsensor
 	printerActiveExtruder     *prometheus.Desc
 	printerDwarfMcuTemp       *prometheus.Desc
 	printerDwarfBoardTemp     *prometheus.Desc
@@ -225,6 +241,70 @@ type syslogCollector struct {
 func newSyslogCollector() *syslogCollector {
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
 	return &syslogCollector{
+		printerBedletTemp: prometheus.NewDesc("prusa_buddy_bedlet_temp",
+			"Bedlet temperature",
+			defaultLabels,
+			nil),
+		printerBedletState: prometheus.NewDesc("prusa_buddy_bedlet_state",
+			"Bedlet state",
+			defaultLabels,
+			nil),
+		printerProbeZ: prometheus.NewDesc("prusa_buddy_probe_z",
+			"Probe Z",
+			defaultLabels,
+			nil),
+		printerBedMcuTemp: prometheus.NewDesc("prusa_buddy_bed_mcu_temp",
+			"Bed MCU temperature",
+			defaultLabels,
+			nil),
+		printerLoadcellValue: prometheus.NewDesc("prusa_buddy_loadcell_value",
+			"Loadcell value",
+			defaultLabels,
+			nil),
+		printerSandwitchTemp: prometheus.NewDesc("prusa_buddy_temp_sandwich",
+			"Sandwich temperature",
+			defaultLabels,
+			nil),
+		printerSplitterTemp: prometheus.NewDesc("prusa_buddy_temp_splitter",
+			"Splitter temperature",
+			defaultLabels,
+			nil),
+		printerDwarfsBoardTemp: prometheus.NewDesc("prusa_buddy_dwarfs_board_temp",
+			"Dwarfs board temperature",
+			defaultLabels,
+			nil),
+		printerHeatbreakTemp: prometheus.NewDesc("prusa_buddy_temp_hbr",
+			"Heatbreak temperature",
+			defaultLabels,
+			nil),
+		printerBoardTemp: prometheus.NewDesc("prusa_buddy_temp_brd",
+			"Board temperature",
+			defaultLabels,
+			nil),
+		printerChamberTemp: prometheus.NewDesc("prusa_buddy_temp_chamber",
+			"Chamber temperature",
+			defaultLabels,
+			nil),
+		printerMcuTemp: prometheus.NewDesc("prusa_buddy_temp_mcu",
+			"MCU temperature",
+			defaultLabels,
+			nil),
+		printerFSensor: prometheus.NewDesc("prusa_buddy_fsensor",
+			"Filament Sensor",
+			defaultLabels,
+			nil),
+		printerSideFSensor: prometheus.NewDesc("prusa_buddy_side_fsensor",
+			"Side Filament Sensor",
+			defaultLabels,
+			nil),
+		printerCurrentDwarfHeater: prometheus.NewDesc("prusa_buddy_current_dwarf_heater",
+			"Current of dwarf heater",
+			defaultLabels,
+			nil),
+		printerCurrentBedlet: prometheus.NewDesc("prusa_buddy_current_bedlet",
+			"Current of bedlet",
+			defaultLabels,
+			nil),
 		printerVolt5V: prometheus.NewDesc("prusa_buddy_voltage_5volts",
 			"Voltage of 5V rail",
 			defaultLabels,
@@ -337,6 +417,22 @@ func newSyslogCollector() *syslogCollector {
 }
 
 func (collector *syslogCollector) Describe(ch chan<- *prometheus.Desc) {
+	ch <- collector.printerBedletTemp
+	ch <- collector.printerBedletState
+	ch <- collector.printerProbeZ
+	ch <- collector.printerBedMcuTemp
+	ch <- collector.printerLoadcellValue
+	ch <- collector.printerSandwitchTemp
+	ch <- collector.printerSplitterTemp
+	ch <- collector.printerDwarfsBoardTemp
+	ch <- collector.printerHeatbreakTemp
+	ch <- collector.printerBoardTemp
+	ch <- collector.printerChamberTemp
+	ch <- collector.printerMcuTemp
+	ch <- collector.printerFSensor
+	ch <- collector.printerSideFSensor
+	ch <- collector.printerCurrentDwarfHeater
+	ch <- collector.printerCurrentBedlet
 	ch <- collector.printerVolt5V
 	ch <- collector.printerVolt24V
 	ch <- collector.printerVoltBed
@@ -379,6 +475,152 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
 				if err != nil {
 					log.Error().Msg(err.Error())
 				} else {
+
+					printerBedletTempParsed, e := strconv.ParseFloat(syslogData[s.Address]["bedlet_temp"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerBedletTemp := prometheus.MustNewConstMetric(collector.printerBedletTemp, prometheus.GaugeValue,
+							printerBedletTempParsed, getLabels(s, job)...)
+						ch <- printerBedletTemp
+					}
+
+					printerBedletStateParsed, e := strconv.ParseFloat(syslogData[s.Address]["bedlet_state"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerBedletState := prometheus.MustNewConstMetric(collector.printerBedletState, prometheus.GaugeValue,
+							printerBedletStateParsed, getLabels(s, job)...)
+						ch <- printerBedletState
+					}
+
+					printerProbeZParsed, e := strconv.ParseFloat(syslogData[s.Address]["probe_z"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerProbeZ := prometheus.MustNewConstMetric(collector.printerProbeZ, prometheus.GaugeValue,
+							printerProbeZParsed, getLabels(s, job)...)
+						ch <- printerProbeZ
+					}
+
+					printerBedMcuTempParsed, e := strconv.ParseFloat(syslogData[s.Address]["bed_mcu_temp"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerBedMcuTemp := prometheus.MustNewConstMetric(collector.printerBedMcuTemp, prometheus.GaugeValue,
+							printerBedMcuTempParsed, getLabels(s, job)...)
+						ch <- printerBedMcuTemp
+					}
+
+					printerLoadcellValueParsed, e := strconv.ParseFloat(syslogData[s.Address]["loadcell_value"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerLoadcellValue := prometheus.MustNewConstMetric(collector.printerLoadcellValue, prometheus.GaugeValue,
+							printerLoadcellValueParsed, getLabels(s, job)...)
+						ch <- printerLoadcellValue
+					}
+
+					printerSandwitchTempParsed, e := strconv.ParseFloat(syslogData[s.Address]["temp_sandwich"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerSandwitchTemp := prometheus.MustNewConstMetric(collector.printerSandwitchTemp, prometheus.GaugeValue,
+							printerSandwitchTempParsed, getLabels(s, job)...)
+						ch <- printerSandwitchTemp
+					}
+
+					printerSplitterTempParsed, e := strconv.ParseFloat(syslogData[s.Address]["temp_splitter"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerSplitterTemp := prometheus.MustNewConstMetric(collector.printerSplitterTemp, prometheus.GaugeValue,
+							printerSplitterTempParsed, getLabels(s, job)...)
+						ch <- printerSplitterTemp
+					}
+
+					printerDwarfsBoardTempParsed, e := strconv.ParseFloat(syslogData[s.Address]["dwarfs_board_temp"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerDwarfsBoardTemp := prometheus.MustNewConstMetric(collector.printerDwarfsBoardTemp, prometheus.GaugeValue,
+							printerDwarfsBoardTempParsed, getLabels(s, job)...)
+						ch <- printerDwarfsBoardTemp
+					}
+
+					printerHeatbreakTempParsed, e := strconv.ParseFloat(syslogData[s.Address]["temp_hbr"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+
+						printerHeatbreakTemp := prometheus.MustNewConstMetric(collector.printerHeatbreakTemp, prometheus.GaugeValue,
+							printerHeatbreakTempParsed, getLabels(s, job)...)
+						ch <- printerHeatbreakTemp
+					}
+
+					printerBoardTempParsed, e := strconv.ParseFloat(syslogData[s.Address]["temp_brd"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerBoardTemp := prometheus.MustNewConstMetric(collector.printerBoardTemp, prometheus.GaugeValue,
+							printerBoardTempParsed, getLabels(s, job)...)
+						ch <- printerBoardTemp
+					}
+
+					printerChamberTempParsed, e := strconv.ParseFloat(syslogData[s.Address]["temp_chamber"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerChamberTemp := prometheus.MustNewConstMetric(collector.printerChamberTemp, prometheus.GaugeValue,
+							printerChamberTempParsed, getLabels(s, job)...)
+						ch <- printerChamberTemp
+					}
+
+					printerMcuTempParsed, e := strconv.ParseFloat(syslogData[s.Address]["temp_mcu"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerMcuTemp := prometheus.MustNewConstMetric(collector.printerMcuTemp, prometheus.GaugeValue,
+							printerMcuTempParsed, getLabels(s, job)...)
+						ch <- printerMcuTemp
+					}
+
+					printerFSensorParsed, e := strconv.ParseFloat(syslogData[s.Address]["fsensor"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerFSensor := prometheus.MustNewConstMetric(collector.printerFSensor, prometheus.GaugeValue,
+							printerFSensorParsed, getLabels(s, job)...)
+						ch <- printerFSensor
+					}
+
+					printerSideFSensorParsed, e := strconv.ParseFloat(syslogData[s.Address]["side_fsensor"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerSideFSensor := prometheus.MustNewConstMetric(collector.printerSideFSensor, prometheus.GaugeValue,
+
+							printerSideFSensorParsed, getLabels(s, job)...)
+						ch <- printerSideFSensor
+					}
+
+					printerCurrentDwarfHeaterParsed, e := strconv.ParseFloat(syslogData[s.Address]["dwarf_heat_curr"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerCurrentDwarfHeater := prometheus.MustNewConstMetric(collector.printerCurrentDwarfHeater, prometheus.GaugeValue,
+							printerCurrentDwarfHeaterParsed, getLabels(s, job)...)
+						ch <- printerCurrentDwarfHeater
+					}
+
+					printerCurrentBedletParsed, e := strconv.ParseFloat(syslogData[s.Address]["bedlet_curr"], 32)
+					if e != nil {
+						log.Debug().Msg(e.Error())
+					} else {
+						printerCurrentBedlet := prometheus.MustNewConstMetric(collector.printerCurrentBedlet, prometheus.GaugeValue,
+							printerCurrentBedletParsed, getLabels(s, job)...)
+						ch <- printerCurrentBedlet
+					}
 
 					printerVolt5vParsed, e := strconv.ParseFloat(syslogData[s.Address]["5VVoltage"], 32)
 					if e != nil {

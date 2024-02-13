@@ -10,8 +10,6 @@ M331 bed_mcu_temp
 M331 loadcell_value
 M331 temp_sandwich
 M331 temp_splitter
-M331 volt_bed
-M331 volt_nozz
 M331 dwarfs_board_temp
 M331 temp_hbr
 M331 temp_brd
