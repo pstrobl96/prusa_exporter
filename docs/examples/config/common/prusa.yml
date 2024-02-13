@@ -25,3 +25,9 @@ printers:
   - address: <address_of_printer>
     apikey: <apikey>
     name: <your_printer_name>
+  sl:
+  - address: <address_of_printer>
+    apikey: <apikey>
+    username: maker 
+    pass: <password>
+    name: <your_printer_name>
