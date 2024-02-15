@@ -1,4 +1,4 @@
-package api
+package prusalink
 
 // Version is a struct that holds the version information of the printer - buddy, einsy and sl
 type Version struct {
