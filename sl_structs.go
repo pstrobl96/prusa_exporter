@@ -1,4 +1,4 @@
-package prusalink
+package main
 
 // SLJob is a struct to hold the response from the job API endpoint
 type SLJob struct {
