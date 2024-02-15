@@ -1,0 +1,1607 @@
+fsensor error="value too long" 49959
+fsensor error="value too long" 99971
+fsensor error="value too long" 38562
+fsensor error="value too long" 88562
+stack,n=default t=0,m=533 3883
+runtime,n=default u=8 3901
+stack,n=IDLE t=0,m=107 3916
+runtime,n=IDLE u=88 3933
+stack,n=tcpip_t t=4992,m=433 3947
+runtime,n=tcpip_t u=0 3966
+stack,n=measure t=0,m=289 3980
+runtime,n=measure u=0 3998
+stack,n=network t=0,m=723 4012
+runtime,n=network u=0 4030
+stack,n=connect t=0,m=497 4044
+runtime,n=connect u=0 4062
+stack,n=usb_dev t=0,m=569 4077
+runtime,n=usb_dev u=0 4094
+stack,n=display t=0,m=867 4109
+runtime,n=display u=1 4127
+stack,n=esp_tas t=0,m=95 4141
+runtime,n=esp_tas u=0 4159
+stack,n=USBH_MS t=0,m=332 4173
+runtime,n=USBH_MS u=0 4191
+stack,n=USBH_Th t=1284,m=134 4205
+runtime,n=USBH_Th u=0 4224
+stack,n=TmrSvc t=0,m=77 4239
+runtime,n=TmrSvc u=0 4256
+stack,n=metric_ t=0,m=128 4270
+runtime,n=metric_ u=1 4288
+stack,n=media_p t=0,m=323 4302
+runtime,n=media_p u=0 4320
+stack,n=acFault t=0,m=53 4335 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 510
+adj_z v=0.000000 40469
+heater_enabled v=0i 40476
+fsensor error="value too long" 50510
+cpu_usage v=17i 85453
+points_dropped v=25i 85547
+temp_hbr,n=0,a=1 value=24.84 96456
+tmc_read error="value too long" 97567
+tmc_read error="value too long" 97685
+tmc_read error="value too long" 97788
+tmc_read error="value too long" 97891
+fsensor error="value too long" 100511
+fsensor error="value too long" 45791
+temp_mcu v=45i 58750
+heap free=63532i,total=89636i 94762
+fsensor error="value too long" 95791
+fsensor error="value too long" 45441
+fsensor error="value too long" 95406
+fan,fan=print state=0,pwm=0,measured=0 7914
+fan,fan=heatbreak state=0,pwm=0,measured=0 7940
+fsensor error="value too long" 12674
+fsensor error="value too long" 62686
+temp_brd v=37.720589 66620
+fsensor error="value too long" 112674
+fsensor error="value too long" 45888
+volt_bed v=24.206451 85610
+volt_nozz v=0.036022 85618
+curr_nozz v=0.016793 85623
+curr_inp v=9.805854 85627
+cur_mmu_imp v=-0.003726 85632
+oc_nozz v=0i 85636
+oc_inp v=0i 85640
+eth_in recv=121352i 13973
+tmc_read error="value too long" 47016
+tmc_read error="value too long" 47121
+tmc_read error="value too long" 47224
+tmc_read error="value too long" 47327
+fsensor error="value too long" 49959
+fsensor error="value too long" 99959
+fsensor error="value too long" 38944
+heap free=63532i,total=89636i 41914
+fsensor error="value too long" 88946
+fsensor error="value too long" 9456
+fsensor error="value too long" 59456
+fsensor error="value too long" 109456
+fsensor error="value too long" 26732
+fsensor error="value too long" 76722
+fsensor error="value too long" 126720
+points_dropped v=25i 29191
+cpu_usage v=14i 29902
+temp_hbr,n=0,a=1 value=24.84 40917
+tmc_read error="value too long" 41057
+tmc_read error="value too long" 41160
+tmc_read error="value too long" 41263
+tmc_read error="value too long" 41366
+fsensor error="value too long" 43971
+fsensor error="value too long" 6611
+temp_mcu v=45i 27488
+fsensor error="value too long" 56539
+heap free=63532i,total=89636i 63509
+fsensor error="value too long" 106541
+fsensor error="value too long" 30281
+fan,fan=print state=0,pwm=0,measured=0 64127
+fan,fan=heatbreak state=0,pwm=0,measured=0 64154
+fsensor error="value too long" 80281
+temp_brd v=37.720589 -54
+fsensor error="value too long" 3965
+fsensor error="value too long" 53965
+fsensor error="value too long" 3463
+adj_z v=0.000000 44409
+heater_enabled v=0i 44416
+fsensor error="value too long" 53449
+volt_bed v=24.170427 56090
+volt_nozz v=0.036022 56098
+curr_nozz v=0.020152 56103
+curr_inp v=9.696695 56107
+cur_mmu_imp v=-0.003726 56112
+oc_nozz v=0i 56116
+oc_inp v=0i 56119
+tmc_read error="value too long" 100505
+tmc_read error="value too long" 100610
+tmc_read error="value too long" 100724 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 2438
+fsensor error="value too long" 52374
+fsensor error="value too long" 102374 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+heap free=63532i,total=89636i 10629
+fsensor error="value too long" 49661
+fsensor error="value too long" 99659
+fsensor error="value too long" 20164
+fsensor error="value too long" 70164
+fsensor error="value too long" 120164
+fsensor error="value too long" 40676
+fsensor error="value too long" 90687
+points_dropped v=25i 126274
+cpu_usage v=14i 127605 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" 8244
+tmc_read error="value too long" 8349
+tmc_read error="value too long" 8452
+tmc_read error="value too long" 8555
+temp_hbr,n=0,a=1 value=24.84 9133
+fsensor error="value too long" 11187
+fsensor error="value too long" 61187
+fsensor error="value too long" 20997
+heap free=63532i,total=89636i 35967
+fsensor error="value too long" 70999
+fsensor error="value too long" 120997
+fan,fan=print state=0,pwm=0,measured=0 16722
+fan,fan=heatbreak state=0,pwm=0,measured=0 16748
+fsensor error="value too long" 44269
+temp_brd v=37.720589 82215
+fsensor error="value too long" 94269
+fsensor error="value too long" 21261
+fsensor error="value too long" 71340
+fsensor error="value too long" 121261
+volt_bed v=24.134409 10350
+volt_nozz v=0.000000 10357
+curr_nozz v=0.016793 10362
+curr_inp v=9.332842 10367
+cur_mmu_imp v=-0.003726 10371
+oc_nozz v=0i 10375
+oc_inp v=0i 10379
+tmc_read error="value too long" 41861
+tmc_read error="value too long" 41966
+tmc_read error="value too long" 42069
+tmc_read error="value too long" 42172
+fsensor error="value too long" 44804
+fsensor error="value too long" 13977
+fsensor error="value too long" 63977
+heap free=63532i,total=89636i 82948
+fsensor error="value too long" 113979
+fsensor error="value too long" 37812
+fsensor error="value too long" 87812
+fsensor error="value too long" 1842
+eth_in recv=121843i 1946
+fsensor error="value too long" 51842
+stack,n=default t=0,m=533 100855
+runtime,n=default u=8 100877 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+runtime,n=IDLE u=89 -655
+stack,n=tcpip_t t=4992,m=433 -629
+runtime,n=tcpip_t u=0 -610
+stack,n=measure t=0,m=289 -596
+runtime,n=measure u=0 -578
+stack,n=connect t=0,m=497 -559
+runtime,n=connect u=0 -541
+stack,n=network t=0,m=723 -527
+runtime,n=network u=0 -509
+stack,n=usb_dev t=0,m=569 -495
+runtime,n=usb_dev u=0 -477
+stack,n=display t=0,m=867 -463
+runtime,n=display u=1 -445
+stack,n=USBH_MS t=0,m=332 -431
+runtime,n=USBH_MS u=0 -413
+stack,n=USBH_Th t=1284,m=134 -398
+runtime,n=USBH_Th u=0 -379
+stack,n=TmrSvc t=0,m=77 -365
+runtime,n=TmrSvc u=0 -347
+stack,n=media_p t=0,m=323 -333
+runtime,n=media_p u=0 -315
+stack,n=metric_ t=0,m=128 -301
+runtime,n=metric_ u=1 -283
+stack,n=acFault t=0,m=53 -269
+runtime,n=acFault u=0 -251
+stack,n=esp_tas t=0,m=95 -237
+runtime,n=esp_tas u=0 -219
+fsensor error="value too long" 1074
+adj_z v=0.000000 11075
+heater_enabled v=0i 11082
+fsensor error="value too long" 19384
+cpu_usage v=14i 57047
+points_dropped v=25i 57139
+tmc_read error="value too long" 66173
+tmc_read error="value too long" 66278
+tmc_read error="value too long" 66381
+tmc_read error="value too long" 66497
+temp_hbr,n=0,a=1 value=24.81 68062
+fsensor error="value too long" 69117
+fsensor error="value too long" 38177
+temp_mcu v=45i 75112
+fsensor error="value too long" 88439
+heap free=63532i,total=89636i 111145
+fsensor error="value too long" 8945
+is_printing v=0i 12621
+print_filename v="" 12656
+fsensor error="value too long" 58957
+fan,fan=print state=0,pwm=0,measured=0 68723
+fan,fan=heatbreak state=0,pwm=0,measured=0 68749
+temp_brd v=37.738972 28876
+fsensor error="value too long" 50000
+fsensor error="value too long" 99919
+fsensor error="value too long" 35620
+fsensor error="value too long" 85318
+volt_bed v=24.098385 113751
+volt_nozz v=0.036022 113758
+curr_nozz v=0.016793 113763
+curr_inp v=9.733083 113767
+cur_mmu_imp v=-0.003726 113772
+oc_nozz v=0i 113776
+oc_inp v=0i 113780 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" 18177
+tmc_read error="value too long" 18282
+tmc_read error="value too long" 18385
+tmc_read error="value too long" 18487
+fsensor error="value too long" 21388
+fsensor error="value too long" 71388
+fsensor error="value too long" 28296
+heap free=63532i,total=89636i 54995
+fsensor error="value too long" 77993
+fsensor error="value too long" 50312
+fsensor error="value too long" 99957
+eth_in recv=123301i 100953
+fsensor error="value too long" 19094
+fsensor error="value too long" 69094
+fsensor error="value too long" 119094
+cpu_usage v=17i 28537
+points_dropped v=25i 28644
+tmc_read error="value too long" 36663
+tmc_read error="value too long" 36780
+tmc_read error="value too long" 36883
+tmc_read error="value too long" 36986
+temp_hbr,n=0,a=1 value=24.83 39554
+fsensor error="value too long" 39667
+fsensor error="value too long" 2170
+temp_mcu v=45i 47119
+fsensor error="value too long" 52188
+heap free=63532i,total=89636i 83140
+fsensor error="value too long" 102170
+fan,fan=print state=0,pwm=0,measured=0 24578
+fan,fan=heatbreak state=0,pwm=0,measured=0 24604
+fsensor error="value too long" 25947
+fsensor error="value too long" 75924
+temp_brd v=37.738972 96870
+fsensor error="value too long" 2933
+fsensor error="value too long" 52921
+fsensor error="value too long" 102921
+adj_z v=0.000000 16381
+heater_enabled v=0i 16387
+fsensor error="value too long" 23422
+volt_bed v=24.098385 64813
+volt_nozz v=0.000000 64820
+curr_nozz v=0.016793 64826
+curr_inp v=9.696695 64830
+cur_mmu_imp v=-0.003726 64835
+oc_nozz v=0i 64838
+oc_inp v=0i 64842
+tmc_read error="value too long" 70479
+tmc_read error="value too long" 70584
+tmc_read error="value too long" 70687
+tmc_read error="value too long" 70789
+fsensor error="value too long" 1943
+fsensor error="value too long" 51943
+fsensor error="value too long" 101943
+heap free=63532i,total=89636i 4449
+fsensor error="value too long" 19556
+fsensor error="value too long" 69479
+fsensor error="value too long" 119479 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 39971
+fsensor error="value too long" 89984
+fsensor error="value too long" 3971
+fsensor error="value too long" 53971
+cpu_usage v=16i 93902
+points_dropped v=25i 93974
+tmc_read error="value too long" 688
+tmc_read error="value too long" 793
+tmc_read error="value too long" 896
+tmc_read error="value too long" 999
+fsensor error="value too long" 3631
+temp_hbr,n=0,a=1 value=24.83 4577
+eth_in recv=128745i 29626
+fsensor error="value too long" 53631
+fsensor error="value too long" 103685
+temp_mcu v=45i 106580
+heap free=63532i,total=89636i 32565
+fsensor error="value too long" 43595
+fan,fan=print state=0,pwm=0,measured=0 79842
+fan,fan=heatbreak state=0,pwm=0,measured=0 79869
+fsensor error="value too long" 93595 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 49678
+temp_brd v=37.720589 62626
+fsensor error="value too long" 99678
+fsensor error="value too long" 16946
+fsensor error="value too long" 66959
+fsensor error="value too long" 116946
+tmc_read error="value too long" 34516
+tmc_read error="value too long" 34620
+tmc_read error="value too long" 34737
+tmc_read error="value too long" 34840
+fsensor error="value too long" 37457
+volt_bed v=24.134409 41765
+volt_nozz v=0.000000 41772
+curr_nozz v=0.016793 41777
+curr_inp v=9.696695 41782
+cur_mmu_imp v=-0.003726 41786
+oc_nozz v=0i 41790
+oc_inp v=0i 41794
+fsensor error="value too long" 9572
+fsensor error="value too long" 59572
+heap free=63532i,total=89636i 102542
+fsensor error="value too long" 109572
+fsensor error="value too long" 33505
+fsensor error="value too long" 83505
+fsensor error="value too long" 779
+fsensor error="value too long" 50779
+stack,n=default t=0,m=533 100819
+runtime,n=default u=8 100839
+stack,n=IDLE t=0,m=107 100854
+runtime,n=IDLE u=87 100871
+stack,n=tcpip_t t=4992,m=433 100885
+runtime,n=tcpip_t u=1 100904
+stack,n=display t=0,m=867 100918 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+stack,n=network t=0,m=723 -694
+runtime,n=network u=0 -676
+stack,n=connect t=0,m=497 -662
+runtime,n=connect u=0 -644
+stack,n=usb_dev t=0,m=569 -629
+runtime,n=usb_dev u=0 -612
+stack,n=measure t=0,m=289 -597
+runtime,n=measure u=0 -579
+stack,n=media_p t=0,m=323 -565
+runtime,n=media_p u=0 -547
+stack,n=acFault t=0,m=53 -533
+runtime,n=acFault u=0 -503
+stack,n=USBH_MS t=0,m=332 -489
+runtime,n=USBH_MS u=0 -471
+stack,n=USBH_Th t=1284,m=134 -456
+runtime,n=USBH_Th u=0 -438
+stack,n=metric_ t=0,m=128 -423
+runtime,n=metric_ u=1 -405
+stack,n=esp_tas t=0,m=95 -391
+runtime,n=esp_tas u=0 -373
+stack,n=TmrSvc t=0,m=77 -359
+runtime,n=TmrSvc u=0 -341
+fsensor error="value too long" 685
+adj_z v=0.000000 8776
+heater_enabled v=0i 8783
+fsensor error="value too long" 15826
+points_dropped v=25i 55045
+cpu_usage v=15i 55744
+tmc_read error="value too long" 61871
+tmc_read error="value too long" 61976
+tmc_read error="value too long" 62079
+tmc_read error="value too long" 62181
+fsensor error="value too long" 65814
+temp_hbr,n=0,a=1 value=24.84 66762
+fsensor error="value too long" 34868
+fsensor error="value too long" 84874
+temp_mcu v=45i 94817
+fsensor error="value too long" 3989
+fan,fan=print state=0,pwm=0,measured=0 26828
+fan,fan=heatbreak state=0,pwm=0,measured=0 26854
+fsensor error="value too long" 53987
+fsensor error="value too long" 103987
+temp_brd v=37.702206 107933
+fsensor error="value too long" 35621
+fsensor error="value too long" 85621
+fsensor error="value too long" 49956
+tmc_read error="value too long" 96025
+tmc_read error="value too long" 96130 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" -223
+fsensor error="value too long" 3397
+volt_bed v=24.242474 19622
+volt_nozz v=0.000000 19629
+curr_nozz v=0.016793 19634
+curr_inp v=9.187304 19638
+cur_mmu_imp v=-0.003726 19643
+oc_nozz v=0i 19647
+oc_inp v=0i 19651
+fsensor error="value too long" 53397
+fsensor error="value too long" 103397
+heap free=63532i,total=89636i 48736
+fsensor error="value too long" 48821
+fsensor error="value too long" 98752
+fsensor error="value too long" 16278
+fsensor error="value too long" 66200
+fsensor error="value too long" 116200 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 33473
+fsensor error="value too long" 83471
+points_dropped v=25i 78
+tmc_read error="value too long" 5055
+tmc_read error="value too long" 5160
+tmc_read error="value too long" 5262
+tmc_read error="value too long" 5379
+fsensor error="value too long" 8998
+temp_hbr,n=0,a=1 value=24.83 10946
+fsensor error="value too long" 58998
+fsensor error="value too long" 13306
+temp_mcu v=45i 31254
+fsensor error="value too long" 63308
+heap free=63532i,total=89636i 67276
+fan,fan=print state=0,pwm=0,measured=0 74754
+fan,fan=heatbreak state=0,pwm=0,measured=0 74780
+temp_brd v=37.720589 45890
+fsensor error="value too long" 49944
+fsensor error="value too long" 99944
+fsensor error="value too long" 43141
+fsensor error="value too long" 93143
+adj_z v=0.000000 4373
+heater_enabled v=0i 4380
+fsensor error="value too long" 10414
+tmc_read error="value too long" 56472
+tmc_read error="value too long" 56577
+tmc_read error="value too long" 56680
+tmc_read error="value too long" 56783
+fsensor error="value too long" 60414
+volt_bed v=24.206451 89555
+volt_nozz v=0.036022 89563
+curr_nozz v=0.016793 89568
+curr_inp v=9.660313 89572 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+oc_nozz v=0i -280
+oc_inp v=0i -276
+fsensor error="value too long" 20554
+fsensor error="value too long" 70554
+fsensor error="value too long" 6344
+heap free=63532i,total=89636i 14233
+fsensor error="value too long" 56263
+fsensor error="value too long" 106275
+fsensor error="value too long" 26958
+fsensor error="value too long" 76958
+fsensor error="value too long" 126960 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 47468
+cpu_usage v=14i 89397
+points_dropped v=25i 89490
+tmc_read error="value too long" 93525
+tmc_read error="value too long" 93642
+tmc_read error="value too long" 93745
+tmc_read error="value too long" 93848 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+temp_hbr,n=0,a=1 value=24.84 2903
+fsensor error="value too long" 49957
+fsensor error="value too long" 100035
+temp_mcu v=45i 6521
+fw_version v="5.1.2+13478" 19529
+fan,fan=print state=0,pwm=0,measured=0 29584
+fan,fan=heatbreak state=0,pwm=0,measured=0 29610
+fsensor error="value too long" 30544
+is_printing v=0i 34487
+print_filename v="" 34522
+heap free=63532i,total=89636i 42513
+fsensor error="value too long" 80542
+temp_brd v=37.702206 5203
+fsensor error="value too long" 17257
+fsensor error="value too long" 67270
+fsensor error="value too long" 117257 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 37763
+fsensor error="value too long" 87761
+tmc_read error="value too long" -249
+tmc_read error="value too long" -146
+tmc_read error="value too long" -43
+fsensor error="value too long" 3589
+volt_bed v=24.206451 45647
+volt_nozz v=0.000000 45654
+curr_nozz v=0.020152 45659
+curr_inp v=9.332842 45664
+cur_mmu_imp v=-0.003726 45668
+oc_nozz v=0i 45672
+oc_inp v=0i 45676
+fsensor error="value too long" 53589
+fsensor error="value too long" 23981
+fsensor error="value too long" 73983
+heap free=63532i,total=89636i 89951
+fsensor error="value too long" 123981 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 49783
+fsensor error="value too long" 99783
+fsensor error="value too long" 44177
+stack,n=default t=0,m=533 94178
+runtime,n=default u=8 94200
+stack,n=IDLE t=0,m=107 94214
+runtime,n=IDLE u=89 94232
+stack,n=measure t=0,m=289 94245
+runtime,n=measure u=0 94263
+stack,n=display t=0,m=867 94278
+runtime,n=display u=1 94296
+stack,n=network t=0,m=723 94310
+runtime,n=network u=0 94328
+stack,n=connect t=0,m=497 94342
+runtime,n=connect u=0 94360
+stack,n=usb_dev t=0,m=569 94374
+runtime,n=usb_dev u=0 94392 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+runtime,n=tcpip_t u=0 -828
+stack,n=acFault t=0,m=53 -813
+runtime,n=acFault u=0 -796
+stack,n=USBH_MS t=0,m=332 -782
+runtime,n=USBH_MS u=0 -764
+stack,n=USBH_Th t=1284,m=134 -749
+runtime,n=USBH_Th u=0 -730
+stack,n=esp_tas t=0,m=95 -716
+runtime,n=esp_tas u=0 -698
+stack,n=metric_ t=0,m=128 -684
+runtime,n=metric_ u=1 -666
+stack,n=TmrSvc t=0,m=77 -652
+runtime,n=TmrSvc u=0 -634
+stack,n=media_p t=0,m=323 -620
+runtime,n=media_p u=0 -602
+fsensor error="value too long" 428
+heater_enabled v=0i -40
+fsensor error="value too long" 6274
+cpu_usage v=14i 47923
+points_dropped v=25i 48016
+tmc_read error="value too long" 51051
+tmc_read error="value too long" 51156
+tmc_read error="value too long" 51259
+tmc_read error="value too long" 51362
+fsensor error="value too long" 56262
+temp_hbr,n=0,a=1 value=24.87 58953
+fsensor error="value too long" 106036 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 49434
+eth_in recv=129344i 69182
+temp_mcu v=45i 82093
+fan,fan=print state=0,pwm=0,measured=0 85792
+fan,fan=heatbreak state=0,pwm=0,measured=0 85819
+heap free=63532i,total=89636i 18662
+fsensor error="value too long" 49693
+temp_brd v=37.702206 78645
+fsensor error="value too long" 99693
+filament v="PETG" 107660
+fsensor error="value too long" 29235
+fsensor error="value too long" 79254
+fsensor error="value too long" 129249 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 49518
+tmc_read error="value too long" 94532
+tmc_read error="value too long" 94637
+tmc_read error="value too long" 94753
+tmc_read error="value too long" 94856
+fsensor error="value too long" 99476
+fsensor error="value too long" 29720
+volt_bed v=24.206451 33682
+volt_nozz v=0.072043 33689
+curr_nozz v=0.020152 33694
+curr_inp v=9.696695 33699
+cur_mmu_imp v=-0.003726 33703
+oc_nozz v=0i 33707
+oc_inp v=0i 33711
+fsensor error="value too long" 79983
+fsensor error="value too long" 39014
+heap free=63532i,total=89636i 61941
+fsensor error="value too long" 89240
+fsensor error="value too long" 12824
+fsensor error="value too long" 62871
+fsensor error="value too long" 112592
+fsensor error="value too long" 29957
+fsensor error="value too long" 80237
+cpu_usage v=15i 122920
+points_dropped v=25i 123020
+tmc_read error="value too long" 125013 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" -302
+tmc_read error="value too long" -200
+fsensor error="value too long" 4701
+temp_hbr,n=0,a=1 value=24.82 8379
+fsensor error="value too long" 54476
+fsensor error="value too long" 10173
+fan,fan=print state=0,pwm=0,measured=0 34124
+fan,fan=heatbreak state=0,pwm=0,measured=0 34150
+temp_mcu v=45i 50830
+fsensor error="value too long" 59883
+heap free=63532i,total=89636i 86860
+fsensor error="value too long" 109883
+temp_brd v=37.683823 14306
+fsensor error="value too long" 43403
+fsensor error="value too long" 93628
+fsensor error="value too long" 10912
+fsensor error="value too long" 60899
+adj_z v=0.000000 105590
+heater_enabled v=0i 105597 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" 44985
+tmc_read error="value too long" 45090
+tmc_read error="value too long" 45193
+tmc_read error="value too long" 45296
+fsensor error="value too long" 49919
+fsensor error="value too long" 99919
+volt_bed v=24.170427 10596
+volt_nozz v=0.000000 10604
+curr_nozz v=0.016793 10609
+curr_inp v=9.733083 10613
+cur_mmu_imp v=-0.003726 10618
+oc_nozz v=0i 10621
+oc_inp v=0i 10625
+fsensor error="value too long" 43981
+fsensor error="value too long" 93760
+heap free=63532i,total=89636i 4902
+fsensor error="value too long" 24200
+fsensor error="value too long" 74213
+fsensor error="value too long" 23340
+fsensor error="value too long" 73341
+fsensor error="value too long" 123621
+fsensor error="value too long" 44238
+cpu_usage v=14i 87899
+points_dropped v=25i 87991
+tmc_read error="value too long" 89028
+tmc_read error="value too long" 89133
+tmc_read error="value too long" 89236
+tmc_read error="value too long" 89351
+fsensor error="value too long" 94237
+temp_hbr,n=0,a=1 value=24.84 98916
+fsensor error="value too long" 30809
+fsensor error="value too long" 81000
+fan,fan=print state=0,pwm=0,measured=0 92587
+fan,fan=heatbreak state=0,pwm=0,measured=0 92613
+temp_mcu v=45i 32540
+fsensor error="value too long" 33593
+heap free=63532i,total=89636i 68563
+fsensor error="value too long" 83606
+temp_brd v=37.683823 96538
+fsensor error="value too long" 7382
+fsensor error="value too long" 57619
+fsensor error="value too long" 107607
+fsensor error="value too long" 28099
+fsensor error="value too long" 77833
+tmc_read error="value too long" 122887
+tmc_read error="value too long" 123024 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" -257
+fsensor error="value too long" 4346
+eth_in recv=129883i 14615
+fsensor error="value too long" 54613
+volt_bed v=24.134409 84149
+volt_nozz v=0.000000 84156
+curr_nozz v=0.020152 84161
+curr_inp v=9.514769 84166
+cur_mmu_imp v=-0.003726 84170 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+oc_inp v=0i -400
+fsensor error="value too long" 20044
+fsensor error="value too long" 69809
+heap free=63532i,total=89636i 108737
+fsensor error="value too long" 120035
+fsensor error="value too long" 44692
+fsensor error="value too long" 94413
+fsensor error="value too long" 14740
+stack,n=default t=0,m=533 64793
+runtime,n=default u=8 64811
+stack,n=IDLE t=0,m=107 64825
+runtime,n=IDLE u=89 64842
+stack,n=measure t=0,m=289 64856
+runtime,n=measure u=0 64874
+stack,n=tcpip_t t=4992,m=433 64888
+runtime,n=tcpip_t u=0 64907
+stack,n=connect t=0,m=497 64922
+runtime,n=connect u=0 64939
+stack,n=network t=0,m=723 64954
+runtime,n=network u=0 64972
+stack,n=usb_dev t=0,m=569 64986
+runtime,n=usb_dev u=0 65004
+stack,n=display t=0,m=867 65018 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+stack,n=USBH_MS t=0,m=332 -866
+runtime,n=USBH_MS u=0 -848
+stack,n=USBH_Th t=1284,m=134 -833
+runtime,n=USBH_Th u=0 -815
+stack,n=esp_tas t=0,m=95 -800
+runtime,n=esp_tas u=0 -783
+stack,n=TmrSvc t=0,m=77 -768
+runtime,n=TmrSvc u=0 -751
+stack,n=metric_ t=0,m=128 -737
+runtime,n=metric_ u=1 -719
+stack,n=media_p t=0,m=323 -704
+runtime,n=media_p u=0 -686
+stack,n=acFault t=0,m=53 -672
+runtime,n=acFault u=0 -655
+fsensor error="value too long" 671
+adj_z v=0.000000 44780
+heater_enabled v=0i 44787
+fsensor error="value too long" 50822 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+cpu_usage v=14i 30366
+tmc_read error="value too long" 30502
+tmc_read error="value too long" 30617
+tmc_read error="value too long" 30720
+tmc_read error="value too long" 30823
+points_dropped v=25i 30888
+fsensor error="value too long" 37440
+temp_hbr,n=0,a=1 value=24.82 41386
+fsensor error="value too long" 100
+fan,fan=print state=0,pwm=0,measured=0 48406
+fan,fan=heatbreak state=0,pwm=0,measured=0 48433
+fsensor error="value too long" 49968
+fsensor error="value too long" 99969
+temp_mcu v=45i 104916
+heap free=63532i,total=89636i 21226
+fsensor error="value too long" 30256
+temp_brd v=37.702206 33202
+fsensor error="value too long" 80256
+fsensor error="value too long" 29866
+fsensor error="value too long" 79866
+fsensor error="value too long" 49968
+tmc_read error="value too long" 93011
+tmc_read error="value too long" 93116
+tmc_read error="value too long" 93219
+tmc_read error="value too long" 93322
+fsensor error="value too long" 99956
+fsensor error="value too long" 30636
+volt_bed v=24.134409 71357
+volt_nozz v=0.072043 71364
+curr_nozz v=0.020152 71369
+curr_inp v=9.587542 71373
+cur_mmu_imp v=-0.003726 71378
+oc_nozz v=0i 71382
+oc_inp v=0i 71386
+fsensor error="value too long" 80636
+fsensor error="value too long" 39957
+heap free=63532i,total=89636i 84926
+fsensor error="value too long" 89956
+fsensor error="value too long" 10490
+fsensor error="value too long" 60490
+fsensor error="value too long" 110490
+fsensor error="value too long" 33991
+fsensor error="value too long" 84063
+tmc_read error="value too long" 127044
+tmc_read error="value too long" 127148 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" -229
+points_dropped v=25i -7
+cpu_usage v=14i 331
+fsensor error="value too long" 6418
+temp_hbr,n=0,a=1 value=24.84 11386
+fsensor error="value too long" 56406
+fan,fan=print state=0,pwm=0,measured=0 129
+fan,fan=heatbreak state=0,pwm=0,measured=0 154
+fsensor error="value too long" 14096
+fsensor error="value too long" 64096
+is_printing v=0i 66036
+print_filename v="" 66075
+temp_mcu v=45i 77040
+temp_brd v=37.720589 109037
+eth_in recv=129943i 112092 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 986
+fsensor error="value too long" 50986
+fsensor error="value too long" 100986
+fsensor error="value too long" 21337
+fsensor error="value too long" 71359
+adj_z v=0.000000 116292
+heater_enabled v=0i 116302 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" 43013
+tmc_read error="value too long" 43118
+tmc_read error="value too long" 43235
+tmc_read error="value too long" 43338
+fsensor error="value too long" 49958
+fsensor error="value too long" 1194
+fsensor error="value too long" 51182
+volt_bed v=24.170427 54819
+volt_nozz v=0.000000 54827
+curr_nozz v=0.016793 54832
+curr_inp v=9.587542 54836
+cur_mmu_imp v=-0.003726 54841
+oc_nozz v=0i 54845
+oc_inp v=0i 54848
+fsensor error="value too long" 101183
+fsensor error="value too long" 34668
+heap free=63532i,total=89636i 37638
+fsensor error="value too long" 84668
+fsensor error="value too long" 1944
+fsensor error="value too long" 51944
+fsensor error="value too long" 101945 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 49787
+tmc_read error="value too long" 92842
+tmc_read error="value too long" 92947
+tmc_read error="value too long" 93050
+tmc_read error="value too long" 93152
+cpu_usage v=14i 93731
+points_dropped v=25i 93829
+fsensor error="value too long" 99787
+temp_hbr,n=0,a=1 value=24.84 105729
+fsensor error="value too long" 38274
+fan,fan=print state=0,pwm=0,measured=0 62913
+fan,fan=heatbreak state=0,pwm=0,measured=0 62939
+fsensor error="value too long" 88286
+fsensor error="value too long" 11971
+temp_mcu v=45i 32914
+temp_brd v=37.683823 48911
+fsensor error="value too long" 61969
+heap free=63532i,total=89636i 67973
+fsensor error="value too long" 14872
+fsensor error="value too long" 64874
+fsensor error="value too long" 114872
+fsensor error="value too long" 35386
+fsensor error="value too long" 85385
+tmc_read error="value too long" 128454 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" -301
+tmc_read error="value too long" -198
+fsensor error="value too long" 6422
+fsensor error="value too long" 56422
+fsensor error="value too long" 106440 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+volt_bed v=24.170427 2692
+volt_nozz v=0.000000 2699
+curr_nozz v=0.016793 2704
+curr_inp v=9.478386 2709
+cur_mmu_imp v=-0.003726 2713
+oc_nozz v=0i 2717
+oc_inp v=0i 2721
+fsensor error="value too long" 36152
+fsensor error="value too long" 86138
+heap free=63532i,total=89636i 5427
+fsensor error="value too long" 45460
+fsensor error="value too long" 95461
+fsensor error="value too long" 15968
+stack,n=default t=0,m=533 65016
+runtime,n=default u=8 65034
+stack,n=IDLE t=0,m=107 65048
+runtime,n=IDLE u=88 65065
+stack,n=tcpip_t t=4992,m=433 65080
+runtime,n=tcpip_t u=0 65098
+stack,n=measure t=0,m=289 65113
+runtime,n=measure u=0 65143
+stack,n=connect t=0,m=497 65157
+runtime,n=connect u=0 65175
+stack,n=network t=0,m=723 65190
+runtime,n=network u=0 65207
+stack,n=usb_dev t=0,m=569 65222
+runtime,n=usb_dev u=0 65239
+stack,n=display t=0,m=867 65254 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+stack,n=USBH_Th t=1284,m=134 -886
+runtime,n=USBH_Th u=0 -867
+stack,n=esp_tas t=0,m=95 -853
+runtime,n=esp_tas u=0 -835
+stack,n=TmrSvc t=0,m=77 -820
+runtime,n=TmrSvc u=0 -803
+stack,n=media_p t=0,m=323 -789
+runtime,n=media_p u=0 -771
+stack,n=metric_ t=0,m=128 -757
+runtime,n=metric_ u=1 -739
+stack,n=acFault t=0,m=53 -725
+runtime,n=acFault u=0 -707
+stack,n=USBH_MS t=0,m=332 -693
+runtime,n=USBH_MS u=0 -675
+fsensor error="value too long" 672
+adj_z v=0.000000 45751
+heater_enabled v=0i 45758
+fsensor error="value too long" 50796
+tmc_read error="value too long" 32608
+tmc_read error="value too long" 32713
+tmc_read error="value too long" 32816
+tmc_read error="value too long" 32931
+cpu_usage v=15i 34479
+points_dropped v=25i 34574
+fsensor error="value too long" 40553
+temp_hbr,n=0,a=1 value=24.83 46495
+fsensor error="value too long" 3372
+fan,fan=print state=0,pwm=0,measured=0 14528
+fan,fan=heatbreak state=0,pwm=0,measured=0 14554
+fsensor error="value too long" 53295
+fsensor error="value too long" 103296
+temp_brd v=37.683823 8234
+temp_mcu v=45i 8242
+fsensor error="value too long" 30302
+heap free=63532i,total=89636i 43256
+fsensor error="value too long" 80290
+fsensor error="value too long" 3981
+fsensor error="value too long" 53980
+fsensor error="value too long" 103966 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 21311
+tmc_read error="value too long" 63371
+tmc_read error="value too long" 63476
+tmc_read error="value too long" 63579
+tmc_read error="value too long" 63681
+fsensor error="value too long" 71363
+fsensor error="value too long" 30636
+fsensor error="value too long" 80636
+volt_bed v=24.170427 109111
+volt_nozz v=0.000000 109118
+curr_nozz v=0.016793 109123
+curr_inp v=9.478386 109127
+cur_mmu_imp v=-0.003726 109132
+oc_nozz v=0i 109136
+oc_inp v=0i 109140
+fsensor error="value too long" 14119
+fsensor error="value too long" 64117
+heap free=63532i,total=89636i 81087
+fsensor error="value too long" 49929
+fsensor error="value too long" 99929
+fsensor error="value too long" 30981
+fsensor error="value too long" 80964
+tmc_read error="value too long" 123059
+tmc_read error="value too long" 123175 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" -269
+eth_out sent=1159353i -50
+cpu_usage v=14i 2244
+points_dropped v=25i 2339
+fsensor error="value too long" 7314
+temp_hbr,n=0,a=1 value=24.84 14261
+fan,fan=print state=0,pwm=0,measured=0 57157
+fan,fan=heatbreak state=0,pwm=0,measured=0 57184
+fsensor error="value too long" 57376
+fsensor error="value too long" 23804
+fsensor error="value too long" 73793
+temp_brd v=37.702206 93737
+temp_mcu v=45i 109740
+fsensor error="value too long" 123791 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+heap free=63532i,total=89636i 18530
+fsensor error="value too long" 47560
+fsensor error="value too long" 97560
+fsensor error="value too long" 17986
+fsensor error="value too long" 68042
+adj_z v=0.000000 113945
+heater_enabled v=0i 113952
+fsensor error="value too long" 117998
+tmc_read error="value too long" 33878
+tmc_read error="value too long" 33983
+tmc_read error="value too long" 34086
+tmc_read error="value too long" 34189
+fsensor error="value too long" 41820
+fsensor error="value too long" 49954
+volt_bed v=24.062366 91345
+volt_nozz v=0.036022 91352
+curr_nozz v=0.020152 91358
+curr_inp v=9.514769 91362
+cur_mmu_imp v=-0.003726 91367
+oc_nozz v=0i 91370
+oc_inp v=0i 91374
+fsensor error="value too long" 99956
+fsensor error="value too long" 31377
+heap free=63532i,total=89636i 56348
+fsensor error="value too long" 81377
+fsensor error="value too long" 1887
+fsensor error="value too long" 51887
+fsensor error="value too long" 101902
+fsensor error="value too long" 22396
+tmc_read error="value too long" 64454
+tmc_read error="value too long" 64559
+tmc_read error="value too long" 64662
+tmc_read error="value too long" 64796
+points_dropped v=25i 68018
+cpu_usage v=14i 68328
+fsensor error="value too long" 72409
+temp_hbr,n=0,a=1 value=24.84 80343
+fan,fan=print state=0,pwm=0,measured=0 29712
+fan,fan=heatbreak state=0,pwm=0,measured=0 29738
+fsensor error="value too long" 41262
+fsensor error="value too long" 91262
+eth_in recv=130482i 97257
+fsensor error="value too long" 18433
+temp_brd v=37.702206 30377
+temp_mcu v=45i 62380
+fsensor error="value too long" 68431
+fsensor error="value too long" 20982
+fsensor error="value too long" 71065
+fsensor error="value too long" 120982
+fsensor error="value too long" 41778
+fsensor error="value too long" 91776
+tmc_read error="value too long" 1033
+tmc_read error="value too long" 1138
+tmc_read error="value too long" 1266
+tmc_read error="value too long" 1369
+fsensor error="value too long" 8972
+fsensor error="value too long" 58984
+fsensor error="value too long" 108972
+fsensor error="value too long" 42523
+volt_bed v=24.062366 46829
+volt_nozz v=0.000000 46836
+curr_nozz v=0.016793 46841
+curr_inp v=9.733083 46846
+cur_mmu_imp v=-0.003726 46850
+oc_nozz v=0i 46854
+oc_inp v=0i 46858
+heap free=63532i,total=89636i 32910
+fsensor error="value too long" 50017
+fsensor error="value too long" 99940
+fsensor error="value too long" 22345
+stack,n=default t=0,m=533 71394
+runtime,n=default u=8 71416
+stack,n=IDLE t=0,m=107 71430
+runtime,n=IDLE u=89 71448
+stack,n=tcpip_t t=4992,m=433 71462
+runtime,n=tcpip_t u=0 71481
+stack,n=measure t=0,m=289 71495
+runtime,n=measure u=0 71517
+stack,n=connect t=0,m=497 71531
+runtime,n=connect u=0 71549
+stack,n=network t=0,m=723 71563
+runtime,n=network u=0 71581
+stack,n=usb_dev t=0,m=569 71595 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+stack,n=display t=0,m=867 -855
+runtime,n=display u=1 -837
+stack,n=esp_tas t=0,m=95 -823
+runtime,n=esp_tas u=0 -805
+stack,n=TmrSvc t=0,m=77 -790
+runtime,n=TmrSvc u=0 -773
+stack,n=media_p t=0,m=323 -759
+runtime,n=media_p u=0 -741
+stack,n=acFault t=0,m=53 -727
+runtime,n=acFault u=0 -696
+stack,n=metric_ t=0,m=128 -682
+runtime,n=metric_ u=1 -664
+stack,n=USBH_MS t=0,m=332 -650
+runtime,n=USBH_MS u=0 -632
+stack,n=USBH_Th t=1284,m=134 -617
+runtime,n=USBH_Th u=0 -598
+fsensor error="value too long" 729
+adj_z v=0.000000 46823
+heater_enabled v=0i 46830
+fsensor error="value too long" 50863
+tmc_read error="value too long" 31671
+tmc_read error="value too long" 31776
+tmc_read error="value too long" 31879
+tmc_read error="value too long" 31982
+cpu_usage v=14i 36541
+points_dropped v=25i 36633
+fsensor error="value too long" 40611
+temp_hbr,n=0,a=1 value=24.84 48557
+fan,fan=print state=0,pwm=0,measured=0 65655
+fan,fan=heatbreak state=0,pwm=0,measured=0 65681
+fsensor error="value too long" 15875
+fsensor error="value too long" 65887
+fw_version v="5.1.2+13478" 100836
+fsensor error="value too long" 115877
+is_printing v=0i 116820
+print_filename v="" 116855
+temp_brd v=37.683823 118821
+fsensor error="value too long" 43129
+temp_mcu v=45i 44078
+heap free=63532i,total=89636i 79099
+fsensor error="value too long" 93135
+fsensor error="value too long" 13639
+fsensor error="value too long" 63639
+fsensor error="value too long" 113641 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 30893
+tmc_read error="value too long" 71966
+tmc_read error="value too long" 72071
+tmc_read error="value too long" 72174
+tmc_read error="value too long" 72277
+fsensor error="value too long" 80893
+fsensor error="value too long" 40232
+fsensor error="value too long" 90232
+fsensor error="value too long" 7503
+volt_bed v=24.098385 23725
+volt_nozz v=0.036022 23733
+curr_nozz v=0.016793 23738
+curr_inp v=9.733083 23742
+cur_mmu_imp v=-0.003726 23747
+oc_nozz v=0i 23751
+oc_inp v=0i 23755
+fsensor error="value too long" 57501
+heap free=63532i,total=89636i 96492 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+eth_in recv=131073i 18749
+fsensor error="value too long" 49971
+fsensor error="value too long" 99959
+fsensor error="value too long" 40576
+fsensor error="value too long" 90574
+tmc_read error="value too long" -261
+tmc_read error="value too long" -158
+tmc_read error="value too long" -44
+cpu_usage v=15i 5503
+points_dropped v=25i 5594
+fsensor error="value too long" 8573
+temp_hbr,n=0,a=1 value=24.84 17521
+fan,fan=print state=0,pwm=0,measured=0 22223
+fan,fan=heatbreak state=0,pwm=0,measured=0 22250
+fsensor error="value too long" 58573
+fsensor error="value too long" 33191
+temp_brd v=37.683823 78137
+fsensor error="value too long" 83193
+fsensor error="value too long" 639
+temp_mcu v=45i 9588
+heap free=63532i,total=89636i 43608
+fsensor error="value too long" 50638
+fsensor error="value too long" 100638
+fsensor error="value too long" 25009
+fsensor error="value too long" 74998
+adj_z v=0.000000 120973
+heater_enabled v=0i 120980
+tmc_read error="value too long" 41016
+tmc_read error="value too long" 41125
+tmc_read error="value too long" 41228
+tmc_read error="value too long" 41331
+fsensor error="value too long" 49959
+fsensor error="value too long" 7473
+fsensor error="value too long" 57473
+fsensor error="value too long" 107476
+volt_bed v=24.098385 7112
+volt_nozz v=0.000000 7119
+curr_nozz v=0.020152 7124
+curr_inp v=9.733083 7129
+cur_mmu_imp v=-0.003726 7134
+oc_nozz v=0i 7137
+oc_inp v=0i 7141
+fsensor error="value too long" 27971
+heap free=63532i,total=89636i 74941
+fsensor error="value too long" 77971
+fsensor error="value too long" 11457
+fsensor error="value too long" 61557
+fsensor error="value too long" 111471
+fsensor error="value too long" 31971
+tmc_read error="value too long" 73028
+tmc_read error="value too long" 73149
+tmc_read error="value too long" 73252
+tmc_read error="value too long" 73355
+cpu_usage v=18i 79901
+points_dropped v=25i 79994
+fsensor error="value too long" 81971
+fan,fan=print state=0,pwm=0,measured=0 83215 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+temp_hbr,n=0,a=1 value=24.84 8484
+fsensor error="value too long" 48538
+fsensor error="value too long" 98538
+temp_brd v=37.683823 11556
+fsensor error="value too long" 24612
+fsensor error="value too long" 74610
+temp_mcu v=45i 91559
+heap free=63532i,total=89636i 929
+fsensor error="value too long" 49959
+fsensor error="value too long" 99959
+fsensor error="value too long" 44905
+fsensor error="value too long" 94916
+tmc_read error="value too long" 3267
+tmc_read error="value too long" 3374
+tmc_read error="value too long" 3477
+tmc_read error="value too long" 3580
+fsensor error="value too long" 12176
+fsensor error="value too long" 62176
+fsensor error="value too long" 112176
+fsensor error="value too long" 45662
+volt_bed v=24.098385 87718
+volt_nozz v=0.072043 87725
+curr_nozz v=0.016793 87730
+curr_inp v=9.733083 87735
+cur_mmu_imp v=-0.003726 87739
+oc_nozz v=0i 87743
+oc_inp v=0i 87747
+fsensor error="value too long" 1746
+fsensor error="value too long" 51826
+heap free=63532i,total=89636i 56716
+fsensor error="value too long" 101746
+fsensor error="value too long" 25505
+stack,n=default t=0,m=533 74559
+runtime,n=default u=8 74577
+stack,n=IDLE t=0,m=107 74591
+runtime,n=IDLE u=87 74608
+stack,n=tcpip_t t=4992,m=433 74626
+runtime,n=tcpip_t u=1 74645
+stack,n=measure t=0,m=289 74660
+runtime,n=measure u=0 74678
+stack,n=connect t=0,m=497 74692
+runtime,n=connect u=0 74710
+stack,n=network t=0,m=723 74724 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+stack,n=usb_dev t=0,m=569 -847
+runtime,n=usb_dev u=0 -829
+stack,n=display t=0,m=867 -815
+runtime,n=display u=1 -797
+stack,n=TmrSvc t=0,m=77 -782
+runtime,n=TmrSvc u=0 -765
+stack,n=media_p t=0,m=323 -751
+runtime,n=media_p u=0 -733
+stack,n=acFault t=0,m=53 -719
+runtime,n=acFault u=0 -701
+stack,n=USBH_MS t=0,m=332 -687
+runtime,n=USBH_MS u=0 -669
+stack,n=USBH_Th t=1284,m=134 -654
+runtime,n=USBH_Th u=0 -636
+stack,n=metric_ t=0,m=128 -621
+runtime,n=metric_ u=1 -603
+stack,n=esp_tas t=0,m=95 -589
+runtime,n=esp_tas u=0 -571
+fsensor error="value too long" 778
+adj_z v=0.000000 46861
+heater_enabled v=0i 46868
+fsensor error="value too long" 50902 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fan,fan=print state=0,pwm=0,measured=0 34809
+fan,fan=heatbreak state=0,pwm=0,measured=0 34835
+tmc_read error="value too long" 37028
+tmc_read error="value too long" 37136
+tmc_read error="value too long" 37238
+tmc_read error="value too long" 37341
+cpu_usage v=14i 44901
+points_dropped v=25i 45010
+fsensor error="value too long" 46983
+temp_hbr,n=0,a=1 value=24.83 56918
+fsensor error="value too long" 19318
+fsensor error="value too long" 69318
+temp_brd v=37.665440 97264
+fsensor error="value too long" 119320
+fsensor error="value too long" 42801
+temp_mcu v=45i 66749
+fsensor error="value too long" 92801
+heap free=63532i,total=89636i 100771
+fsensor error="value too long" 13606
+fsensor error="value too long" 63607
+eth_in recv=137815i 65601
+fsensor error="value too long" 113608
+fsensor error="value too long" 34128
+tmc_read error="value too long" 74185
+tmc_read error="value too long" 74294
+tmc_read error="value too long" 74411
+tmc_read error="value too long" 74547
+fsensor error="value too long" 84128
+fsensor error="value too long" 43472
+fsensor error="value too long" 93460
+fsensor error="value too long" 10737
+fsensor error="value too long" 60747
+volt_bed v=24.098385 64744
+volt_nozz v=0.036022 64749
+curr_nozz v=0.016793 64754
+curr_inp v=9.041762 64758
+cur_mmu_imp v=-0.003726 64763
+oc_nozz v=0i 64770
+oc_inp v=0i 64774
+fsensor error="value too long" 110735
+heap free=63532i,total=89636i 6183
+fsensor error="value too long" 44213
+fsensor error="value too long" 94213
+fsensor error="value too long" 11488
+fsensor error="value too long" 61486
+fan,fan=print state=0,pwm=0,measured=0 87930
+fan,fan=heatbreak state=0,pwm=0,measured=0 87957
+tmc_read error="value too long" 4386
+tmc_read error="value too long" 4495
+tmc_read error="value too long" 4598
+tmc_read error="value too long" 4701
+cpu_usage v=15i 13260
+points_dropped v=25i 13352
+fsensor error="value too long" 14329
+temp_hbr,n=0,a=1 value=24.84 25275
+fsensor error="value too long" 64329
+fsensor error="value too long" 955
+temp_brd v=37.702206 20901
+fsensor error="value too long" 50957
+fsensor error="value too long" 100955
+temp_mcu v=45i 6584
+fsensor error="value too long" 24649
+heap free=63532i,total=89636i 40606
+fsensor error="value too long" 74636
+fsensor error="value too long" 24417
+fsensor error="value too long" 74419
+adj_z v=0.000000 121376
+heater_enabled v=0i 121383
+fsensor error="value too long" 124417 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" 38242
+tmc_read error="value too long" 38351
+tmc_read error="value too long" 38454
+tmc_read error="value too long" 38557
+fsensor error="value too long" 48173
+fsensor error="value too long" 98173
+fsensor error="value too long" 28411
+eth_in recv=138354i 51406
+fsensor error="value too long" 78413
+fsensor error="value too long" 128411 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+volt_bed v=24.206451 15811
+volt_nozz v=0.000000 15818
+curr_nozz v=0.016793 15824
+curr_inp v=9.369230 15828
+cur_mmu_imp v=-0.003726 15833
+oc_nozz v=0i 15836
+oc_inp v=0i 15840
+fsensor error="value too long" 48920
+heap free=63532i,total=89636i 68890
+fsensor error="value too long" 8258
+fsensor error="value too long" 58325
+fsensor error="value too long" 108248
+fsensor error="value too long" 28765
+fan,fan=print state=0,pwm=0,measured=0 42805
+fan,fan=heatbreak state=0,pwm=0,measured=0 42831
+tmc_read error="value too long" 68822
+tmc_read error="value too long" 68931
+tmc_read error="value too long" 69034
+tmc_read error="value too long" 69148
+cpu_usage v=14i 77727
+points_dropped v=25i 77826 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+temp_hbr,n=0,a=1 value=24.83 11904
+fsensor error="value too long" 49958
+fsensor error="value too long" 99958
+temp_brd v=37.665440 111916
+fsensor error="value too long" 21577
+is_printing v=0i 22520
+print_filename v="" 22555
+fsensor error="value too long" 71575
+temp_mcu v=45i 111524
+fsensor error="value too long" 121575 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+heap free=63532i,total=89636i 23761
+fsensor error="value too long" 49791
+fsensor error="value too long" 99804 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 19009
+fsensor error="value too long" 69007
+tmc_read error="value too long" 5509
+tmc_read error="value too long" 5614
+tmc_read error="value too long" 5721
+tmc_read error="value too long" 5824
+fsensor error="value too long" 15452
+fsensor error="value too long" 65452
+fsensor error="value too long" 115452 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 48934
+fsensor error="value too long" 98932
+volt_bed v=24.206451 128740
+volt_nozz v=0.036022 128747 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+curr_inp v=9.696695 -328
+cur_mmu_imp v=-0.003726 -324
+oc_nozz v=0i -320
+oc_inp v=0i -316
+fsensor error="value too long" 19937
+heap free=63532i,total=89636i 47817
+fsensor error="value too long" 69847
+fsensor error="value too long" 28783
+stack,n=default t=0,m=533 77809
+runtime,n=default u=8 77831
+stack,n=IDLE t=0,m=107 77845
+runtime,n=IDLE u=89 77863
+stack,n=display t=0,m=867 77876
+runtime,n=display u=1 77894
+stack,n=tcpip_t t=4992,m=433 77909
+runtime,n=tcpip_t u=0 77928
+stack,n=network t=0,m=723 77942
+runtime,n=network u=0 77960
+stack,n=connect t=0,m=497 77978
+runtime,n=connect u=0 77996
+stack,n=usb_dev t=0,m=569 78010 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+stack,n=measure t=0,m=289 -821
+runtime,n=measure u=0 -803
+stack,n=media_p t=0,m=323 -789
+runtime,n=media_p u=0 -771
+stack,n=acFault t=0,m=53 -757
+runtime,n=acFault u=0 -739
+stack,n=USBH_MS t=0,m=332 -725
+runtime,n=USBH_MS u=0 -707
+stack,n=USBH_Th t=1284,m=134 -692
+runtime,n=USBH_Th u=0 -674
+stack,n=metric_ t=0,m=128 -659
+runtime,n=metric_ u=1 -641
+stack,n=esp_tas t=0,m=95 -627
+runtime,n=esp_tas u=0 -609
+stack,n=TmrSvc t=0,m=77 -595
+runtime,n=TmrSvc u=0 -577
+fsensor error="value too long" 454
+adj_z v=0.000000 47879
+heater_enabled v=0i 47886
+fsensor error="value too long" 49922
+fan,fan=heatbreak state=0,pwm=0,measured=0 -34
+tmc_read error="value too long" 37370
+tmc_read error="value too long" 37492
+tmc_read error="value too long" 37595
+tmc_read error="value too long" 37698
+points_dropped v=25i 46559
+cpu_usage v=14i 47227
+fsensor error="value too long" 47623
+temp_hbr,n=0,a=1 value=24.83 60241
+fsensor error="value too long" 50199
+temp_brd v=37.665440 53864
+fsensor error="value too long" 100204
+fsensor error="value too long" 39212
+temp_mcu v=45i 86834
+fsensor error="value too long" 88886
+heap free=63532i,total=89636i 120855
+fsensor error="value too long" 12471
+fsensor error="value too long" 62743
+fsensor error="value too long" 112742
+fsensor error="value too long" 29978
+tmc_read error="value too long" 69981
+tmc_read error="value too long" 70086
+tmc_read error="value too long" 70193
+tmc_read error="value too long" 70296
+fsensor error="value too long" 80195
+fsensor error="value too long" 10169
+fsensor error="value too long" 60169
+fsensor error="value too long" 110211 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 27727
+volt_bed v=24.098385 70167
+volt_nozz v=0.000000 70174
+curr_nozz v=0.016793 70179
+curr_inp v=9.769468 70183
+cur_mmu_imp v=-0.003726 70188
+oc_nozz v=0i 70192
+oc_inp v=0i 70196
+fsensor error="value too long" 77754
+heap free=63532i,total=89636i 22736
+fsensor error="value too long" 37038
+fsensor error="value too long" 86809
+fsensor error="value too long" 7287
+fan,fan=print state=0,pwm=0,measured=0 47525
+fan,fan=heatbreak state=0,pwm=0,measured=0 47551
+fsensor error="value too long" 57288
+tmc_read error="value too long" 97345
+tmc_read error="value too long" 97449 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" -224
+cpu_usage v=14i 9352
+points_dropped v=25i 9459
+fsensor error="value too long" 9505
+temp_hbr,n=0,a=1 value=24.82 23349
+fsensor error="value too long" 59403
+temp_brd v=37.647060 105351
+fsensor error="value too long" 188
+fsensor error="value too long" 50099
+fsensor error="value too long" 100092
+fsensor error="value too long" 20602
+temp_mcu v=45i 26551
+heap free=63532i,total=89636i 60572
+fsensor error="value too long" 70602
+fsensor error="value too long" 120602
+fsensor error="value too long" 47407
+adj_z v=0.000000 96366
+heater_enabled v=0i 96373
+eth_in recv=138414i 96480
+fsensor error="value too long" 97407 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" 37242
+tmc_read error="value too long" 37347
+tmc_read error="value too long" 37468
+tmc_read error="value too long" 37571
+fsensor error="value too long" 47185
+fsensor error="value too long" 97185
+fsensor error="value too long" 27439
+fsensor error="value too long" 77439
+fsensor error="value too long" 127451 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 47954
+volt_bed v=24.098385 53595
+volt_nozz v=0.036022 53602
+curr_nozz v=0.020152 53607
+curr_inp v=9.623927 53612
+cur_mmu_imp v=-0.003726 53617
+oc_nozz v=0i 53620
+oc_inp v=0i 53624
+fsensor error="value too long" 5987
+fsensor error="value too long" 55987
+fsensor error="value too long" 105987
+fan,fan=print state=0,pwm=0,measured=0 6648
+fan,fan=heatbreak state=0,pwm=0,measured=0 6674
+fsensor error="value too long" 27803
+tmc_read error="value too long" 67860
+tmc_read error="value too long" 67996
+tmc_read error="value too long" 68103
+tmc_read error="value too long" 68206
+fsensor error="value too long" 77842
+points_dropped v=25i 77898 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+temp_hbr,n=0,a=1 value=24.83 13957
+fsensor error="value too long" 48998
+temp_brd v=37.647060 86944
+fsensor error="value too long" 98998
+fsensor error="value too long" 20607
+fsensor error="value too long" 70607
+fsensor error="value too long" 120619
+temp_mcu v=45i 5067
+heap free=63532i,total=89636i 39088
+fsensor error="value too long" 41118
+fsensor error="value too long" 91118
+fsensor error="value too long" 14688
+fsensor error="value too long" 64693
+tmc_read error="value too long" 104758
+tmc_read error="value too long" 104863
+tmc_read error="value too long" 104967
+tmc_read error="value too long" 105070 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 49958
+fsensor error="value too long" 99958
+fsensor error="value too long" 41454
+fsensor error="value too long" 91454
+fsensor error="value too long" 8737
+volt_bed v=24.098385 27295
+volt_nozz v=0.000000 27302
+curr_nozz v=0.016793 27307
+curr_inp v=9.769468 27312
+cur_mmu_imp v=-0.003726 27316
+oc_nozz v=0i 27320
+oc_inp v=0i 27324
+fsensor error="value too long" 58749
+heap free=63532i,total=89636i 60707
+fsensor error="value too long" 108737
+stack,n=default t=0,m=533 45501
+runtime,n=default u=8 45521
+stack,n=IDLE t=0,m=107 45535
+runtime,n=IDLE u=89 45552
+stack,n=tcpip_t t=4992,m=433 45566
+runtime,n=tcpip_t u=0 45585
+stack,n=display t=0,m=867 45600
+runtime,n=display u=1 45618
+stack,n=network t=0,m=723 45632
+runtime,n=network u=0 45650
+stack,n=connect t=0,m=497 45664
+runtime,n=connect u=0 45682
+stack,n=usb_dev t=0,m=569 45712
+runtime,n=usb_dev u=0 45730
+stack,n=measure t=0,m=289 45744
+runtime,n=measure u=0 45762
+stack,n=acFault t=0,m=53 45777
+runtime,n=acFault u=0 45794
+stack,n=USBH_MS t=0,m=332 45808 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+stack,n=USBH_Th t=1284,m=134 -848
+runtime,n=USBH_Th u=0 -829
+stack,n=esp_tas t=0,m=95 -815
+runtime,n=esp_tas u=0 -797
+stack,n=metric_ t=0,m=128 -783
+runtime,n=metric_ u=1 -765
+stack,n=TmrSvc t=0,m=77 -751
+runtime,n=TmrSvc u=0 -733
+stack,n=media_p t=0,m=323 -719
+runtime,n=media_p u=0 -701
+fsensor error="value too long" 331
+fan,fan=print state=0,pwm=0,measured=0 16223
+fan,fan=heatbreak state=0,pwm=0,measured=0 16249
+adj_z v=0.000000 48730
+heater_enabled v=0i 48737
+fsensor error="value too long" 50043 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" 38358
+tmc_read error="value too long" 38463
+tmc_read error="value too long" 38568
+tmc_read error="value too long" 38671
+points_dropped v=25i 48567
+fsensor error="value too long" 49572
+cpu_usage v=14i 50231
+temp_hbr,n=0,a=1 value=24.84 64247
+fsensor error="value too long" 99344
+temp_brd v=37.683823 14917
+fsensor error="value too long" 36251
+fsensor error="value too long" 85972
+fsensor error="value too long" 3383
+fsensor error="value too long" 53336
+temp_mcu v=45i 74241
+fsensor error="value too long" 103565
+heap free=63532i,total=89636i 108263 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 27257
+fsensor error="value too long" 77243
+fsensor error="value too long" 23277
+tmc_read error="value too long" 62291
+tmc_read error="value too long" 62396
+tmc_read error="value too long" 62503
+tmc_read error="value too long" 62606
+fsensor error="value too long" 73235
+fsensor error="value too long" 3659
+fsensor error="value too long" 54349
+fsensor error="value too long" 103658
+fsensor error="value too long" 24179
+fsensor error="value too long" 74179
+volt_bed v=24.134409 104653
+volt_nozz v=0.000000 104661
+curr_nozz v=0.016793 104666
+curr_inp v=9.660313 104670 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+oc_nozz v=0i -279
+oc_inp v=0i -275
+fsensor error="value too long" 19221
+heap free=63532i,total=89636i 28191
+fsensor error="value too long" 69221
+fsensor error="value too long" 3969
+fan,fan=print state=0,pwm=0,measured=0 8003
+fan,fan=heatbreak state=0,pwm=0,measured=0 8029
+fsensor error="value too long" 53957
+tmc_read error="value too long" 93014
+tmc_read error="value too long" 93131
+tmc_read error="value too long" 93237
+tmc_read error="value too long" 93340
+fsensor error="value too long" 103957
+points_dropped v=25i 104015 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+temp_hbr,n=0,a=1 value=24.86 13946
+fsensor error="value too long" 48000
+temp_brd v=37.610294 68947
+fw_version v="5.1.2+13478" 32751
+fsensor error="value too long" 49777
+is_printing v=0i 50725
+print_filename v="" 50760
+eth_in recv=138953i 67817
+fsensor error="value too long" 99777
+fsensor error="value too long" 26994
+temp_mcu v=45i 55943
+fsensor error="value too long" 76994
+heap free=63532i,total=89636i 89964
+fsensor error="value too long" 49959
+adj_z v=0.000000 99919
+heater_enabled v=0i 99926
+fsensor error="value too long" 100049 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+tmc_read error="value too long" 38760
+tmc_read error="value too long" 38865
+tmc_read error="value too long" 38968
+tmc_read error="value too long" 39075
+fsensor error="value too long" 49702
+fsensor error="value too long" 99713
+fsensor error="value too long" 33923
+fsensor error="value too long" 83911
+fsensor error="value too long" 1175
+fsensor error="value too long" 51175
+volt_bed v=24.206451 94566
+volt_nozz v=0.000000 94573
+curr_nozz v=0.016793 94578
+curr_inp v=9.623927 94583
+cur_mmu_imp v=-0.003726 94588
+oc_nozz v=0i 94591 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 6243
+heap free=63532i,total=89636i 23213
+fsensor error="value too long" 56243
+fan,fan=print state=0,pwm=0,measured=0 98895
+fan,fan=heatbreak state=0,pwm=0,measured=0 98922
+fsensor error="value too long" 106243
+fsensor error="value too long" 43971
+tmc_read error="value too long" 83028
+tmc_read error="value too long" 83133
+tmc_read error="value too long" 83235
+tmc_read error="value too long" 83342
+fsensor error="value too long" 93971
+points_dropped v=25i 94043
+cpu_usage v=14i 96902 msg_id:- priority:14 proc_id:- severity:6 structured_data:- timestamp:0001-01-01 00:00:00 +0000 UTC tls_peer: version:1]
+fsensor error="value too long" 32977
+temp_brd v=37.665440 45925
+fsensor error="value too long" 82977

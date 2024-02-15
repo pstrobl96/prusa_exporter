@@ -1,0 +1,650 @@
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus lost
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus set
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus lost
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus set
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy MAC: 08:3a:8d:ce:90:08
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Joining AP PinkHill:*(10)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy MAC: 08:3a:8d:ce:90:08
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus lost
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus set
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus lost
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus set
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder minus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus lost
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus set
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder minus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus lost
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus set
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus lost
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus set
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !Y
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !Y (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event button down
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !Y
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !Y (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event button up
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event clicked
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event capture set
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus set
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !Y
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !Y (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event button down
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !Y
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !Y (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event button up
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event clicked
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !FG28
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !FG28 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy enqueueing "G28"
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy MSC readahead stat speculative reads=31, hit=25, missed=34, blocking=28
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy No transfer to recover
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy busy: processing
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy endstops hit:  Y:-167.63
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy == Precise Homing axis X try 0 ==
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Homing sensitivity: already calibrated to -2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy busy: processing
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy endstops hit:  X:-84.87
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy endstops hit:  X:-10.00
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy     homing probe offset: 0.00 divisor: 1.02 mscnt: 784 calibration offset: 0
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Probe classified as perfect.
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy busy: processing
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Backoff ipos:-24050
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy == Precise Homing axis Y try 0 ==
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Homing sensitivity: already calibrated to -3
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy endstops hit:  Y:-16.88
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy endstops hit:  Y:-10.00
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy     homing probe offset: 0.00 divisor: 0.99 mscnt: 752 calibration offset: 0
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Probe classified as perfect.
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Backoff ipos:-17251
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy busy: processing
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy busy: processing
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy busy: processing
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy busy: processing
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy busy: processing
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy busy: processing
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy busy: processing
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy endstops hit:  Z:-89.36
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy busy: processing
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy endstops hit:  Z:-3.53
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy endstops hit:  Z:-3.15
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy busy: processing
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy endstops hit:  Z:-2.69
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy busy: processing
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy endstops hit:  Z:-2.96
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy busy: processing
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy endstops hit:  Z:-2.99
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy X:14.00 Y:-4.00 Z:2.00 E:0.00 Count X:1400 Y:-400 Z:800
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder minus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder minus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !Y
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !Y (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event button down
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !Y
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !Y (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event button up
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event clicked
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event capture set
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !FM204 T200
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !FM204 T200 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy enqueueing "M204 T200"
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event focus set
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !Y
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !Y (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event button down
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !Y
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !Y (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event button up
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event clicked
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a2.3000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a2.3000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a2.6000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a2.6000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a2.9000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a2.9000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a2.9600 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a2.9600 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a3.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a3.0000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a3.3000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a3.3000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a3.6000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a3.6000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a3.9000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a3.9000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a3.9600 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a3.9600 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a4.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a4.0000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a4.3000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a4.3000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a4.6000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a4.6000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a4.9000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a4.9000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a5.2000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a5.2000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a5.5000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a5.5000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a5.8000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a5.8000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a5.8600 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a5.8600 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a5.9200 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a5.9200 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a5.9800 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a5.9800 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a6.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a6.0000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a6.3000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a6.3000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a6.6000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a6.6000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a6.9000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a6.9000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a7.2000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a7.2000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a7.5000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a7.5000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a7.8000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a7.8000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a8.1000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a8.1000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a8.4000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a8.4000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a8.7000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a8.7000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a9.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a9.0000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a9.3000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a9.3000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a9.6000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a9.6000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a9.9000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a9.9000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a10.2000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a10.2000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a10.5000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a10.5000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a10.8000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a10.8000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a11.1000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a11.1000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a11.4000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a11.4000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a11.7000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a11.7000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a12.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a12.0000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a12.3000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a12.3000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a12.6000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a12.6000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a12.9000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a12.9000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a13.2000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a13.2000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a13.5000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a13.5000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a13.8000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a13.8000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a14.1000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a14.1000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a14.4000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a14.4000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a14.7000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a14.7000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a15.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a15.0000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a15.3000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a15.3000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a15.6000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a15.6000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a15.9000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a15.9000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a16.2000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a16.2000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a16.5000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a16.5000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a16.8000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a16.8000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a17.1000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a17.1000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a17.4000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a17.4000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a17.7000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a17.7000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a18.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a18.0000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a18.3000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a18.3000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a18.6000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a18.6000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a18.9000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a18.9000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a19.2000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a19.2000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a19.5000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a19.5000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a19.8000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a19.8000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a20.1000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a20.1000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a20.4000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a20.4000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a20.7000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a20.7000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a21.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a21.0000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a21.3000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a21.3000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a21.6000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a21.6000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a21.9000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a21.9000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a22.2000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a22.2000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a22.5000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a22.5000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a22.8000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a22.8000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a23.1000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a23.1000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a23.4000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a23.4000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a23.7000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a23.7000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a24.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a24.0000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a24.3000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a24.3000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a24.6000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a24.6000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a24.9000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a24.9000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a25.2000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a25.2000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a25.5000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a25.5000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a25.8000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a25.8000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a26.1000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a26.1000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a26.4000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a26.4000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a26.7000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a26.7000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a27.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a27.0000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a27.3000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a27.3000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a27.6000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a27.6000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a27.9000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a27.9000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a28.2000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a28.2000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a28.5000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a28.5000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a28.8000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a28.8000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a29.1000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a29.1000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a29.4000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a29.4000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a29.7000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a29.7000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a30.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a30.0000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a30.3000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a30.3000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a30.6000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a30.6000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a30.9000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a30.9000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a31.2000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a31.2000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a31.5000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a31.5000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a31.8000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a31.8000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a32.1000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a32.1000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a32.4000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a32.4000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a32.7000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a32.7000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a33.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a33.0000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a33.3000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a33.3000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a33.6000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a33.6000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a33.9000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a33.9000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a34.2000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a34.2000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a34.5000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a34.5000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a34.8000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a34.8000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a35.1000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a35.1000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a35.4000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a35.4000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a35.7000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a35.7000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a36.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a36.0000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a36.3000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a36.3000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a36.6000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a36.6000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a36.9000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a36.9000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a37.2000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a37.2000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a37.5000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a37.5000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a37.8000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a37.8000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a38.1000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a38.1000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a38.4000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a38.4000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a38.7000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a38.7000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a39.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a39.0000 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a39.2999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a39.2999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a39.5999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a39.5999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a39.8999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a39.8999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a40.1999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a40.1999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a40.4999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a40.4999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a40.7999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a40.7999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a41.0999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a41.0999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a41.3999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a41.3999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a41.6999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a41.6999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a41.9999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a41.9999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a42.2999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a42.2999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a42.5999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a42.5999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a42.8999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a42.8999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a43.1999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a43.1999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a43.4999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a43.4999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a43.7999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a43.7999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a44.0999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a44.0999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a44.3999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a44.3999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a44.6999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a44.6999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a44.9999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a44.9999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a45.2999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a45.2999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a45.5999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a45.5999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a45.8999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a45.8999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a46.1999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a46.1999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a46.4999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a46.4999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a46.7999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a46.7999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a47.0999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a47.0999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a47.3999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a47.3999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !X
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !X (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event value/index changed
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Distributing event encoder plus
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a47.6999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a47.6999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a47.9999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a47.9999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a48.2999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a48.2999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a48.5999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a48.5999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a48.8999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a48.8999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a49.1999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a49.1999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a49.4999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a49.4999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a49.7999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a49.7999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a50.0999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a50.0999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a50.3999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a50.3999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a50.6999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a50.6999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a50.9999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a50.9999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a51.2999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a51.2999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a51.5999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a51.5999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a51.8999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a51.8999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a52.1999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a52.1999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a52.4999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a52.4999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a52.7999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a52.7999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a53.0999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a53.0999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a53.3999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a53.3999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a53.6999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a53.6999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a53.9999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a53.9999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a54.2999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a54.2999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a54.5999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a54.5999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a54.8999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a54.8999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a55.1999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a55.1999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a55.4999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a55.4999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a55.7999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a55.7999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a56.0999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a56.0999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a56.3999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a56.3999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a56.6999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a56.6999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a56.9999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a56.9999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a57.2999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a57.2999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a57.8999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a58.1999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a58.4999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a58.4999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a58.7999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a58.7999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a59.0999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a59.0999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a59.3999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a59.3999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a59.6999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a59.6999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a59.9999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a59.9999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a60.2999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a60.2999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a60.5999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a60.5999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a60.8999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a60.8999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a61.1999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a61.1999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a61.4999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a61.4999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a61.7999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a61.7999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a62.0999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a62.0999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a62.3999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a62.3999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a62.6999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a62.6999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a62.9999 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a62.9999 720.0000 2 (from 0)
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Request (client 0): !a63.0000 720.0000 2
+192.168.20.209:51598 10:9c:70:2c:da:8 buddy Processing !a63.0000 720.0000 2 (from 0)

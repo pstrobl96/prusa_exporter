@@ -5,7 +5,7 @@ networks:
 
 services:
   exporter:
-    image: pubeldev/prusa_exporter:v0.9.3
+    image: pubeldev/prusa_exporter:v1.0.b3
     container_name: exporter
     restart: unless-stopped
     volumes:
@@ -13,10 +13,13 @@ services:
         source: /boot/firmware/prusa.yml
         target: /app/prusa.yml
     ports:
+      - "10007:10007/udp"
+      - "10008:10008/udp"
       - "10009:10009"
     command: '--config.file=/app/prusa.yml'
     networks:
       - prusa
+      
   agent:
     image: grafana/agent:v0.39.2
     container_name: grafana_agent
@@ -32,6 +35,7 @@ services:
       - -metrics.wal-directory=/tmp/agent/wal
     ports:
       - "12345:12345"
+      - "3500:3500"
     networks:
       - prusa
     depends_on:

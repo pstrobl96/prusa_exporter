@@ -16,6 +16,20 @@ metrics:
       static_configs:
         - targets: ["exporter:10009"]
 
+logs:
+  positions_directory: /var/lib/grafana-agent
+  configs:
+  - name: prusa_exporter_logs
+    clients:
+    - url: <url>
+    scrape_configs:
+    - job_name: prusa_syslog__push
+      loki_push_api:
+        server:
+          http_listen_port: 3500
+        labels:
+          pushserver: log_push
+    
 integrations:
   agent:
     enabled: true
