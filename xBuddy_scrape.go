@@ -1,4 +1,4 @@
-package prusalink
+package main
 
 import (
 	"encoding/json"
@@ -8,11 +8,11 @@ import (
 
 func getBuddyResponse(config buddy) (buddyVersion, buddyFiles, buddyJob, buddyPrinter, buddyStatus, buddyInfo, buddyStorage, error) {
 	version := accessBuddyAPI("version", config.Address, config.Apikey, config.Username, config.Pass)
-	files := accessBuddyAPI("files", config.Address, config.Apikey, config.Username, config.Pass)
-	job := accessBuddyAPI("job", config.Address, config.Apikey, config.Username, config.Pass)
+	files   := accessBuddyAPI("files", config.Address, config.Apikey, config.Username, config.Pass)
+	job     := accessBuddyAPI("job", config.Address, config.Apikey, config.Username, config.Pass)
 	printer := accessBuddyAPI("printer", config.Address, config.Apikey, config.Username, config.Pass)
-	status := accessBuddyAPI("v1/status", config.Address, config.Apikey, config.Username, config.Pass)
-	info := accessBuddyAPI("v1/info", config.Address, config.Apikey, config.Username, config.Pass)
+	status  := accessBuddyAPI("v1/status", config.Address, config.Apikey, config.Username, config.Pass)
+	info    := accessBuddyAPI("v1/info", config.Address, config.Apikey, config.Username, config.Pass)
 	storage := accessBuddyAPI("v1/storage", config.Address, config.Apikey, config.Username, config.Pass)
 
 	var resultVersion buddyVersion

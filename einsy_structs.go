@@ -1,4 +1,4 @@
-package prusalink
+package main
 
 type einsyJob struct {
 	Job struct {

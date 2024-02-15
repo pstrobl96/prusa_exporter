@@ -1,4 +1,4 @@
-package prusalink
+package main
 
 import (
 	"strings"
