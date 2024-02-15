@@ -134,7 +134,23 @@ func parseConfig(path string) configuration {
 	return p
 }
 
-func probeConfigFilmain.go
+func probeConfigFile(parsedConfig configuration) configuration {
+	for i, s := range parsedConfig.Printers.Buddy {
+		conn, status := testConnection(s.Address)
+		if conn && status == 200 {
+			parsedConfig.Printers.Buddy[i].Reachable = true
+			_, _, _, _, _, info, _, err := getBuddyResponse(s)
+			if err == nil {
+				if info.Hostname == "" {
+					parsedConfig.Printers.Buddy[i].Type = "unknown"
+				} else {
+					parsedConfig.Printers.Buddy[i].Type = info.Hostname
+				}
+			}
+		} else {
+			parsedConfig.Printers.Buddy[i].Reachable = false
+			log.Error().Msg(s.Address + " is not reachable")
+		}
 	}
 
 	for i, s := range parsedConfig.Printers.Sl {
