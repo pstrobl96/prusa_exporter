@@ -1,4 +1,4 @@
-package main
+package prusalink
 
 import (
 	"github.com/prometheus/client_golang/prometheus"

@@ -1,8 +1,10 @@
-package main
+package cmd
 
 import (
 	"net/http"
 	"strconv"
+
+	"github.com/pstrobl96/prusa_exporter/config"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
