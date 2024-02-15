@@ -1,4 +1,4 @@
-package main
+package prusalink
 
 type buddyVersion struct {
 	API            string  `json:"api"`
