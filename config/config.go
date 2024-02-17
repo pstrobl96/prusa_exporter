@@ -1,7 +1,13 @@
 package config
 
-// Configuration struct for the configuration file prusa.yml
-type Configuration struct {
+import (
+	"os"
+
+	"gopkg.in/yaml.v3"
+)
+
+// Config struct for the configuration file prusa.yml
+type Config struct {
 	Exporter struct {
 		ScrapeTimeout  int    `yaml:"scrape_timeout"`
 		ReloadInterval int    `yaml:"reload_interval"`
@@ -23,4 +29,20 @@ type Printers struct {
 	Name      string `yaml:"name,omitempty"`
 	Type      string `yaml:"type,omitempty"`
 	Reachable bool
+}
+
+// LoadConfig function to load and parse the configuration file
+func LoadConfig(path string) (Config, error) {
+	var config Config
+	file, err := os.ReadFile(path)
+
+	if err != nil {
+		return config, err
+	}
+
+	if err := yaml.Unmarshal(file, &config); err != nil {
+		return config, err
+	}
+
+	return config, err
 }
