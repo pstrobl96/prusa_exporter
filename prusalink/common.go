@@ -1,5 +1,12 @@
 package prusalink
 
+import (
+	"net/http"
+
+	"github.com/icholy/digest"
+	"github.com/pstrobl96/prusa_exporter/config"
+)
+
 // getStateFlag returns the state flag for the given printer.
 // The state flag is a float64 value representing the current state of the printer.
 // It is used for tracking the printer's status and progress.
@@ -33,7 +40,30 @@ func getStateFlag(printer Printer) float64 {
 	}
 }
 
-func getURL(path string, address string) string {
-	return string("http://" + address + "/api/" + path)
-}
+func accessPrinterEndpoint(path string, address string, printer config.Printers) (*http.Response, error) {
+	url := string("http://" + address + "/api/" + path)
+	var res *http.Response
 
+	if printer.Apikey == "" {
+		client := &http.Client{
+			Transport: &digest.Transport{
+				Username: printer.Username,
+				Password: printer.Password,
+			},
+		}
+		res, err := client.Get(url)
+
+		if err != nil {
+			return res, err
+		}
+	} else {
+		req, _ := http.NewRequest("GET", url, nil)
+		client := &http.Client{}
+		req.Header.Add("X-Api-Key", printer.Apikey)
+		res, err := client.Do(req)
+		if err != nil {
+			return res, err
+		}
+	}
+	return res, nil
+}
