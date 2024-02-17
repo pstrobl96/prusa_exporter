@@ -1,8 +1,10 @@
 package prusalink
 
 import (
+	"encoding/json"
 	"io"
 	"net/http"
+	"strings"
 
 	"github.com/icholy/digest"
 	"github.com/pstrobl96/prusa_exporter/config"
@@ -127,4 +129,145 @@ func accessPrinterEndpoint(path string, printer config.Printers) ([]byte, error)
 	}
 
 	return result, nil
+}
+
+// GetVersion is used to get the printer's version API endpoint
+func GetVersion(printer config.Printers) (Version, error) {
+	var version Version
+	response, err := accessPrinterEndpoint("version", printer)
+
+	if err != nil {
+		return version, err
+	}
+
+	err = json.Unmarshal(response, &version)
+
+	return version, err
+}
+
+// GetJob is used to get the printer's job API endpoint
+func GetJob(printer config.Printers) (Job, error) {
+	var job Job
+	response, err := accessPrinterEndpoint("job", printer)
+
+	if err != nil {
+		return job, err
+	}
+
+	err = json.Unmarshal(response, &job)
+
+	return job, err
+}
+
+// GetPrinter is used to get the printer's printer API endpoint
+func GetPrinter(printer config.Printers) (Printer, error) {
+	var printerData Printer
+	response, err := accessPrinterEndpoint("printer", printer)
+
+	if err != nil {
+		return printerData, err
+	}
+
+	err = json.Unmarshal(response, &printerData)
+
+	return printerData, err
+}
+
+// GetFiles is used to get the printer's files API endpoint
+func GetFiles(printer config.Printers) (Files, error) {
+	var files Files
+	response, err := accessPrinterEndpoint("files", printer)
+
+	if err != nil {
+		return files, err
+	}
+
+	err = json.Unmarshal(response, &files)
+
+	return files, err
+}
+
+// GetJobV1 is used to get the printer's job v1 API endpoint
+func GetJobV1(printer config.Printers) (JobV1, error) {
+	var job JobV1
+	response, err := accessPrinterEndpoint("v1/job", printer)
+
+	if err != nil {
+		return job, err
+	}
+
+	err = json.Unmarshal(response, &job)
+
+	return job, err
+}
+
+// GetStatusV1 is used to get the printer's status v1 API endpoint
+func GetStatusV1(printer config.Printers) (StatusV1, error) {
+	var status StatusV1
+	response, err := accessPrinterEndpoint("v1/status", printer)
+
+	if err != nil {
+		return status, err
+	}
+
+	err = json.Unmarshal(response, &status)
+
+	return status, err
+}
+
+// GetStorageV1 is used to get the printer's storage v1 API endpoint
+func GetStorageV1(printer config.Printers) (StorageV1, error) {
+	var storage StorageV1
+	response, err := accessPrinterEndpoint("v1/storage", printer)
+
+	if err != nil {
+		return storage, err
+	}
+
+	err = json.Unmarshal(response, &storage)
+
+	return storage, err
+}
+
+// GetInfo is used to get the printer's info API endpoint
+func GetInfo(printer config.Printers) (Info, error) {
+	var info Info
+	response, err := accessPrinterEndpoint("v1/info", printer)
+
+	if err != nil {
+		return info, err
+	}
+
+	err = json.Unmarshal(response, &info)
+
+	return info, err
+}
+
+// GetPrinterProfiles is used to get the printer's printerprofiles API endpoint
+func GetPrinterProfiles(printer config.Printers) (PrinterProfiles, error) {
+	var profiles PrinterProfiles
+	response, err := accessPrinterEndpoint("v1/printerprofiles", printer)
+
+	if err != nil {
+		return profiles, err
+	}
+
+	err = json.Unmarshal(response, &profiles)
+
+	return profiles, err
+}
+
+// GetPrinterType returns the printer type of the given printer - e.g. "MINI", "MK4", "XL", "I3MK3S", "I3MK3", "I3MK25S",
+func GetPrinterType(printer config.Printers) (string, error) {
+	version, err := GetVersion(printer)
+
+	if err != nil {
+		return "", err
+	}
+
+	if strings.Contains(version.Text, "PrusaLink") {
+		return printerTypes[version.Original], nil
+	}
+
+	return printerTypes[version.Hostname], nil
 }
