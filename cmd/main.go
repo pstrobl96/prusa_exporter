@@ -5,6 +5,7 @@ import (
 
 	"github.com/alecthomas/kingpin/v2"
 	"github.com/pstrobl96/prusa_exporter/config"
+	"github.com/pstrobl96/prusa_exporter/prusalink"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
@@ -27,10 +28,30 @@ func Run() {
 		os.Exit(1)
 	}
 
+	config, err = probeConfigFile(config)
+
+	if err != nil {
+		log.Error().Msg("Error probing configuration file " + err.Error())
+		os.Exit(1)
+	}
+
 	logLevel, err := zerolog.ParseLevel(config.Exporter.LogLevel)
 	if err != nil {
 		logLevel = zerolog.InfoLevel // default log level
 	}
 
 	zerolog.SetGlobalLevel(logLevel)
+}
+
+func probeConfigFile(config config.Config) (config.Config, error) {
+	for _, printer := range config.Printers {
+		status, err := prusalink.ProbePrinter(printer)
+		if err != nil {
+			log.Error().Msg(err.Error())
+			printer.Reachable = false
+		} else {
+			printer.Reachable = status
+		}
+	}
+	return config, nil
 }
