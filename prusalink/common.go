@@ -1,10 +1,12 @@
 package prusalink
 
 import (
+	"io"
 	"net/http"
 
 	"github.com/icholy/digest"
 	"github.com/pstrobl96/prusa_exporter/config"
+	"github.com/rs/zerolog/log"
 )
 
 var (
@@ -83,9 +85,13 @@ func getStateFlag(printer Printer) float64 {
 }
 
 // accessPrinterEndpoint is used to access the printer's API endpoint
-func accessPrinterEndpoint(path string, address string, printer config.Printers) (*http.Response, error) {
-	url := string("http://" + address + "/api/" + path)
-	var res *http.Response
+func accessPrinterEndpoint(path string, printer config.Printers) ([]byte, error) {
+	url := string("http://" + printer.Address + "/api/" + path)
+	var (
+		res    *http.Response
+		result []byte
+		err    error
+	)
 
 	if printer.Apikey == "" {
 		client := &http.Client{
@@ -94,24 +100,31 @@ func accessPrinterEndpoint(path string, address string, printer config.Printers)
 				Password: printer.Password,
 			},
 		}
-		res, err := client.Get(url)
+		res, err = client.Get(url)
 
 		if err != nil {
-			return res, err
+			return result, err
 		}
 	} else {
 		req, err := http.NewRequest("GET", url, nil)
 		client := &http.Client{}
 
 		if err != nil {
-			return res, err
+			return result, err
 		}
 
 		req.Header.Add("X-Api-Key", printer.Apikey)
-		res, err := client.Do(req)
+		res, err = client.Do(req)
 		if err != nil {
-			return res, err
+			return result, err
 		}
 	}
-	return res, nil
+	result, err = io.ReadAll(res.Body)
+	res.Body.Close()
+
+	if err != nil {
+		log.Error().Msg(err.Error())
+	}
+
+	return result, nil
 }
