@@ -3,6 +3,7 @@ package config
 import (
 	"os"
 
+	"github.com/rs/zerolog"
 	"gopkg.in/yaml.v3"
 )
 
@@ -45,4 +46,24 @@ func LoadConfig(path string) (Config, error) {
 	}
 
 	return config, err
+}
+
+// GetLogLevel function to parse the log level for zerolog
+func GetLogLevel(level string) zerolog.Level {
+	switch level {
+	case "info":
+		return zerolog.InfoLevel
+	case "debug":
+		return zerolog.DebugLevel
+	case "trace":
+		return zerolog.TraceLevel
+	case "error":
+		return zerolog.ErrorLevel
+	case "panic":
+		return zerolog.PanicLevel
+	case "fatal":
+		return zerolog.FatalLevel
+	default:
+		return zerolog.InfoLevel
+	}
 }
