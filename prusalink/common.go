@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/icholy/digest"
 	"github.com/pstrobl96/prusa_exporter/config"
@@ -270,4 +271,26 @@ func GetPrinterType(printer config.Printers) (string, error) {
 	}
 
 	return printerTypes[version.Hostname], nil
+}
+
+// ProbePrinter is used to probe the printer - just testing the connection
+func ProbePrinter(printer config.Printers) (bool, error) {
+	req, _ := http.NewRequest("GET", "http://"+printer.Address+"/", nil)
+	client := &http.Client{Timeout: time.Duration(1) * time.Second}
+	r, e := client.Do(req)
+
+	if e != nil {
+		return false, e
+	}
+
+	if r.StatusCode == 401 {
+		log.Warn().Msg("401 Unauthorized, trying to access with API key")
+		req.Header.Add("X-Api-Key", printer.Apikey)
+		r, e = client.Do(req)
+		if e != nil {
+			return false, e
+		}
+	}
+
+	return r.StatusCode == 200, nil
 }
