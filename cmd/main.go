@@ -9,6 +9,6 @@ var (
 	configFile = kingpin.Flag("config.file", "Configuration file for prusa_exporter.").Default("config.yml").ExistingFile()
 )
 
-func main() {
+func Run() {
 	log.Info().Msg("Prusa exporter starting")
 }
