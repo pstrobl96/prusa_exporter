@@ -44,6 +44,14 @@ var (
 	}
 )
 
+// GetLabels is used to get the labels for the given printer and job
+func GetLabels(printer config.Printers, job Job, labelValues ...string) []string {
+	if job == (Job{}) {
+		return append([]string{printer.Address, printer.Type, printer.Name, "", ""}, labelValues...)
+	}
+	return append([]string{printer.Address, printer.Type, printer.Name, job.Job.File.Name, job.Job.File.Path}, labelValues...)
+}
+
 // BoolToFloat is used for basic parsing boolean to float64
 // 0.0 for false, 1.0 for true
 func BoolToFloat(boolean bool) float64 {
