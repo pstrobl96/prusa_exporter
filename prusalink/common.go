@@ -37,7 +37,7 @@ func getStateFlag(printer Printer) float64 {
 		return 7
 	} else if printer.State.Flags.SdReady {
 		return 8
-	} else if printer.State.Flags.ClosedOrError {
+	} else if printer.State.Flags.ClosedOrError || printer.State.Flags.ClosedOnError {
 		return 9
 	} else if printer.State.Flags.Ready {
 		return 10
