@@ -27,7 +27,8 @@ func startSyslogServer(listenUDP string) (syslog.LogPartsChannel, *syslog.Server
 	return channel, server
 }
 
-func handleMetrics(listenUDP string) {
+// HandleMetrics is function that listens for syslog messages and parses them into map
+func HandleMetrics(listenUDP string) {
 	channel, server := startSyslogServer(listenUDP)
 
 	patterns := []struct {

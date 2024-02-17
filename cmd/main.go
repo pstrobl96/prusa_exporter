@@ -6,6 +6,7 @@ import (
 	"github.com/alecthomas/kingpin/v2"
 	"github.com/pstrobl96/prusa_exporter/config"
 	"github.com/pstrobl96/prusa_exporter/prusalink"
+	"github.com/pstrobl96/prusa_exporter/syslog"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
@@ -41,6 +42,13 @@ func Run() {
 	}
 
 	zerolog.SetGlobalLevel(logLevel)
+
+	if config.Exporter.Syslog.Enabled {
+		log.Warn().Msg("Syslog metrics enabled!")
+		log.Warn().Msg("Syslog metrics server starting at: " + config.Exporter.Syslog.ListenAddress)
+		go syslog.HandleMetrics(config.Exporter.Syslog.ListenAddress)
+	}
+
 }
 
 func probeConfigFile(config config.Config) (config.Config, error) {
