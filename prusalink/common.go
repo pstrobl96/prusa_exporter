@@ -7,6 +7,38 @@ import (
 	"github.com/pstrobl96/prusa_exporter/config"
 )
 
+var (
+	// printerEndpoints is a map of printer names to their respective API endpoints
+	printerEndpoints = map[string][]string{
+		"MINI":    printerEndpointsList["buddy"],
+		"MK4":     printerEndpointsList["buddy"],
+		"XL":      printerEndpointsList["buddy"],
+		"I3MK3S":  printerEndpointsList["einsy"],
+		"I3MK3":   printerEndpointsList["einsy"],
+		"I3MK25S": printerEndpointsList["einsy"],
+		"I3MK25":  printerEndpointsList["einsy"],
+		"SL1":     printerEndpointsList["sl"],
+	}
+
+	// printerEndpointsList is a map of printer names to their respective API endpoints
+	printerEndpointsList = map[string][]string{
+		"buddy": {"version", "files", "job", "printer", "v1/status", "v1/info", "v1/storage"},
+		"einsy": {"version", "files", "job", "printer", "settings", "ports", "v1/cameras", "v1/status", "v1/info", "v1/storage"},
+		"sl":    {"files?recursive=true", "job", "printer", "printerprofiles", "version"},
+	}
+
+	printerTypes = map[string]string{
+		"PrusaMINI":         "MINI",
+		"PrusaMK4":          "MK4",
+		"PrusaXL":           "XL",
+		"PrusaLink I3MK3S":  "I3MK3S",
+		"PrusaLink I3MK3":   "I3MK3",
+		"PrusaLink I3MK25S": "I3MK25S",
+		"PrusaLink I3MK25":  "I3MK25",
+		"prusa-sl1":         "SL1",
+	}
+)
+
 // BoolToFloat is used for basic parsing boolean to float64
 // 0.0 for false, 1.0 for true
 func BoolToFloat(boolean bool) float64 {
