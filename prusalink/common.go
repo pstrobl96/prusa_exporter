@@ -176,7 +176,7 @@ func GetPrinter(printer config.Printers) (Printer, error) {
 // GetFiles is used to get the printer's files API endpoint
 func GetFiles(printer config.Printers) (Files, error) {
 	var files Files
-	response, err := accessPrinterEndpoint("files", printer)
+	response, err := accessPrinterEndpoint("files?recursive=true", printer)
 
 	if err != nil {
 		return files, err
