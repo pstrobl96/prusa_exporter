@@ -175,6 +175,8 @@ type StatusV1 struct {
 		TempNozzle    int     `json:"temp_nozzle"`
 		TempBed       float64 `json:"temp_bed"`
 		AxisZ         int     `json:"axis_z"`
+		AxisY         int     `json:"axis_y"`
+		AxisX         int     `json:"axis_x"`
 		Flow          int     `json:"flow"`
 		Speed         int     `json:"speed"`
 		FanHotend     int     `json:"fan_hotend"`
@@ -215,6 +217,7 @@ type StorageV1 struct {
 
 // Info is a struct that contains data about the printer
 type Info struct {
+	Mmu               bool    `json:"mmu"`
 	Name              string  `json:"name"`
 	Location          string  `json:"location"`
 	FarmMode          bool    `json:"farm_mode"`
