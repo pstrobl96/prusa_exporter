@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"fmt"
 	"os"
+	"time"
 
 	"github.com/alecthomas/kingpin/v2"
 	"github.com/pstrobl96/prusa_exporter/config"
@@ -13,6 +15,7 @@ import (
 
 var (
 	configFile      = kingpin.Flag("config.file", "Configuration file for prusa_exporter.").Default("./prusa.yml").ExistingFile()
+	configReload    = kingpin.Flag("config.reload", "Interval how often should be config reloaded - 0 for no reload.").Default("300").Int()
 	metricsPath     = kingpin.Flag("exporter.metrics-path", "Path where to expose metrics.").Default("/metrics").String()
 	exporterMetrics = kingpin.Flag("exporter.metrics", "Decides if expose metrics about exporter itself.").Default("true").Bool()
 )
@@ -43,6 +46,10 @@ func Run() {
 
 	zerolog.SetGlobalLevel(logLevel)
 
+	if config.Exporter.ReloadInterval != 0 { // do not run reloader if interval is set to zero
+		go configReloader(&config, *configReload) // run reloader as goroutine
+	}
+
 	if config.Exporter.Syslog.Enabled {
 		log.Warn().Msg("Syslog metrics enabled!")
 		log.Warn().Msg("Syslog metrics server starting at: " + config.Exporter.Syslog.ListenAddress)
@@ -71,4 +78,21 @@ func probeConfigFile(config config.Config) (config.Config, error) {
 		}
 	}
 	return config, nil
+}
+
+func configReloader(configuration *config.Config, reloadInterval int) {
+	ticker := time.NewTicker(time.Duration(reloadInterval) * time.Second)
+
+	for t := range ticker.C {
+		log.Info().Msg(fmt.Sprintf("Config reloaded at: %v\n", t.UTC()))
+		config, err := config.LoadConfig(*configFile)
+		if err != nil {
+			log.Error().Msg("Error loading configuration file " + err.Error())
+		}
+		config, err = probeConfigFile(config)
+		if err != nil {
+			log.Error().Msg("Error probing configuration file " + err.Error())
+		}
+
+	}
 }
