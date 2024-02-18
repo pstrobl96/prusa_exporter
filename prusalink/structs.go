@@ -47,14 +47,21 @@ type Job struct {
 // Printer is a struct that contains data about the printer - merged buddy and einsy
 type Printer struct {
 	Telemetry struct {
-		TempBed    float64 `json:"temp-bed"`
-		TempNozzle float64 `json:"temp-nozzle"`
-		PrintSpeed int     `json:"print-speed"`
-		ZHeight    float64 `json:"z-height"`
-		Material   string  `json:"material"`
-		AxisX      float64 `json:"axis_x"`
-		AxisY      float64 `json:"axis_y"`
-		AxisZ      float64 `json:"axis_z"`
+		TempBed     float64 `json:"temp-bed"`
+		TempNozzle  float64 `json:"temp-nozzle"`
+		PrintSpeed  int     `json:"print-speed"`
+		ZHeight     float64 `json:"z-height"`
+		Material    string  `json:"material"`
+		AxisX       float64 `json:"axis_x"`
+		AxisY       float64 `json:"axis_y"`
+		AxisZ       float64 `json:"axis_z"`
+		CoverClosed bool    `json:"coverClosed"`
+		FanBlower   int     `json:"fanBlower"`
+		FanRear     int     `json:"fanRear"`
+		FanUvLed    int     `json:"fanUvLed"`
+		TempAmbient float64 `json:"tempAmbient"`
+		TempCPU     float64 `json:"tempCpu"`
+		TempUvLed   float64 `json:"tempUvLed"`
 	} `json:"telemetry"`
 	Temperature struct {
 		Tool0 struct {
@@ -68,6 +75,11 @@ type Printer struct {
 			Target int     `json:"target"`
 			Offset int     `json:"offset"`
 		} `json:"bed"`
+		Chamber struct {
+			Actual float64 `json:"actual"`
+			Offset int     `json:"offset"`
+			Target int     `json:"target"`
+		} `json:"chamber"`
 	} `json:"temperature"`
 	State struct {
 		Text  string `json:"text"`
