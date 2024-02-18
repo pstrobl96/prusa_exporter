@@ -252,6 +252,34 @@ func GetInfo(printer config.Printers) (Info, error) {
 	return info, err
 }
 
+// GetSettings is used to get the printer's settings API endpoint
+func GetSettings(printer config.Printers) (Settings, error) {
+	var settings Settings
+	response, err := accessPrinterEndpoint("settings", printer)
+
+	if err != nil {
+		return settings, err
+	}
+
+	err = json.Unmarshal(response, &settings)
+
+	return settings, err
+}
+
+// GetCameras is used to get the printer's cameras API endpoint
+func GetCameras(printer config.Printers) (Cameras, error) {
+	var cameras Cameras
+	response, err := accessPrinterEndpoint("v1/cameras", printer)
+
+	if err != nil {
+		return cameras, err
+	}
+
+	err = json.Unmarshal(response, &cameras)
+
+	return cameras, err
+}
+
 // GetPrinterProfiles is used to get the printer's printerprofiles API endpoint
 func GetPrinterProfiles(printer config.Printers) (PrinterProfiles, error) {
 	var profiles PrinterProfiles

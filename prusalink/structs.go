@@ -52,8 +52,8 @@ type Printer struct {
 		PrintSpeed int     `json:"print-speed"`
 		ZHeight    float64 `json:"z-height"`
 		Material   string  `json:"material"`
-		AxisX      any     `json:"axis_x"`
-		AxisY      any     `json:"axis_y"`
+		AxisX      float64 `json:"axis_x"`
+		AxisY      float64 `json:"axis_y"`
 		AxisZ      float64 `json:"axis_z"`
 	} `json:"telemetry"`
 	Temperature struct {
@@ -247,4 +247,33 @@ type PrinterProfiles struct {
 		ProjectExtensions []string `json:"projectExtensions"`
 		Resource          string   `json:"resource"`
 	} `json:"profiles"`
+}
+
+// Settings is a struct that contains data about the printer settings
+type Settings struct {
+	APIKey   string `json:"api-key"`
+	Username string `json:"username"`
+	Printer  struct {
+		Name     string `json:"name"`
+		Location string `json:"location"`
+		FarmMode bool   `json:"farm_mode"`
+	} `json:"printer"`
+}
+
+// Cameras is a struct that contains data about the cameras connected to the printer
+type Cameras struct {
+	CameraList []struct {
+		CameraID string `json:"camera_id"`
+		Config   struct {
+			IDString      string `json:"id_string"`
+			Name          string `json:"name"`
+			Driver        string `json:"driver"`
+			Resolution    string `json:"resolution"`
+			TriggerScheme string `json:"trigger_scheme"`
+		} `json:"config"`
+		Connected  bool `json:"connected"`
+		Detected   bool `json:"detected"`
+		Stored     bool `json:"stored"`
+		Registered bool `json:"registered"`
+	} `json:"camera_list"`
 }
