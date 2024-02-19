@@ -8,8 +8,6 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-var configuration *config.Config
-
 func getBuddyResponse(printer config.Printers) (Version, Files, Job, Printer, Status, Info, StorageV1, error) {
 	var (
 		version     Version
