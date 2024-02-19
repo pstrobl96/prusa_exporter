@@ -228,7 +228,7 @@ func (collector *BuddyCollector) Describe(ch chan<- *prometheus.Desc) {
 func (collector *BuddyCollector) Collect(ch chan<- prometheus.Metric) {
 	for _, s := range configuration.Printers {
 		log.Debug().Msg("Buddy scraping at " + s.Address)
-		if !s.Reachable {
+		if !s.Reachable && (s.Type == "MK4" || s.Type == "MINI" || s.Type == "XL") {
 			printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
 				0, s.Address, s.Type, s.Name)
 

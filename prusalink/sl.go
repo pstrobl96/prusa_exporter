@@ -126,7 +126,7 @@ func (c *slCollector) Describe(ch chan<- *prometheus.Desc) {
 func (c *slCollector) Collect(ch chan<- prometheus.Metric) {
 	for _, s := range configuration.Printers {
 		log.Debug().Msg("SL scraping at " + s.Address)
-		if !s.Reachable {
+		if !s.Reachable && s.Type == "SL1" {
 			printerUp := prometheus.MustNewConstMetric(c.printerUp, prometheus.GaugeValue,
 				0, s.Address, s.Type, s.Name)
 

@@ -140,14 +140,14 @@ func (collector *einsyCollector) Describe(ch chan<- *prometheus.Desc) {
 func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
 	for _, s := range configuration.Printers {
 		log.Debug().Msg("Einsy scraping at " + s.Address)
-		if !s.Reachable {
+		if !s.Reachable && s.Type == "MK3S" || s.Type == "MK3" || s.Type == "MK25" || s.Type == "MK25S" {
 			printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
 				0, s.Address, s.Type, s.Name)
 
 			ch <- printerUp
 
 			log.Debug().Msg(s.Address + " is unreachable while scraping")
-		} else if s.Type != "MK4" && s.Type != "MINI" && s.Type == "XL" && s.Type != "SL1" {
+		} else if s.Type == "MK3S" || s.Type == "MK3" || s.Type == "MK25" || s.Type == "MK25S" {
 			version, files, job, printer, info, settings, cameras, e := getEinsyResponse(s)
 
 			if e != nil {
