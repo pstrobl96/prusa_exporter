@@ -64,12 +64,10 @@ func Run() {
 	}
 
 	prusalink.SetConfig(&config)
-	buddyCollector := prusalink.NewBuddyCollector()
 	syslogCollector := syslog.NewSyslogCollector(&config)
-	einsyCollector := prusalink.NewEinsyCollector()
-	SLCollector := prusalink.NewSLCollector()
+	prusalinkCollector := prusalink.NewCollector()
 
-	prometheus.MustRegister(buddyCollector, einsyCollector, SLCollector, syslogCollector)
+	prometheus.MustRegister(prusalinkCollector, syslogCollector)
 	log.Info().Msg("Metrics registered")
 	http.Handle(*metricsPath, promhttp.Handler())
 	log.Info().Msg("Listening at port: " + strconv.Itoa(*metricsPort))

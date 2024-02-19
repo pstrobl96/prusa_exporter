@@ -12,8 +12,8 @@ import (
 
 var configuration *config.Config
 
-// syslogCollector is a struct that defines all the syslog metrics
-type syslogCollector struct {
+// Collector is a struct that defines all the syslog metrics
+type Collector struct {
 	// power metrics
 	printerVolt5V             *prometheus.Desc
 	printerVolt24V            *prometheus.Desc
@@ -64,11 +64,11 @@ type syslogCollector struct {
 	printerMediaPrefetched *prometheus.Desc
 }
 
-// NewSyslogCollector is a function that returns new syslogCollector
-func NewSyslogCollector(config *config.Config) *syslogCollector {
+// NewCollector is a function that returns new Collector
+func NewCollector(config *config.Config) *Collector {
 	configuration = config
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
-	return &syslogCollector{
+	return &Collector{
 		printerBedletTemp:         prometheus.NewDesc("prusa_bedlet_temp", "Bedlet temperature", defaultLabels, nil),
 		printerBedletState:        prometheus.NewDesc("prusa_bedlet_state", "Bedlet state", defaultLabels, nil),
 		printerProbeZ:             prometheus.NewDesc("prusa_probe_z", "Probe Z", defaultLabels, nil),
@@ -116,7 +116,7 @@ func NewSyslogCollector(config *config.Config) *syslogCollector {
 }
 
 // Describe is a function that describes all the metrics
-func (collector *syslogCollector) Describe(ch chan<- *prometheus.Desc) {
+func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerBedletTemp
 	ch <- collector.printerBedletState
 	ch <- collector.printerProbeZ
@@ -163,7 +163,7 @@ func (collector *syslogCollector) Describe(ch chan<- *prometheus.Desc) {
 }
 
 // Collect is a function that collects all the metrics
-func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
+func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 	for _, s := range configuration.Printers {
 		log.Debug().Msg("SYSLOG - Buddy scraping at " + s.Address)
 		if _, ok := syslogData[s.Address]; ok {
