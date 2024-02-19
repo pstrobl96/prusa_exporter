@@ -91,108 +91,78 @@ type BuddyCollector struct {
 	printerMMU                *prometheus.Desc
 	printerFanHotend          *prometheus.Desc
 	printerFanPrint           *prometheus.Desc
+	printerCover              *prometheus.Desc
+	printerFanBlower          *prometheus.Desc
+	printerFanRear            *prometheus.Desc
+	printerFanUV              *prometheus.Desc
+	printerAmbientTemp        *prometheus.Desc
+	printerCPUTemp            *prometheus.Desc
+	pritnerUVTemp             *prometheus.Desc
+	printerBedTempTarget      *prometheus.Desc
+	printerBedTempOffset      *prometheus.Desc
+	printerChamberTemp        *prometheus.Desc
+	printerChamberTempTarget  *prometheus.Desc
+	printerChamberTempOffset  *prometheus.Desc
+	printerToolTemp           *prometheus.Desc
+	printerToolTempTarget     *prometheus.Desc
+	printerToolTempOffset     *prometheus.Desc
+	printerHeatedChamber      *prometheus.Desc
+	printerPrintSpeedRatio    *prometheus.Desc
+	printerLogs               *prometheus.Desc
+	printerLogsDate           *prometheus.Desc
+	printerFarmMode           *prometheus.Desc
+	printerCameras            *prometheus.Desc
 }
 
 // NewBuddyCollector returns a new buddyCollector
 func NewBuddyCollector() *BuddyCollector {
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
 	return &BuddyCollector{
-		printerNozzleTemp: prometheus.NewDesc("prusa_buddy_nozzle_temperature",
-			"Current temperature of printer nozzle in Celsius",
-			defaultLabels,
-			nil),
-		printerBedTemp: prometheus.NewDesc("prusa_buddy_bed_temperature",
-			"Current temperature of printer bed in Celsius",
-			defaultLabels,
-			nil),
-		printerVersion: prometheus.NewDesc("prusa_buddy_version",
-			"Return information about printer. This metric contains information mostly about Prusa Link",
-			append(defaultLabels, "printer_api", "printer_server", "printer_text"),
-			nil),
-		printerZHeight: prometheus.NewDesc("prusa_buddy_z_height",
-			"Current height of Z",
-			defaultLabels,
-			nil),
-		printerPrintSpeed: prometheus.NewDesc("prusa_buddy_print_speed_ratio",
-			"Current setting of printer speed in ratio (0.0-1.0)",
-			defaultLabels,
-			nil),
-		printerTargetTempNozzle: prometheus.NewDesc("prusa_buddy_nozzle_target_temperature",
-			"Target temperature of printer nozzle in Celsius",
-			defaultLabels,
-			nil),
-		printerTargetTempBed: prometheus.NewDesc("prusa_buddy_bed_target_temperature",
-			"Target temperature of printer bed in Celsius",
-			defaultLabels,
-			nil),
-		printerFiles: prometheus.NewDesc("prusa_buddy_files",
-			"Number of files in storage",
-			append(defaultLabels, "printer_storage"),
-			nil),
-		printerPrintTimeRemaining: prometheus.NewDesc("prusa_buddy_printing_time_remaining",
-			"Returns time that remains for completion of current print",
-			defaultLabels,
-			nil),
-		printerPrintProgress: prometheus.NewDesc("prusa_buddy_printing_progress",
-			"Returns information about completion of current print in percents",
-			defaultLabels,
-			nil),
-		printerPrinting: prometheus.NewDesc("prusa_buddy_printing",
-			"Return information about printing",
-			defaultLabels,
-			nil),
-		printerMaterial: prometheus.NewDesc("prusa_buddy_material",
-			"Returns information about loaded filament. Returns 0 if there is no loaded filament",
-			append(defaultLabels, "printer_filament"),
-			nil),
-		printerPrintTime: prometheus.NewDesc("prusa_buddy_print_time",
-			"Returns information about current print time.",
-			defaultLabels,
-			nil),
-		printerUp: prometheus.NewDesc("prusa_buddy_up",
-			"Return information about online printers. If printer is registered as offline then returned value is 0.",
-			[]string{"printer_address", "printer_model", "printer_name"},
-			nil),
-		printerNozzleSize: prometheus.NewDesc("prusa_buddy_nozzle_size",
-			"Returns information about selected nozzle size.",
-			defaultLabels,
-			nil),
-		printerStatus: prometheus.NewDesc("prusa_buddy_status",
-			"Returns information status of printer.",
-			append(defaultLabels, "printer_state"), // flags are defined by number :pug-dance:
-			nil),
-		printerAxisX: prometheus.NewDesc("prusa_buddy_axis_x",
-			"Returns information about position of axis X.",
-			defaultLabels,
-			nil),
-		printerAxisY: prometheus.NewDesc("prusa_buddy_axis_y",
-			"Returns information about position of axis Y.",
-			defaultLabels,
-			nil),
-		printerAxisZ: prometheus.NewDesc("prusa_buddy_axis_z",
-			"Returns information about position of axis Z.",
-			defaultLabels,
-			nil),
-		printerFlow: prometheus.NewDesc("prusa_buddy_print_flow_ratio",
-			"Returns information about of filament flow in ratio (0.0 - 1.0).",
-			defaultLabels,
-			nil),
-		printerInfo: prometheus.NewDesc("prusa_buddy_info",
-			"Returns information about printer.",
-			append(defaultLabels, "printer_serial", "printer_hostname"),
-			nil),
-		printerMMU: prometheus.NewDesc("prusa_buddy_mmu",
-			"Returns information if MMU is enabled.",
-			defaultLabels,
-			nil),
-		printerFanHotend: prometheus.NewDesc("prusa_buddy_fan_hotend",
-			"Returns information about speed of hotend fan in rpm.",
-			defaultLabels,
-			nil),
-		printerFanPrint: prometheus.NewDesc("prusa_buddy_fan_print",
-			"Returns information about speed of print fan in rpm.",
-			defaultLabels,
-			nil),
+		printerNozzleTemp:         prometheus.NewDesc("prusa_nozzle_temperature", "Current temperature of printer nozzle in Celsius", defaultLabels, nil),
+		printerBedTemp:            prometheus.NewDesc("prusa_bed_temperature", "Current temperature of printer bed in Celsius", defaultLabels, nil),
+		printerVersion:            prometheus.NewDesc("prusa_version", "Return information about printer. This metric contains information mostly about Prusa Link", append(defaultLabels, "printer_api", "printer_server", "printer_text"), nil),
+		printerZHeight:            prometheus.NewDesc("prusa_z_height", "Current height of Z", defaultLabels, nil),
+		printerPrintSpeed:         prometheus.NewDesc("prusa_print_speed_ratio", "Current setting of printer speed in ratio (0.0-1.0)", defaultLabels, nil),
+		printerTargetTempNozzle:   prometheus.NewDesc("prusa_nozzle_target_temperature", "Target temperature of printer nozzle in Celsius", defaultLabels, nil),
+		printerTargetTempBed:      prometheus.NewDesc("prusa_bed_target_temperature", "Target temperature of printer bed in Celsius", defaultLabels, nil),
+		printerFiles:              prometheus.NewDesc("prusa_files", "Number of files in storage", append(defaultLabels, "printer_storage"), nil),
+		printerPrintTimeRemaining: prometheus.NewDesc("prusa_printing_time_remaining", "Returns time that remains for completion of current print", defaultLabels, nil),
+		printerPrintProgress:      prometheus.NewDesc("prusa_printing_progress", "Returns information about completion of current print in percents", defaultLabels, nil),
+		printerPrinting:           prometheus.NewDesc("prusa_printing", "Return information about printing", defaultLabels, nil),
+		printerMaterial:           prometheus.NewDesc("prusa_material", "Returns information about loaded filament. Returns 0 if there is no loaded filament", append(defaultLabels, "printer_filament"), nil),
+		printerPrintTime:          prometheus.NewDesc("prusa_print_time", "Returns information about current print time.", defaultLabels, nil),
+		printerUp:                 prometheus.NewDesc("prusa_up", "Return information about online printers. If printer is registered as offline then returned value is 0.", []string{"printer_address", "printer_model", "printer_name"}, nil),
+		printerNozzleSize:         prometheus.NewDesc("prusa_nozzle_size", "Returns information about selected nozzle size.", defaultLabels, nil),
+		printerStatus:             prometheus.NewDesc("prusa_status", "Returns information status of printer.", append(defaultLabels, "printer_state"), nil),
+		printerAxisX:              prometheus.NewDesc("prusa_axis_x", "Returns information about position of axis X.", defaultLabels, nil),
+		printerAxisY:              prometheus.NewDesc("prusa_axis_y", "Returns information about position of axis Y.", defaultLabels, nil),
+		printerAxisZ:              prometheus.NewDesc("prusa_axis_z", "Returns information about position of axis Z.", defaultLabels, nil),
+		printerFlow:               prometheus.NewDesc("prusa_print_flow_ratio", "Returns information about of filament flow in ratio (0.0 - 1.0).", defaultLabels, nil),
+		printerInfo:               prometheus.NewDesc("prusa_info", "Returns information about printer.", append(defaultLabels, "printer_serial", "printer_hostname"), nil),
+		printerMMU:                prometheus.NewDesc("prusa_mmu", "Returns information if MMU is enabled.", defaultLabels, nil),
+		printerFanHotend:          prometheus.NewDesc("prusa_fan_hotend", "Returns information about speed of hotend fan in rpm.", defaultLabels, nil),
+		printerFanPrint:           prometheus.NewDesc("prusa_fan_print", "Returns information about speed of print fan in rpm.", defaultLabels, nil),
+		printerPrintSpeedRatio:    prometheus.NewDesc("prusa_print_speed_ratio", "Current setting of printer speed in values from 0.0 - 1.0", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
+		printerLogs:               prometheus.NewDesc("prusa_logs", "Return size of logs in Prusa Link", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path", "log_name"}, nil),
+		printerLogsDate:           prometheus.NewDesc("prusa_logs_date", "Return date of logs in Prusa Link", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path", "log_name"}, nil),
+		printerFarmMode:           prometheus.NewDesc("prusa_farm_mode", "Return if printer is set to farm mode", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
+		printerCameras:            prometheus.NewDesc("prusa_cameras", "Return information about cameras", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path", "camera_id", "camera_name", "camera_resolution"}, nil),
+		printerCover:              prometheus.NewDesc("prusa_cover", "Status of the printer - 0 = open, 1 = closed", defaultLabels, nil),
+		printerFanBlower:          prometheus.NewDesc("prusa_fan_blower", "Status of the printer blower fan", defaultLabels, nil),
+		printerFanRear:            prometheus.NewDesc("prusa_fan_rear", "Status of the printer fan rear", defaultLabels, nil),
+		printerFanUV:              prometheus.NewDesc("prusa_fan_uv", "Status of the printer fan uv", defaultLabels, nil),
+		printerAmbientTemp:        prometheus.NewDesc("prusa_ambient_temperature", "Status of the printer ambient temperature", defaultLabels, nil),
+		printerCPUTemp:            prometheus.NewDesc("prusa_cpu_temperature", "Status of the printer cpu temperature", defaultLabels, nil),
+		pritnerUVTemp:             prometheus.NewDesc("prusa_uv_temperature", "Status of the printer uv temperature", defaultLabels, nil),
+		printerBedTempTarget:      prometheus.NewDesc("prusa_bed_target_temperature", "Target bed temperature", defaultLabels, nil),
+		printerBedTempOffset:      prometheus.NewDesc("prusa_bed_offset_temperature", "Offset bed temperature", defaultLabels, nil),
+		printerChamberTemp:        prometheus.NewDesc("prusa_chamber_temperature", "Status of the printer chamber temperature", defaultLabels, nil),
+		printerChamberTempTarget:  prometheus.NewDesc("prusa_chamber_target_temperature", "Traget chamber temperature", defaultLabels, nil),
+		printerChamberTempOffset:  prometheus.NewDesc("prusa_chamber_offset_temperature", "Offset chamber temperature", defaultLabels, nil),
+		printerToolTemp:           prometheus.NewDesc("prusa_tool_temperature", "Status of the printer tool temperature", defaultLabels, nil),
+		printerToolTempTarget:     prometheus.NewDesc("prusa_tool_target_temperature", "Target tool temperature", defaultLabels, nil),
+		printerToolTempOffset:     prometheus.NewDesc("prusa_tool_offset_temperature", "Offset tool temperature", defaultLabels, nil),
+		printerHeatedChamber:      prometheus.NewDesc("prusa_heated_chamber", "Status of the printer heated chamber", defaultLabels, nil),
 	}
 }
 
