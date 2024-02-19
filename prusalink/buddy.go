@@ -72,8 +72,7 @@ type BuddyCollector struct {
 	printerVersion            *prometheus.Desc
 	printerZHeight            *prometheus.Desc
 	printerPrintSpeed         *prometheus.Desc
-	printerTargetTempNozzle   *prometheus.Desc
-	printerTargetTempBed      *prometheus.Desc
+	printerNozzleTempTarget   *prometheus.Desc
 	printerFiles              *prometheus.Desc
 	printerPrintTime          *prometheus.Desc
 	printerPrintTimeRemaining *prometheus.Desc
@@ -118,13 +117,12 @@ type BuddyCollector struct {
 func NewBuddyCollector() *BuddyCollector {
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
 	return &BuddyCollector{
-		printerNozzleTemp:         prometheus.NewDesc("prusa_nozzle_temperature", "Current temperature of printer nozzle in Celsius", defaultLabels, nil),
-		printerBedTemp:            prometheus.NewDesc("prusa_bed_temperature", "Current temperature of printer bed in Celsius", defaultLabels, nil),
+		printerNozzleTemp:         prometheus.NewDesc("prusa_nozzle_temp", "Current temp of printer nozzle in Celsius", defaultLabels, nil),
+		printerBedTemp:            prometheus.NewDesc("prusa_bed_temp", "Current temp of printer bed in Celsius", defaultLabels, nil),
 		printerVersion:            prometheus.NewDesc("prusa_version", "Return information about printer. This metric contains information mostly about Prusa Link", append(defaultLabels, "printer_api", "printer_server", "printer_text"), nil),
 		printerZHeight:            prometheus.NewDesc("prusa_z_height", "Current height of Z", defaultLabels, nil),
 		printerPrintSpeed:         prometheus.NewDesc("prusa_print_speed_ratio", "Current setting of printer speed in ratio (0.0-1.0)", defaultLabels, nil),
-		printerTargetTempNozzle:   prometheus.NewDesc("prusa_nozzle_target_temperature", "Target temperature of printer nozzle in Celsius", defaultLabels, nil),
-		printerTargetTempBed:      prometheus.NewDesc("prusa_bed_target_temperature", "Target temperature of printer bed in Celsius", defaultLabels, nil),
+		printerNozzleTempTarget:   prometheus.NewDesc("prusa_nozzle_temp_target", "Target temp of printer nozzle in Celsius", defaultLabels, nil),
 		printerFiles:              prometheus.NewDesc("prusa_files", "Number of files in storage", append(defaultLabels, "printer_storage"), nil),
 		printerPrintTimeRemaining: prometheus.NewDesc("prusa_printing_time_remaining", "Returns time that remains for completion of current print", defaultLabels, nil),
 		printerPrintProgress:      prometheus.NewDesc("prusa_printing_progress", "Returns information about completion of current print in percents", defaultLabels, nil),
@@ -151,17 +149,17 @@ func NewBuddyCollector() *BuddyCollector {
 		printerFanBlower:          prometheus.NewDesc("prusa_fan_blower", "Status of the printer blower fan", defaultLabels, nil),
 		printerFanRear:            prometheus.NewDesc("prusa_fan_rear", "Status of the printer fan rear", defaultLabels, nil),
 		printerFanUV:              prometheus.NewDesc("prusa_fan_uv", "Status of the printer fan uv", defaultLabels, nil),
-		printerAmbientTemp:        prometheus.NewDesc("prusa_ambient_temperature", "Status of the printer ambient temperature", defaultLabels, nil),
-		printerCPUTemp:            prometheus.NewDesc("prusa_cpu_temperature", "Status of the printer cpu temperature", defaultLabels, nil),
-		pritnerUVTemp:             prometheus.NewDesc("prusa_uv_temperature", "Status of the printer uv temperature", defaultLabels, nil),
-		printerBedTempTarget:      prometheus.NewDesc("prusa_bed_target_temperature", "Target bed temperature", defaultLabels, nil),
-		printerBedTempOffset:      prometheus.NewDesc("prusa_bed_offset_temperature", "Offset bed temperature", defaultLabels, nil),
-		printerChamberTemp:        prometheus.NewDesc("prusa_chamber_temperature", "Status of the printer chamber temperature", defaultLabels, nil),
-		printerChamberTempTarget:  prometheus.NewDesc("prusa_chamber_target_temperature", "Traget chamber temperature", defaultLabels, nil),
-		printerChamberTempOffset:  prometheus.NewDesc("prusa_chamber_offset_temperature", "Offset chamber temperature", defaultLabels, nil),
-		printerToolTemp:           prometheus.NewDesc("prusa_tool_temperature", "Status of the printer tool temperature", defaultLabels, nil),
-		printerToolTempTarget:     prometheus.NewDesc("prusa_tool_target_temperature", "Target tool temperature", defaultLabels, nil),
-		printerToolTempOffset:     prometheus.NewDesc("prusa_tool_offset_temperature", "Offset tool temperature", defaultLabels, nil),
+		printerAmbientTemp:        prometheus.NewDesc("prusa_ambient_temp", "Status of the printer ambient temp", defaultLabels, nil),
+		printerCPUTemp:            prometheus.NewDesc("prusa_cpu_temp", "Status of the printer cpu temp", defaultLabels, nil),
+		pritnerUVTemp:             prometheus.NewDesc("prusa_uv_temp", "Status of the printer uv temp", defaultLabels, nil),
+		printerBedTempTarget:      prometheus.NewDesc("prusa_bed_temp_target", "Target bed temp", defaultLabels, nil),
+		printerBedTempOffset:      prometheus.NewDesc("prusa_bed_temp_offset", "Offset bed temp", defaultLabels, nil),
+		printerChamberTemp:        prometheus.NewDesc("prusa_chamber_temp", "Status of the printer chamber temp", defaultLabels, nil),
+		printerChamberTempTarget:  prometheus.NewDesc("prusa_chamber_temp_target", "Traget chamber temp", defaultLabels, nil),
+		printerChamberTempOffset:  prometheus.NewDesc("prusa_chamber_temp_offset", "Offset chamber temp", defaultLabels, nil),
+		printerToolTemp:           prometheus.NewDesc("prusa_tool_temp", "Status of the printer tool temp", defaultLabels, nil),
+		printerToolTempTarget:     prometheus.NewDesc("prusa_tool_temp_target", "Target tool temp", defaultLabels, nil),
+		printerToolTempOffset:     prometheus.NewDesc("prusa_tool_temp_offset", "Offset tool temp", defaultLabels, nil),
 		printerHeatedChamber:      prometheus.NewDesc("prusa_heated_chamber", "Status of the printer heated chamber", defaultLabels, nil),
 	}
 }
@@ -173,8 +171,7 @@ func (collector *BuddyCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerVersion
 	ch <- collector.printerZHeight
 	ch <- collector.printerPrintSpeed
-	ch <- collector.printerTargetTempNozzle
-	ch <- collector.printerTargetTempBed
+	ch <- collector.printerNozzleTempTarget
 	ch <- collector.printerFiles
 	ch <- collector.printerPrintTime
 	ch <- collector.printerPrintTimeRemaining
@@ -192,6 +189,28 @@ func (collector *BuddyCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerMMU
 	ch <- collector.printerFanHotend
 	ch <- collector.printerFanPrint
+	ch <- collector.printerCover
+	ch <- collector.printerFanBlower
+	ch <- collector.printerFanRear
+	ch <- collector.printerFanUV
+	ch <- collector.printerAmbientTemp
+	ch <- collector.printerCPUTemp
+	ch <- collector.pritnerUVTemp
+	ch <- collector.printerBedTemp
+	ch <- collector.printerChamberTemp
+	ch <- collector.printerToolTemp
+	ch <- collector.printerHeatedChamber
+	ch <- collector.printerVersion
+	ch <- collector.printerBedTempTarget
+	ch <- collector.printerBedTempOffset
+	ch <- collector.printerChamberTempTarget
+	ch <- collector.printerChamberTempOffset
+	ch <- collector.printerToolTempTarget
+	ch <- collector.printerToolTempOffset
+	ch <- collector.printerCameras
+	ch <- collector.printerFarmMode
+	ch <- collector.printerLogsDate
+	ch <- collector.printerLogs
 }
 
 // Collect implements prometheus.Collector
