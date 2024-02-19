@@ -13,6 +13,7 @@ import (
 	"gopkg.in/mcuadros/go-syslog.v2"
 )
 
+var configuration *config.Config
 var syslogData = make(map[string]map[string]string)
 
 func startSyslogServer(listenUDP string) (syslog.LogPartsChannel, *syslog.Server) {
@@ -96,6 +97,7 @@ func HandleMetrics(listenUDP string) {
 	server.Wait()
 }
 
+// syslogCollector is a struct that refines all the metrics
 type syslogCollector struct {
 	// power metrics
 	printerVolt5V             *prometheus.Desc
@@ -148,7 +150,8 @@ type syslogCollector struct {
 }
 
 // NewSyslogCollector is a function that returns new syslogCollector
-func NewSyslogCollector() *syslogCollector {
+func NewSyslogCollector(config *config.Config) *syslogCollector {
+	configuration = config
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
 	return &syslogCollector{
 		printerBedletTemp: prometheus.NewDesc("prusa_buddy_bedlet_temp",
@@ -326,6 +329,7 @@ func NewSyslogCollector() *syslogCollector {
 	}
 }
 
+// Describe is a function that describes all the metrics
 func (collector *syslogCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerBedletTemp
 	ch <- collector.printerBedletState
@@ -372,8 +376,9 @@ func (collector *syslogCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerMediaPrefetched
 }
 
-func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric, config config.Config) {
-	for _, s := range config.Printers {
+// Collect is a function that collects all the metrics
+func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric) {
+	for _, s := range configuration.Printers {
 		log.Debug().Msg("SYSLOG - Buddy scraping at " + s.Address)
 		if _, ok := syslogData[s.Address]; ok {
 
@@ -810,10 +815,8 @@ func (collector *syslogCollector) Collect(ch chan<- prometheus.Metric, config co
 							printerMediaPrefetched, prusalink.GetLabels(s, job)...)
 						ch <- printerMediaPrefetched
 					}
-
 				}
 			}
 		}
-
 	}
 }
