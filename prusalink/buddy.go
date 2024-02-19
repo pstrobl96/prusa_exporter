@@ -8,13 +8,15 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func getBuddyResponse(printer config.Printers) (Version, Files, Job, Printer, StatusV1, Info, StorageV1, error) {
+var configuration *config.Config
+
+func getBuddyResponse(printer config.Printers) (Version, Files, Job, Printer, Status, Info, StorageV1, error) {
 	var (
 		version     Version
 		files       Files
 		job         Job
 		printerData Printer
-		status      StatusV1
+		status      Status
 		info        Info
 		storage     StorageV1
 		err         error
@@ -44,7 +46,7 @@ func getBuddyResponse(printer config.Printers) (Version, Files, Job, Printer, St
 		log.Error().Msg("Error getting printer" + err.Error())
 	}
 
-	status, err = GetStatusV1(printer)
+	status, err = GetStatus(printer)
 
 	if err != nil {
 		log.Error().Msg("Error getting status" + err.Error())
@@ -65,7 +67,8 @@ func getBuddyResponse(printer config.Printers) (Version, Files, Job, Printer, St
 	return version, files, job, printerData, status, info, storage, err
 }
 
-type buddyCollector struct {
+// BuddyCollector collects buddy metrics
+type BuddyCollector struct {
 	printerNozzleTemp         *prometheus.Desc
 	printerBedTemp            *prometheus.Desc
 	printerVersion            *prometheus.Desc
@@ -92,9 +95,11 @@ type buddyCollector struct {
 	printerFanPrint           *prometheus.Desc
 }
 
-func newBuddyCollector() *buddyCollector {
+// NewBuddyCollector returns a new buddyCollector
+func NewBuddyCollector(config *config.Config) *BuddyCollector {
+	configuration = config
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
-	return &buddyCollector{
+	return &BuddyCollector{
 		printerNozzleTemp: prometheus.NewDesc("prusa_buddy_nozzle_temperature",
 			"Current temperature of printer nozzle in Celsius",
 			defaultLabels,
@@ -194,7 +199,8 @@ func newBuddyCollector() *buddyCollector {
 	}
 }
 
-func (collector *buddyCollector) Describe(ch chan<- *prometheus.Desc) {
+// Describe implements prometheus.Collector
+func (collector *BuddyCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerNozzleTemp
 	ch <- collector.printerBedTemp
 	ch <- collector.printerVersion
@@ -221,8 +227,9 @@ func (collector *buddyCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerFanPrint
 }
 
-func (collector *buddyCollector) Collect(ch chan<- prometheus.Metric, config config.Config) {
-	for _, s := range config.Printers {
+// Collect implements prometheus.Collector
+func (collector *BuddyCollector) Collect(ch chan<- prometheus.Metric) {
+	for _, s := range configuration.Printers {
 		log.Debug().Msg("Buddy scraping at " + s.Address)
 		if !s.Reachable {
 			printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,

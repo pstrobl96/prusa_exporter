@@ -147,7 +147,8 @@ type syslogCollector struct {
 	printerMediaPrefetched *prometheus.Desc
 }
 
-func newSyslogCollector() *syslogCollector {
+// NewSyslogCollector is a function that returns new syslogCollector
+func NewSyslogCollector() *syslogCollector {
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
 	return &syslogCollector{
 		printerBedletTemp: prometheus.NewDesc("prusa_buddy_bedlet_temp",

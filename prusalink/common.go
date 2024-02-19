@@ -2,9 +2,9 @@ package prusalink
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
-	"strings"
 	"time"
 
 	"github.com/icholy/digest"
@@ -210,10 +210,30 @@ func GetJobV1(printer config.Printers) (JobV1, error) {
 	return job, err
 }
 
+// GetStatus is used to get Buddy status endpoint
+func GetStatus(printer config.Printers) (Status, error) {
+	var status Status
+	response, err := accessPrinterEndpoint("v1/status", printer)
+
+	if err != nil {
+		return status, err
+	}
+
+	err = json.Unmarshal(response, &status)
+
+	return status, err
+}
+
 // GetStatusV1 is used to get the printer's status v1 API endpoint
 func GetStatusV1(printer config.Printers) (StatusV1, error) {
 	var status StatusV1
 	response, err := accessPrinterEndpoint("v1/status", printer)
+
+	var objmap []map[string]interface{}
+	if err := json.Unmarshal(response, &objmap); err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(objmap) // to parse out your value
 
 	if err != nil {
 		return status, err
@@ -297,12 +317,12 @@ func GetPrinterProfiles(printer config.Printers) (PrinterProfiles, error) {
 // GetPrinterType returns the printer type of the given printer - e.g. "MINI", "MK4", "XL", "I3MK3S", "I3MK3", "I3MK25S",
 func GetPrinterType(printer config.Printers) (string, error) {
 	version, err := GetVersion(printer)
-
 	if err != nil {
 		return "", err
 	}
 
-	if strings.Contains(version.Text, "PrusaLink") {
+	if printerTypes[version.Hostname] == "" {
+		// If the hostname is not found in the map, try to find the original variable
 		return printerTypes[version.Original], nil
 	}
 

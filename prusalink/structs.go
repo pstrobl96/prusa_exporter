@@ -66,19 +66,19 @@ type Printer struct {
 	Temperature struct {
 		Tool0 struct {
 			Actual  float64 `json:"actual"`
-			Target  int     `json:"target"`
-			Display int     `json:"display"`
-			Offset  int     `json:"offset"`
+			Target  float64 `json:"target"`
+			Display float64 `json:"display"`
+			Offset  float64 `json:"offset"`
 		} `json:"tool0"`
 		Bed struct {
 			Actual float64 `json:"actual"`
-			Target int     `json:"target"`
-			Offset int     `json:"offset"`
+			Target float64 `json:"target"`
+			Offset float64 `json:"offset"`
 		} `json:"bed"`
 		Chamber struct {
 			Actual float64 `json:"actual"`
-			Offset int     `json:"offset"`
-			Target int     `json:"target"`
+			Offset float64 `json:"offset"`
+			Target float64 `json:"target"`
 		} `json:"chamber"`
 	} `json:"temperature"`
 	State struct {
@@ -174,25 +174,54 @@ type JobV1 struct {
 	} `json:"file"`
 }
 
+// Status is struct that returns /api/v1/status endpoint. Unfortunately, Buddy returns different schema, than Einsy and second struct is needed
+type Status struct {
+	Job struct {
+		ID            int     `json:"id"`
+		Progress      float64 `json:"progress"`
+		TimeRemaining int     `json:"time_remaining"`
+		TimePrinting  int     `json:"time_printing"`
+	} `json:"job"`
+	Storage struct {
+		Path     string `json:"path"`
+		Name     string `json:"name"`
+		ReadOnly bool   `json:"read_only"`
+	} `json:"storage"`
+	Printer struct {
+		State        string  `json:"state"`
+		TempBed      float64 `json:"temp_bed"`
+		TargetBed    float64 `json:"target_bed"`
+		TempNozzle   float64 `json:"temp_nozzle"`
+		TargetNozzle float64 `json:"target_nozzle"`
+		AxisX        float64 `json:"axis_x"`
+		AxisY        float64 `json:"axis_y"`
+		AxisZ        float64 `json:"axis_z"`
+		Flow         int     `json:"flow"`
+		Speed        int     `json:"speed"`
+		FanHotend    int     `json:"fan_hotend"`
+		FanPrint     int     `json:"fan_print"`
+	} `json:"printer"`
+}
+
 // StatusV1 is a struct that contains data about the printer status from path /api/v1/status
 type StatusV1 struct {
 	Storage []struct {
 		Path      string `json:"path"`
 		ReadOnly  bool   `json:"read_only"`
-		FreeSpace int64  `json:"free_space,omitempty"`
+		FreeSpace int64  `json:"free_space"`
 		Name      string `json:"name"`
 	} `json:"storage"`
 	Printer struct {
 		State         string  `json:"state"`
-		TempNozzle    int     `json:"temp_nozzle"`
+		TempNozzle    float64 `json:"temp_nozzle"`
 		TempBed       float64 `json:"temp_bed"`
-		AxisZ         int     `json:"axis_z"`
-		AxisY         int     `json:"axis_y"`
-		AxisX         int     `json:"axis_x"`
-		Flow          int     `json:"flow"`
-		Speed         int     `json:"speed"`
-		FanHotend     int     `json:"fan_hotend"`
-		FanPrint      int     `json:"fan_print"`
+		AxisZ         float64 `json:"axis_z"`
+		AxisY         float64 `json:"axis_y"`
+		AxisX         float64 `json:"axis_x"`
+		Flow          float64 `json:"flow"`
+		Speed         float64 `json:"speed"`
+		FanHotend     float64 `json:"fan_hotend"`
+		FanPrint      float64 `json:"fan_print"`
 		StatusConnect struct {
 			Ok      bool   `json:"ok"`
 			Message string `json:"message"`
@@ -201,14 +230,14 @@ type StatusV1 struct {
 			Ok      bool   `json:"ok"`
 			Message string `json:"message"`
 		} `json:"status_printer"`
-		TargetNozzle int `json:"target_nozzle"`
-		TargetBed    int `json:"target_bed"`
+		TargetNozzle float64 `json:"target_nozzle"`
+		TargetBed    float64 `json:"target_bed"`
 	} `json:"printer"`
 	Job struct {
-		ID            int `json:"id"`
-		Progress      int `json:"progress"`
-		TimeRemaining int `json:"time_remaining"`
-		TimePrinting  int `json:"time_printing"`
+		ID            float64 `json:"id"`
+		Progress      float64 `json:"progress"`
+		TimeRemaining float64 `json:"time_remaining"`
+		TimePrinting  float64 `json:"time_printing"`
 	} `json:"job"`
 }
 

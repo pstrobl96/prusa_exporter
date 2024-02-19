@@ -2,10 +2,14 @@ package cmd
 
 import (
 	"fmt"
+	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/alecthomas/kingpin/v2"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/pstrobl96/prusa_exporter/config"
 	"github.com/pstrobl96/prusa_exporter/prusalink"
 	"github.com/pstrobl96/prusa_exporter/syslog"
@@ -18,6 +22,9 @@ var (
 	configReload    = kingpin.Flag("config.reload", "Interval how often should be config reloaded - 0 for no reload.").Default("300").Int()
 	metricsPath     = kingpin.Flag("exporter.metrics-path", "Path where to expose metrics.").Default("/metrics").String()
 	exporterMetrics = kingpin.Flag("exporter.metrics", "Decides if expose metrics about exporter itself.").Default("true").Bool()
+	metricsPort     = kingpin.Flag("exporter.metrics-port", "Port where to expose metrics.").Default("10009").Int()
+	// Configuration used for scraping and exporter
+	Configuration config.Config
 )
 
 // Run function to start the exporter
@@ -56,27 +63,36 @@ func Run() {
 		go syslog.HandleMetrics(config.Exporter.Syslog.ListenAddress)
 	}
 
+	buddyCollector := prusalink.NewBuddyCollector(&config)
+
+	prometheus.MustRegister(buddyCollector)
+
+	log.Info().Msg("Metrics registered")
+	http.Handle(*metricsPath, promhttp.Handler())
+	log.Info().Msg("Listening at port: " + strconv.Itoa(*metricsPort))
+	log.Fatal().Msg(http.ListenAndServe(":"+strconv.Itoa(*metricsPort), nil).Error())
+
 }
 
 func probeConfigFile(config config.Config) (config.Config, error) {
-	for _, printer := range config.Printers {
+	for i, printer := range config.Printers {
 		status, err := prusalink.ProbePrinter(printer)
+
 		if err != nil {
 			log.Error().Msg(err.Error())
 			printer.Reachable = false
-		} else {
+		} else if status {
 			printerType, err := prusalink.GetPrinterType(printer)
+			println(status)
 			if err != nil {
 				log.Error().Msg(err.Error())
 				printer.Type = "unknown"
-			} else if status {
-				printer.Type = printerType
-			} else {
-				printer.Type = "unknown"
 			}
-			printer.Reachable = status
+			config.Printers[i].Type = printerType
+			config.Printers[i].Reachable = status
 		}
 	}
+	fmt.Println(config.Printers)
 	return config, nil
 }
 
