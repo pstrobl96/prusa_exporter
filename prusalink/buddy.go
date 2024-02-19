@@ -94,8 +94,7 @@ type BuddyCollector struct {
 }
 
 // NewBuddyCollector returns a new buddyCollector
-func NewBuddyCollector(config *config.Config) *BuddyCollector {
-	configuration = config
+func NewBuddyCollector() *BuddyCollector {
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
 	return &BuddyCollector{
 		printerNozzleTemp: prometheus.NewDesc("prusa_buddy_nozzle_temperature",
