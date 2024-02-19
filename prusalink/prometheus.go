@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/pstrobl96/prusa_exporter/config"
 	"github.com/rs/zerolog/log"
 )
 
@@ -56,7 +57,8 @@ type Collector struct {
 }
 
 // NewCollector returns a new Collector for printer metrics
-func NewCollector() *Collector {
+func NewCollector(config *config.Config) *Collector {
+	configuration = config
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
 	return &Collector{
 		printerNozzleTemp:         prometheus.NewDesc("prusa_nozzle_temp", "Current temp of printer nozzle in Celsius", defaultLabels, nil),
