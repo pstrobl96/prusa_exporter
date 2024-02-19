@@ -123,8 +123,8 @@ func (c *slCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- c.printerToolTempOffset
 }
 
-func (c *slCollector) Collect(ch chan<- prometheus.Metric, config config.Config) {
-	for _, s := range config.Printers {
+func (c *slCollector) Collect(ch chan<- prometheus.Metric) {
+	for _, s := range configuration.Printers {
 		log.Debug().Msg("SL scraping at " + s.Address)
 		if !s.Reachable {
 			printerUp := prometheus.MustNewConstMetric(c.printerUp, prometheus.GaugeValue,
