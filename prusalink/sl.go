@@ -73,7 +73,8 @@ type slCollector struct {
 	printerUp                *prometheus.Desc
 }
 
-func newSLCollector() *slCollector {
+// NewSLCollector creates a new SL collector
+func NewSLCollector() *slCollector {
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name"}
 	return &slCollector{
 		printerStatus:            prometheus.NewDesc("prusa_sl_status", "Status of the printer", append(defaultLabels, "printer_status"), nil),

@@ -63,8 +63,12 @@ func Run() {
 		go syslog.HandleMetrics(config.Exporter.Syslog.ListenAddress)
 	}
 
-	buddyCollector := prusalink.NewBuddyCollector(&config)
+	prusalink.SetConfig(&config)
+	buddyCollector := prusalink.NewBuddyCollector()
 	syslogCollector := syslog.NewSyslogCollector(&config)
+	einsyCollector := prusalink.NewEinsyCollector()
+	SLCollector := prusalink.NewSLCollector()
+
 	prometheus.MustRegister(buddyCollector)
 	prometheus.MustRegister(syslogCollector)
 	log.Info().Msg("Metrics registered")

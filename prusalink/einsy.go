@@ -87,7 +87,8 @@ type einsyCollector struct {
 	printerUp                 *prometheus.Desc
 }
 
-func newEinsyCollector() *einsyCollector {
+// NewEinsyCollector creates a new instance of the EinsyCollector
+func NewEinsyCollector() *einsyCollector {
 	return &einsyCollector{
 		printerNozzleTemp:         prometheus.NewDesc("prusa_einsy_nozzle_temperature", "Current temperature of printer nozzle in Celsius", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
 		printerBedTemp:            prometheus.NewDesc("prusa_einsy_bed_temperature", "Current temperature of printer bed in Celsius", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
@@ -136,8 +137,8 @@ func (collector *einsyCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerUp
 }
 
-func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric, config config.Config) {
-	for _, s := range config.Printers {
+func (collector *einsyCollector) Collect(ch chan<- prometheus.Metric) {
+	for _, s := range configuration.Printers {
 		log.Debug().Msg("Einsy scraping at " + s.Address)
 		if !s.Reachable {
 			printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
