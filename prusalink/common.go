@@ -357,3 +357,160 @@ func ProbePrinter(printer config.Printers) (bool, error) {
 
 	return r.StatusCode == 200, nil
 }
+
+func getEinsyResponse(printer config.Printers) (Version, Files, Job, Printer, Info, Settings, Cameras, error) {
+	var (
+		version     Version
+		files       Files
+		job         Job
+		printerData Printer
+		info        Info
+		settings    Settings
+		cameras     Cameras
+		err         error
+	)
+
+	version, err = GetVersion(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting version" + err.Error())
+	}
+
+	files, err = GetFiles(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting files" + err.Error())
+	}
+
+	job, err = GetJob(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting job" + err.Error())
+	}
+
+	printerData, err = GetPrinter(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting printer" + err.Error())
+	}
+
+	info, err = GetInfo(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting info" + err.Error())
+	}
+
+	settings, err = GetSettings(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting settings" + err.Error())
+	}
+
+	cameras, err = GetCameras(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting cameras" + err.Error())
+	}
+
+	return version, files, job, printerData, info, settings, cameras, err
+}
+
+func getSLResponse(printer config.Printers) (Version, Files, Job, Printer, PrinterProfiles, error) {
+	var (
+		version         Version
+		files           Files
+		job             Job
+		printerData     Printer
+		printerprofiles PrinterProfiles
+		err             error
+	)
+
+	version, err = GetVersion(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting version" + err.Error())
+	}
+
+	files, err = GetFiles(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting files" + err.Error())
+	}
+
+	job, err = GetJob(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting job" + err.Error())
+	}
+
+	printerData, err = GetPrinter(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting printer" + err.Error())
+	}
+
+	printerprofiles, err = GetPrinterProfiles(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting printerprofiles" + err.Error())
+	}
+
+	return version, files, job, printerData, printerprofiles, err
+}
+
+func getBuddyResponse(printer config.Printers) (Version, Files, Job, Printer, Status, Info, StorageV1, error) {
+	var (
+		version     Version
+		files       Files
+		job         Job
+		printerData Printer
+		status      Status
+		info        Info
+		storage     StorageV1
+		err         error
+	)
+
+	version, err = GetVersion(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting version" + err.Error())
+	}
+
+	files, err = GetFiles(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting files" + err.Error())
+	}
+
+	job, err = GetJob(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting job" + err.Error())
+	}
+
+	printerData, err = GetPrinter(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting printer" + err.Error())
+	}
+
+	status, err = GetStatus(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting status" + err.Error())
+	}
+
+	info, err = GetInfo(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting info" + err.Error())
+	}
+
+	storage, err = GetStorageV1(printer)
+
+	if err != nil {
+		log.Error().Msg("Error getting storage" + err.Error())
+	}
+
+	return version, files, job, printerData, status, info, storage, err
+}

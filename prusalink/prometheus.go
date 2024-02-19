@@ -4,66 +4,8 @@ import (
 	"strings"
 
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/pstrobl96/prusa_exporter/config"
 	"github.com/rs/zerolog/log"
 )
-
-func getBuddyResponse(printer config.Printers) (Version, Files, Job, Printer, Status, Info, StorageV1, error) {
-	var (
-		version     Version
-		files       Files
-		job         Job
-		printerData Printer
-		status      Status
-		info        Info
-		storage     StorageV1
-		err         error
-	)
-
-	version, err = GetVersion(printer)
-
-	if err != nil {
-		log.Error().Msg("Error getting version" + err.Error())
-	}
-
-	files, err = GetFiles(printer)
-
-	if err != nil {
-		log.Error().Msg("Error getting files" + err.Error())
-	}
-
-	job, err = GetJob(printer)
-
-	if err != nil {
-		log.Error().Msg("Error getting job" + err.Error())
-	}
-
-	printerData, err = GetPrinter(printer)
-
-	if err != nil {
-		log.Error().Msg("Error getting printer" + err.Error())
-	}
-
-	status, err = GetStatus(printer)
-
-	if err != nil {
-		log.Error().Msg("Error getting status" + err.Error())
-	}
-
-	info, err = GetInfo(printer)
-
-	if err != nil {
-		log.Error().Msg("Error getting info" + err.Error())
-	}
-
-	storage, err = GetStorageV1(printer)
-
-	if err != nil {
-		log.Error().Msg("Error getting storage" + err.Error())
-	}
-
-	return version, files, job, printerData, status, info, storage, err
-}
 
 // Collector is a struct of all printer metrics
 type Collector struct {

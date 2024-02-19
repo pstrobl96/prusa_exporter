@@ -2,52 +2,8 @@ package prusalink
 
 import (
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/pstrobl96/prusa_exporter/config"
 	"github.com/rs/zerolog/log"
 )
-
-func getSLResponse(printer config.Printers) (Version, Files, Job, Printer, PrinterProfiles, error) {
-	var (
-		version         Version
-		files           Files
-		job             Job
-		printerData     Printer
-		printerprofiles PrinterProfiles
-		err             error
-	)
-
-	version, err = GetVersion(printer)
-
-	if err != nil {
-		log.Error().Msg("Error getting version" + err.Error())
-	}
-
-	files, err = GetFiles(printer)
-
-	if err != nil {
-		log.Error().Msg("Error getting files" + err.Error())
-	}
-
-	job, err = GetJob(printer)
-
-	if err != nil {
-		log.Error().Msg("Error getting job" + err.Error())
-	}
-
-	printerData, err = GetPrinter(printer)
-
-	if err != nil {
-		log.Error().Msg("Error getting printer" + err.Error())
-	}
-
-	printerprofiles, err = GetPrinterProfiles(printer)
-
-	if err != nil {
-		log.Error().Msg("Error getting printerprofiles" + err.Error())
-	}
-
-	return version, files, job, printerData, printerprofiles, err
-}
 
 type slCollector struct {
 	printerStatus            *prometheus.Desc
