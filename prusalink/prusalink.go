@@ -14,22 +14,16 @@ import (
 
 var (
 	// printerEndpoints is a map of printer names to their respective API endpoints
-	printerEndpoints = map[string][]string{
-		"MINI":    printerEndpointsList["buddy"],
-		"MK4":     printerEndpointsList["buddy"],
-		"XL":      printerEndpointsList["buddy"],
-		"I3MK3S":  printerEndpointsList["einsy"],
-		"I3MK3":   printerEndpointsList["einsy"],
-		"I3MK25S": printerEndpointsList["einsy"],
-		"I3MK25":  printerEndpointsList["einsy"],
-		"SL1":     printerEndpointsList["sl"],
-	}
-
-	// printerEndpointsList is a map of printer names to their respective API endpoints
-	printerEndpointsList = map[string][]string{
-		"buddy": {"version", "files", "job", "printer", "v1/status", "v1/info", "v1/storage"},
-		"einsy": {"version", "files", "job", "printer", "settings", "ports", "v1/cameras", "v1/status", "v1/info", "v1/storage"},
-		"sl":    {"files?recursive=true", "job", "printer", "printerprofiles", "version"},
+	printerEndpoints = map[string]string{
+		"MINI":    "buddy",
+		"MK4":     "buddy",
+		"XL":      "buddy",
+		"I3MK3S":  "einsy",
+		"I3MK3":   "einsy",
+		"I3MK25S": "einsy",
+		"I3MK25":  "einsy",
+		"SL1":     "sl",
+		"SL1S":    "sl",
 	}
 
 	printerTypes = map[string]string{
@@ -41,6 +35,7 @@ var (
 		"PrusaLink I3MK25S": "I3MK25S",
 		"PrusaLink I3MK25":  "I3MK25",
 		"prusa-sl1":         "SL1",
+		"prusa-sl1s":        "SL1S",
 	}
 
 	configuration *config.Config
