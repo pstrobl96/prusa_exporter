@@ -10,7 +10,6 @@ import (
 type Collector struct {
 	printerNozzleTemp         *prometheus.Desc
 	printerBedTemp            *prometheus.Desc
-	printerVersion            *prometheus.Desc
 	printerZHeight            *prometheus.Desc
 	printerPrintSpeed         *prometheus.Desc
 	printerNozzleTempTarget   *prometheus.Desc
@@ -59,16 +58,12 @@ func NewCollector(config *config.Config) *Collector {
 	configuration = config
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
 	return &Collector{
-		printerNozzleTemp:         prometheus.NewDesc("prusa_nozzle_temp", "Current temp of printer nozzle in Celsius", defaultLabels, nil),
 		printerBedTemp:            prometheus.NewDesc("prusa_bed_temp", "Current temp of printer bed in Celsius", defaultLabels, nil),
-		printerVersion:            prometheus.NewDesc("prusa_version", "Return information about printer. This metric contains information mostly about Prusa Link", append(defaultLabels, "printer_api", "printer_server", "printer_text"), nil),
 		printerZHeight:            prometheus.NewDesc("prusa_z_height", "Current height of Z", defaultLabels, nil),
 		printerPrintSpeed:         prometheus.NewDesc("prusa_print_speed_ratio", "Current setting of printer speed in ratio (0.0-1.0)", defaultLabels, nil),
-		printerNozzleTempTarget:   prometheus.NewDesc("prusa_nozzle_temp_target", "Target temp of printer nozzle in Celsius", defaultLabels, nil),
 		printerFiles:              prometheus.NewDesc("prusa_files", "Number of files in storage", append(defaultLabels, "printer_storage"), nil),
 		printerPrintTimeRemaining: prometheus.NewDesc("prusa_printing_time_remaining", "Returns time that remains for completion of current print", defaultLabels, nil),
 		printerPrintProgress:      prometheus.NewDesc("prusa_printing_progress", "Returns information about completion of current print in percents", defaultLabels, nil),
-		printerPrinting:           prometheus.NewDesc("prusa_printing", "Return information about printing", defaultLabels, nil),
 		printerMaterial:           prometheus.NewDesc("prusa_material", "Returns information about loaded filament. Returns 0 if there is no loaded filament", append(defaultLabels, "printer_filament"), nil),
 		printerPrintTime:          prometheus.NewDesc("prusa_print_time", "Returns information about current print time.", defaultLabels, nil),
 		printerUp:                 prometheus.NewDesc("prusa_up", "Return information about online printers. If printer is registered as offline then returned value is 0.", []string{"printer_address", "printer_model", "printer_name"}, nil),
@@ -78,7 +73,7 @@ func NewCollector(config *config.Config) *Collector {
 		printerAxisY:              prometheus.NewDesc("prusa_axis_y", "Returns information about position of axis Y.", defaultLabels, nil),
 		printerAxisZ:              prometheus.NewDesc("prusa_axis_z", "Returns information about position of axis Z.", defaultLabels, nil),
 		printerFlow:               prometheus.NewDesc("prusa_print_flow_ratio", "Returns information about of filament flow in ratio (0.0 - 1.0).", defaultLabels, nil),
-		printerInfo:               prometheus.NewDesc("prusa_info", "Returns information about printer.", append(defaultLabels, "printer_serial", "printer_hostname"), nil),
+		printerInfo:               prometheus.NewDesc("prusa_info", "Returns information about printer.", append(defaultLabels, "api_version", "server_version", "version_text", "prusalink_name", "printer_location", "serial_number", "printer_hostname"), nil),
 		printerMMU:                prometheus.NewDesc("prusa_mmu", "Returns information if MMU is enabled.", defaultLabels, nil),
 		printerFanHotend:          prometheus.NewDesc("prusa_fan_hotend", "Returns information about speed of hotend fan in rpm.", defaultLabels, nil),
 		printerFanPrint:           prometheus.NewDesc("prusa_fan_print", "Returns information about speed of print fan in rpm.", defaultLabels, nil),
@@ -108,17 +103,13 @@ func NewCollector(config *config.Config) *Collector {
 
 // Describe implements prometheus.Collector
 func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
-	ch <- collector.printerNozzleTemp
 	ch <- collector.printerBedTemp
-	ch <- collector.printerVersion
 	ch <- collector.printerZHeight
 	ch <- collector.printerPrintSpeed
-	ch <- collector.printerNozzleTempTarget
 	ch <- collector.printerFiles
 	ch <- collector.printerPrintTime
 	ch <- collector.printerPrintTimeRemaining
 	ch <- collector.printerPrintProgress
-	ch <- collector.printerPrinting
 	ch <- collector.printerMaterial
 	ch <- collector.printerUp
 	ch <- collector.printerNozzleSize
@@ -141,7 +132,6 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerChamberTemp
 	ch <- collector.printerToolTemp
 	ch <- collector.printerHeatedChamber
-	ch <- collector.printerVersion
 	ch <- collector.printerBedTempTarget
 	ch <- collector.printerBedTempOffset
 	ch <- collector.printerChamberTempTarget
@@ -227,7 +217,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			printerInfo := prometheus.MustNewConstMetric(
 				collector.printerInfo, prometheus.GaugeValue,
 				1,
-				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, version.API, version.Server, version.Text, info.Name, info.Location, info.Serial, info.Hostname)
+				GetLabels(s, job, version.API, version.Server, version.Text, info.Name, info.Location, info.Serial, info.Hostname)...)
 
 			ch <- printerInfo
 
@@ -254,7 +244,22 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			ch <- printerToolTemp
 
 			// metrics specific for both buddy and einsy
-			if printerTypes[s.Type] == "buddy" || printerTypes[s.Type] == "einsy" {
+			if printerBoards[s.Type] == "buddy" || printerBoards[s.Type] == "einsy" {
+				printerFanHotend := prometheus.MustNewConstMetric(collector.printerFanHotend, prometheus.GaugeValue,
+					float64(status.Printer.FanHotend), GetLabels(s, job)...)
+
+				ch <- printerFanHotend
+
+				printerFanPrint := prometheus.MustNewConstMetric(collector.printerFanPrint, prometheus.GaugeValue,
+					float64(status.Printer.FanPrint), GetLabels(s, job)...)
+
+				ch <- printerFanPrint
+
+				printerZheight := prometheus.MustNewConstMetric(collector.printerZHeight, prometheus.GaugeValue,
+					float64(printer.Telemetry.ZHeight), GetLabels(s, job)...)
+
+				ch <- printerZheight
+
 				printerNozzleSize := prometheus.MustNewConstMetric(collector.printerNozzleSize, prometheus.GaugeValue,
 					info.NozzleDiameter, GetLabels(s, job)...)
 
@@ -323,14 +328,14 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			}
 
 			// only buddy related metrics
-			if printerTypes[s.Type] == "buddy" {
+			if printerBoards[s.Type] == "buddy" {
 				printerMMU := prometheus.MustNewConstMetric(collector.printerMMU, prometheus.GaugeValue,
 					BoolToFloat(info.Mmu), GetLabels(s, job)...)
 				ch <- printerMMU
 			}
 
 			// only sl related metrics
-			if printerTypes[s.Type] == "sl" {
+			if printerBoards[s.Type] == "sl" {
 				printerCover := prometheus.MustNewConstMetric(collector.printerCover, prometheus.GaugeValue,
 					BoolToFloat(printer.Telemetry.CoverClosed), GetLabels(s, job)...)
 
@@ -381,25 +386,10 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 				ch <- printerChamberTempOffset
 
-				printerToolTempTarget := prometheus.MustNewConstMetric(collector.printerToolTempTarget, prometheus.GaugeValue,
-					float64(printer.Temperature.Tool0.Target), GetLabels(s, job)...)
-
-				ch <- printerToolTempTarget
-
-				printerToolTempOffset := prometheus.MustNewConstMetric(collector.printerToolTempOffset, prometheus.GaugeValue,
-					float64(printer.Temperature.Tool0.Offset), GetLabels(s, job)...)
-
-				ch <- printerToolTempOffset
-
 				printerChamberTemp := prometheus.MustNewConstMetric(collector.printerChamberTemp, prometheus.GaugeValue,
 					float64(printer.Temperature.Chamber.Actual), GetLabels(s, job)...)
 
 				ch <- printerChamberTemp
-
-				printerToolTemp := prometheus.MustNewConstMetric(collector.printerToolTemp, prometheus.GaugeValue,
-					float64(printer.Temperature.Tool0.Actual), GetLabels(s, job)...)
-
-				ch <- printerToolTemp
 			}
 
 			// only einsy related metrics

@@ -13,8 +13,7 @@ import (
 )
 
 var (
-	// printerEndpoints is a map of printer names to their respective API endpoints
-	printerEndpoints = map[string]string{
+	printerBoards = map[string]string{
 		"MINI":    "buddy",
 		"MK4":     "buddy",
 		"XL":      "buddy",
