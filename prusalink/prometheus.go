@@ -156,41 +156,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 			log.Debug().Msg(s.Address + " is unreachable while scraping")
 		} else {
-			job, err := GetJob(s)
-
-			if err != nil {
-				log.Error().Msg(err.Error())
-			}
-
-			printer, err := GetPrinter(s)
-
-			if err != nil {
-				log.Error().Msg(err.Error())
-			}
-
-			files, err := GetFiles(s)
-
-			if err != nil {
-				log.Error().Msg(err.Error())
-			}
-
-			version, err := GetVersion(s)
-
-			if err != nil {
-				log.Error().Msg(err.Error())
-			}
-
-			status, err := GetStatus(s)
-
-			if err != nil {
-				log.Error().Msg(err.Error())
-			}
-
-			info, err := GetInfo(s)
-
-			if err != nil {
-				log.Error().Msg(err.Error())
-			}
+			job, printer, files, version, status, info := getCommonMetrics(s)
 
 			// common metrics
 
@@ -437,4 +403,43 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 		}
 	}
+}
+
+func getCommonMetrics(s config.Printers) (Job, Printer, Files, Version, Status, Info) {
+	job, err := GetJob(s)
+
+	if err != nil {
+		log.Error().Msg(err.Error())
+	}
+
+	printer, err := GetPrinter(s)
+
+	if err != nil {
+		log.Error().Msg(err.Error())
+	}
+
+	files, err := GetFiles(s)
+
+	if err != nil {
+		log.Error().Msg(err.Error())
+	}
+
+	version, err := GetVersion(s)
+
+	if err != nil {
+		log.Error().Msg(err.Error())
+	}
+
+	status, err := GetStatus(s)
+
+	if err != nil {
+		log.Error().Msg(err.Error())
+	}
+
+	info, err := GetInfo(s)
+
+	if err != nil {
+		log.Error().Msg(err.Error())
+	}
+	return job, printer, files, version, status, info
 }
