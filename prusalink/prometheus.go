@@ -401,40 +401,42 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 }
 
 func getCommonMetrics(s config.Printers) (Job, Printer, Files, Version, Status, Info) {
+	log.Debug().Msg("Getting job metrics for " + s.Address)
+
 	job, err := GetJob(s)
 
 	if err != nil {
-		log.Error().Msg(err.Error())
+		log.Error().Msg("Error while scraping job endpoint at " + s.Address + " - " + err.Error())
 	}
 
 	printer, err := GetPrinter(s)
 
 	if err != nil {
-		log.Error().Msg(err.Error())
+		log.Error().Msg("Error while scraping printer endpoint at " + s.Address + " - " + err.Error())
 	}
 
 	files, err := GetFiles(s)
 
 	if err != nil {
-		log.Error().Msg(err.Error())
+		log.Error().Msg("Error while scraping files endpoint at " + s.Address + " - " + err.Error())
 	}
 
 	version, err := GetVersion(s)
 
 	if err != nil {
-		log.Error().Msg(err.Error())
+		log.Error().Msg("Error while scraping version endpoint at " + s.Address + " - " + err.Error())
 	}
 
 	status, err := GetStatus(s)
 
 	if err != nil {
-		log.Error().Msg(err.Error())
+		log.Error().Msg("Error while scraping status endpoint at " + s.Address + " - " + err.Error())
 	}
 
 	info, err := GetInfo(s)
 
 	if err != nil {
-		log.Error().Msg(err.Error())
+		log.Error().Msg("Error while scraping info endpoint at " + s.Address + " - " + err.Error())
 	}
 	return job, printer, files, version, status, info
 }
