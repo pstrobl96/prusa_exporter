@@ -39,19 +39,19 @@ func Run() {
 		os.Exit(1)
 	}
 
+	logLevel, err := zerolog.ParseLevel(config.Exporter.LogLevel)
+
+	if err != nil {
+		logLevel = zerolog.InfoLevel // default log level
+	}
+	zerolog.SetGlobalLevel(logLevel)
+
 	config, err = probeConfigFile(config)
 
 	if err != nil {
 		log.Error().Msg("Error probing configuration file " + err.Error())
 		os.Exit(1)
 	}
-
-	logLevel, err := zerolog.ParseLevel(config.Exporter.LogLevel)
-	if err != nil {
-		logLevel = zerolog.InfoLevel // default log level
-	}
-
-	zerolog.SetGlobalLevel(logLevel)
 
 	if config.Exporter.ReloadInterval != 0 { // do not run reloader if interval is set to zero
 		go configReloader(&config, *configReload) // run reloader as goroutine
