@@ -2,7 +2,6 @@ package prusalink
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"time"
@@ -225,16 +224,10 @@ func GetStatus(printer config.Printers) (Status, error) {
 	return status, err
 }
 
-// GetStatusV1 is used to get the printer's status v1 API endpoint
+// GetStatusV1 is used to get Einsy status endpoint - because of different schema of the response from the printer I need second function
 func GetStatusV1(printer config.Printers) (StatusV1, error) {
 	var status StatusV1
 	response, err := accessPrinterEndpoint("v1/status", printer)
-
-	var objmap []map[string]interface{}
-	if err := json.Unmarshal(response, &objmap); err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(objmap) // to parse out your value
 
 	if err != nil {
 		return status, err
