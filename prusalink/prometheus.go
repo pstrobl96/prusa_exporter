@@ -153,7 +153,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 			log.Debug().Msg(s.Address + " is unreachable while scraping")
 		} else {
-			job, printer, files, version, status, info := getCommonMetrics(s)
+			job, printer, files, version := getCommonMetrics(s)
 
 			// common metrics
 
@@ -176,13 +176,6 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				printer.Temperature.Bed.Offset, GetLabels(s, job)...)
 
 			ch <- printerBedTempOffset
-
-			printerInfo := prometheus.MustNewConstMetric(
-				collector.printerInfo, prometheus.GaugeValue,
-				1,
-				GetLabels(s, job, version.API, version.Server, version.Text, info.Name, info.Location, info.Serial, info.Hostname)...)
-
-			ch <- printerInfo
 
 			printerStatus := prometheus.MustNewConstMetric(
 				collector.printerStatus, prometheus.GaugeValue,
@@ -208,6 +201,26 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 			// metrics specific for both buddy and einsy
 			if printerBoards[s.Type] == "buddy" || printerBoards[s.Type] == "einsy" {
+
+				status, err := GetStatus(s)
+
+				if err != nil {
+					log.Error().Msg(err.Error())
+				}
+
+				info, err := GetInfo(s)
+
+				if err != nil {
+					log.Error().Msg(err.Error())
+				}
+
+				printerInfo := prometheus.MustNewConstMetric(
+					collector.printerInfo, prometheus.GaugeValue,
+					1,
+					GetLabels(s, job, version.API, version.Server, version.Text, info.Name, info.Location, info.Serial, info.Hostname)...)
+
+				ch <- printerInfo
+
 				printerFanHotend := prometheus.MustNewConstMetric(collector.printerFanHotend, prometheus.GaugeValue,
 					status.Printer.FanHotend, GetLabels(s, job)...)
 
@@ -283,13 +296,12 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 					status.Printer.Flow/100, GetLabels(s, job)...)
 
 				ch <- printerFlow
-			}
 
-			// only buddy related metrics
-			if printerBoards[s.Type] == "buddy" {
-				printerMMU := prometheus.MustNewConstMetric(collector.printerMMU, prometheus.GaugeValue,
-					BoolToFloat(info.Mmu), GetLabels(s, job)...)
-				ch <- printerMMU
+				if printerBoards[s.Type] == "buddy" {
+					printerMMU := prometheus.MustNewConstMetric(collector.printerMMU, prometheus.GaugeValue,
+						BoolToFloat(info.Mmu), GetLabels(s, job)...)
+					ch <- printerMMU
+				}
 			}
 
 			// only sl related metrics
@@ -391,7 +403,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 	}
 }
 
-func getCommonMetrics(s config.Printers) (Job, Printer, Files, Version, Status, Info) {
+func getCommonMetrics(s config.Printers) (Job, Printer, Files, Version) {
 	log.Debug().Msg("Getting job metrics for " + s.Address)
 
 	job, err := GetJob(s)
@@ -418,16 +430,5 @@ func getCommonMetrics(s config.Printers) (Job, Printer, Files, Version, Status, 
 		log.Error().Msg("Error while scraping version endpoint at " + s.Address + " - " + err.Error())
 	}
 
-	status, err := GetStatus(s)
-
-	if err != nil {
-		log.Error().Msg("Error while scraping status endpoint at " + s.Address + " - " + err.Error())
-	}
-
-	info, err := GetInfo(s)
-
-	if err != nil {
-		log.Error().Msg("Error while scraping info endpoint at " + s.Address + " - " + err.Error())
-	}
-	return job, printer, files, version, status, info
+	return job, printer, files, version
 }
