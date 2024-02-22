@@ -111,8 +111,6 @@ type Printer struct {
 
 // Files is a struct that contains data about the files on the printer
 type Files struct {
-	Free  float64 `json:"free"`
-	Total float64 `json:"total"`
 	Files []struct {
 		Name     string `json:"name"`
 		Path     string `json:"path"`
