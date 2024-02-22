@@ -346,8 +346,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			}
 
 			// only einsy related metrics
-			if printerTypes[s.Type] == "einsy" {
-
+			if printerBoards[s.Type] == "einsy" {
 				settings, err := GetSettings(s)
 
 				if err != nil {
@@ -357,7 +356,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 					printerFarmMode := prometheus.MustNewConstMetric(
 						collector.printerFarmMode, prometheus.GaugeValue,
 						BoolToFloat(settings.Printer.FarmMode),
-						s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
+						GetLabels(s, job)...)
 
 					ch <- printerFarmMode
 
@@ -373,7 +372,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 						printerCamera := prometheus.MustNewConstMetric(
 							collector.printerCameras, prometheus.GaugeValue,
 							BoolToFloat(v.Connected),
-							s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, v.CameraID, v.Config.Name, v.Config.Resolution)
+							GetLabels(s, job, v.CameraID, v.Config.Name, v.Config.Resolution)...)
 						ch <- printerCamera
 					}
 				}
@@ -382,7 +381,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 					printerFiles := prometheus.MustNewConstMetric(
 						collector.printerFiles, prometheus.GaugeValue,
 						float64(len(v.Children)),
-						s.Address, s.Type, s.Name, v.Display)
+						GetLabels(s, job, v.Display)...)
 					ch <- printerFiles
 				}
 

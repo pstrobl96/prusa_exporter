@@ -177,11 +177,6 @@ type Status struct {
 		TimeRemaining float64 `json:"time_remaining"`
 		TimePrinting  float64 `json:"time_printing"`
 	} `json:"job"`
-	Storage struct {
-		Path     string `json:"path"`
-		Name     string `json:"name"`
-		ReadOnly bool   `json:"read_only"`
-	} `json:"storage"`
 	Printer struct {
 		State        string  `json:"state"`
 		TempBed      float64 `json:"temp_bed"`
@@ -196,44 +191,6 @@ type Status struct {
 		FanHotend    float64 `json:"fan_hotend"`
 		FanPrint     float64 `json:"fan_print"`
 	} `json:"printer"`
-}
-
-// StatusV1 is a struct that contains data about the printer status from path /api/v1/status
-type StatusV1 struct {
-	Storage []struct {
-		Path      string  `json:"path"`
-		ReadOnly  bool    `json:"read_only"`
-		FreeSpace float64 `json:"free_space"`
-		Name      string  `json:"name"`
-	} `json:"storage"`
-	Printer struct {
-		State         string  `json:"state"`
-		TempNozzle    float64 `json:"temp_nozzle"`
-		TempBed       float64 `json:"temp_bed"`
-		AxisZ         float64 `json:"axis_z"`
-		AxisY         float64 `json:"axis_y"`
-		AxisX         float64 `json:"axis_x"`
-		Flow          float64 `json:"flow"`
-		Speed         float64 `json:"speed"`
-		FanHotend     float64 `json:"fan_hotend"`
-		FanPrint      float64 `json:"fan_print"`
-		StatusConnect struct {
-			Ok      bool   `json:"ok"`
-			Message string `json:"message"`
-		} `json:"status_connect"`
-		StatusPrinter struct {
-			Ok      bool   `json:"ok"`
-			Message string `json:"message"`
-		} `json:"status_printer"`
-		TargetNozzle float64 `json:"target_nozzle"`
-		TargetBed    float64 `json:"target_bed"`
-	} `json:"printer"`
-	Job struct {
-		ID            float64 `json:"id"`
-		Progress      float64 `json:"progress"`
-		TimeRemaining float64 `json:"time_remaining"`
-		TimePrinting  float64 `json:"time_printing"`
-	} `json:"job"`
 }
 
 // StorageV1 is a struct that contains data about the storage from path /api/v1/storage

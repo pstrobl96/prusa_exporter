@@ -224,20 +224,6 @@ func GetStatus(printer config.Printers) (Status, error) {
 	return status, err
 }
 
-// GetStatusV1 is used to get Einsy status endpoint - because of different schema of the response from the printer I need second function
-func GetStatusV1(printer config.Printers) (StatusV1, error) {
-	var status StatusV1
-	response, err := accessPrinterEndpoint("v1/status", printer)
-
-	if err != nil {
-		return status, err
-	}
-
-	err = json.Unmarshal(response, &status)
-
-	return status, err
-}
-
 // GetStorageV1 is used to get the printer's storage v1 API endpoint
 func GetStorageV1(printer config.Printers) (StorageV1, error) {
 	var storage StorageV1
