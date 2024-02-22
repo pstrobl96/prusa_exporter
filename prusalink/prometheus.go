@@ -10,7 +10,6 @@ import (
 type Collector struct {
 	printerNozzleTemp         *prometheus.Desc
 	printerBedTemp            *prometheus.Desc
-	printerZHeight            *prometheus.Desc
 	printerPrintSpeed         *prometheus.Desc
 	printerNozzleTempTarget   *prometheus.Desc
 	printerFiles              *prometheus.Desc
@@ -59,7 +58,6 @@ func NewCollector(config *config.Config) *Collector {
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
 	return &Collector{
 		printerBedTemp:            prometheus.NewDesc("prusa_bed_temp", "Current temp of printer bed in Celsius", defaultLabels, nil),
-		printerZHeight:            prometheus.NewDesc("prusa_z_height", "Current height of Z", defaultLabels, nil),
 		printerPrintSpeed:         prometheus.NewDesc("prusa_print_speed_ratio", "Current setting of printer speed in ratio (0.0-1.0)", defaultLabels, nil),
 		printerFiles:              prometheus.NewDesc("prusa_files", "Number of files in storage", append(defaultLabels, "printer_storage"), nil),
 		printerPrintTimeRemaining: prometheus.NewDesc("prusa_printing_time_remaining", "Returns time that remains for completion of current print", defaultLabels, nil),
@@ -104,7 +102,6 @@ func NewCollector(config *config.Config) *Collector {
 // Describe implements prometheus.Collector
 func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerBedTemp
-	ch <- collector.printerZHeight
 	ch <- collector.printerPrintSpeed
 	ch <- collector.printerFiles
 	ch <- collector.printerPrintTime
@@ -220,11 +217,6 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 					status.Printer.FanPrint, GetLabels(s, job)...)
 
 				ch <- printerFanPrint
-
-				printerZheight := prometheus.MustNewConstMetric(collector.printerZHeight, prometheus.GaugeValue,
-					printer.Telemetry.ZHeight, GetLabels(s, job)...)
-
-				ch <- printerZheight
 
 				printerNozzleSize := prometheus.MustNewConstMetric(collector.printerNozzleSize, prometheus.GaugeValue,
 					info.NozzleDiameter, GetLabels(s, job)...)
