@@ -334,7 +334,8 @@ func ProbePrinter(printer config.Printers) (bool, error) {
 	}
 
 	if r.StatusCode == 401 {
-		log.Warn().Msg("401 Unauthorized, trying to access with API key")
+		log.Warn().Msg("401 Unauthorized, trying to access with API key - " + printer.Address)
+		req, _ := http.NewRequest("GET", "http://"+printer.Address+"/api/v1/status", nil)
 		req.Header.Add("X-Api-Key", printer.Apikey)
 		r, e = client.Do(req)
 		if e != nil {
