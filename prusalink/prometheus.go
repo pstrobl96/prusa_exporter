@@ -171,12 +171,12 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			ch <- printerBedTemp
 
 			printerBedTempTarget := prometheus.MustNewConstMetric(collector.printerBedTempTarget, prometheus.GaugeValue,
-				float64(printer.Temperature.Bed.Target), GetLabels(s, job)...)
+				printer.Temperature.Bed.Target, GetLabels(s, job)...)
 
 			ch <- printerBedTempTarget
 
 			printerBedTempOffset := prometheus.MustNewConstMetric(collector.printerBedTempOffset, prometheus.GaugeValue,
-				float64(printer.Temperature.Bed.Offset), GetLabels(s, job)...)
+				printer.Temperature.Bed.Offset, GetLabels(s, job)...)
 
 			ch <- printerBedTempOffset
 
@@ -195,34 +195,34 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			ch <- printerStatus
 
 			printerToolTempTarget := prometheus.MustNewConstMetric(collector.printerToolTempTarget, prometheus.GaugeValue,
-				float64(printer.Temperature.Tool0.Target), GetLabels(s, job, "0")...)
+				printer.Temperature.Tool0.Target, GetLabels(s, job, "0")...)
 
 			ch <- printerToolTempTarget
 
 			printerToolTempOffset := prometheus.MustNewConstMetric(collector.printerToolTempOffset, prometheus.GaugeValue,
-				float64(printer.Temperature.Tool0.Offset), GetLabels(s, job, "0")...)
+				printer.Temperature.Tool0.Offset, GetLabels(s, job, "0")...)
 
 			ch <- printerToolTempOffset
 
 			printerToolTemp := prometheus.MustNewConstMetric(collector.printerToolTemp, prometheus.GaugeValue,
-				float64(printer.Temperature.Tool0.Actual), GetLabels(s, job, "0")...)
+				printer.Temperature.Tool0.Actual, GetLabels(s, job, "0")...)
 
 			ch <- printerToolTemp
 
 			// metrics specific for both buddy and einsy
 			if printerBoards[s.Type] == "buddy" || printerBoards[s.Type] == "einsy" {
 				printerFanHotend := prometheus.MustNewConstMetric(collector.printerFanHotend, prometheus.GaugeValue,
-					float64(status.Printer.FanHotend), GetLabels(s, job)...)
+					status.Printer.FanHotend, GetLabels(s, job)...)
 
 				ch <- printerFanHotend
 
 				printerFanPrint := prometheus.MustNewConstMetric(collector.printerFanPrint, prometheus.GaugeValue,
-					float64(status.Printer.FanPrint), GetLabels(s, job)...)
+					status.Printer.FanPrint, GetLabels(s, job)...)
 
 				ch <- printerFanPrint
 
 				printerZheight := prometheus.MustNewConstMetric(collector.printerZHeight, prometheus.GaugeValue,
-					float64(printer.Telemetry.ZHeight), GetLabels(s, job)...)
+					printer.Telemetry.ZHeight, GetLabels(s, job)...)
 
 				ch <- printerZheight
 
@@ -233,28 +233,28 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 				printSpeed := prometheus.MustNewConstMetric(
 					collector.printerPrintSpeedRatio, prometheus.GaugeValue,
-					float64(printer.Telemetry.PrintSpeed)/100,
+					printer.Telemetry.PrintSpeed/100,
 					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 				ch <- printSpeed
 
 				printTime := prometheus.MustNewConstMetric(
 					collector.printerPrintTime, prometheus.GaugeValue,
-					float64(job.Progress.PrintTime),
+					job.Progress.PrintTime,
 					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 				ch <- printTime
 
 				printTimeRemaining := prometheus.MustNewConstMetric(
 					collector.printerPrintTimeRemaining, prometheus.GaugeValue,
-					float64(job.Progress.PrintTimeLeft),
+					job.Progress.PrintTimeLeft,
 					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 				ch <- printTimeRemaining
 
 				printProgress := prometheus.MustNewConstMetric(
 					collector.printerPrintProgress, prometheus.GaugeValue,
-					float64(job.Progress.Completion),
+					job.Progress.Completion,
 					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
 
 				ch <- printProgress
@@ -288,7 +288,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				ch <- printerAxisZ
 
 				printerFlow := prometheus.MustNewConstMetric(collector.printerFlow, prometheus.GaugeValue,
-					float64(status.Printer.Flow)/100, GetLabels(s, job)...)
+					status.Printer.Flow/100, GetLabels(s, job)...)
 
 				ch <- printerFlow
 			}
@@ -308,52 +308,47 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				ch <- printerCover
 
 				printerFanBlower := prometheus.MustNewConstMetric(collector.printerFanBlower, prometheus.GaugeValue,
-					float64(printer.Telemetry.FanBlower), GetLabels(s, job)...)
+					printer.Telemetry.FanBlower, GetLabels(s, job)...)
 
 				ch <- printerFanBlower
 
 				printerFanRear := prometheus.MustNewConstMetric(collector.printerFanRear, prometheus.GaugeValue,
-					float64(printer.Telemetry.FanRear), GetLabels(s, job)...)
+					printer.Telemetry.FanRear, GetLabels(s, job)...)
 
 				ch <- printerFanRear
 
 				printerFanUV := prometheus.MustNewConstMetric(collector.printerFanUV, prometheus.GaugeValue,
-					float64(printer.Telemetry.FanUvLed), GetLabels(s, job)...)
+					printer.Telemetry.FanUvLed, GetLabels(s, job)...)
 
 				ch <- printerFanUV
 
 				printerAmbientTemp := prometheus.MustNewConstMetric(collector.printerAmbientTemp, prometheus.GaugeValue,
-					float64(printer.Telemetry.TempAmbient), GetLabels(s, job)...)
+					printer.Telemetry.TempAmbient, GetLabels(s, job)...)
 
 				ch <- printerAmbientTemp
 
 				printerCPUTemp := prometheus.MustNewConstMetric(collector.printerCPUTemp, prometheus.GaugeValue,
-					float64(printer.Telemetry.TempCPU), GetLabels(s, job)...)
+					printer.Telemetry.TempCPU, GetLabels(s, job)...)
 
 				ch <- printerCPUTemp
 
 				pritnerUVTemp := prometheus.MustNewConstMetric(collector.pritnerUVTemp, prometheus.GaugeValue,
-					float64(printer.Telemetry.TempUvLed), GetLabels(s, job)...)
+					printer.Telemetry.TempUvLed, GetLabels(s, job)...)
 
 				ch <- pritnerUVTemp
 
-				printerBedTemp := prometheus.MustNewConstMetric(collector.printerBedTemp, prometheus.GaugeValue,
-					float64(printer.Temperature.Bed.Actual), GetLabels(s, job)...)
-
-				ch <- printerBedTemp
-
 				printerChamberTempTarget := prometheus.MustNewConstMetric(collector.printerChamberTempTarget, prometheus.GaugeValue,
-					float64(printer.Temperature.Chamber.Target), GetLabels(s, job)...)
+					printer.Temperature.Chamber.Target, GetLabels(s, job)...)
 
 				ch <- printerChamberTempTarget
 
 				printerChamberTempOffset := prometheus.MustNewConstMetric(collector.printerChamberTempOffset, prometheus.GaugeValue,
-					float64(printer.Temperature.Chamber.Offset), GetLabels(s, job)...)
+					printer.Temperature.Chamber.Offset, GetLabels(s, job)...)
 
 				ch <- printerChamberTempOffset
 
 				printerChamberTemp := prometheus.MustNewConstMetric(collector.printerChamberTemp, prometheus.GaugeValue,
-					float64(printer.Temperature.Chamber.Actual), GetLabels(s, job)...)
+					printer.Temperature.Chamber.Actual, GetLabels(s, job)...)
 
 				ch <- printerChamberTemp
 			}

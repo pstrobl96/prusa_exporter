@@ -18,14 +18,14 @@ type Version struct {
 type Job struct {
 	State string `json:"state"`
 	Job   struct {
-		EstimatedPrintTime int `json:"estimatedPrintTime"`
+		EstimatedPrintTime float64 `json:"estimatedPrintTime"`
 		File               struct {
-			Name    string `json:"name"`
-			Path    string `json:"path"`
-			Display string `json:"display"`
-			Size    int    `json:"size"`
-			Origin  string `json:"origin"`
-			Date    int    `json:"date"`
+			Name    string  `json:"name"`
+			Path    string  `json:"path"`
+			Display string  `json:"display"`
+			Size    float64 `json:"size"`
+			Origin  string  `json:"origin"`
+			Date    float64 `json:"date"`
 		} `json:"file"`
 		AveragePrintTime any    `json:"averagePrintTime"`
 		LastPrintTime    any    `json:"lastPrintTime"`
@@ -33,14 +33,14 @@ type Job struct {
 		User             string `json:"user"`
 	} `json:"job"`
 	Progress struct {
-		PrintTimeLeft       int     `json:"printTimeLeft"`
-		Completion          int     `json:"completion"`
-		PrintTime           int     `json:"printTime"`
-		Filepos             int     `json:"filepos"`
+		PrintTimeLeft       float64 `json:"printTimeLeft"`
+		Completion          float64 `json:"completion"`
+		PrintTime           float64 `json:"printTime"`
+		Filepos             float64 `json:"filepos"`
 		PrintTimeLeftOrigin string  `json:"printTimeLeftOrigin"`
 		PosZMm              float64 `json:"pos_z_mm"`
-		PrintSpeed          int     `json:"printSpeed"`
-		FlowFactor          int     `json:"flow_factor"`
+		PrintSpeed          float64 `json:"printSpeed"`
+		FlowFactor          float64 `json:"flow_factor"`
 	} `json:"progress"`
 }
 
@@ -49,16 +49,16 @@ type Printer struct {
 	Telemetry struct {
 		TempBed     float64 `json:"temp-bed"`
 		TempNozzle  float64 `json:"temp-nozzle"`
-		PrintSpeed  int     `json:"print-speed"`
+		PrintSpeed  float64 `json:"print-speed"`
 		ZHeight     float64 `json:"z-height"`
 		Material    string  `json:"material"`
 		AxisX       float64 `json:"axis_x"`
 		AxisY       float64 `json:"axis_y"`
 		AxisZ       float64 `json:"axis_z"`
 		CoverClosed bool    `json:"coverClosed"`
-		FanBlower   int     `json:"fanBlower"`
-		FanRear     int     `json:"fanRear"`
-		FanUvLed    int     `json:"fanUvLed"`
+		FanBlower   float64 `json:"fanBlower"`
+		FanRear     float64 `json:"fanRear"`
+		FanUvLed    float64 `json:"fanUvLed"`
 		TempAmbient float64 `json:"tempAmbient"`
 		TempCPU     float64 `json:"tempCpu"`
 		TempUvLed   float64 `json:"tempUvLed"`
@@ -105,8 +105,8 @@ type Printer struct {
 	} `json:"sd"`
 	Storage struct {
 		Local struct {
-			FreeSpace  int64 `json:"free_space"`
-			TotalSpace int64 `json:"total_space"`
+			FreeSpace  float64 `json:"free_space"`
+			TotalSpace float64 `json:"total_space"`
 		} `json:"local"`
 		SdCard any `json:"sd_card"`
 	} `json:"storage"`
@@ -134,8 +134,8 @@ type Files struct {
 				Download       string `json:"download"`
 			} `json:"refs"`
 		} `json:"children"`
-		Date     int      `json:"date"`
-		Size     int      `json:"size"`
+		Date     float64  `json:"date"`
+		Size     float64  `json:"size"`
 		TypePath []string `json:"typePath"`
 		Refs     struct {
 			Resource any `json:"resource"`
@@ -146,30 +146,30 @@ type Files struct {
 
 // JobV1 is a struct that contains data about the print job from path /api/v1/job
 type JobV1 struct {
-	ID                  int    `json:"id"`
-	State               string `json:"state"`
-	Progress            int    `json:"progress"`
-	TimeRemaining       int    `json:"time_remaining"`
-	TimePrinting        int    `json:"time_printing"`
-	InaccurateEstimates bool   `json:"inaccurate_estimates"`
+	ID                  float64 `json:"id"`
+	State               string  `json:"state"`
+	Progress            float64 `json:"progress"`
+	TimeRemaining       float64 `json:"time_remaining"`
+	TimePrinting        float64 `json:"time_printing"`
+	InaccurateEstimates bool    `json:"inaccurate_estimates"`
 	File                struct {
 		Refs struct {
 			Icon      any `json:"icon"`
 			Thumbnail any `json:"thumbnail"`
 			Download  any `json:"download"`
 		} `json:"refs"`
-		Name        string `json:"name"`
-		DisplayName string `json:"display_name"`
-		Path        string `json:"path"`
-		Size        int    `json:"size"`
-		MTimestamp  int    `json:"m_timestamp"`
-		DisplayPath string `json:"display_path"`
+		Name        string  `json:"name"`
+		DisplayName string  `json:"display_name"`
+		Path        string  `json:"path"`
+		Size        float64 `json:"size"`
+		MTimestamp  float64 `json:"m_timestamp"`
+		DisplayPath string  `json:"display_path"`
 		Meta        struct {
 			EstimatedPrintingTimeNormalMode string  `json:"estimated printing time (normal mode)"`
 			PrinterModel                    string  `json:"printer_model"`
 			LayerHeight                     float64 `json:"layer_height"`
 			FilamentType                    string  `json:"filament_type"`
-			EstimatedPrintTime              int     `json:"estimated_print_time"`
+			EstimatedPrintTime              float64 `json:"estimated_print_time"`
 		} `json:"meta"`
 	} `json:"file"`
 }
@@ -177,10 +177,10 @@ type JobV1 struct {
 // Status is struct that returns /api/v1/status endpoint. Unfortunately, Buddy returns different schema, than Einsy and second struct is needed
 type Status struct {
 	Job struct {
-		ID            int     `json:"id"`
+		ID            float64 `json:"id"`
 		Progress      float64 `json:"progress"`
-		TimeRemaining int     `json:"time_remaining"`
-		TimePrinting  int     `json:"time_printing"`
+		TimeRemaining float64 `json:"time_remaining"`
+		TimePrinting  float64 `json:"time_printing"`
 	} `json:"job"`
 	Storage struct {
 		Path     string `json:"path"`
@@ -196,20 +196,20 @@ type Status struct {
 		AxisX        float64 `json:"axis_x"`
 		AxisY        float64 `json:"axis_y"`
 		AxisZ        float64 `json:"axis_z"`
-		Flow         int     `json:"flow"`
-		Speed        int     `json:"speed"`
-		FanHotend    int     `json:"fan_hotend"`
-		FanPrint     int     `json:"fan_print"`
+		Flow         float64 `json:"flow"`
+		Speed        float64 `json:"speed"`
+		FanHotend    float64 `json:"fan_hotend"`
+		FanPrint     float64 `json:"fan_print"`
 	} `json:"printer"`
 }
 
 // StatusV1 is a struct that contains data about the printer status from path /api/v1/status
 type StatusV1 struct {
 	Storage []struct {
-		Path      string `json:"path"`
-		ReadOnly  bool   `json:"read_only"`
-		FreeSpace int64  `json:"free_space"`
-		Name      string `json:"name"`
+		Path      string  `json:"path"`
+		ReadOnly  bool    `json:"read_only"`
+		FreeSpace float64 `json:"free_space"`
+		Name      string  `json:"name"`
 	} `json:"storage"`
 	Printer struct {
 		State         string  `json:"state"`
@@ -244,15 +244,15 @@ type StatusV1 struct {
 // StorageV1 is a struct that contains data about the storage from path /api/v1/storage
 type StorageV1 struct {
 	StorageList []struct {
-		Path        string `json:"path"`
-		Name        string `json:"name"`
-		Type        string `json:"type"`
-		ReadOnly    bool   `json:"read_only"`
-		Available   bool   `json:"available"`
-		FreeSpace   int64  `json:"free_space,omitempty"`
-		TotalSpace  int64  `json:"total_space,omitempty"`
-		PrintFiles  int    `json:"print_files"`
-		SystemFiles int    `json:"system_files"`
+		Path        string  `json:"path"`
+		Name        string  `json:"name"`
+		Type        string  `json:"type"`
+		ReadOnly    bool    `json:"read_only"`
+		Available   bool    `json:"available"`
+		FreeSpace   float64 `json:"free_space,omitempty"`
+		TotalSpace  float64 `json:"total_space,omitempty"`
+		PrintFiles  float64 `json:"print_files"`
+		SystemFiles float64 `json:"system_files"`
 	} `json:"storage_list"`
 }
 
@@ -264,10 +264,10 @@ type Info struct {
 	FarmMode          bool    `json:"farm_mode"`
 	NetworkErrorChime bool    `json:"network_error_chime"`
 	NozzleDiameter    float64 `json:"nozzle_diameter"`
-	MinExtrusionTemp  int     `json:"min_extrusion_temp"`
+	MinExtrusionTemp  float64 `json:"min_extrusion_temp"`
 	Serial            string  `json:"serial"`
 	Hostname          string  `json:"hostname"`
-	Port              int     `json:"port"`
+	Port              float64 `json:"port"`
 }
 
 // PrinterProfiles is a struct that contains data about the printer profiles
@@ -277,8 +277,8 @@ type PrinterProfiles struct {
 		Current  bool   `json:"current"`
 		Default  bool   `json:"default"`
 		Extruder struct {
-			Count   int   `json:"count"`
-			Offsets []int `json:"offsets"`
+			Count   float64 `json:"count"`
+			Offsets []int   `json:"offsets"`
 		} `json:"extruder"`
 		HeatedBed         bool     `json:"heatedBed"`
 		HeatedChamber     bool     `json:"heatedChamber"`
