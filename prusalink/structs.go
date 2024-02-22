@@ -100,9 +100,6 @@ type Printer struct {
 			Prepared      bool   `json:"prepared"`
 		} `json:"flags"`
 	} `json:"state"`
-	Sd struct {
-		Ready bool `json:"ready"`
-	} `json:"sd"`
 	Storage struct {
 		Local struct {
 			FreeSpace  float64 `json:"free_space"`
@@ -114,8 +111,8 @@ type Printer struct {
 
 // Files is a struct that contains data about the files on the printer
 type Files struct {
-	Free  string `json:"free"`
-	Total string `json:"total"`
+	Free  float64 `json:"free"`
+	Total float64 `json:"total"`
 	Files []struct {
 		Name     string `json:"name"`
 		Path     string `json:"path"`
