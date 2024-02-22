@@ -205,13 +205,13 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				status, err := GetStatus(s)
 
 				if err != nil {
-					log.Error().Msg(err.Error())
+					log.Error().Msg("Error while scraping status endpoint at " + s.Address + " - " + err.Error())
 				}
 
 				info, err := GetInfo(s)
 
 				if err != nil {
-					log.Error().Msg(err.Error())
+					log.Error().Msg("Error while scraping info endpoint at " + s.Address + " - " + err.Error())
 				}
 
 				printerInfo := prometheus.MustNewConstMetric(
@@ -302,6 +302,48 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 						BoolToFloat(info.Mmu), GetLabels(s, job)...)
 					ch <- printerMMU
 				}
+
+				// only einsy related metrics
+				if printerBoards[s.Type] == "einsy" {
+					settings, err := GetSettings(s)
+
+					if err != nil {
+						log.Error().Msg("Error while scraping settings endpoint at " + s.Address + " - " + err.Error())
+					} else {
+
+						printerFarmMode := prometheus.MustNewConstMetric(
+							collector.printerFarmMode, prometheus.GaugeValue,
+							BoolToFloat(settings.Printer.FarmMode),
+							GetLabels(s, job)...)
+
+						ch <- printerFarmMode
+
+					}
+
+					cameras, err := GetCameras(s)
+
+					if err != nil {
+						log.Error().Msg("Error while scraping cameras endpoint at " + s.Address + " - " + err.Error())
+					} else {
+
+						for _, v := range cameras.CameraList {
+							printerCamera := prometheus.MustNewConstMetric(
+								collector.printerCameras, prometheus.GaugeValue,
+								BoolToFloat(v.Connected),
+								GetLabels(s, job, v.CameraID, v.Config.Name, v.Config.Resolution)...)
+							ch <- printerCamera
+						}
+					}
+
+					for _, v := range files.Files {
+						printerFiles := prometheus.MustNewConstMetric(
+							collector.printerFiles, prometheus.GaugeValue,
+							float64(len(v.Children)),
+							GetLabels(s, job, v.Display)...)
+						ch <- printerFiles
+					}
+
+				}
 			}
 
 			// only sl related metrics
@@ -355,48 +397,6 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 					printer.Temperature.Chamber.Actual, GetLabels(s, job)...)
 
 				ch <- printerChamberTemp
-			}
-
-			// only einsy related metrics
-			if printerBoards[s.Type] == "einsy" {
-				settings, err := GetSettings(s)
-
-				if err != nil {
-					log.Error().Msg(err.Error())
-				} else {
-
-					printerFarmMode := prometheus.MustNewConstMetric(
-						collector.printerFarmMode, prometheus.GaugeValue,
-						BoolToFloat(settings.Printer.FarmMode),
-						GetLabels(s, job)...)
-
-					ch <- printerFarmMode
-
-				}
-
-				cameras, err := GetCameras(s)
-
-				if err != nil {
-					log.Error().Msg(err.Error())
-				} else {
-
-					for _, v := range cameras.CameraList {
-						printerCamera := prometheus.MustNewConstMetric(
-							collector.printerCameras, prometheus.GaugeValue,
-							BoolToFloat(v.Connected),
-							GetLabels(s, job, v.CameraID, v.Config.Name, v.Config.Resolution)...)
-						ch <- printerCamera
-					}
-				}
-
-				for _, v := range files.Files {
-					printerFiles := prometheus.MustNewConstMetric(
-						collector.printerFiles, prometheus.GaugeValue,
-						float64(len(v.Children)),
-						GetLabels(s, job, v.Display)...)
-					ch <- printerFiles
-				}
-
 			}
 
 		}
