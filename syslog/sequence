@@ -1,3 +1,4 @@
+PUT http://192.168.20.2/api/v1/files/usb//config.gcode
 M330 SYSLOG
 M334 192.168.20.2 10008
 M340 192.168.20.2 10007
@@ -108,3 +109,5 @@ M331 bedlet_curr
 M331 bed_mcu_temp
 M331 modbus_reqfail
 M331 gui_loop_dur
+
+POST http://192.168.20.2/api/v1/files/usb/CONFIG~1.GCO
