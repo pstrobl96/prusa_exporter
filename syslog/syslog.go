@@ -48,27 +48,27 @@ var (
 		"curr_nozz":                 {"prusa_current_nozz", "Current of nozzle"},         // merge into prusa_current with label "current" and "rail"
 		"curr_inp_raw":              {"prusa_current_inp_raw", "Current of input raw"},   // merge into prusa_current_raw with label "current" and "rail"
 		"curr_inp":                  {"prusa_current_inp", "Current of input"},           // merge into prusa_current with label "current" and "rail"
-		"cur_mmu_imp":               {"prusa_cur_mmu_imp", "Current MMU"},                // merge into prusa_mmu with label "mmu"
+		"cur_mmu_imp":               {"prusa_current_mmu_imp", "Current of MMU"},         // merge into prusa_mmu with label "mmu"
 		"oc_nozz":                   {"prusa_oc_nozz", "Overcurrent of nozzle"},
 		"oc_inp":                    {"prusa_oc_inp", "Overcurrent of input"},
 		"splitter_5V_current":       {"prusa_current_splitter_5v", "Current of 5V splitter"}, // merge into prusa_current with label "current" and "rail"
-		"24VVoltage":                {"prusa_voltage_24v", "Voltage of 24V"},                 // merge into prusa_voltage with label "voltage" and "rail"
-		"5VVoltage":                 {"prusa_voltage_5v", "Voltage of 5V "},                  // merge into prusa_voltage with label "voltage" and "rail"
+		"24VVoltage":                {"prusa_voltage_24v", "Voltage of 24V rail"},            // merge into prusa_voltage with label "voltage" and "rail"
+		"5VVoltage":                 {"prusa_voltage_5v", "Voltage of 5V rail"},              // merge into prusa_voltage with label "voltage" and "rail"
 		"Sandwitch5VCurrent":        {"prusa_current_sandwich_5v", "Current of 5V sandwich"}, // merge into prusa_current with label "current" and "rail"
 		"xlbuddy5VCurrent":          {"prusa_current_xlbuddy_5v", "Current of 5V xlbuddy"},   // merge into prusa_current with label "current" and "rail"
 		"print_filename":            {"prusa_print_filename", "Name of the file being printed"},
-		"dwarf_board_temp":          {"prusa_dwarf_temp_board", "Temperature of the board"},
-		"dwarf_mcu_temp":            {"prusa_dwarf_temp_mcu", "Temperature of the Dwarf MCU"},
-		"dwarfs_mcu_temp":           {"prusa_dwarfs_temp_mcu", "Temperature of the all Dwarfs MCUs"},
-		"dwarfs_board_temp":         {"prusa_dwarfs_temp_board", "Temperature of the all Dwarfs boards"},
+		"dwarf_board_temp":          {"prusa_temp_dwarf_board", "Temperature of the board"},
+		"dwarf_mcu_temp":            {"prusa_temp_dwarf_mcu", "Temperature of the Dwarf MCU"},
+		"dwarfs_mcu_temp":           {"prusa_temp_dwarfs_mcu", "Temperature of the all Dwarfs MCUs"},
+		"dwarfs_board_temp":         {"prusa_temp_dwarfs_board", "Temperature of the all Dwarfs boards"},
 		"app_start":                 {"prusa_app_start", "Application start"}, // absolutelly no idea what this is
 		"maintask_loop":             {"prusa_maintask_loop", "Main task loop"},
 		"fsensor_raw":               {"prusa_fsensor_raw", "Raw value of the filament sensor"},
 		"fsensor":                   {"prusa_fsensor", "Value of the filament sensor"},
 		"side_fsensor_raw":          {"prusa_side_fsensor_raw", "Raw value of the side filament sensor"},
 		"side_fsensor":              {"prusa_side_fsensor", "Value of the side filament sensor"},
-		"nozzle_pwm":                {"prusa_nozzle_pwm", "Nozzle PWM"},
-		"bed_pwm":                   {"prusa_bed_pwm", "Bed PWM"},
+		"nozzle_pwm":                {"prusa_nozzle_pwm", "Nozzle PWM"}, // merge into prusa_pwm with label "target" that will contain nozzle bed or bedlet
+		"bed_pwm":                   {"prusa_bed_pwm", "Bed PWM"},       // merge into prusa_pwm with label "target" that will contain nozzle bed or bedlet
 		"loadcell":                  {"prusa_loadcell", "Loadcell"},
 		"loadcell_hp":               {"prusa_loadcell_hp", "Loadcell high precision"},
 		"loadcell_xy":               {"prusa_loadcell_xy", "Loadcell XY"},
@@ -107,16 +107,16 @@ var (
 		"dwarf_fast_refresh_delay":  {"prusa_dwarf_fast_refresh_delay", "Dwarf fast refresh delay"},
 		"dwarf_picked_raw":          {"prusa_dwarf_picked_raw", "Dwarf picked raw"},
 		"dwarf_parked_raw":          {"prusa_dwarf_parked_raw", "Dwarf parked raw"},
-		"dwarf_heat_curr":           {"prusa_dwarf_heat_curr", "Dwarf heater current"},
-		"bed_state":                 {"prusa_bed_state", "Bed state"},
-		"bed_curr":                  {"prusa_bed_curr", "Bed current"},
-		"bedlet_state":              {"prusa_bedlet_state", "Bedlet state"},
-		"bedlet_temp":               {"prusa_bedlet_temp", "Bedlet temperature"},
-		"bedlet_target":             {"prusa_bedlet_target", "Bedlet target"},
-		"bedlet_pwm":                {"prusa_bedlet_pwm", "Bedlet PWM"},
-		"bedlet_reg":                {"prusa_bedlet_reg", "Bedlet regulation"},
-		"bedlet_curr":               {"prusa_bedlet_curr", "Bedlet current"},
-		"bed_mcu_temp":              {"prusa_bed_mcu_temp", "Bed MCU temperature"},
+		"dwarf_heat_curr":           {"prusa_current_heater_dwarf", "Dwarf heater current"},
+		"bed_state":                 {"prusa_state_bed", "Bed state"},
+		"bed_curr":                  {"prusa_current_bed", "Bed current"},
+		"bedlet_state":              {"prusa_state_bedlet", "Bedlet state"},
+		"bedlet_temp":               {"prusa_temp_bedlet", "Bedlet temperature"},
+		"bedlet_target":             {"prusa_temp_target_bedlet", "Bedlet target temperature"},
+		"bedlet_pwm":                {"prusa_pwm_bedlet", "Bedlet PWM"}, // merge into prusa_pwm with label "target" that will contain nozzle bed or bedlet
+		"bedlet_reg":                {"prusa_reg_bedlet", "Bedlet regulation"},
+		"bedlet_curr":               {"prusa_current_bedlet", "Bedlet current"},
+		"bed_mcu_temp":              {"prusa_temp_bed_mcu", "Bed MCU temperature"},
 		"modbus_reqfail":            {"prusa_modbus_reqfail", "Modbus request fail"},
 	}
 )
