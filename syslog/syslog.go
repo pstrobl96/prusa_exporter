@@ -48,7 +48,7 @@ var (
 		"curr_nozz":                 {"prusa_current_nozz", "Current of nozzle"},         // merge into prusa_current with label "current" and "rail"
 		"curr_inp_raw":              {"prusa_current_inp_raw", "Current of input raw"},   // merge into prusa_current_raw with label "current" and "rail"
 		"curr_inp":                  {"prusa_current_inp", "Current of input"},           // merge into prusa_current with label "current" and "rail"
-		"cur_mmu_imp":               {"prusa_current_mmu_imp", "Current of MMU"},         // merge into prusa_mmu with label "mmu"
+		"cur_mmu_imp":               {"prusa_current_mmu_inp", "Current of MMU"},         // merge into prusa_mmu with label "mmu"
 		"oc_nozz":                   {"prusa_oc_nozz", "Overcurrent of nozzle"},
 		"oc_inp":                    {"prusa_oc_inp", "Overcurrent of input"},
 		"splitter_5V_current":       {"prusa_current_splitter_5v", "Current of 5V splitter"}, // merge into prusa_current with label "current" and "rail"
