@@ -27,12 +27,7 @@ type Collector struct {
 	printerFlow               *prometheus.Desc
 	printerInfo               *prometheus.Desc
 	printerMMU                *prometheus.Desc
-	printerFanHotend          *prometheus.Desc
-	printerFanPrint           *prometheus.Desc
 	printerCover              *prometheus.Desc
-	printerFanBlower          *prometheus.Desc
-	printerFanRear            *prometheus.Desc
-	printerFanUV              *prometheus.Desc
 	printerAmbientTemp        *prometheus.Desc
 	printerCPUTemp            *prometheus.Desc
 	pritnerUVTemp             *prometheus.Desc
@@ -50,6 +45,7 @@ type Collector struct {
 	printerLogsDate           *prometheus.Desc
 	printerFarmMode           *prometheus.Desc
 	printerCameras            *prometheus.Desc
+	printerFanSpeed           *prometheus.Desc
 }
 
 // NewCollector returns a new Collector for printer metrics
@@ -73,17 +69,13 @@ func NewCollector(config *config.Config) *Collector {
 		printerFlow:               prometheus.NewDesc("prusa_print_flow_ratio", "Returns information about of filament flow in ratio (0.0 - 1.0).", defaultLabels, nil),
 		printerInfo:               prometheus.NewDesc("prusa_info", "Returns information about printer.", append(defaultLabels, "api_version", "server_version", "version_text", "prusalink_name", "printer_location", "serial_number", "printer_hostname"), nil),
 		printerMMU:                prometheus.NewDesc("prusa_mmu", "Returns information if MMU is enabled.", defaultLabels, nil),
-		printerFanHotend:          prometheus.NewDesc("prusa_fan_hotend", "Returns information about speed of hotend fan in rpm.", defaultLabels, nil),
-		printerFanPrint:           prometheus.NewDesc("prusa_fan_print", "Returns information about speed of print fan in rpm.", defaultLabels, nil),
+		printerFanSpeed:           prometheus.NewDesc("prusa_fan_speed", "Returns information about speed of hotend fan in rpm.", append(defaultLabels, "fan"), nil),
 		printerPrintSpeedRatio:    prometheus.NewDesc("prusa_print_speed_ratio", "Current setting of printer speed in values from 0.0 - 1.0", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
 		printerLogs:               prometheus.NewDesc("prusa_logs", "Return size of logs in Prusa Link", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path", "log_name"}, nil),
 		printerLogsDate:           prometheus.NewDesc("prusa_logs_date", "Return date of logs in Prusa Link", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path", "log_name"}, nil),
 		printerFarmMode:           prometheus.NewDesc("prusa_farm_mode", "Return if printer is set to farm mode", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
 		printerCameras:            prometheus.NewDesc("prusa_cameras", "Return information about cameras", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path", "camera_id", "camera_name", "camera_resolution"}, nil),
 		printerCover:              prometheus.NewDesc("prusa_cover", "Status of the printer - 0 = open, 1 = closed", defaultLabels, nil),
-		printerFanBlower:          prometheus.NewDesc("prusa_fan_blower", "Status of the printer blower fan", defaultLabels, nil),
-		printerFanRear:            prometheus.NewDesc("prusa_fan_rear", "Status of the printer fan rear", defaultLabels, nil),
-		printerFanUV:              prometheus.NewDesc("prusa_fan_uv", "Status of the printer fan uv", defaultLabels, nil),
 		printerAmbientTemp:        prometheus.NewDesc("prusa_ambient_temp", "Status of the printer ambient temp", defaultLabels, nil),
 		printerCPUTemp:            prometheus.NewDesc("prusa_cpu_temp", "Status of the printer cpu temp", defaultLabels, nil),
 		pritnerUVTemp:             prometheus.NewDesc("prusa_uv_temp", "Status of the printer uv temp", defaultLabels, nil),
@@ -117,12 +109,7 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerFlow
 	ch <- collector.printerInfo
 	ch <- collector.printerMMU
-	ch <- collector.printerFanHotend
-	ch <- collector.printerFanPrint
 	ch <- collector.printerCover
-	ch <- collector.printerFanBlower
-	ch <- collector.printerFanRear
-	ch <- collector.printerFanUV
 	ch <- collector.printerAmbientTemp
 	ch <- collector.printerCPUTemp
 	ch <- collector.pritnerUVTemp
@@ -139,6 +126,7 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerFarmMode
 	ch <- collector.printerLogsDate
 	ch <- collector.printerLogs
+	ch <- collector.printerFanSpeed
 }
 
 // Collect implements prometheus.Collector
@@ -255,13 +243,13 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 				ch <- printerInfo
 
-				printerFanHotend := prometheus.MustNewConstMetric(collector.printerFanHotend, prometheus.GaugeValue,
-					status.Printer.FanHotend, GetLabels(s, job)...)
+				printerFanHotend := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
+					status.Printer.FanHotend, GetLabels(s, job, "hotend")...)
 
 				ch <- printerFanHotend
 
-				printerFanPrint := prometheus.MustNewConstMetric(collector.printerFanPrint, prometheus.GaugeValue,
-					status.Printer.FanPrint, GetLabels(s, job)...)
+				printerFanPrint := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
+					status.Printer.FanPrint, GetLabels(s, job, "print")...)
 
 				ch <- printerFanPrint
 
@@ -345,18 +333,18 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 				ch <- printerCover
 
-				printerFanBlower := prometheus.MustNewConstMetric(collector.printerFanBlower, prometheus.GaugeValue,
-					printer.Telemetry.FanBlower, GetLabels(s, job)...)
+				printerFanBlower := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
+					printer.Telemetry.FanBlower, GetLabels(s, job, "blower")...)
 
 				ch <- printerFanBlower
 
-				printerFanRear := prometheus.MustNewConstMetric(collector.printerFanRear, prometheus.GaugeValue,
-					printer.Telemetry.FanRear, GetLabels(s, job)...)
+				printerFanRear := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
+					printer.Telemetry.FanRear, GetLabels(s, job, "rear")...)
 
 				ch <- printerFanRear
 
-				printerFanUV := prometheus.MustNewConstMetric(collector.printerFanUV, prometheus.GaugeValue,
-					printer.Telemetry.FanUvLed, GetLabels(s, job)...)
+				printerFanUV := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
+					printer.Telemetry.FanUvLed, GetLabels(s, job, "uv")...)
 
 				ch <- printerFanUV
 
