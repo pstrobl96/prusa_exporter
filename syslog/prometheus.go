@@ -14,7 +14,7 @@ type label struct {
 }
 
 type collectorBranch struct {
-	collector    string
+	collector    *prometheus.Desc
 	nameOfMetric string
 	labels       []label
 }
@@ -104,7 +104,32 @@ type Collector struct {
 var (
 	collectorMap = map[string]collectorBranch{
 		"active_extruder": {
-			collector:    "printerActiveExtruder",
+			collector:    NewCollector().printerActiveExtruder,
+			nameOfMetric: "value",
+			labels:       []label{},
+		},
+		"app_start": {
+			collector:    NewCollector().printerAppStart,
+			nameOfMetric: "value",
+			labels:       []label{},
+		},
+		"axis_z_adjustment": {
+			collector:    NewCollector().printerAxisZAdjustment,
+			nameOfMetric: "value",
+			labels:       []label{},
+		},
+		"bedlet_regulation": {
+			collector:    NewCollector().printerBedletRegulation,
+			nameOfMetric: "value",
+			labels:       []label{},
+		},
+		"bedlet_state": {
+			collector:    NewCollector().printerBedletState,
+			nameOfMetric: "value",
+			labels:       []label{},
+		},
+		"bed_state": {
+			collector:    NewCollector().printerBedState,
 			nameOfMetric: "value",
 			labels:       []label{},
 		},
@@ -297,27 +322,24 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				value         float64
 			)
 
-			switch k {
-			case "active_extruder":
-				mapExtract := collectorMap["active_extruder"]
+			mapExtract := collectorMap[k]
 
-				valueParsed, e := strconv.ParseFloat(v[mapExtract.nameOfMetric], 64)
-				if e != nil {
-					log.Debug().Msg(e.Error())
-					break
-				}
-
-				collectorItem = collector.printerActiveExtruder
-				labels = getLabels(mac, ip, mapExtract.labels)
-				value = valueParsed
+			valueParsed, e := strconv.ParseFloat(v[mapExtract.nameOfMetric], 64)
+			if e != nil {
+				log.Debug().Msg(e.Error())
 				break
 			}
+
+			collectorItem = NewCollector().printerActiveExtruder
+			labels = getLabels(mac, ip, mapExtract.labels)
+			value = valueParsed
 
 			if collectorItem != nil {
 				printerMetric := prometheus.MustNewConstMetric(collectorItem, prometheus.GaugeValue,
 					value, labels...)
 				ch <- printerMetric
 			}
+
 		}
 
 		i++
