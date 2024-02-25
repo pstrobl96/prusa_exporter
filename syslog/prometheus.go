@@ -1,13 +1,8 @@
 package syslog
 
 import (
-	"strconv"
-	"strings"
-
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/pstrobl96/prusa_exporter/config"
-	"github.com/pstrobl96/prusa_exporter/prusalink"
-	"github.com/rs/zerolog/log"
 )
 
 var configuration *config.Config
@@ -15,53 +10,95 @@ var configuration *config.Config
 // Collector is a struct that defines all the syslog metrics
 type Collector struct {
 	// power metrics
-	printerVolt5V             *prometheus.Desc
-	printerVolt24V            *prometheus.Desc
-	printerVoltBed            *prometheus.Desc
-	printerVoltNozzle         *prometheus.Desc
-	printerVoltSandwich5V     *prometheus.Desc
-	printerVoltSplitter5V     *prometheus.Desc
-	printerCurrentXlbuddy5V   *prometheus.Desc
-	printerCurrentInput       *prometheus.Desc
-	printerCurrentMMU         *prometheus.Desc
-	printerCurrentBed         *prometheus.Desc
-	printerCurrentNozzle      *prometheus.Desc
-	printerCurrentDwarfHeater *prometheus.Desc // dwarf_heat_curr
-	printerCurrentBedlet      *prometheus.Desc // bedlet_curr
-	printerOvercurrentNozzle  *prometheus.Desc
-	printerOvercurrentInput   *prometheus.Desc
+	pritnerVoltage *prometheus.Desc
+	printerCurrent *prometheus.Desc
 
-	// printer metrics
-	printerBedletTemp         *prometheus.Desc // bedlet_temp
-	printerBedletState        *prometheus.Desc // bedlet_state
-	printerProbeZ             *prometheus.Desc // probe_z
-	printerBedMcuTemp         *prometheus.Desc // bed_mcu_temp
-	printerLoadcellValue      *prometheus.Desc // loadcell_value
-	printerSandwitchTemp      *prometheus.Desc // temp_sandwich
-	printerSplitterTemp       *prometheus.Desc // temp_splitter
-	printerDwarfsBoardTemp    *prometheus.Desc // dwarfs_board_temp
-	printerHeatbreakTemp      *prometheus.Desc // temp_hbr
-	printerBoardTemp          *prometheus.Desc // temp_brd
-	printerChamberTemp        *prometheus.Desc // temp_chamber
-	printerMcuTemp            *prometheus.Desc // temp_mcu
-	printerFSensor            *prometheus.Desc // fsensor
-	printerSideFSensor        *prometheus.Desc // side_fsensor
-	printerActiveExtruder     *prometheus.Desc
-	printerDwarfMcuTemp       *prometheus.Desc
-	printerDwarfBoardTemp     *prometheus.Desc
-	printerAxisZAdjustment    *prometheus.Desc
-	printerHeaterEnabled      *prometheus.Desc
-	printerLoadcellScale      *prometheus.Desc
-	printerLoadcellThreshold  *prometheus.Desc
-	printerLoadcellHysteresis *prometheus.Desc
-
-	// system metrics
-	printerBuddySyslogInfo *prometheus.Desc // revision, bom
-	printerCPUUsage        *prometheus.Desc
-	printerHeapTotal       *prometheus.Desc
-	printerHeapFree        *prometheus.Desc
-	printerPointsDropped   *prometheus.Desc
-	printerMediaPrefetched *prometheus.Desc
+	printerVolt5V                *prometheus.Desc
+	printerVolt24V               *prometheus.Desc
+	printerVoltBed               *prometheus.Desc
+	printerVoltNozzle            *prometheus.Desc
+	printerVoltSandwich5V        *prometheus.Desc
+	printerVoltSplitter5V        *prometheus.Desc
+	printerCurrentXlbuddy5V      *prometheus.Desc
+	printerCurrentInput          *prometheus.Desc
+	printerCurrentMMU            *prometheus.Desc
+	printerCurrentBed            *prometheus.Desc
+	printerCurrentNozzle         *prometheus.Desc
+	printerCurrentDwarfHeater    *prometheus.Desc // dwarf_heat_curr
+	printerCurrentBedlet         *prometheus.Desc // bedlet_curr
+	printerOvercurrentNozzle     *prometheus.Desc
+	printerOvercurrentInput      *prometheus.Desc
+	printerBedletState           *prometheus.Desc // bedlet_state
+	printerProbeZ                *prometheus.Desc // probe_z
+	printerFSfensor              *prometheus.Desc // fsensor
+	printerSideFSensor           *prometheus.Desc // side_fsensor
+	printerActiveExtruder        *prometheus.Desc
+	printerAxisZAdjustment       *prometheus.Desc
+	printerHeaterEnabled         *prometheus.Desc
+	printerLoadcellScale         *prometheus.Desc
+	printerLoadcellThreshold     *prometheus.Desc
+	printerLoadcellHysteresis    *prometheus.Desc
+	printerBuddySyslogInfo       *prometheus.Desc // revision, bom
+	printerCPUUsage              *prometheus.Desc
+	printerHeapTotal             *prometheus.Desc
+	printerHeapFree              *prometheus.Desc
+	printerCrashCounter          *prometheus.Desc
+	printerCrashStat             *prometheus.Desc
+	printerCrashRepeatedCounter  *prometheus.Desc
+	printerExciteFreq            *prometheus.Desc
+	printerFreqGain              *prometheus.Desc
+	printerTKAcceleration        *prometheus.Desc
+	printerHomeDiff              *prometheus.Desc
+	printerProbeZDiff            *prometheus.Desc
+	printerProbeStart            *prometheus.Desc
+	printerProbeAnalysis         *prometheus.Desc
+	printerHeatModelDiscard      *prometheus.Desc
+	printerNetworkOut            *prometheus.Desc
+	printerNetworkIn             *prometheus.Desc
+	printerFanSpeed              *prometheus.Desc
+	printerIpos                  *prometheus.Desc
+	printerPos                   *prometheus.Desc
+	printerOvercurrent           *prometheus.Desc
+	printerFilename              *prometheus.Desc
+	printerVoltage               *prometheus.Desc
+	printerVoltageRaw            *prometheus.Desc
+	printerCurrentRaw            *prometheus.Desc
+	printerAppStart              *prometheus.Desc
+	printerMaintaskLoop          *prometheus.Desc
+	printerFSensorRaw            *prometheus.Desc
+	printerSideFSensorRaw        *prometheus.Desc
+	printerPwm                   *prometheus.Desc
+	printerLoadcellThresholdCont *prometheus.Desc
+	printerPowerPanicCount       *prometheus.Desc
+	printerCrashLength           *prometheus.Desc
+	printerUsbhErrCount          *prometheus.Desc
+	printerMediaPrefetched       *prometheus.Desc
+	printerPointsDropped         *prometheus.Desc
+	printerProbeInfo             *prometheus.Desc
+	printerEeepromWrite          *prometheus.Desc
+	printerTmcSg                 *prometheus.Desc
+	printerTmcWrite              *prometheus.Desc
+	printerTmcRead               *prometheus.Desc
+	printerFanActive             *prometheus.Desc
+	printerGuiLoopDuration       *prometheus.Desc
+	printerG425Cen               *prometheus.Desc
+	printerG425Offset            *prometheus.Desc
+	printerG425Rxy               *prometheus.Desc
+	printerG425Xy                *prometheus.Desc
+	printerG425Rz                *prometheus.Desc
+	printerG425Z                 *prometheus.Desc
+	printerXyDev                 *prometheus.Desc
+	printerGcode                 *prometheus.Desc
+	printerMMUComm               *prometheus.Desc
+	printerDwarfFastRefreshDelay *prometheus.Desc
+	printerDwarfPickedRaw        *prometheus.Desc
+	printerDwarfParkedRaw        *prometheus.Desc
+	printerBedState              *prometheus.Desc
+	printerModbusReqfail         *prometheus.Desc
+	printerBedletRegulation      *prometheus.Desc
+	printerTemp                  *prometheus.Desc
+	printerLoadcellValue         *prometheus.Desc
+	printerFSensor               *prometheus.Desc
 }
 
 // NewCollector is a function that returns new Collector
@@ -69,66 +106,96 @@ func NewCollector(config *config.Config) *Collector {
 	configuration = config
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
 	return &Collector{
-		printerBedletTemp:         prometheus.NewDesc("prusa_bedlet_temp", "Bedlet temperature", defaultLabels, nil),
-		printerBedletState:        prometheus.NewDesc("prusa_bedlet_state", "Bedlet state", defaultLabels, nil),
-		printerProbeZ:             prometheus.NewDesc("prusa_probe_z", "Probe Z", defaultLabels, nil),
-		printerBedMcuTemp:         prometheus.NewDesc("prusa_bed_mcu_temp", "Bed MCU temperature", defaultLabels, nil),
-		printerLoadcellValue:      prometheus.NewDesc("prusa_loadcell_value", "Loadcell value", defaultLabels, nil),
-		printerSandwitchTemp:      prometheus.NewDesc("prusa_temp_sandwich", "Sandwich temperature", defaultLabels, nil),
-		printerSplitterTemp:       prometheus.NewDesc("prusa_temp_splitter", "Splitter temperature", defaultLabels, nil),
-		printerDwarfsBoardTemp:    prometheus.NewDesc("prusa_dwarfs_board_temp", "Dwarfs board temperature", defaultLabels, nil),
-		printerHeatbreakTemp:      prometheus.NewDesc("prusa_temp_hbr", "Heatbreak temperature", defaultLabels, nil),
-		printerBoardTemp:          prometheus.NewDesc("prusa_temp_brd", "Board temperature", defaultLabels, nil),
-		printerChamberTemp:        prometheus.NewDesc("prusa_temp_chamber", "Chamber temperature", defaultLabels, nil),
-		printerMcuTemp:            prometheus.NewDesc("prusa_temp_mcu", "MCU temperature", defaultLabels, nil),
-		printerFSensor:            prometheus.NewDesc("prusa_fsensor", "Filament Sensor", defaultLabels, nil),
-		printerSideFSensor:        prometheus.NewDesc("prusa_side_fsensor", "Side Filament Sensor", defaultLabels, nil),
-		printerCurrentDwarfHeater: prometheus.NewDesc("prusa_current_dwarf_heater", "Current of dwarf heater", defaultLabels, nil),
-		printerCurrentBedlet:      prometheus.NewDesc("prusa_current_bedlet", "Current of bedlet", defaultLabels, nil),
-		printerVolt5V:             prometheus.NewDesc("prusa_voltage_5volts", "Voltage of 5V rail", defaultLabels, nil),
-		printerVolt24V:            prometheus.NewDesc("prusa_voltage_24volts", "Voltage of 24V rail", defaultLabels, nil),
-		printerVoltBed:            prometheus.NewDesc("prusa_voltage_bed", "Voltage of bed", defaultLabels, nil),
-		printerVoltNozzle:         prometheus.NewDesc("prusa_voltage_nozzle", "Voltage of nozzle", defaultLabels, nil),
-		printerVoltSandwich5V:     prometheus.NewDesc("prusa_voltage_sandwich_5volts", "Voltage of sandwich 5V rail", defaultLabels, nil),
-		printerVoltSplitter5V:     prometheus.NewDesc("prusa_voltage_splitter_5volts", "Voltage of splitter 5V rail", defaultLabels, nil),
-		printerCurrentXlbuddy5V:   prometheus.NewDesc("prusa_current_xlbuddy_5volts", "Current of xlBuddy 5V rail", defaultLabels, nil),
-		printerCurrentInput:       prometheus.NewDesc("prusa_current_input", "Input current", defaultLabels, nil),
-		printerCurrentMMU:         prometheus.NewDesc("prusa_current_mmu", "Current of MMU", defaultLabels, nil),
-		printerCurrentBed:         prometheus.NewDesc("prusa_current_bed", "Current of bed", append(defaultLabels, "rail" /*XL has two 24V rails for heatbed*/), nil),
-		printerCurrentNozzle:      prometheus.NewDesc("prusa_current_nozzle", "Current of nozzle", defaultLabels, nil),
-		printerOvercurrentNozzle:  prometheus.NewDesc("prusa_overcurrent_nozzle", "Overcurrent of nozzle", defaultLabels, nil),
-		printerOvercurrentInput:   prometheus.NewDesc("prusa_overcurrent_input", "Overcurrent of input", defaultLabels, nil),
-		printerActiveExtruder:     prometheus.NewDesc("prusa_active_extruder", "Active extruder - used for XL", defaultLabels, nil),
-		printerDwarfMcuTemp:       prometheus.NewDesc("prusa_dwarf_mcu_temp", "Dwarf MCU temperature - used for XL", defaultLabels, nil),
-		printerDwarfBoardTemp:     prometheus.NewDesc("prusa_dwarf_board_temp", "Dwarf board temperature - used for XL", defaultLabels, nil),
-		printerAxisZAdjustment:    prometheus.NewDesc("prusa_axis_z_adjustment", "Axis Z adjustment", defaultLabels, nil),
-		printerHeaterEnabled:      prometheus.NewDesc("prusa_heater_enabled", "Heater enabled", defaultLabels, nil),
-		printerLoadcellScale:      prometheus.NewDesc("prusa_loadcell_scale", "Loadcell scale", defaultLabels, nil),
-		printerLoadcellThreshold:  prometheus.NewDesc("prusa_loadcell_threshold", "Loadcell threshold", defaultLabels, nil),
-		printerLoadcellHysteresis: prometheus.NewDesc("prusa_loadcell_hysteresis", "Loadcell hysteresis", defaultLabels, nil),
-		printerBuddySyslogInfo:    prometheus.NewDesc("prusa_syslog_info", "Buddy info", append(defaultLabels, "buddy_revision", "buddy_bom"), nil),
-		printerCPUUsage:           prometheus.NewDesc("prusa_cpu_usage_ratio", "CPU usage from 0.0 to 1.0", defaultLabels, nil),
-		printerHeapTotal:          prometheus.NewDesc("prusa_heap_total", "Total heap", defaultLabels, nil),
-		printerHeapFree:           prometheus.NewDesc("prusa_heap_free", "Free heap", defaultLabels, nil),
-		printerPointsDropped:      prometheus.NewDesc("prusa_points_dropped", "Points dropped", defaultLabels, nil),
-		printerMediaPrefetched:    prometheus.NewDesc("prusa_media_prefetched", "Media prefetched", defaultLabels, nil),
+		printerTemp:                  prometheus.NewDesc("prusa_temp", "Temperature of different devices in / on the printer", append(defaultLabels, "device"), nil),
+		printerCPUUsage:              prometheus.NewDesc("prusa_cpu_usage_ratio", "CPU usage from 0.0 to 1.0", defaultLabels, nil),
+		printerHeapTotal:             prometheus.NewDesc("prusa_heap_total", "Total heap", defaultLabels, nil),
+		printerHeapFree:              prometheus.NewDesc("prusa_heap_free", "Free heap", defaultLabels, nil),
+		printerCrashCounter:          prometheus.NewDesc("prusa_crash_counter", "Crash counter", defaultLabels, nil),
+		printerCrashStat:             prometheus.NewDesc("prusa_crash_stat", "Crash statistics", defaultLabels, nil),
+		printerCrashRepeatedCounter:  prometheus.NewDesc("prusa_crash_repeated_counter", "Crash repeated counter", defaultLabels, nil),
+		printerExciteFreq:            prometheus.NewDesc("prusa_excite_freq", "Excite frequency", defaultLabels, nil),
+		printerFreqGain:              prometheus.NewDesc("prusa_freq_gain", "Frequency gain", defaultLabels, nil),
+		printerTKAcceleration:        prometheus.NewDesc("prusa_tk_acceleration", "TK acceleration", defaultLabels, nil),
+		printerHomeDiff:              prometheus.NewDesc("prusa_home_diff", "Home difference", defaultLabels, nil),
+		printerProbeZ:                prometheus.NewDesc("prusa_probe_z", "Probe Z", defaultLabels, nil),
+		printerProbeZDiff:            prometheus.NewDesc("prusa_probe_z_diff", "Probe Z difference", defaultLabels, nil),
+		printerProbeStart:            prometheus.NewDesc("prusa_probe_start", "Probe start", defaultLabels, nil),
+		printerProbeAnalysis:         prometheus.NewDesc("prusa_probe_analysis", "Probe analysis", defaultLabels, nil),
+		printerHeatModelDiscard:      prometheus.NewDesc("prusa_heat_model_disc", "Heating model discrepancy", defaultLabels, nil),
+		printerNetworkOut:            prometheus.NewDesc("prusa_network_out", "Network out", append(defaultLabels, "device"), nil), //esp and eth
+		printerNetworkIn:             prometheus.NewDesc("prusa_network_in", "Network in", append(defaultLabels, "device"), nil),   //esp and eth
+		printerFanSpeed:              prometheus.NewDesc("prusa_fan_speed", "Fan", append(defaultLabels, "fan"), nil),
+		printerIpos:                  prometheus.NewDesc("prusa_stepper_ipos", "Stepper possition from startup", append(defaultLabels, "axis"), nil),
+		printerPos:                   prometheus.NewDesc("prusa_stepper_pos", "Stepper possition", append(defaultLabels, "axis"), nil),
+		printerAxisZAdjustment:       prometheus.NewDesc("prusa_axis_z_adjustment", "Axis Z adjustment", defaultLabels, nil),
+		printerHeaterEnabled:         prometheus.NewDesc("prusa_heater_enabled", "Heater enabled", defaultLabels, nil),
+		printerVoltage:               prometheus.NewDesc("prusa_voltage", "Voltage of different devices in / on the printer", append(defaultLabels, "rail", "device"), nil),
+		printerVoltageRaw:            prometheus.NewDesc("prusa_voltage_raw", "Voltage of different devices in / on the printer in raw sensor value", append(defaultLabels, "rail", "device"), nil),
+		printerCurrent:               prometheus.NewDesc("prusa_current", "Current of different devices in / on the printer", append(defaultLabels, "rail", "device"), nil),
+		printerCurrentRaw:            prometheus.NewDesc("prusa_current_raw", "Current of different devices in / on the printer in raw sensor value", append(defaultLabels, "rail", "device"), nil),
+		printerOvercurrent:           prometheus.NewDesc("prusa_overcurrent", "Overcurrent of different devices in / on the printer", append(defaultLabels, "device"), nil),
+		printerFilename:              prometheus.NewDesc("prusa_filename", "Name of printed (b)gcode", append(defaultLabels, "file"), nil),
+		printerAppStart:              prometheus.NewDesc("prusa_app_start", "Application start", defaultLabels, nil),
+		printerMaintaskLoop:          prometheus.NewDesc("prusa_maintask_loop", "Maintask loop", defaultLabels, nil),
+		printerFSensor:               prometheus.NewDesc("prusa_fsensor", "Filament Sensor", defaultLabels, nil),
+		printerSideFSensor:           prometheus.NewDesc("prusa_side_fsensor", "Side Filament Sensor", defaultLabels, nil),
+		printerFSensorRaw:            prometheus.NewDesc("prusa_fsensor_raw", "Filament Sensor - raw sensor value", defaultLabels, nil),
+		printerSideFSensorRaw:        prometheus.NewDesc("prusa_side_fsensor_raw", "Side Filament Sensor - raw sensor value", defaultLabels, nil),
+		printerPwm:                   prometheus.NewDesc("prusa_pwm", "PWM value of nozzle and bed mostly", append(defaultLabels, "device"), nil),
+		printerLoadcellScale:         prometheus.NewDesc("prusa_loadcell_scale", "Loadcell scale", defaultLabels, nil),
+		printerLoadcellThreshold:     prometheus.NewDesc("prusa_loadcell_threshold", "Loadcell threshold", defaultLabels, nil),
+		printerLoadcellHysteresis:    prometheus.NewDesc("prusa_loadcell_hysteresis", "Loadcell hysteresis", defaultLabels, nil),
+		printerLoadcellValue:         prometheus.NewDesc("prusa_loadcell", "Value from loadcell sensor", defaultLabels, nil),
+		printerPowerPanicCount:       prometheus.NewDesc("prusa_power_panic_count", "Power panic triggered", defaultLabels, nil), //counter
+		printerCrashLength:           prometheus.NewDesc("prusa_crash_length", "Crash length", defaultLabels, nil),
+		printerUsbhErrCount:          prometheus.NewDesc("prusa_usbh_err_count", "USBH error counter", defaultLabels, nil), //counter
+		printerMediaPrefetched:       prometheus.NewDesc("prusa_eeeprom_write", "Eeeprom write", defaultLabels, nil),
+		printerTmcSg:                 prometheus.NewDesc("prusa_tmc_sg", "Trinamic SG", append(defaultLabels, "axis"), nil),
+		printerTmcWrite:              prometheus.NewDesc("prusa_tmc_write", "Trinamic write", append(defaultLabels, "axis"), nil),
+		printerTmcRead:               prometheus.NewDesc("prusa_tmc_read", "Trinamic read", append(defaultLabels, "axis"), nil),
+		printerFanActive:             prometheus.NewDesc("prusa_fan_active", "Fan active", append(defaultLabels, "fan"), nil),
+		printerGuiLoopDuration:       prometheus.NewDesc("prusa_gui_loop_duration", "Gui loop duration", defaultLabels, nil),
+		printerG425Cen:               prometheus.NewDesc("prusa_g425_cen", "Absolute tool center - an input for offset computation [mm]", defaultLabels, nil),
+		printerG425Offset:            prometheus.NewDesc("prusa_g425_off", "Offset from the absolute tool center [mm]", defaultLabels, nil),
+		printerG425Rxy:               prometheus.NewDesc("prusa_g425_rxy", "Raw XY probe [mm]", defaultLabels, nil),
+		printerG425Xy:                prometheus.NewDesc("prusa_g425_xy", "Verified XY probe - two raw probes agree on position [mm]", defaultLabels, nil),
+		printerG425Rz:                prometheus.NewDesc("prusa_g425_rz", "Raw Z probe [mm]", defaultLabels, nil),
+		printerG425Z:                 prometheus.NewDesc("prusa_g425_z", "Averaged Z probe - N raw probes averaged [mm]", defaultLabels, nil),
+		printerXyDev:                 prometheus.NewDesc("prusa_xy_dev", "XY deviation - max difference between two raw probes [mm]", defaultLabels, nil),
+		printerGcode:                 prometheus.NewDesc("prusa_gcode", "Printed GCode", append(defaultLabels, "gcode"), nil),
+		printerLoadcellThresholdCont: prometheus.NewDesc("prusa_loadcell_threshold_cont", "Loadcell threshold continuous", defaultLabels, nil),
+		printerMMUComm:               prometheus.NewDesc("prusa_mmu_comm", "MMU communication", defaultLabels, nil),
+		printerDwarfFastRefreshDelay: prometheus.NewDesc("prusa_dwarf_fast_refresh_delay", "Dwarf fast refresh delay", defaultLabels, nil),
+		printerDwarfPickedRaw:        prometheus.NewDesc("prusa_dwarf_picked_raw", "Dwarf picked raw sensor value", defaultLabels, nil),
+		printerDwarfParkedRaw:        prometheus.NewDesc("prusa_dwarf_parked_raw", "Dwarf parked raw sensor value", defaultLabels, nil),
+		printerBedState:              prometheus.NewDesc("prusa_bed_state", "Bed state", defaultLabels, nil),
+		printerBedletState:           prometheus.NewDesc("prusa_bedlet_state", "Bedlet state", defaultLabels, nil),
+		printerModbusReqfail:         prometheus.NewDesc("prusa_modbus_reqfail", "Modbus request fail", defaultLabels, nil),
+		printerBedletRegulation:      prometheus.NewDesc("prusa_bedlet_regulation", "Bedlet regulation", defaultLabels, nil),
+		printerActiveExtruder:        prometheus.NewDesc("prusa_active_extruder", "Active extruder - used for XL", defaultLabels, nil),
+		printerCurrentDwarfHeater:    prometheus.NewDesc("prusa_current_dwarf_heater", "Current of dwarf heater", defaultLabels, nil),
+		printerCurrentBedlet:         prometheus.NewDesc("prusa_current_bedlet", "Current of bedlet", defaultLabels, nil),
+		printerVolt5V:                prometheus.NewDesc("prusa_voltage_5volts", "Voltage of 5V rail", defaultLabels, nil),
+		printerVolt24V:               prometheus.NewDesc("prusa_voltage_24volts", "Voltage of 24V rail", defaultLabels, nil),
+		printerVoltBed:               prometheus.NewDesc("prusa_voltage_bed", "Voltage of bed", defaultLabels, nil),
+		printerVoltNozzle:            prometheus.NewDesc("prusa_voltage_nozzle", "Voltage of nozzle", defaultLabels, nil),
+		printerVoltSandwich5V:        prometheus.NewDesc("prusa_voltage_sandwich_5volts", "Voltage of sandwich 5V rail", defaultLabels, nil),
+		printerVoltSplitter5V:        prometheus.NewDesc("prusa_voltage_splitter_5volts", "Voltage of splitter 5V rail", defaultLabels, nil),
+		printerCurrentXlbuddy5V:      prometheus.NewDesc("prusa_current_xlbuddy_5volts", "Current of xlBuddy 5V rail", defaultLabels, nil),
+		printerCurrentInput:          prometheus.NewDesc("prusa_current_input", "Input current", defaultLabels, nil),
+		printerCurrentMMU:            prometheus.NewDesc("prusa_current_mmu", "Current of MMU", defaultLabels, nil),
+		printerCurrentBed:            prometheus.NewDesc("prusa_current_bed", "Current of bed", append(defaultLabels, "rail" /*XL has two 24V rails for heatbed*/), nil),
+		printerCurrentNozzle:         prometheus.NewDesc("prusa_current_nozzle", "Current of nozzle", defaultLabels, nil),
+		printerOvercurrentNozzle:     prometheus.NewDesc("prusa_overcurrent_nozzle", "Overcurrent of nozzle", defaultLabels, nil),
+		printerOvercurrentInput:      prometheus.NewDesc("prusa_overcurrent_input", "Overcurrent of input", defaultLabels, nil),
 	}
 }
 
 // Describe is a function that describes all the metrics
 func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
-	ch <- collector.printerBedletTemp
 	ch <- collector.printerBedletState
 	ch <- collector.printerProbeZ
-	ch <- collector.printerBedMcuTemp
 	ch <- collector.printerLoadcellValue
-	ch <- collector.printerSandwitchTemp
-	ch <- collector.printerSplitterTemp
-	ch <- collector.printerDwarfsBoardTemp
-	ch <- collector.printerHeatbreakTemp
-	ch <- collector.printerBoardTemp
-	ch <- collector.printerChamberTemp
-	ch <- collector.printerMcuTemp
 	ch <- collector.printerFSensor
 	ch <- collector.printerSideFSensor
 	ch <- collector.printerCurrentDwarfHeater
@@ -147,8 +214,6 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerOvercurrentNozzle
 	ch <- collector.printerOvercurrentInput
 	ch <- collector.printerActiveExtruder
-	ch <- collector.printerDwarfMcuTemp
-	ch <- collector.printerDwarfBoardTemp
 	ch <- collector.printerAxisZAdjustment
 	ch <- collector.printerHeaterEnabled
 	ch <- collector.printerLoadcellScale
@@ -164,7 +229,8 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 
 // Collect is a function that collects all the metrics
 func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
-	for _, s := range configuration.Printers {
+	// needs reworking :pug-dance:
+	/*for _, s := range configuration.Printers {
 		log.Debug().Msg("SYSLOG - Buddy scraping at " + s.Address)
 		if _, ok := syslogData[s.Address]; ok {
 
@@ -265,10 +331,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 						printerBoardTemp := prometheus.MustNewConstMetric(collector.printerBoardTemp, prometheus.GaugeValue,
 							printerBoardTempParsed, prusalink.GetLabels(s, job)...)
 						ch <- printerBoardTemp
-					}
-
-					printerChamberTempParsed, e := strconv.ParseFloat(syslogData[s.Address]["temp_chamber"], 32)
-					if e != nil {
+						printerFSensor/* 				if e != nil {
 						log.Debug().Msg(e.Error())
 					} else {
 						printerChamberTemp := prometheus.MustNewConstMetric(collector.printerChamberTemp, prometheus.GaugeValue,
@@ -566,11 +629,6 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 						log.Debug().Msg(e.Error())
 
 					} else {
-						printerHeapTotal := prometheus.MustNewConstMetric(collector.printerHeapTotal, prometheus.GaugeValue,
-							printerHeapTotal, prusalink.GetLabels(s, job)...)
-						ch <- printerHeapTotal
-					}
-
 					printerHeapFree, e := strconv.ParseFloat(strings.Split(syslogData[s.Address]["heap"], ",")[0], 32)
 					if e != nil {
 						log.Debug().Msg(e.Error())
@@ -604,5 +662,5 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				}
 			}
 		}
-	}
+	}*/
 }
