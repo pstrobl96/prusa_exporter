@@ -301,6 +301,9 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 		mac := key.(string)
 		innermap, ok := value.(map[string]map[string]string)
 
+		log.Trace().Msg("Collecting metrics for " + mac)
+		log.Trace().Msg("Innermap: " + innermap["ip"]["value"])
+
 		if !ok {
 			log.Error().Msg("Error casting syslog data")
 			return false
@@ -318,8 +321,9 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			mapExtract := collectorMap[k]
 
 			valueParsed, e := strconv.ParseFloat(v[mapExtract.nameOfMetric], 64)
+
 			if e != nil {
-				log.Debug().Msg(e.Error())
+				log.Error().Msg(e.Error())
 				break
 			}
 
@@ -331,6 +335,8 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				printerMetric := prometheus.MustNewConstMetric(collectorItem, prometheus.GaugeValue,
 					value, labels...)
 				ch <- printerMetric
+			} else {
+				log.Debug().Msg("Error creating metric: " + k + " for " + mac + " at " + ip + " with value: " + v[mapExtract.nameOfMetric])
 			}
 
 		}
