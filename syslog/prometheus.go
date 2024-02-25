@@ -1,7 +1,6 @@
 package syslog
 
 import (
-	"reflect"
 	"strconv"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -135,12 +134,6 @@ var (
 		},
 	}
 )
-
-func getField(collector *Collector, field string) *prometheus.Desc {
-	r := reflect.ValueOf(collector)
-	f := reflect.Indirect(r).FieldByName(field)
-	return f.Interface().(*prometheus.Desc)
-}
 
 // NewCollector is a function that returns new Collector
 // NewCollector creates a new instance of the Collector struct with the provided configuration.
