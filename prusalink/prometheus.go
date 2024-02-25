@@ -21,9 +21,7 @@ type Collector struct {
 	printerUp                 *prometheus.Desc
 	printerNozzleSize         *prometheus.Desc
 	printerStatus             *prometheus.Desc
-	printerAxisX              *prometheus.Desc
-	printerAxisY              *prometheus.Desc
-	printerAxisZ              *prometheus.Desc
+	printerAxis               *prometheus.Desc
 	printerFlow               *prometheus.Desc
 	printerInfo               *prometheus.Desc
 	printerMMU                *prometheus.Desc
@@ -63,9 +61,7 @@ func NewCollector(config *config.Config) *Collector {
 		printerUp:                 prometheus.NewDesc("prusa_up", "Return information about online printers. If printer is registered as offline then returned value is 0.", []string{"printer_address", "printer_model", "printer_name"}, nil),
 		printerNozzleSize:         prometheus.NewDesc("prusa_nozzle_size", "Returns information about selected nozzle size.", defaultLabels, nil),
 		printerStatus:             prometheus.NewDesc("prusa_status", "Returns information status of printer.", append(defaultLabels, "printer_state"), nil),
-		printerAxisX:              prometheus.NewDesc("prusa_axis_x", "Returns information about position of axis X.", defaultLabels, nil),
-		printerAxisY:              prometheus.NewDesc("prusa_axis_y", "Returns information about position of axis Y.", defaultLabels, nil),
-		printerAxisZ:              prometheus.NewDesc("prusa_axis_z", "Returns information about position of axis Z.", defaultLabels, nil),
+		printerAxis:               prometheus.NewDesc("prusa_axis", "Returns information about position of axis.", append(defaultLabels, "printer_axis"), nil),
 		printerFlow:               prometheus.NewDesc("prusa_print_flow_ratio", "Returns information about of filament flow in ratio (0.0 - 1.0).", defaultLabels, nil),
 		printerInfo:               prometheus.NewDesc("prusa_info", "Returns information about printer.", append(defaultLabels, "api_version", "server_version", "version_text", "prusalink_name", "printer_location", "serial_number", "printer_hostname"), nil),
 		printerMMU:                prometheus.NewDesc("prusa_mmu", "Returns information if MMU is enabled.", defaultLabels, nil),
@@ -103,9 +99,7 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerUp
 	ch <- collector.printerNozzleSize
 	ch <- collector.printerStatus
-	ch <- collector.printerAxisX
-	ch <- collector.printerAxisY
-	ch <- collector.printerAxisZ
+	ch <- collector.printerAxis
 	ch <- collector.printerFlow
 	ch <- collector.printerInfo
 	ch <- collector.printerMMU
@@ -294,23 +288,23 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				ch <- material
 
 				printerAxisX := prometheus.MustNewConstMetric(
-					collector.printerAxisX, prometheus.GaugeValue,
+					collector.printerAxis, prometheus.GaugeValue,
 					printer.Telemetry.AxisX,
-					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
+					GetLabels(s, job, "x")...)
 
 				ch <- printerAxisX
 
 				printerAxisY := prometheus.MustNewConstMetric(
-					collector.printerAxisY, prometheus.GaugeValue,
+					collector.printerAxis, prometheus.GaugeValue,
 					printer.Telemetry.AxisY,
-					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
+					GetLabels(s, job, "y")...)
 
 				ch <- printerAxisY
 
 				printerAxisZ := prometheus.MustNewConstMetric(
-					collector.printerAxisZ, prometheus.GaugeValue,
+					collector.printerAxis, prometheus.GaugeValue,
 					printer.Telemetry.AxisZ,
-					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
+					GetLabels(s, job, "z")...)
 
 				ch <- printerAxisZ
 
