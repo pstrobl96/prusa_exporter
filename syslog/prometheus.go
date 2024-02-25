@@ -18,6 +18,53 @@ type collectorBranch struct {
 	labels       []label
 }
 
+var (
+	defaultLabels = []string{"mac", "ip"}
+
+	collectorMap = map[string]collectorBranch{
+		"active_extruder": {
+			collector:    prometheus.NewDesc("prusa_active_extruder", "Active extruder - used for XL", defaultLabels, nil),
+			nameOfMetric: "value",
+			labels:       []label{},
+		},
+		"app_start": {
+			collector:    prometheus.NewDesc("prusa_app_start", "Application start", defaultLabels, nil),
+			nameOfMetric: "value",
+			labels:       []label{},
+		},
+		"axis_z_adjustment": {
+			collector:    prometheus.NewDesc("prusa_axis_z_adjustment", "Axis Z adjustment", defaultLabels, nil),
+			nameOfMetric: "value",
+			labels:       []label{},
+		},
+		"bedlet_regulation": {
+			collector:    prometheus.NewDesc("prusa_bedlet_regulation", "Bedlet regulation", defaultLabels, nil),
+			nameOfMetric: "value",
+			labels:       []label{},
+		},
+		"bedlet_state": {
+			collector:    prometheus.NewDesc("prusa_bedlet_state", "Bedlet state", defaultLabels, nil),
+			nameOfMetric: "value",
+			labels:       []label{},
+		},
+		"bed_state": {
+			collector:    prometheus.NewDesc("prusa_bed_state", "Bed state", defaultLabels, nil),
+			nameOfMetric: "value",
+			labels:       []label{},
+		},
+		"cpu_usage": {
+			collector:    prometheus.NewDesc("prusa_cpu_usage_ratio", "CPU usage from 0.0 to 1.0", defaultLabels, nil),
+			nameOfMetric: "value",
+			labels:       []label{},
+		},
+		"crash_counter": {
+			collector:    prometheus.NewDesc("prusa_crash_counter", "Crash counter", defaultLabels, nil),
+			nameOfMetric: "value",
+			labels:       []label{},
+		},
+	}
+)
+
 func getLabels(mac string, ip string, labels []label, labelValues ...string) []string {
 	for _, l := range labels {
 		labelValues = append(labelValues, l.value)
@@ -100,58 +147,22 @@ type Collector struct {
 	printerXyDev                 *prometheus.Desc
 }
 
-var (
-	collectorMap = map[string]collectorBranch{
-		"active_extruder": {
-			collector:    NewCollector().printerActiveExtruder,
-			nameOfMetric: "value",
-			labels:       []label{},
-		},
-		"app_start": {
-			collector:    NewCollector().printerAppStart,
-			nameOfMetric: "value",
-			labels:       []label{},
-		},
-		"axis_z_adjustment": {
-			collector:    NewCollector().printerAxisZAdjustment,
-			nameOfMetric: "value",
-			labels:       []label{},
-		},
-		"bedlet_regulation": {
-			collector:    NewCollector().printerBedletRegulation,
-			nameOfMetric: "value",
-			labels:       []label{},
-		},
-		"bedlet_state": {
-			collector:    NewCollector().printerBedletState,
-			nameOfMetric: "value",
-			labels:       []label{},
-		},
-		"bed_state": {
-			collector:    NewCollector().printerBedState,
-			nameOfMetric: "value",
-			labels:       []label{},
-		},
-	}
-)
-
 // NewCollector is a function that returns new Collector
 // NewCollector creates a new instance of the Collector struct with the provided configuration.
 // It initializes all the Prometheus metrics used for monitoring different aspects of the printer.
 // The defaultLabels parameter is a list of labels that will be included in all the metrics.
 // Returns a pointer to the created Collector.
 func NewCollector() *Collector {
-	defaultLabels := []string{"mac", "ip"}
 
 	return &Collector{
-		printerActiveExtruder:        prometheus.NewDesc("prusa_active_extruder", "Active extruder - used for XL", defaultLabels, nil),
-		printerAppStart:              prometheus.NewDesc("prusa_app_start", "Application start", defaultLabels, nil),
-		printerAxisZAdjustment:       prometheus.NewDesc("prusa_axis_z_adjustment", "Axis Z adjustment", defaultLabels, nil),
-		printerBedletRegulation:      prometheus.NewDesc("prusa_bedlet_regulation", "Bedlet regulation", defaultLabels, nil),
-		printerBedletState:           prometheus.NewDesc("prusa_bedlet_state", "Bedlet state", defaultLabels, nil),
-		printerBedState:              prometheus.NewDesc("prusa_bed_state", "Bed state", defaultLabels, nil),
-		printerCPUUsage:              prometheus.NewDesc("prusa_cpu_usage_ratio", "CPU usage from 0.0 to 1.0", defaultLabels, nil),
-		printerCrashCounter:          prometheus.NewDesc("prusa_crash_counter", "Crash counter", defaultLabels, nil),
+		printerActiveExtruder:        collectorMap["active_extruder"].collector,
+		printerAppStart:              collectorMap["app_start"].collector, // syslogMetrics["app_start"
+		printerAxisZAdjustment:       collectorMap["axis_z_adjustment"].collector,
+		printerBedletRegulation:      collectorMap["bedlet_regulation"].collector,
+		printerBedletState:           collectorMap["bedlet_state"].collector,
+		printerBedState:              collectorMap["bed_state"].collector,
+		printerCPUUsage:              collectorMap["cpu_usage"].collector,
+		printerCrashCounter:          collectorMap["crash_counter"].collector,
 		printerCrashLength:           prometheus.NewDesc("prusa_crash_length", "Crash length", defaultLabels, nil),
 		printerCrashRepeatedCounter:  prometheus.NewDesc("prusa_crash_repeated_counter", "Crash repeated counter", defaultLabels, nil),
 		printerCrashStat:             prometheus.NewDesc("prusa_crash_stat", "Crash statistics", defaultLabels, nil),
