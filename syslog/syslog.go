@@ -1,6 +1,7 @@
 package syslog
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 
@@ -23,9 +24,10 @@ var (
 	//   metric_name:
 	//     metric: string
 	//     value: string
-	syslogMetrics = make(map[string]map[string][]metrics)
+	syslogMetrics = make(map[string]map[string]map[string]string) // lol
 
 	regexpPatterns = map[string]patterns{
+		"v_integer":              {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) v=(?P<value>-?\d+)i (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}},
 		"float":                  {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) v=(?P<value>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}},
 		"integer":                {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) v=(?P<value>[-\d\.]+)i (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}},
 		"string":                 {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) v="(?P<value>[-\d\.]+)" (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}},
@@ -37,8 +39,8 @@ var (
 		"a_f_x_y_z":              {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) a=(?P<a>[-\d\.]+),f=(?P<f>[-\d\.]+),x=(?P<x>[-\d\.]+),y=(?P<y>[-\d\.]+),z=(?P<z>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "a", "f", "x", "y", "z", "timestamp"}},
 		"ax_ok_v_n":              {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+),ax=(?P<ax>[-\d\.]+),ok=(?P<ok>[-\d\.]+) v=(?P<v>[-\d\.]+),n=(?P<n>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "ax", "ok", "value", "n", "timestamp"}},
 		"ok_desc":                {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) ok=(?P<ok>[-\d\.]+),desc="(?P<desc>[-\d\.]+)" (?P<timestamp>\d+)`, fields: []string{"name", "ok", "desc", "timestamp"}},
-		"sent":                   {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) sent=(?P<sent>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "sent", "timestamp"}},
-		"recv":                   {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) recv=(?P<recv>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "recv", "timestamp"}},
+		"sent":                   {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) sent=(?P<sent>[-\d\.]+)i (?P<timestamp>\d+)`, fields: []string{"name", "sent", "timestamp"}},
+		"recv":                   {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) recv=(?P<recv>[-\d\.]+)i (?P<timestamp>\d+)`, fields: []string{"name", "recv", "timestamp"}},
 		"n_t_m":                  {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+),n=(?P<n>[-\d\.]+) t=(?P<t>[-\d\.]+),m=(?P<m>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "n", "t", "m", "timestamp"}},
 		"n_u":                    {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+),n=(?P<n>[-\d\.]+) u=(?P<u>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "n", "u", "timestamp"}},
 		"n_a_value":              {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+),n=(?P<n>[-\d\.]+),a=(?P<a>[-\d\.]+) value=(?P<value>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "n", "a", "value", "timestamp"}},
@@ -56,6 +58,7 @@ var (
 		"n_v_e_integer":          {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+),n=(?P<n>[-\d\.]+) v=(?P<v>[-\d\.]+)i,e=(?P<e>[-\d\.]+)i (?P<timestamp>\d+)`, fields: []string{"name", "n", "value", "e", "timestamp"}},
 		"n_p_i_d_tc":             {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+),n=(?P<n>[-\d\.]+) p=(?P<p>[-\d\.]+),i=(?P<i>[-\d\.]+),d=(?P<d>[-\d\.]+),tc=(?P<tc>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "n", "p", "i", "d", "tc", "timestamp"}},
 		"n_v_e":                  {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+),n=(?P<n>[-\d\.]+) v=(?P<v>[-\d\.]+),e=(?P<e>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "n", "value", "e", "timestamp"}},
+		"r_o_s":                  {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) r=(?P<r>[-\d\.]+)i,o=(?P<o>[-\d\.]+)i,s=(?P<s>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "r", "o", "s", "timestamp"}},
 	}
 )
 
@@ -86,26 +89,34 @@ func HandleMetrics(listenUDP string) {
 				port := strings.Split(logParts["client"].(string), ":")[1]     // getting rid of port and leaving only ip address
 
 				if syslogMetrics[mac] == nil {
-					syslogMetrics[mac] = make(map[string][]metrics)
-				} // Initialize map for ip address if it doesn't exist - is it unique? No. Is it a problem? No. Is it experimental? Yes.
+					syslogMetrics[mac] = make(map[string]map[string]string)
+				}
 
-				syslogMetrics[mac]["ip"] = append(syslogMetrics[mac]["ip"], metrics{name: "ip", value: clientIP})
-				syslogMetrics[mac]["port"] = append(syslogMetrics[mac]["port"], metrics{name: "port", value: port})
+				if syslogMetrics[mac]["ip"] == nil {
+					syslogMetrics[mac]["ip"] = make(map[string]string)
+				}
 
-				log.Debug().Msg("Received message from: " + mac)
+				if syslogMetrics[mac]["port"] == nil {
+					syslogMetrics[mac]["port"] = make(map[string]string)
+				}
+
+				syslogMetrics[mac]["ip"]["value"] = clientIP
+				syslogMetrics[mac]["port"]["value"] = port
+				fmt.Println(logParts["message"])
+				log.Trace().Msg("Received message from: " + mac)
 
 				for name, pattern := range regexpPatterns {
+
 					reg, err := regexp.Compile(pattern.pattern)
 					if err != nil {
 						log.Error().Msg("Error compiling regexp: " + err.Error())
 						return
 					}
 
-					log.Debug().Msg("Matching pattern: " + name + " for message: " + logParts["message"].(string))
+					log.Trace().Msg("Matching pattern: " + name + " for message: " + logParts["message"].(string))
 
 					matches := reg.FindAllStringSubmatch(logParts["message"].(string), -1)
 					if matches == nil {
-						log.Debug().Msg("No matches for pattern: " + name)
 						continue // No matches for this pattern
 					}
 					//v, x, y, z, timestamp, free, total, axis, sens, period, speed, last, sent, recv, n, t, m, u, a, f, ax, ok, desc, st, r, ri, sp, e, p, i, d, tc, as, fe, rs, ae, reg, regn, pwm, measured, fan, state, n, v
@@ -117,8 +128,22 @@ func HandleMetrics(listenUDP string) {
 						for i, field := range pattern.fields {
 							if field == "name" {
 								metricName = match[i+1]
-							} else if match[i+1] != "" {
-								syslogMetrics[mac][metricName] = append(syslogMetrics[mac][metricName], metrics{name: field, value: match[i+1]})
+							} else if match[i+1] != "" && field != "timestamp" {
+								if field == "n" {
+									metricName = metricName + "_" + match[i+1]
+									if syslogMetrics[mac][metricName] == nil {
+										syslogMetrics[mac][metricName] = make(map[string]string)
+									}
+									syslogMetrics[mac][metricName][field] = match[i+1]
+
+								} else {
+									if syslogMetrics[mac][metricName] == nil {
+										syslogMetrics[mac][metricName] = make(map[string]string)
+									}
+
+									syslogMetrics[mac][metricName][field] = match[i+1]
+								}
+
 							}
 						}
 					}

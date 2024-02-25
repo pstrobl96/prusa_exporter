@@ -3,6 +3,7 @@ package syslog
 import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/pstrobl96/prusa_exporter/config"
+	"github.com/rs/zerolog/log"
 )
 
 var configuration *config.Config
@@ -242,6 +243,15 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 
 // Collect is a function that collects all the metrics
 func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
+
+	for i, s := range syslogMetrics {
+		for name, m := range s {
+			for ee, v := range m {
+				log.Debug().Msg(i + ":" + name + ":" + ee + ":" + v)
+			}
+		}
+	}
+
 	// needs reworking :pug-dance:
 	/*for _, s := range configuration.Printers {
 		log.Debug().Msg("SYSLOG - Buddy scraping at " + s.Address)
