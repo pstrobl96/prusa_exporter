@@ -8,11 +8,6 @@ import (
 	"gopkg.in/mcuadros/go-syslog.v2"
 )
 
-type labels struct {
-	name  string
-	value string
-}
-
 type patterns struct {
 	pattern string
 	fields  []string
