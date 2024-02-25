@@ -167,77 +167,77 @@ func NewCollector(config *config.Config) *Collector {
 
 // Describe is a function that describes all the metrics
 func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
-	ch <- collector.printerCurrent
-	ch <- collector.printerBedletState
-	ch <- collector.printerProbeZ
-	ch <- collector.printerSideFSensor
 	ch <- collector.printerActiveExtruder
+	ch <- collector.printerAppStart
 	ch <- collector.printerAxisZAdjustment
-	ch <- collector.printerHeaterEnabled
-	ch <- collector.printerLoadcellScale
-	ch <- collector.printerLoadcellThreshold
-	ch <- collector.printerLoadcellHysteresis
+	ch <- collector.printerBedletRegulation
+	ch <- collector.printerBedletState
+	ch <- collector.printerBedState
 	ch <- collector.printerBuddySyslogInfo
 	ch <- collector.printerCPUUsage
-	ch <- collector.printerHeapTotal
-	ch <- collector.printerHeapFree
 	ch <- collector.printerCrashCounter
-	ch <- collector.printerCrashStat
-	ch <- collector.printerCrashRepeatedCounter
-	ch <- collector.printerExciteFreq
-	ch <- collector.printerFreqGain
-	ch <- collector.printerTKAcceleration
-	ch <- collector.printerHomeDiff
-	ch <- collector.printerProbeZDiff
-	ch <- collector.printerProbeStart
-	ch <- collector.printerProbeAnalysis
-	ch <- collector.printerHeatModelDiscard
-	ch <- collector.printerNetworkOut
-	ch <- collector.printerNetworkIn
-	ch <- collector.printerFanSpeed
-	ch <- collector.printerIpos
-	ch <- collector.printerPos
-	ch <- collector.printerOvercurrent
-	ch <- collector.printerFilename
-	ch <- collector.printerVoltage
-	ch <- collector.printerVoltageRaw
-	ch <- collector.printerCurrentRaw
-	ch <- collector.printerAppStart
-	ch <- collector.printerMaintaskLoop
-	ch <- collector.printerFSensorRaw
-	ch <- collector.printerSideFSensorRaw
-	ch <- collector.printerPwm
-	ch <- collector.printerLoadcellThresholdCont
-	ch <- collector.printerPowerPanicCount
 	ch <- collector.printerCrashLength
-	ch <- collector.printerUsbhErrCount
-	ch <- collector.printerMediaPrefetched
-	ch <- collector.printerPointsDropped
-	ch <- collector.printerProbeInfo
+	ch <- collector.printerCrashRepeatedCounter
+	ch <- collector.printerCrashStat
+	ch <- collector.printerCurrent
+	ch <- collector.printerCurrentRaw
+	ch <- collector.printerDwarfFastRefreshDelay
+	ch <- collector.printerDwarfParkedRaw
+	ch <- collector.printerDwarfPickedRaw
 	ch <- collector.printerEeepromWrite
-	ch <- collector.printerTmcSg
-	ch <- collector.printerTmcWrite
-	ch <- collector.printerTmcRead
+	ch <- collector.printerExciteFreq
 	ch <- collector.printerFanActive
-	ch <- collector.printerGuiLoopDuration
+	ch <- collector.printerFanSpeed
+	ch <- collector.printerFilename
+	ch <- collector.printerFSensor
+	ch <- collector.printerFSensorRaw
+	ch <- collector.printerFreqGain
 	ch <- collector.printerG425Cen
 	ch <- collector.printerG425Offset
 	ch <- collector.printerG425Rxy
-	ch <- collector.printerG425Xy
 	ch <- collector.printerG425Rz
+	ch <- collector.printerG425Xy
 	ch <- collector.printerG425Z
-	ch <- collector.printerXyDev
 	ch <- collector.printerGcode
-	ch <- collector.printerMMUComm
-	ch <- collector.printerDwarfFastRefreshDelay
-	ch <- collector.printerDwarfPickedRaw
-	ch <- collector.printerDwarfParkedRaw
-	ch <- collector.printerBedState
-	ch <- collector.printerModbusReqfail
-	ch <- collector.printerBedletRegulation
-	ch <- collector.printerTemp
+	ch <- collector.printerGuiLoopDuration
+	ch <- collector.printerHeapFree
+	ch <- collector.printerHeapTotal
+	ch <- collector.printerHeatModelDiscard
+	ch <- collector.printerHeaterEnabled
+	ch <- collector.printerHomeDiff
+	ch <- collector.printerIpos
+	ch <- collector.printerLoadcellHysteresis
+	ch <- collector.printerLoadcellScale
+	ch <- collector.printerLoadcellThreshold
+	ch <- collector.printerLoadcellThresholdCont
 	ch <- collector.printerLoadcellValue
-	ch <- collector.printerFSensor
+	ch <- collector.printerMaintaskLoop
+	ch <- collector.printerMediaPrefetched
+	ch <- collector.printerMMUComm
+	ch <- collector.printerModbusReqfail
+	ch <- collector.printerNetworkIn
+	ch <- collector.printerNetworkOut
+	ch <- collector.printerOvercurrent
+	ch <- collector.printerPointsDropped
+	ch <- collector.printerPos
+	ch <- collector.printerPowerPanicCount
+	ch <- collector.printerProbeAnalysis
+	ch <- collector.printerProbeInfo
+	ch <- collector.printerProbeStart
+	ch <- collector.printerProbeZ
+	ch <- collector.printerProbeZDiff
+	ch <- collector.printerPwm
+	ch <- collector.printerSideFSensor
+	ch <- collector.printerSideFSensorRaw
+	ch <- collector.printerTmcRead
+	ch <- collector.printerTmcSg
+	ch <- collector.printerTmcWrite
+	ch <- collector.printerTKAcceleration
+	ch <- collector.printerTemp
+	ch <- collector.printerUsbhErrCount
+	ch <- collector.printerVoltage
+	ch <- collector.printerVoltageRaw
+	ch <- collector.printerXyDev
 }
 
 // Collect is a function that collects all the metrics
