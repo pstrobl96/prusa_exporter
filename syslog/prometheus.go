@@ -15,7 +15,6 @@ type Collector struct {
 	printerBedletRegulation      *prometheus.Desc
 	printerBedletState           *prometheus.Desc // bedlet_state
 	printerBedState              *prometheus.Desc
-	printerBuddySyslogInfo       *prometheus.Desc // revision, bom
 	printerCPUUsage              *prometheus.Desc
 	printerCrashCounter          *prometheus.Desc
 	printerCrashLength           *prometheus.Desc
@@ -71,6 +70,7 @@ type Collector struct {
 	printerPwm                   *prometheus.Desc
 	printerSideFSensor           *prometheus.Desc // side_fsensor
 	printerSideFSensorRaw        *prometheus.Desc
+	printerSyslogInfo            *prometheus.Desc // revision, bom
 	printerTmcRead               *prometheus.Desc
 	printerTmcSg                 *prometheus.Desc
 	printerTmcWrite              *prometheus.Desc
@@ -97,7 +97,6 @@ func NewCollector(config *config.Config) *Collector {
 		printerBedletRegulation:      prometheus.NewDesc("prusa_bedlet_regulation", "Bedlet regulation", defaultLabels, nil),
 		printerBedletState:           prometheus.NewDesc("prusa_bedlet_state", "Bedlet state", defaultLabels, nil),
 		printerBedState:              prometheus.NewDesc("prusa_bed_state", "Bed state", defaultLabels, nil),
-		printerBuddySyslogInfo:       prometheus.NewDesc("prusa_syslog_info", "Buddy syslog info", append(defaultLabels, "revision", "bom"), nil),
 		printerCPUUsage:              prometheus.NewDesc("prusa_cpu_usage_ratio", "CPU usage from 0.0 to 1.0", defaultLabels, nil),
 		printerCrashCounter:          prometheus.NewDesc("prusa_crash_counter", "Crash counter", defaultLabels, nil),
 		printerCrashLength:           prometheus.NewDesc("prusa_crash_length", "Crash length", defaultLabels, nil),
@@ -153,6 +152,7 @@ func NewCollector(config *config.Config) *Collector {
 		printerPwm:                   prometheus.NewDesc("prusa_pwm", "PWM value of nozzle and bed mostly", append(defaultLabels, "device"), nil),
 		printerSideFSensor:           prometheus.NewDesc("prusa_side_fsensor", "Side Filament Sensor", defaultLabels, nil),
 		printerSideFSensorRaw:        prometheus.NewDesc("prusa_side_fsensor_raw", "Side Filament Sensor - raw sensor value", defaultLabels, nil),
+		printerSyslogInfo:            prometheus.NewDesc("prusa_syslog_info", "Buddy syslog info", append(defaultLabels, "revision", "bom"), nil),
 		printerTmcRead:               prometheus.NewDesc("prusa_tmc_read", "Trinamic read", append(defaultLabels, "axis"), nil),
 		printerTmcSg:                 prometheus.NewDesc("prusa_tmc_sg", "Trinamic SG", append(defaultLabels, "axis"), nil),
 		printerTmcWrite:              prometheus.NewDesc("prusa_tmc_write", "Trinamic write", append(defaultLabels, "axis"), nil),
@@ -173,7 +173,6 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerBedletRegulation
 	ch <- collector.printerBedletState
 	ch <- collector.printerBedState
-	ch <- collector.printerBuddySyslogInfo
 	ch <- collector.printerCPUUsage
 	ch <- collector.printerCrashCounter
 	ch <- collector.printerCrashLength
@@ -229,6 +228,7 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerPwm
 	ch <- collector.printerSideFSensor
 	ch <- collector.printerSideFSensorRaw
+	ch <- collector.printerSyslogInfo
 	ch <- collector.printerTmcRead
 	ch <- collector.printerTmcSg
 	ch <- collector.printerTmcWrite
