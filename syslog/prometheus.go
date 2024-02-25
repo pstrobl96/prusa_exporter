@@ -1,18 +1,29 @@
 package syslog
 
 import (
-	"fmt"
+	"reflect"
 	"strconv"
-	"strings"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/pstrobl96/prusa_exporter/config"
 	"github.com/rs/zerolog/log"
 )
 
-var configuration *config.Config
+type label struct {
+	name  string
+	value string
+}
 
-func getLabels(mac string, ip string, labelValues ...string) []string {
+type collectorBranch struct {
+	collector    string
+	nameOfMetric string
+	labels       []label
+}
+
+func getLabels(mac string, ip string, labels []label, labelValues ...string) []string {
+	for _, l := range labels {
+		labelValues = append(labelValues, l.value)
+	}
 	return append([]string{mac, ip}, labelValues...)
 }
 
@@ -91,13 +102,28 @@ type Collector struct {
 	printerXyDev                 *prometheus.Desc
 }
 
+var (
+	collectorMap = map[string]collectorBranch{
+		"active_extruder": {
+			collector:    "printerActiveExtruder",
+			nameOfMetric: "value",
+			labels:       []label{},
+		},
+	}
+)
+
+func getField(collector *Collector, field string) *prometheus.Desc {
+	r := reflect.ValueOf(collector)
+	f := reflect.Indirect(r).FieldByName(field)
+	return f.Interface().(*prometheus.Desc)
+}
+
 // NewCollector is a function that returns new Collector
 // NewCollector creates a new instance of the Collector struct with the provided configuration.
 // It initializes all the Prometheus metrics used for monitoring different aspects of the printer.
 // The defaultLabels parameter is a list of labels that will be included in all the metrics.
 // Returns a pointer to the created Collector.
 func NewCollector(config *config.Config) *Collector {
-	configuration = config
 	defaultLabels := []string{"mac", "ip"}
 	return &Collector{
 		printerActiveExtruder:        prometheus.NewDesc("prusa_active_extruder", "Active extruder - used for XL", defaultLabels, nil),
@@ -262,48 +288,38 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			return false
 		}
 
-		fmt.Println("MAC: ", mac, "innermap: ", innermap)
-
 		ip := innermap["ip"]["value"]
 
 		for k, v := range innermap {
-			var collectorItem *prometheus.Desc
+			var (
+				collectorItem *prometheus.Desc
+				labels        []string
+				value         float64
+			)
 
-			if strings.Contains(k, "volt") {
-				voltage, e := strconv.ParseFloat(v["value"], 32)
+			switch k {
+			case "active_extruder":
+				mapExtract := collectorMap["active_extruder"]
+
+				valueParsed, e := strconv.ParseFloat(v[mapExtract.nameOfMetric], 64)
 				if e != nil {
-					log.Error().Msg(e.Error())
-					continue
+					log.Debug().Msg(e.Error())
+					break
 				}
 
-				if strings.Contains(k, "raw") {
-					collectorItem = collector.printerVoltageRaw
-				} else {
-					collectorItem = collector.printerVoltage
-				}
+				collectorItem = collector.printerActiveExtruder
+				labels = getLabels(mac, ip, mapExtract.labels)
+				value = valueParsed
+				break
+			}
 
-				pritnerTemp := prometheus.MustNewConstMetric(collectorItem, prometheus.GaugeValue,
-					voltage, getLabels(mac, ip, "", strings.Split(k, "_")[1])...)
-				ch <- pritnerTemp
-			} else if strings.Contains(k, "pos") {
-				pos, e := strconv.ParseFloat(v["value"], 32)
-				if e != nil {
-					log.Error().Msg(e.Error())
-					continue
-				}
-
-				if strings.Contains(k, "ipos") {
-					collectorItem = collector.printerIpos
-				} else {
-					collectorItem = collector.printerPos
-				}
-				printerPos := prometheus.MustNewConstMetric(collectorItem, prometheus.GaugeValue,
-					pos, getLabels(mac, ip, strings.Split(k, "_")[1])...)
-				ch <- printerPos
+			if collectorItem != nil {
+				printerMetric := prometheus.MustNewConstMetric(collectorItem, prometheus.GaugeValue,
+					value, labels...)
+				ch <- printerMetric
 			}
 		}
 
-		//fmt.Printf("\t[%d] key: %v, value: %v\n", i, key, value)
 		i++
 		return true
 	})
@@ -615,10 +631,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 						ch <- printerActiveExtruder
 					}
 
-					printerDwarfMcuTemp, e := strconv.ParseFloat(syslogData[s.Address]["dwarf_mcu_temp"], 32)
-					if e != nil {
-						log.Debug().Msg(e.Error())
-
+					printerDwarfMcuTemp, ecollector.printerPos
 					} else {
 						printerDwarfMcuTemp := prometheus.MustNewConstMetric(collector.printerDwarfMcuTemp, prometheus.GaugeValue,
 							printerDwarfMcuTemp, prusalink.GetLabels(s, job)...)
