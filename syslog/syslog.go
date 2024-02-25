@@ -22,6 +22,8 @@ var (
 	// syslogMetrics is a map of mac addresses and their metrics
 	syslogMetrics = sync.Map{}
 
+	// regexpPatterns is a map that stores the regular expression patterns for different types of log messages.
+	// Each pattern is associated with a set of named capture groups and corresponding field names.
 	regexpPatterns = map[string]patterns{
 		"v_integer":              {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) v=(?P<value>-?\d+)i (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}},
 		"float":                  {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) v=(?P<value>[-\d\.]+) (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}},
@@ -58,6 +60,10 @@ var (
 	}
 )
 
+// startSyslogServer is a function that starts a syslog server and returns a channel to receive log parts and the server instance.
+// The syslog server listens for UDP connections on the specified address.
+// It uses the RFC5424 format for log messages.
+// The log parts are sent to the provided channel for further processing.
 func startSyslogServer(listenUDP string) (syslog.LogPartsChannel, *syslog.Server) {
 	channel := make(syslog.LogPartsChannel)
 	handler := syslog.NewChannelHandler(channel)
@@ -81,7 +87,7 @@ func HandleMetrics(listenUDP string) {
 				continue
 			} else {
 				mac, syslogMetricsPart := func(mac string, logParts map[string]interface{}) (string, map[string]map[string]string) {
-					syslogMetricsPart, ok := syslogMetrics.Load(mac) // loading from sync.Map
+					syslogMetricsPart, ok := syslogMetrics.Load(mac) // loading from sync.Map - thread safe
 
 					if !ok {
 						return mac, nil // if not found, return empty map
@@ -90,11 +96,11 @@ func HandleMetrics(listenUDP string) {
 					loadedPart, ok := syslogMetricsPart.(map[string]map[string]string) // type assertion
 
 					if !ok {
-						return mac, nil
+						return mac, nil // if not found, return empty map
 					}
 
 					if loadedPart == nil {
-						loadedPart = make(map[string]map[string]string)
+						loadedPart = make(map[string]map[string]string) // if found but empty, create a new map, at start it will be empty everytime
 					}
 
 					if loadedPart["ip"] == nil {
@@ -127,7 +133,7 @@ func HandleMetrics(listenUDP string) {
 							for i, field := range pattern.fields {
 								if field == "name" {
 									metricName = match[i+1]
-								} else if match[i+1] != "" && field != "timestamp" {
+								} else if match[i+1] != "" && field != "timestamp" { // todo - check if timestamp is needed
 
 									if field == "n" {
 										metricName = metricName + "_" + match[i+1]
@@ -144,7 +150,7 @@ func HandleMetrics(listenUDP string) {
 					return mac, loadedPart
 				}(mac, logParts)
 				if syslogMetricsPart != nil {
-					syslogMetrics.Store(mac, syslogMetricsPart)
+					syslogMetrics.Store(mac, syslogMetricsPart) // store the updated map back to sync.Map
 				}
 			}
 		}
