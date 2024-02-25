@@ -1,15 +1,14 @@
 package syslog
 
 import (
-	"fmt"
 	"regexp"
-	"strings"
+	"sync"
 
 	"github.com/rs/zerolog/log"
 	"gopkg.in/mcuadros/go-syslog.v2"
 )
 
-type metrics struct {
+type labels struct {
 	name  string
 	value string
 }
@@ -20,11 +19,8 @@ type patterns struct {
 }
 
 var (
-	// mac_address:
-	//   metric_name:
-	//     metric: string
-	//     value: string
-	syslogMetrics = make(map[string]map[string]map[string]string) // lol
+	// syslogMetrics is a map of mac addresses and their metrics
+	syslogMetrics = sync.Map{}
 
 	regexpPatterns = map[string]patterns{
 		"v_integer":              {pattern: `(?P<name>\w+[0-9]*[a-zA-Z]+) v=(?P<value>-?\d+)i (?P<timestamp>\d+)`, fields: []string{"name", "value", "timestamp"}},
@@ -78,75 +74,77 @@ func startSyslogServer(listenUDP string) (syslog.LogPartsChannel, *syslog.Server
 func HandleMetrics(listenUDP string) {
 	channel, server := startSyslogServer(listenUDP)
 	log.Debug().Msg("Syslog server started at: " + listenUDP)
-
 	go func(channel syslog.LogPartsChannel) {
 		for logParts := range channel {
 			mac := logParts["hostname"].(string)
 			if mac == "" { // Skip empty mac addresses
 				continue
 			} else {
-				clientIP := strings.Split(logParts["client"].(string), ":")[0] // getting rid of port and leaving only ip address
-				port := strings.Split(logParts["client"].(string), ":")[1]     // getting rid of port and leaving only ip address
+				mac, syslogMetricsPart := func(mac string, logParts map[string]interface{}) (string, map[string]map[string]string) {
+					syslogMetricsPart, ok := syslogMetrics.Load(mac) // loading from sync.Map
 
-				if syslogMetrics[mac] == nil {
-					syslogMetrics[mac] = make(map[string]map[string]string)
-				}
-
-				if syslogMetrics[mac]["ip"] == nil {
-					syslogMetrics[mac]["ip"] = make(map[string]string)
-				}
-
-				if syslogMetrics[mac]["port"] == nil {
-					syslogMetrics[mac]["port"] = make(map[string]string)
-				}
-
-				syslogMetrics[mac]["ip"]["value"] = clientIP
-				syslogMetrics[mac]["port"]["value"] = port
-				fmt.Println(logParts["message"])
-				log.Trace().Msg("Received message from: " + mac)
-
-				for name, pattern := range regexpPatterns {
-
-					reg, err := regexp.Compile(pattern.pattern)
-					if err != nil {
-						log.Error().Msg("Error compiling regexp: " + err.Error())
-						return
+					if !ok {
+						return mac, nil // if not found, return empty map
 					}
 
-					log.Trace().Msg("Matching pattern: " + name + " for message: " + logParts["message"].(string))
+					loadedPart, ok := syslogMetricsPart.(map[string]map[string]string) // type assertion
 
-					matches := reg.FindAllStringSubmatch(logParts["message"].(string), -1)
-					if matches == nil {
-						continue // No matches for this pattern
+					if !ok {
+						return mac, nil
 					}
-					//v, x, y, z, timestamp, free, total, axis, sens, period, speed, last, sent, recv, n, t, m, u, a, f, ax, ok, desc, st, r, ri, sp, e, p, i, d, tc, as, fe, rs, ae, reg, regn, pwm, measured, fan, state, n, v
 
-					var metricName string
+					if loadedPart == nil {
+						loadedPart = make(map[string]map[string]string)
+					}
 
-					for _, match := range matches {
-						// Extract values based on named groups
-						for i, field := range pattern.fields {
-							if field == "name" {
-								metricName = match[i+1]
-							} else if match[i+1] != "" && field != "timestamp" {
-								if field == "n" {
-									metricName = metricName + "_" + match[i+1]
-									if syslogMetrics[mac][metricName] == nil {
-										syslogMetrics[mac][metricName] = make(map[string]string)
+					if loadedPart["ip"] == nil {
+						loadedPart["ip"] = make(map[string]string)
+
+					}
+
+					loadedPart["ip"]["value"] = logParts["client"].(string)
+
+					log.Trace().Msg("Received message from: " + mac)
+
+					for name, pattern := range regexpPatterns {
+
+						reg, err := regexp.Compile(pattern.pattern)
+						if err != nil {
+							log.Error().Msg("Error compiling regexp: " + err.Error())
+							continue
+						}
+
+						log.Trace().Msg("Matching pattern: " + name + " for message: " + logParts["message"].(string))
+
+						matches := reg.FindAllStringSubmatch(logParts["message"].(string), -1)
+						if matches == nil {
+							continue // No matches for this pattern
+						}
+						var metricName string
+
+						for _, match := range matches {
+							// Extract values based on named groups
+							for i, field := range pattern.fields {
+								if field == "name" {
+									metricName = match[i+1]
+								} else if match[i+1] != "" && field != "timestamp" {
+
+									if field == "n" {
+										metricName = metricName + "_" + match[i+1]
 									}
-									syslogMetrics[mac][metricName][field] = match[i+1]
-
-								} else {
-									if syslogMetrics[mac][metricName] == nil {
-										syslogMetrics[mac][metricName] = make(map[string]string)
+									if loadedPart[metricName] == nil {
+										loadedPart[metricName] = make(map[string]string)
 									}
-
-									syslogMetrics[mac][metricName][field] = match[i+1]
+									loadedPart[metricName][field] = match[i+1]
 								}
-
 							}
 						}
+
 					}
+					return mac, loadedPart
+				}(mac, logParts)
+				if syslogMetricsPart != nil {
+					syslogMetrics.Store(mac, syslogMetricsPart)
 				}
 			}
 		}
