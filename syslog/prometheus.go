@@ -9,78 +9,77 @@ var configuration *config.Config
 
 // Collector is a struct that defines all the syslog metrics
 type Collector struct {
-	// power metrics
-	printerCurrent               *prometheus.Desc
-	printerBedletState           *prometheus.Desc // bedlet_state
-	printerProbeZ                *prometheus.Desc // probe_z
-	printerSideFSensor           *prometheus.Desc // side_fsensor
 	printerActiveExtruder        *prometheus.Desc
+	printerAppStart              *prometheus.Desc
 	printerAxisZAdjustment       *prometheus.Desc
-	printerHeaterEnabled         *prometheus.Desc
-	printerLoadcellScale         *prometheus.Desc
-	printerLoadcellThreshold     *prometheus.Desc
-	printerLoadcellHysteresis    *prometheus.Desc
+	printerBedletRegulation      *prometheus.Desc
+	printerBedletState           *prometheus.Desc // bedlet_state
+	printerBedState              *prometheus.Desc
 	printerBuddySyslogInfo       *prometheus.Desc // revision, bom
 	printerCPUUsage              *prometheus.Desc
-	printerHeapTotal             *prometheus.Desc
-	printerHeapFree              *prometheus.Desc
 	printerCrashCounter          *prometheus.Desc
-	printerCrashStat             *prometheus.Desc
-	printerCrashRepeatedCounter  *prometheus.Desc
-	printerExciteFreq            *prometheus.Desc
-	printerFreqGain              *prometheus.Desc
-	printerTKAcceleration        *prometheus.Desc
-	printerHomeDiff              *prometheus.Desc
-	printerProbeZDiff            *prometheus.Desc
-	printerProbeStart            *prometheus.Desc
-	printerProbeAnalysis         *prometheus.Desc
-	printerHeatModelDiscard      *prometheus.Desc
-	printerNetworkOut            *prometheus.Desc
-	printerNetworkIn             *prometheus.Desc
-	printerFanSpeed              *prometheus.Desc
-	printerIpos                  *prometheus.Desc
-	printerPos                   *prometheus.Desc
-	printerOvercurrent           *prometheus.Desc
-	printerFilename              *prometheus.Desc
-	printerVoltage               *prometheus.Desc
-	printerVoltageRaw            *prometheus.Desc
-	printerCurrentRaw            *prometheus.Desc
-	printerAppStart              *prometheus.Desc
-	printerMaintaskLoop          *prometheus.Desc
-	printerFSensorRaw            *prometheus.Desc
-	printerSideFSensorRaw        *prometheus.Desc
-	printerPwm                   *prometheus.Desc
-	printerLoadcellThresholdCont *prometheus.Desc
-	printerPowerPanicCount       *prometheus.Desc
 	printerCrashLength           *prometheus.Desc
-	printerUsbhErrCount          *prometheus.Desc
-	printerMediaPrefetched       *prometheus.Desc
-	printerPointsDropped         *prometheus.Desc
-	printerProbeInfo             *prometheus.Desc
+	printerCrashRepeatedCounter  *prometheus.Desc
+	printerCrashStat             *prometheus.Desc
+	printerCurrent               *prometheus.Desc
+	printerCurrentRaw            *prometheus.Desc
+	printerDwarfFastRefreshDelay *prometheus.Desc
+	printerDwarfParkedRaw        *prometheus.Desc
+	printerDwarfPickedRaw        *prometheus.Desc
 	printerEeepromWrite          *prometheus.Desc
-	printerTmcSg                 *prometheus.Desc
-	printerTmcWrite              *prometheus.Desc
-	printerTmcRead               *prometheus.Desc
+	printerExciteFreq            *prometheus.Desc
 	printerFanActive             *prometheus.Desc
-	printerGuiLoopDuration       *prometheus.Desc
+	printerFanSpeed              *prometheus.Desc
+	printerFilename              *prometheus.Desc
+	printerFSensor               *prometheus.Desc
+	printerFSensorRaw            *prometheus.Desc
+	printerFreqGain              *prometheus.Desc
 	printerG425Cen               *prometheus.Desc
 	printerG425Offset            *prometheus.Desc
 	printerG425Rxy               *prometheus.Desc
-	printerG425Xy                *prometheus.Desc
 	printerG425Rz                *prometheus.Desc
+	printerG425Xy                *prometheus.Desc
 	printerG425Z                 *prometheus.Desc
-	printerXyDev                 *prometheus.Desc
 	printerGcode                 *prometheus.Desc
-	printerMMUComm               *prometheus.Desc
-	printerDwarfFastRefreshDelay *prometheus.Desc
-	printerDwarfPickedRaw        *prometheus.Desc
-	printerDwarfParkedRaw        *prometheus.Desc
-	printerBedState              *prometheus.Desc
-	printerModbusReqfail         *prometheus.Desc
-	printerBedletRegulation      *prometheus.Desc
-	printerTemp                  *prometheus.Desc
+	printerGuiLoopDuration       *prometheus.Desc
+	printerHeapFree              *prometheus.Desc
+	printerHeapTotal             *prometheus.Desc
+	printerHeatModelDiscard      *prometheus.Desc
+	printerHeaterEnabled         *prometheus.Desc
+	printerHomeDiff              *prometheus.Desc
+	printerIpos                  *prometheus.Desc
+	printerLoadcellHysteresis    *prometheus.Desc
+	printerLoadcellScale         *prometheus.Desc
+	printerLoadcellThreshold     *prometheus.Desc
+	printerLoadcellThresholdCont *prometheus.Desc
 	printerLoadcellValue         *prometheus.Desc
-	printerFSensor               *prometheus.Desc
+	printerMaintaskLoop          *prometheus.Desc
+	printerMediaPrefetched       *prometheus.Desc
+	printerMMUComm               *prometheus.Desc
+	printerModbusReqfail         *prometheus.Desc
+	printerNetworkIn             *prometheus.Desc
+	printerNetworkOut            *prometheus.Desc
+	printerOvercurrent           *prometheus.Desc
+	printerPointsDropped         *prometheus.Desc
+	printerPos                   *prometheus.Desc
+	printerPowerPanicCount       *prometheus.Desc
+	printerProbeAnalysis         *prometheus.Desc
+	printerProbeInfo             *prometheus.Desc
+	printerProbeStart            *prometheus.Desc
+	printerProbeZ                *prometheus.Desc // probe_z
+	printerProbeZDiff            *prometheus.Desc
+	printerPwm                   *prometheus.Desc
+	printerSideFSensor           *prometheus.Desc // side_fsensor
+	printerSideFSensorRaw        *prometheus.Desc
+	printerTmcRead               *prometheus.Desc
+	printerTmcSg                 *prometheus.Desc
+	printerTmcWrite              *prometheus.Desc
+	printerTKAcceleration        *prometheus.Desc
+	printerTemp                  *prometheus.Desc
+	printerUsbhErrCount          *prometheus.Desc
+	printerVoltage               *prometheus.Desc
+	printerVoltageRaw            *prometheus.Desc
+	printerXyDev                 *prometheus.Desc
 }
 
 // NewCollector is a function that returns new Collector
