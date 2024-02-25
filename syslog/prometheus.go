@@ -5,7 +5,6 @@ import (
 	"strconv"
 
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/pstrobl96/prusa_exporter/config"
 	"github.com/rs/zerolog/log"
 )
 
@@ -123,8 +122,9 @@ func getField(collector *Collector, field string) *prometheus.Desc {
 // It initializes all the Prometheus metrics used for monitoring different aspects of the printer.
 // The defaultLabels parameter is a list of labels that will be included in all the metrics.
 // Returns a pointer to the created Collector.
-func NewCollector(config *config.Config) *Collector {
+func NewCollector() *Collector {
 	defaultLabels := []string{"mac", "ip"}
+
 	return &Collector{
 		printerActiveExtruder:        prometheus.NewDesc("prusa_active_extruder", "Active extruder - used for XL", defaultLabels, nil),
 		printerAppStart:              prometheus.NewDesc("prusa_app_start", "Application start", defaultLabels, nil),
