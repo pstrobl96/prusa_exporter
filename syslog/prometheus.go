@@ -1,11 +1,20 @@
 package syslog
 
 import (
+	"fmt"
+	"strconv"
+	"strings"
+
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/pstrobl96/prusa_exporter/config"
+	"github.com/rs/zerolog/log"
 )
 
 var configuration *config.Config
+
+func getLabels(mac string, ip string, labelValues ...string) []string {
+	return append([]string{mac, ip}, labelValues...)
+}
 
 // Collector is a struct that defines all the syslog metrics
 type Collector struct {
@@ -89,7 +98,7 @@ type Collector struct {
 // Returns a pointer to the created Collector.
 func NewCollector(config *config.Config) *Collector {
 	configuration = config
-	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
+	defaultLabels := []string{"mac", "ip"}
 	return &Collector{
 		printerActiveExtruder:        prometheus.NewDesc("prusa_active_extruder", "Active extruder - used for XL", defaultLabels, nil),
 		printerAppStart:              prometheus.NewDesc("prusa_app_start", "Application start", defaultLabels, nil),
@@ -242,6 +251,63 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 
 // Collect is a function that collects all the metrics
 func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
+
+	i := 0
+	syslogMetrics.Range(func(key, value interface{}) bool {
+		mac := key.(string)
+		innermap, ok := value.(map[string]map[string]string)
+
+		if !ok {
+			log.Error().Msg("Error casting syslog data")
+			return false
+		}
+
+		fmt.Println("MAC: ", mac, "innermap: ", innermap)
+
+		ip := innermap["ip"]["value"]
+
+		for k, v := range innermap {
+			var collectorItem *prometheus.Desc
+
+			if strings.Contains(k, "volt") {
+				voltage, e := strconv.ParseFloat(v["value"], 32)
+				if e != nil {
+					log.Error().Msg(e.Error())
+					continue
+				}
+
+				if strings.Contains(k, "raw") {
+					collectorItem = collector.printerVoltageRaw
+				} else {
+					collectorItem = collector.printerVoltage
+				}
+
+				pritnerTemp := prometheus.MustNewConstMetric(collectorItem, prometheus.GaugeValue,
+					voltage, getLabels(mac, ip, "", strings.Split(k, "_")[1])...)
+				ch <- pritnerTemp
+			} else if strings.Contains(k, "pos") {
+				pos, e := strconv.ParseFloat(v["value"], 32)
+				if e != nil {
+					log.Error().Msg(e.Error())
+					continue
+				}
+
+				if strings.Contains(k, "ipos") {
+					collectorItem = collector.printerIpos
+				} else {
+					collectorItem = collector.printerPos
+				}
+				printerPos := prometheus.MustNewConstMetric(collectorItem, prometheus.GaugeValue,
+					pos, getLabels(mac, ip, strings.Split(k, "_")[1])...)
+				ch <- printerPos
+			}
+		}
+
+		//fmt.Printf("\t[%d] key: %v, value: %v\n", i, key, value)
+		i++
+		return true
+	})
+
 	// needs reworking :pug-dance:
 	/*for _, s := range configuration.Printers {
 		log.Debug().Msg("SYSLOG - Buddy scraping at " + s.Address)

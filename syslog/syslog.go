@@ -82,17 +82,9 @@ func HandleMetrics(listenUDP string) {
 				continue
 			} else {
 				mac, syslogMetricsPart := func(mac string, logParts map[string]interface{}) (string, map[string]map[string]string) {
-					syslogMetricsPart, ok := syslogMetrics.Load(mac) // loading from sync.Map - thread safe
+					syslogMetricsPart, _ := syslogMetrics.Load(mac) // loading from sync.Map - thread safe
 
-					if !ok {
-						return mac, nil // if not found, return empty map
-					}
-
-					loadedPart, ok := syslogMetricsPart.(map[string]map[string]string) // type assertion
-
-					if !ok {
-						return mac, nil // if not found, return empty map
-					}
+					loadedPart, _ := syslogMetricsPart.(map[string]map[string]string) // type assertion
 
 					if loadedPart == nil {
 						loadedPart = make(map[string]map[string]string) // if found but empty, create a new map, at start it will be empty everytime
