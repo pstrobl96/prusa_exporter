@@ -8,10 +8,8 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func getLabels(mac string, ip string, labels []label, labelValues ...string) []string {
-	for _, l := range labels {
-		labelValues = append(labelValues, l.value)
-	}
+func getLabels(mac string, ip string, labels []string, labelValues ...string) []string {
+	labelValues = append(labelValues, labels...)
 	return append([]string{mac, ip}, labelValues...)
 }
 
@@ -60,6 +58,7 @@ type Collector struct {
 	printerLoadcellThreshold     *prometheus.Desc
 	printerLoadcellThresholdCont *prometheus.Desc
 	printerLoadcellValue         *prometheus.Desc
+	printerLoadcellXY            *prometheus.Desc
 	printerMaintaskLoop          *prometheus.Desc
 	printerMediaPrefetched       *prometheus.Desc
 	printerMMUComm               *prometheus.Desc
@@ -140,6 +139,7 @@ func NewCollector() *Collector {
 		printerLoadcellThreshold:     collectorMap["loadcell_threshold"].collector,
 		printerLoadcellThresholdCont: collectorMap["loadcell_threshold_cont"].collector,
 		printerLoadcellValue:         collectorMap["loadcell_value"].collector,
+		printerLoadcellXY:            collectorMap["loadcell_xy"].collector,
 		printerMaintaskLoop:          collectorMap["maintask_loop"].collector,
 		printerMediaPrefetched:       collectorMap["media_prefetched"].collector,
 		printerMMUComm:               collectorMap["mmu_comm"].collector,
@@ -277,7 +277,15 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			mapExtract, ok := collectorMap[k]
 			if !ok {
 				log.Debug().Msgf("Error extracting metric: %s for %s at %s", k, mac, ip)
-				continue // Skip to next iteration if metric extraction fails
+				try, ok := overrideMap[k]
+				if ok {
+					mapExtract.collector = collectorMap[try[0].collectorName].collector
+					mapExtract.nameOfMetric = collectorMap[try[0].collectorName].nameOfMetric
+					mapExtract.labels = append(collectorMap[try[0].collectorName].labels, try[0].labels...)
+				} else {
+					continue
+				}
+
 			}
 
 			valueParsed, err := strconv.ParseFloat(v[mapExtract.nameOfMetric], 64)
