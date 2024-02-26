@@ -96,7 +96,6 @@ type Collector struct {
 // The defaultLabels parameter is a list of labels that will be included in all the metrics.
 // Returns a pointer to the created Collector.
 func NewCollector() *Collector {
-
 	return &Collector{
 		printerActiveExtruder:        collectorMap["active_extruder"].collector,
 		printerAppStart:              collectorMap["app_start"].collector,
@@ -119,8 +118,8 @@ func NewCollector() *Collector {
 		printerFanActive:             collectorMap["fan_active"].collector,
 		printerFanSpeed:              collectorMap["fan_speed"].collector,
 		printerFilename:              collectorMap["filename"].collector,
-		printerFSensor:               collectorMap["f_sensor"].collector,
-		printerFSensorRaw:            collectorMap["f_sensor_raw"].collector,
+		printerFSensor:               collectorMap["fsensor"].collector,
+		printerFSensorRaw:            collectorMap["fsensor_raw"].collector,
 		printerFreqGain:              collectorMap["freq_gain"].collector,
 		printerG425Cen:               collectorMap["g425_cen"].collector,
 		printerG425Offset:            collectorMap["g425_offset"].collector,

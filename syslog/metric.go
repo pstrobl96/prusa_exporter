@@ -227,7 +227,7 @@ var (
 			nameOfMetric: "value",
 			labels:       []label{},
 		},
-		"loadcell": {
+		"loadcell_value": {
 			collector:    prometheus.NewDesc("prusa_loadcell", "Value from loadcell sensor", defaultLabels, nil),
 			nameOfMetric: "r",
 			labels:       []label{},
