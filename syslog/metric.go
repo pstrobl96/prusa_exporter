@@ -225,7 +225,7 @@ var (
 			nameOfMetric: "value",
 			labels:       []string{},
 		},
-		"gui_loop_duration": {
+		"gui_loop_dur": {
 			collector:    prometheus.NewDesc("prusa_gui_loop_duration", "Gui loop duration", defaultLabels, nil),
 			nameOfMetric: "value",
 			labels:       []string{},
@@ -257,6 +257,11 @@ var (
 		},
 		"ipos": {
 			collector:    prometheus.NewDesc("prusa_stepper_ipos", "Stepper possition from startup", append(defaultLabels, "axis"), nil),
+			nameOfMetric: "value",
+			labels:       []string{},
+		},
+		"loadcell_hp": {
+			collector:    prometheus.NewDesc("prusa_loadcell_hp", "Loadcell filtered z load", defaultLabels, nil),
 			nameOfMetric: "value",
 			labels:       []string{},
 		},
