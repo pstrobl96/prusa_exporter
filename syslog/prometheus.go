@@ -21,7 +21,7 @@ func getNumberOf(s string) (int, string, error) {
 	indexOfLast := len(splitted) - 1
 
 	if num, err := strconv.Atoi(splitted[indexOfLast]); err == nil {
-		return num, strings.Join(splitted[:indexOfLast], "_"), nil
+		return num, strings.Join(splitted[:indexOfLast-1], "_"), nil
 	}
 
 	return -1, s, nil
@@ -72,9 +72,12 @@ type Collector struct {
 	printerHeapTotal             *prometheus.Desc
 	printerHeatModelDiscard      *prometheus.Desc
 	printerHeaterEnabled         *prometheus.Desc
-	printerHomeDiff              *prometheus.Desc
+	printerHomeDiffAx            *prometheus.Desc
+	printerHomeDiffOk            *prometheus.Desc
+	printerHomeDiffValue         *prometheus.Desc
 	printerIpos                  *prometheus.Desc
 	printerLoadcellAge           *prometheus.Desc
+	printerLoadcellHp            *prometheus.Desc
 	printerLoadcellHysteresis    *prometheus.Desc
 	printerLoadcellScale         *prometheus.Desc
 	printerLoadcellThreshold     *prometheus.Desc
@@ -166,10 +169,13 @@ func NewCollector() *Collector {
 		printerHeapTotal:             prometheus.NewDesc("prusa_heap_total", "Total heap", defaultLabels, nil),
 		printerHeatModelDiscard:      prometheus.NewDesc("prusa_heat_model_disc", "Heating model discrepancy", defaultLabels, nil),
 		printerHeaterEnabled:         prometheus.NewDesc("prusa_heater_enabled", "Heater enabled", defaultLabels, nil),
-		printerHomeDiff:              prometheus.NewDesc("prusa_home_diff", "Home difference", defaultLabels, nil),
+		printerHomeDiffAx:            prometheus.NewDesc("prusa_home_diff_ax", "Home diff ax", append(defaultLabels, "tool"), nil),
+		printerHomeDiffOk:            prometheus.NewDesc("prusa_home_diff_ok", "Home diff ok", append(defaultLabels, "tool"), nil),
+		printerHomeDiffValue:         prometheus.NewDesc("prusa_home_diff_value", "Home diff value", append(defaultLabels, "tool"), nil),
 		printerIpos:                  prometheus.NewDesc("prusa_stepper_ipos", "Stepper possition from startup", append(defaultLabels, "axis"), nil),
 		printerLoadcellAge:           prometheus.NewDesc("prusa_loadcell_age", "Loadcell age", defaultLabels, nil),
 		printerLoadcellHysteresis:    prometheus.NewDesc("prusa_loadcell_hysteresis", "Loadcell hysteresis", defaultLabels, nil),
+		printerLoadcellHp:            prometheus.NewDesc("prusa_loadcell_hp", "Loadcell filtered z load", defaultLabels, nil),
 		printerLoadcellScale:         prometheus.NewDesc("prusa_loadcell_scale", "Loadcell scale", defaultLabels, nil),
 		printerLoadcellThreshold:     prometheus.NewDesc("prusa_loadcell_threshold", "Loadcell threshold", defaultLabels, nil),
 		printerLoadcellThresholdCont: prometheus.NewDesc("prusa_loadcell_threshold_cont", "Loadcell threshold continuous", defaultLabels, nil),
@@ -254,8 +260,12 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerHeapTotal
 	ch <- collector.printerHeatModelDiscard
 	ch <- collector.printerHeaterEnabled
-	ch <- collector.printerHomeDiff
+	ch <- collector.printerHomeDiffAx
+	ch <- collector.printerHomeDiffOk
+	ch <- collector.printerHomeDiffValue
 	ch <- collector.printerIpos
+	ch <- collector.printerLoadcellAge
+	ch <- collector.printerLoadcellHp
 	ch <- collector.printerLoadcellHysteresis
 	ch <- collector.printerLoadcellScale
 	ch <- collector.printerLoadcellThreshold
@@ -495,7 +505,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "is_printing":
 				collectorItem = collector.printerPrinting
 			case "loadcell_hp":
-				collectorItem = collector.printerLoadcellHysteresis
+				collectorItem = collector.printerLoadcellHp
 			case "bed_pwm":
 				labels = []string{"bed" + suffix}
 				collectorItem = collector.printerPwm
@@ -550,7 +560,28 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "loadcell_scale":
 				collectorItem = collector.printerLoadcellScale
 			case "home_diff":
-				collectorItem = collector.printerHomeDiff
+				valuesList := []string{"ax", "ok", "value"}
+				for _, value := range valuesList {
+					tool := ""
+					if length != -1 {
+						tool = strconv.Itoa(length)
+					}
+					valueParsed, err = strconv.ParseFloat(v[value], 64)
+					if err != nil {
+						log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
+						continue // Skip to next iteration if value parsing fails
+					}
+					if value == "value" {
+						ch <- prometheus.MustNewConstMetric(collector.printerHomeDiffValue, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{tool})...)
+					} else if value == "ax" {
+						ch <- prometheus.MustNewConstMetric(collector.printerHomeDiffAx, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{tool})...)
+					} else if value == "ok" {
+						ch <- prometheus.MustNewConstMetric(collector.printerHomeDiffOk, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{tool})...)
+					}
+
+				}
+
+				continue
 			case "bedlet_pwm":
 				labels = []string{"bedlet" + suffix}
 				collectorItem = collector.printerPwm
@@ -558,33 +589,28 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				valueParsed, err = strconv.ParseFloat(v["d"], 64)
 				if err != nil {
 					log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
-
 					continue // Skip to next iteration if value parsing fails
 				}
 				ch <- prometheus.MustNewConstMetric(collector.printerBedletRegulationD, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{"bedlet" + suffix})...)
 				valueParsed, err = strconv.ParseFloat(v["i"], 64)
 				if err != nil {
 					log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
-
 					continue // Skip to next iteration if value parsing fails
 				}
 				ch <- prometheus.MustNewConstMetric(collector.printerBedletRegulationI, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{"bedlet" + suffix})...)
 				valueParsed, err = strconv.ParseFloat(v["p"], 64)
 				if err != nil {
 					log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
-
 					continue // Skip to next iteration if value parsing fails
 				}
 				ch <- prometheus.MustNewConstMetric(collector.printerBedletRegulationP, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{"bedlet" + suffix})...)
 				valueParsed, err = strconv.ParseFloat(v["tc"], 64)
 				if err != nil {
 					log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
-
 					continue // Skip to next iteration if value parsing fails
 				}
 				ch <- prometheus.MustNewConstMetric(collector.printerBedletRegulationTc, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{"bedlet" + suffix})...)
 				continue
-
 			case "dwarf_parked_raw":
 				labels = []string{strconv.Itoa(length)}
 				collectorItem = collector.printerDwarfParkedRaw
@@ -610,6 +636,12 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				continue
 			case "buddy_bom":
 				collectorItem = collector.printerBuddyBom
+			case "loadcell_threshold_cont":
+				collectorItem = collector.printerLoadcellThresholdCont
+			case "loadcell_threshold":
+				collectorItem = collector.printerLoadcellThreshold
+			case "loadcell_hysteresis":
+				collectorItem = collector.printerLoadcellHysteresis
 			case "ip":
 				continue // just ignore
 			default:

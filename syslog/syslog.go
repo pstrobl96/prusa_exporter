@@ -117,9 +117,18 @@ func HandleMetrics(listenUDP string) {
 
 						for _, match := range matches {
 							// Extract values based on named groups
+
+							suffix := ""
+
+							for i, field := range pattern.fields {
+								if field == "n" {
+									suffix = "_" + match[i+1]
+								}
+							}
+
 							for i, field := range pattern.fields {
 								if field == "name" {
-									metricName = match[i+1]
+									metricName = match[i+1] + suffix
 								} else if match[i+1] != "" && field != "timestamp" { // todo - check if timestamp is needed
 
 									if field == "n" {
