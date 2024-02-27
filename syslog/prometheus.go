@@ -7,9 +7,9 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 )
 
-func getLabels(mac string, ip string, port string, labels []string, labelValues ...string) []string {
+func getLabels(mac string, ip string, labels []string, labelValues ...string) []string {
 	labelValues = append(labelValues, labels...)
-	return append([]string{mac, ip, port}, labelValues...)
+	return append([]string{mac, ip}, labelValues...)
 }
 
 func getNumberOf(s string) (int, string, error) {
@@ -130,7 +130,7 @@ type Collector struct {
 // The defaultLabels parameter is a list of labels that will be included in all the metrics.
 // Returns a pointer to the created Collector.
 func NewCollector() *Collector {
-	defaultLabels := []string{"mac", "ip", "port"}
+	defaultLabels := []string{"mac", "ip"}
 
 	return &Collector{
 		printerActiveExtruder:        prometheus.NewDesc("prusa_active_extruder", "Active extruder - used for XL", defaultLabels, nil),
@@ -199,10 +199,10 @@ func NewCollector() *Collector {
 		printerPos:                   prometheus.NewDesc("prusa_stepper_pos", "Stepper possition", append(defaultLabels, "axis"), nil),
 		printerPowerPanicCount:       prometheus.NewDesc("prusa_power_panic_count", "Power panic triggered", defaultLabels, nil),
 		printerProbeAnalysis:         prometheus.NewDesc("prusa_probe_analysis", "Probe analysis", append(defaultLabels, "desc"), nil),
-		printerProbeWindowStart:      prometheus.NewDesc("prusa_probe_window_start", "Probe window analysis start", append(defaultLabels, "desc"), nil),
-		printerProbeWindowFallEnd:    prometheus.NewDesc("prusa_probe_window_fall_end", "Probe window fall ended", append(defaultLabels, "desc"), nil),
-		printerProbeWindowRiseStart:  prometheus.NewDesc("prusa_probe_window_rise_start", "Probe window rise start", append(defaultLabels, "desc"), nil),
-		printerProbeWindowEnd:        prometheus.NewDesc("prusa_probe_window_analysis_end", "Probe window analysis", append(defaultLabels, "desc"), nil),
+		printerProbeWindowStart:      prometheus.NewDesc("prusa_probe_window_start", "Probe window analysis start", defaultLabels, nil),
+		printerProbeWindowFallEnd:    prometheus.NewDesc("prusa_probe_window_fall_end", "Probe window fall ended", defaultLabels, nil),
+		printerProbeWindowRiseStart:  prometheus.NewDesc("prusa_probe_window_rise_start", "Probe window rise start", defaultLabels, nil),
+		printerProbeWindowEnd:        prometheus.NewDesc("prusa_probe_window_analysis_end", "Probe window analysis", defaultLabels, nil),
 		printerProbeStart:            prometheus.NewDesc("prusa_probe_start", "Probe start", defaultLabels, nil),
 		printerProbeZ:                prometheus.NewDesc("prusa_probe_z", "Probe Z", append(defaultLabels, "x", "y"), nil),
 		printerProbeZDiff:            prometheus.NewDesc("prusa_probe_z_diff", "Probe Z difference", defaultLabels, nil),

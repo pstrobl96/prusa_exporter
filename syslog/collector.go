@@ -2,6 +2,7 @@ package syslog
 
 import (
 	"fmt"
+	"runtime/debug"
 	"strconv"
 	"strings"
 
@@ -11,7 +12,12 @@ import (
 
 // Collect is a function that collects all the metrics
 func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
-
+	defer func() {
+		if panicInfo := recover(); panicInfo != nil {
+			fmt.Printf("spadlo ti to")
+			fmt.Printf("%v, %s", panicInfo, string(debug.Stack()))
+		}
+	}()
 	// little bit more memory intensive but we need to extract the data from the map as fast as possible
 	var syslogMetricsExtracted = make(map[string]map[string]map[string]string)
 
@@ -34,7 +40,6 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 	for mac, nestedmap := range syslogMetricsExtracted {
 		ipArr := strings.Split(nestedmap["ip"]["value"], ":")
 		ip := ipArr[0]
-		port := ipArr[1]
 		for k, v := range nestedmap {
 			var (
 				collectorItem *prometheus.Desc
@@ -57,7 +62,6 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			}
 
 			splittedName := strings.Split(k, "_")
-
 			switch k {
 			case "temp_hbr":
 				fallthrough
@@ -190,7 +194,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 					log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 					continue // Skip to next iteration if value parsing fails
 				}
-				printerMetric := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue, valueParsed/255, getLabels(mac, ip, port, []string{"print"})...)
+				printerMetric := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue, valueParsed/255, getLabels(mac, ip, []string{"print"})...)
 				ch <- printerMetric
 				continue
 			case "fan_hbr_speed":
@@ -200,7 +204,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 					continue // Skip to next iteration if value parsing fails
 				}
-				ch <- prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue, valueParsed/255, getLabels(mac, ip, port, []string{"heatbreak"})...)
+				ch <- prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue, valueParsed/255, getLabels(mac, ip, []string{"heatbreak"})...)
 				continue
 			case "heater_enabled":
 				collectorItem = collector.printerHeaterEnabled
@@ -227,7 +231,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				if v[valueKey] != "0" {
 					valueParsed = 1
 				}
-				ch <- prometheus.MustNewConstMetric(collector.printerFilament, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{v[valueKey]})...)
+				ch <- prometheus.MustNewConstMetric(collector.printerFilament, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, []string{v[valueKey]})...)
 				continue
 			case "nozzle_pwm":
 				labels = []string{"nozzle" + suffix}
@@ -243,14 +247,14 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 					continue // Skip to next iteration if value parsing fails
 				}
-				ch <- prometheus.MustNewConstMetric(collector.printerHeapFree, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{})...)
+				ch <- prometheus.MustNewConstMetric(collector.printerHeapFree, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, []string{})...)
 				valueParsed, err = strconv.ParseFloat(v["total"], 64)
 				if err != nil {
 					log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 
 					continue // Skip to next iteration if value parsing fails
 				}
-				ch <- prometheus.MustNewConstMetric(collector.printerHeapTotal, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{})...)
+				ch <- prometheus.MustNewConstMetric(collector.printerHeapTotal, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, []string{})...)
 				continue
 			case "print_fan_act":
 				labels = []string{"print"}
@@ -283,9 +287,9 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 						continue // Skip to next iteration if value parsing fails
 					}
 					if value == "value" {
-						ch <- prometheus.MustNewConstMetric(collector.printerHomeDiff, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{v["ax"], attempts})...)
+						ch <- prometheus.MustNewConstMetric(collector.printerHomeDiff, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, []string{v["ax"], attempts})...)
 					} else if value == "ok" {
-						ch <- prometheus.MustNewConstMetric(collector.printerHomeDiffOk, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{v["ax"], attempts})...)
+						ch <- prometheus.MustNewConstMetric(collector.printerHomeDiffOk, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, []string{v["ax"], attempts})...)
 					}
 				}
 				continue
@@ -298,25 +302,25 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 					log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 					continue // Skip to next iteration if value parsing fails
 				}
-				ch <- prometheus.MustNewConstMetric(collector.printerBedletRegulationD, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{"bedlet" + suffix})...)
+				ch <- prometheus.MustNewConstMetric(collector.printerBedletRegulationD, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, []string{"bedlet" + suffix})...)
 				valueParsed, err = strconv.ParseFloat(v["i"], 64)
 				if err != nil {
 					log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 					continue // Skip to next iteration if value parsing fails
 				}
-				ch <- prometheus.MustNewConstMetric(collector.printerBedletRegulationI, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{"bedlet" + suffix})...)
+				ch <- prometheus.MustNewConstMetric(collector.printerBedletRegulationI, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, []string{"bedlet" + suffix})...)
 				valueParsed, err = strconv.ParseFloat(v["p"], 64)
 				if err != nil {
 					log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 					continue // Skip to next iteration if value parsing fails
 				}
-				ch <- prometheus.MustNewConstMetric(collector.printerBedletRegulationP, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{"bedlet" + suffix})...)
+				ch <- prometheus.MustNewConstMetric(collector.printerBedletRegulationP, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, []string{"bedlet" + suffix})...)
 				valueParsed, err = strconv.ParseFloat(v["tc"], 64)
 				if err != nil {
 					log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 					continue // Skip to next iteration if value parsing fails
 				}
-				ch <- prometheus.MustNewConstMetric(collector.printerBedletRegulationTc, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{"bedlet" + suffix})...)
+				ch <- prometheus.MustNewConstMetric(collector.printerBedletRegulationTc, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, []string{"bedlet" + suffix})...)
 				continue
 			case "dwarf_parked_raw":
 				labels = []string{strconv.Itoa(length)}
@@ -339,7 +343,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "buddy_revision":
 				collectorItem = collector.printerBuddyRevision
 			case "fw_version":
-				ch <- prometheus.MustNewConstMetric(collector.printerBuddyFW, prometheus.GaugeValue, 1, getLabels(mac, ip, port, []string{v[valueKey]})...)
+				ch <- prometheus.MustNewConstMetric(collector.printerBuddyFW, prometheus.GaugeValue, 1, getLabels(mac, ip, []string{v[valueKey]})...)
 				continue
 			case "buddy_bom":
 				collectorItem = collector.printerBuddyBom
@@ -380,10 +384,10 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "g425_xy_dev":
 				collectorItem = collector.printerG425XyDev
 			case "gcode":
-				ch <- prometheus.MustNewConstMetric(collector.printerGcode, prometheus.GaugeValue, 1, getLabels(mac, ip, port, []string{v[valueKey]})...)
+				ch <- prometheus.MustNewConstMetric(collector.printerGcode, prometheus.GaugeValue, 1, getLabels(mac, ip, []string{v[valueKey]})...)
 				continue
 			case "mmu_comm":
-				ch <- prometheus.MustNewConstMetric(collector.printerMMUComm, prometheus.GaugeValue, 1, getLabels(mac, ip, port, []string{v[valueKey]})...)
+				ch <- prometheus.MustNewConstMetric(collector.printerMMUComm, prometheus.GaugeValue, 1, getLabels(mac, ip, []string{v[valueKey]})...)
 				continue
 			case "probe_analysis":
 				valueKey = "ok"
@@ -416,7 +420,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "xy_dev":
 				collectorItem = collector.printerXyDev
 			case "power_panic":
-				ch <- prometheus.MustNewConstMetric(collector.printerPowerPanicCount, prometheus.CounterValue, 1, getLabels(mac, ip, port, []string{})...)
+				ch <- prometheus.MustNewConstMetric(collector.printerPowerPanicCount, prometheus.CounterValue, 1, getLabels(mac, ip, []string{})...)
 			case "crash_length":
 				labels = []string{v["x"], v["y"]}
 				collectorItem = collector.printerCrashLength
@@ -432,7 +436,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 						log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 						continue // Skip to next iteration if value parsing fails
 					}
-					ch <- prometheus.MustNewConstMetric(collectorList[i], prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{})...)
+					ch <- prometheus.MustNewConstMetric(collectorList[i], prometheus.GaugeValue, valueParsed, getLabels(mac, ip, []string{})...)
 				}
 				continue
 			case "eeprom_write":
@@ -468,7 +472,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 				continue // Skip to next iteration if value parsing fails
 			}
-			printerMetric := prometheus.MustNewConstMetric(collectorItem, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, labels)...)
+			printerMetric := prometheus.MustNewConstMetric(collectorItem, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, labels)...)
 			ch <- printerMetric
 		}
 	}
