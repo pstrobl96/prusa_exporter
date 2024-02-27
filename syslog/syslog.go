@@ -130,10 +130,6 @@ func HandleMetrics(listenUDP string) {
 								if field == "name" {
 									metricName = match[i+1] + suffix
 								} else if match[i+1] != "" && field != "timestamp" { // todo - check if timestamp is needed
-
-									if field == "n" {
-										metricName = metricName + "_" + match[i+1]
-									}
 									if loadedPart[metricName] == nil {
 										loadedPart[metricName] = make(map[string]string)
 									}

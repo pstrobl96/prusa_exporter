@@ -1,6 +1,7 @@
 package syslog
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -21,7 +22,7 @@ func getNumberOf(s string) (int, string, error) {
 	indexOfLast := len(splitted) - 1
 
 	if num, err := strconv.Atoi(splitted[indexOfLast]); err == nil {
-		return num, strings.Join(splitted[:indexOfLast-1], "_"), nil
+		return num, strings.Join(splitted[:indexOfLast], "_"), nil
 	}
 
 	return -1, s, nil
@@ -42,9 +43,8 @@ type Collector struct {
 	printerBuddyRevision         *prometheus.Desc
 	printerBuddyFW               *prometheus.Desc
 	printerCPUUsage              *prometheus.Desc
-	printerCrashCounter          *prometheus.Desc
+	printerCrashSpeed            *prometheus.Desc
 	printerCrashLength           *prometheus.Desc
-	printerCrashRepeatedCounter  *prometheus.Desc
 	printerCrashStat             *prometheus.Desc
 	printerCurrent               *prometheus.Desc
 	printerCurrentRaw            *prometheus.Desc
@@ -65,16 +65,15 @@ type Collector struct {
 	printerG425Rxy               *prometheus.Desc
 	printerG425Rz                *prometheus.Desc
 	printerG425Xy                *prometheus.Desc
+	printerG425XyDev             *prometheus.Desc
 	printerG425Z                 *prometheus.Desc
 	printerGcode                 *prometheus.Desc
 	printerGuiLoopDuration       *prometheus.Desc
 	printerHeapFree              *prometheus.Desc
 	printerHeapTotal             *prometheus.Desc
-	printerHeatModelDiscard      *prometheus.Desc
 	printerHeaterEnabled         *prometheus.Desc
-	printerHomeDiffAx            *prometheus.Desc
 	printerHomeDiffOk            *prometheus.Desc
-	printerHomeDiffValue         *prometheus.Desc
+	printerHomeDiff              *prometheus.Desc
 	printerIpos                  *prometheus.Desc
 	printerLoadcellAge           *prometheus.Desc
 	printerLoadcellHp            *prometheus.Desc
@@ -97,7 +96,10 @@ type Collector struct {
 	printerPowerPanicCount       *prometheus.Desc
 	printerPrinting              *prometheus.Desc
 	printerProbeAnalysis         *prometheus.Desc
-	printerProbeInfo             *prometheus.Desc
+	printerProbeWindowStart      *prometheus.Desc
+	printerProbeWindowFallEnd    *prometheus.Desc
+	printerProbeWindowRiseStart  *prometheus.Desc
+	printerProbeWindowEnd        *prometheus.Desc
 	printerProbeStart            *prometheus.Desc
 	printerProbeZ                *prometheus.Desc // probe_z
 	printerProbeZDiff            *prometheus.Desc
@@ -115,6 +117,13 @@ type Collector struct {
 	printerVoltage               *prometheus.Desc
 	printerVoltageRaw            *prometheus.Desc
 	printerXyDev                 *prometheus.Desc
+	prusaBuddyTimeUs             *prometheus.Desc
+	prusaPuppyTimeUs             *prometheus.Desc
+	prusaSyncRoundtripUs         *prometheus.Desc
+	prusaPuppyOffsetUs           *prometheus.Desc
+	prusaPuppyDriftPpb           *prometheus.Desc
+	prusaPuppyAverageOffsetUs    *prometheus.Desc
+	prusaPuppyAverageDriftPpb    *prometheus.Desc
 }
 
 // NewCollector is a function that returns new Collector
@@ -139,10 +148,9 @@ func NewCollector() *Collector {
 		printerBuddyRevision:         prometheus.NewDesc("prusa_buddy_revision", "Buddy revision", defaultLabels, nil),
 		printerBuddyFW:               prometheus.NewDesc("prusa_buddy_fw", "Buddy firmware version", append(defaultLabels, "version"), nil),
 		printerCPUUsage:              prometheus.NewDesc("prusa_cpu_usage_ratio", "CPU usage from 0.0 to 1.0", defaultLabels, nil),
-		printerCrashCounter:          prometheus.NewDesc("prusa_crash_counter", "Crash counter", defaultLabels, nil),
-		printerCrashLength:           prometheus.NewDesc("prusa_crash_length", "Crash length", defaultLabels, nil),
-		printerCrashRepeatedCounter:  prometheus.NewDesc("prusa_crash_repeated_counter", "Crash repeated counter", defaultLabels, nil),
-		printerCrashStat:             prometheus.NewDesc("prusa_crash_stat", "Crash statistics", defaultLabels, nil),
+		printerCrashSpeed:            prometheus.NewDesc("prusa_crash_speed", "Crash Speed", append(defaultLabels, "axis", "sens", "period"), nil),
+		printerCrashLength:           prometheus.NewDesc("prusa_crash_length", "Crash length", append(defaultLabels, "x", "y"), nil),
+		printerCrashStat:             prometheus.NewDesc("prusa_crash_stat", "Crash statistics", append(defaultLabels, "axis"), nil),
 		printerCurrent:               prometheus.NewDesc("prusa_current", "Current of different devices in / on the printer", append(defaultLabels, "rail", "device"), nil),
 		printerCurrentRaw:            prometheus.NewDesc("prusa_current_raw", "Current of different devices in / on the printer in raw sensor value", append(defaultLabels, "rail", "device"), nil),
 		printerDwarfFastRefreshDelay: prometheus.NewDesc("prusa_dwarf_fast_refresh_delay", "Dwarf fast refresh delay", defaultLabels, nil),
@@ -157,21 +165,20 @@ func NewCollector() *Collector {
 		printerFSensor:               prometheus.NewDesc("prusa_fsensor", "Filament Sensor", defaultLabels, nil),
 		printerFSensorRaw:            prometheus.NewDesc("prusa_fsensor_raw", "Filament Sensor - raw sensor value", append(defaultLabels, "sensor"), nil),
 		printerFreqGain:              prometheus.NewDesc("prusa_freq_gain", "Frequency gain", defaultLabels, nil),
-		printerG425Cen:               prometheus.NewDesc("prusa_g425_cen", "Absolute tool center - an input for offset computation [mm]", defaultLabels, nil),
-		printerG425Offset:            prometheus.NewDesc("prusa_g425_off", "Offset from the absolute tool center [mm]", defaultLabels, nil),
-		printerG425Rxy:               prometheus.NewDesc("prusa_g425_rxy", "Raw XY probe [mm]", defaultLabels, nil),
-		printerG425Rz:                prometheus.NewDesc("prusa_g425_rz", "Raw Z probe [mm]", defaultLabels, nil),
-		printerG425Xy:                prometheus.NewDesc("prusa_g425_xy", "Verified XY probe - two raw probes agree on position [mm]", defaultLabels, nil),
-		printerG425Z:                 prometheus.NewDesc("prusa_g425_z", "Averaged Z probe - N raw probes averaged [mm]", defaultLabels, nil),
+		printerG425Cen:               prometheus.NewDesc("prusa_g425_cen", "Absolute tool center - an input for offset computation [mm]", append(defaultLabels, "t", "x", "y", "z"), nil),   // ",t=%u x=%.3f,y=%.3f,z=%.3f"
+		printerG425Offset:            prometheus.NewDesc("prusa_g425_off", "Offset from the absolute tool center [mm]", append(defaultLabels, "t", "x", "y", "z"), nil),                     //  ",t=%u x=%.3f,y=%.3f,z=%.3f",
+		printerG425Rxy:               prometheus.NewDesc("prusa_g425_rxy", "Raw XY probe [mm]", append(defaultLabels, "t", "p", "a", "x", "y"), nil),                                        // ",t=%u,p=%u,a=%.3f x=%.3f,y=%.3f"
+		printerG425Rz:                prometheus.NewDesc("prusa_g425_rz", "Raw Z probe [mm]", append(defaultLabels, "t", "p", "x", "y", "z"), nil),                                          // ",t=%u,p=%u x=%.3f,y=%.3f,z=%.3f",
+		printerG425Xy:                prometheus.NewDesc("prusa_g425_xy", "Verified XY probe - two raw probes agree on position [mm]", append(defaultLabels, "t", "p", "a", "x", "y"), nil), // ",t=%u,p=%u,a=%.3f x=%.3f,y=%.3f"
+		printerG425XyDev:             prometheus.NewDesc("prusa_g425_xy_dev", "Max deviation", defaultLabels, nil),                                                                          // ",t=%u,p=%u,x=%.3f,y=%.3f z=%.3f",
+		printerG425Z:                 prometheus.NewDesc("prusa_g425_z", "Averaged Z probe - N raw probes averaged [mm]", append(defaultLabels, "t", "p", "x", "y", "z"), nil),              // ",t=%u,p=%u,x=%.3f,y=%.3f z=%.3f",
 		printerGcode:                 prometheus.NewDesc("prusa_gcode", "Printed GCode", append(defaultLabels, "gcode"), nil),
 		printerGuiLoopDuration:       prometheus.NewDesc("prusa_gui_loop_duration", "Gui loop duration", defaultLabels, nil),
 		printerHeapFree:              prometheus.NewDesc("prusa_heap_free", "Free heap", defaultLabels, nil),
 		printerHeapTotal:             prometheus.NewDesc("prusa_heap_total", "Total heap", defaultLabels, nil),
-		printerHeatModelDiscard:      prometheus.NewDesc("prusa_heat_model_disc", "Heating model discrepancy", defaultLabels, nil),
 		printerHeaterEnabled:         prometheus.NewDesc("prusa_heater_enabled", "Heater enabled", defaultLabels, nil),
-		printerHomeDiffAx:            prometheus.NewDesc("prusa_home_diff_ax", "Home diff ax", append(defaultLabels, "tool"), nil),
-		printerHomeDiffOk:            prometheus.NewDesc("prusa_home_diff_ok", "Home diff ok", append(defaultLabels, "tool"), nil),
-		printerHomeDiffValue:         prometheus.NewDesc("prusa_home_diff_value", "Home diff value", append(defaultLabels, "tool"), nil),
+		printerHomeDiffOk:            prometheus.NewDesc("prusa_home_diff_ok", "Home diff ok", append(defaultLabels, "axis", "attempts"), nil),
+		printerHomeDiff:              prometheus.NewDesc("prusa_home_diff", "Home diff value", append(defaultLabels, "axis", "attempts"), nil),
 		printerIpos:                  prometheus.NewDesc("prusa_stepper_ipos", "Stepper possition from startup", append(defaultLabels, "axis"), nil),
 		printerLoadcellAge:           prometheus.NewDesc("prusa_loadcell_age", "Loadcell age", defaultLabels, nil),
 		printerLoadcellHysteresis:    prometheus.NewDesc("prusa_loadcell_hysteresis", "Loadcell hysteresis", defaultLabels, nil),
@@ -183,8 +190,8 @@ func NewCollector() *Collector {
 		printerLoadcellValueRaw:      prometheus.NewDesc("prusa_loadcell_raw", "Value from loadcell sensor in raw sensor value", defaultLabels, nil),
 		printerLoadcellXY:            prometheus.NewDesc("prusa_loadcell_xy", "Loadcell XY", defaultLabels, nil),
 		printerMaintaskLoop:          prometheus.NewDesc("prusa_maintask_loop", "Maintask loop", defaultLabels, nil),
-		printerMediaPrefetched:       prometheus.NewDesc("prusa_eeeprom_write", "Eeeprom write", defaultLabels, nil),
-		printerMMUComm:               prometheus.NewDesc("prusa_mmu_comm", "MMU communication", defaultLabels, nil),
+		printerMediaPrefetched:       prometheus.NewDesc("prusa_media_prefetched_bytes", "Media prefetched in bytes", defaultLabels, nil),
+		printerMMUComm:               prometheus.NewDesc("prusa_mmu_comm", "MMU communication", append(defaultLabels, "msg"), nil),
 		printerModbusReqfail:         prometheus.NewDesc("prusa_modbus_reqfail", "Modbus request fail", defaultLabels, nil),
 		printerNetworkIn:             prometheus.NewDesc("prusa_network_in", "Network in", append(defaultLabels, "device"), nil),
 		printerNetworkOut:            prometheus.NewDesc("prusa_network_out", "Network out", append(defaultLabels, "device"), nil),
@@ -193,18 +200,21 @@ func NewCollector() *Collector {
 		printerPointsDropped:         prometheus.NewDesc("prusa_points_dropped", "Points dropped", defaultLabels, nil),
 		printerPos:                   prometheus.NewDesc("prusa_stepper_pos", "Stepper possition", append(defaultLabels, "axis"), nil),
 		printerPowerPanicCount:       prometheus.NewDesc("prusa_power_panic_count", "Power panic triggered", defaultLabels, nil),
-		printerProbeAnalysis:         prometheus.NewDesc("prusa_probe_analysis", "Probe analysis", defaultLabels, nil),
-		printerProbeInfo:             prometheus.NewDesc("prusa_probe_info", "Probe info", defaultLabels, nil),
+		printerProbeAnalysis:         prometheus.NewDesc("prusa_probe_analysis", "Probe analysis", append(defaultLabels, "desc"), nil),
+		printerProbeWindowStart:      prometheus.NewDesc("prusa_probe_window_start", "Probe window analysis start", append(defaultLabels, "desc"), nil),
+		printerProbeWindowFallEnd:    prometheus.NewDesc("prusa_probe_window_fall_end", "Probe window fall ended", append(defaultLabels, "desc"), nil),
+		printerProbeWindowRiseStart:  prometheus.NewDesc("prusa_probe_window_rise_start", "Probe window rise start", append(defaultLabels, "desc"), nil),
+		printerProbeWindowEnd:        prometheus.NewDesc("prusa_probe_window_analysis_end", "Probe window analysis", append(defaultLabels, "desc"), nil),
 		printerProbeStart:            prometheus.NewDesc("prusa_probe_start", "Probe start", defaultLabels, nil),
-		printerProbeZ:                prometheus.NewDesc("prusa_probe_z", "Probe Z", defaultLabels, nil),
+		printerProbeZ:                prometheus.NewDesc("prusa_probe_z", "Probe Z", append(defaultLabels, "x", "y"), nil),
 		printerProbeZDiff:            prometheus.NewDesc("prusa_probe_z_diff", "Probe Z difference", defaultLabels, nil),
 		printerPwm:                   prometheus.NewDesc("prusa_pwm", "PWM value of nozzle and bed mostly", append(defaultLabels, "device"), nil),
 		printerSideFSensor:           prometheus.NewDesc("prusa_side_fsensor", "Side Filament Sensor", defaultLabels, nil),
 		printerSideFSensorRaw:        prometheus.NewDesc("prusa_side_fsensor_raw", "Side Filament Sensor - raw sensor value", append(defaultLabels, "sensor"), nil),
 		printerSyslogInfo:            prometheus.NewDesc("prusa_syslog_info", "Buddy syslog info", append(defaultLabels, "revision", "bom"), nil),
-		printerTmcRead:               prometheus.NewDesc("prusa_tmc_read", "Trinamic read", append(defaultLabels, "axis"), nil),
+		printerTmcRead:               prometheus.NewDesc("prusa_tmc_read", "Trinamic read", append(defaultLabels, "axis", "reg_addr", "reg_addr_name"), nil), //     metric_record_custom(&metric_read, ",ax=%c reg=%ui,regn=\"%s\",value=%ui",
 		printerTmcSg:                 prometheus.NewDesc("prusa_tmc_sg", "Trinamic SG", append(defaultLabels, "axis"), nil),
-		printerTmcWrite:              prometheus.NewDesc("prusa_tmc_write", "Trinamic write", append(defaultLabels, "axis"), nil),
+		printerTmcWrite:              prometheus.NewDesc("prusa_tmc_write", "Trinamic write", append(defaultLabels, "axis", "reg_addr", "reg_addr_name"), nil),
 		printerTKAcceleration:        prometheus.NewDesc("prusa_tk_acceleration", "TK acceleration", defaultLabels, nil),
 		printerTemp:                  prometheus.NewDesc("prusa_temp", "Temperature of different devices in / on the printer", append(defaultLabels, "device"), nil),
 		printerTempTarget:            prometheus.NewDesc("prusa_temp_target", "Target temperature of different devices in / on the printer", append(defaultLabels, "device"), nil),
@@ -212,6 +222,13 @@ func NewCollector() *Collector {
 		printerVoltage:               prometheus.NewDesc("prusa_voltage", "Voltage of different devices in / on the printer", append(defaultLabels, "rail", "device"), nil),
 		printerVoltageRaw:            prometheus.NewDesc("prusa_voltage_raw", "Voltage of different devices in / on the printer in raw sensor value", append(defaultLabels, "rail", "device"), nil),
 		printerXyDev:                 prometheus.NewDesc("prusa_xy_dev", "XY deviation - max difference between two raw probes [mm]", defaultLabels, nil),
+		prusaBuddyTimeUs:             prometheus.NewDesc("prusa_buddy_time_ms", "Buddy time in microseconds", defaultLabels, nil),
+		prusaPuppyTimeUs:             prometheus.NewDesc("prusa_puppy_time_ms", "Puppy time in microseconds", defaultLabels, nil),
+		prusaSyncRoundtripUs:         prometheus.NewDesc("prusa_sync_roundtrip_ms", "Sync roundtrip in microseconds", defaultLabels, nil),
+		prusaPuppyOffsetUs:           prometheus.NewDesc("prusa_puppy_offset_ms", "Puppy offset in microseconds", defaultLabels, nil),
+		prusaPuppyDriftPpb:           prometheus.NewDesc("prusa_puppy_drift_ppb", "Puppy drift in ppb", defaultLabels, nil),
+		prusaPuppyAverageOffsetUs:    prometheus.NewDesc("prusa_puppy_average_offset_ms", "Puppy average offset in microseconds", defaultLabels, nil),
+		prusaPuppyAverageDriftPpb:    prometheus.NewDesc("prusa_puppy_average_drift_ppb", "Puppy average drift in ppb", defaultLabels, nil),
 	}
 }
 
@@ -230,9 +247,8 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerBuddyRevision
 	ch <- collector.printerBuddyFW
 	ch <- collector.printerCPUUsage
-	ch <- collector.printerCrashCounter
+	ch <- collector.printerCrashSpeed
 	ch <- collector.printerCrashLength
-	ch <- collector.printerCrashRepeatedCounter
 	ch <- collector.printerCrashStat
 	ch <- collector.printerCurrent
 	ch <- collector.printerCurrentRaw
@@ -258,11 +274,9 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerGuiLoopDuration
 	ch <- collector.printerHeapFree
 	ch <- collector.printerHeapTotal
-	ch <- collector.printerHeatModelDiscard
 	ch <- collector.printerHeaterEnabled
-	ch <- collector.printerHomeDiffAx
 	ch <- collector.printerHomeDiffOk
-	ch <- collector.printerHomeDiffValue
+	ch <- collector.printerHomeDiff
 	ch <- collector.printerIpos
 	ch <- collector.printerLoadcellAge
 	ch <- collector.printerLoadcellHp
@@ -284,7 +298,10 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerPos
 	ch <- collector.printerPowerPanicCount
 	ch <- collector.printerProbeAnalysis
-	ch <- collector.printerProbeInfo
+	ch <- collector.printerProbeWindowStart
+	ch <- collector.printerProbeWindowFallEnd
+	ch <- collector.printerProbeWindowRiseStart
+	ch <- collector.printerProbeWindowEnd
 	ch <- collector.printerProbeStart
 	ch <- collector.printerProbeZ
 	ch <- collector.printerProbeZDiff
@@ -526,6 +543,10 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "nozzle_pwm":
 				labels = []string{"nozzle" + suffix}
 				collectorItem = collector.printerPwm
+			case "heap_total":
+				continue // just skip for now - it will collide with heap
+			case "heap_free":
+				continue // just skip for now - it will collide with heap
 			case "heap":
 				valueParsed, err = strconv.ParseFloat(v["free"], 64)
 				if err != nil {
@@ -560,27 +581,24 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "loadcell_scale":
 				collectorItem = collector.printerLoadcellScale
 			case "home_diff":
-				valuesList := []string{"ax", "ok", "value"}
+				valuesList := []string{"ok", "value"}
 				for _, value := range valuesList {
-					tool := ""
+					attempts := ""
 					if length != -1 {
-						tool = strconv.Itoa(length)
+						attempts = strconv.Itoa(length)
 					}
 					valueParsed, err = strconv.ParseFloat(v[value], 64)
 					if err != nil {
+						fmt.Println(nestedmap)
 						log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 						continue // Skip to next iteration if value parsing fails
 					}
 					if value == "value" {
-						ch <- prometheus.MustNewConstMetric(collector.printerHomeDiffValue, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{tool})...)
-					} else if value == "ax" {
-						ch <- prometheus.MustNewConstMetric(collector.printerHomeDiffAx, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{tool})...)
+						ch <- prometheus.MustNewConstMetric(collector.printerHomeDiff, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{v["ax"], attempts})...)
 					} else if value == "ok" {
-						ch <- prometheus.MustNewConstMetric(collector.printerHomeDiffOk, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{tool})...)
+						ch <- prometheus.MustNewConstMetric(collector.printerHomeDiffOk, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{v["ax"], attempts})...)
 					}
-
 				}
-
 				continue
 			case "bedlet_pwm":
 				labels = []string{"bedlet" + suffix}
@@ -642,6 +660,108 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				collectorItem = collector.printerLoadcellThreshold
 			case "loadcell_hysteresis":
 				collectorItem = collector.printerLoadcellHysteresis
+			case "media_prefetched":
+				collectorItem = collector.printerMediaPrefetched
+			case "crash":
+				labels = []string{v["axis"], v["sens"], v["period"]}
+				valueKey = "speed"
+			case "crash_stat":
+				labels = []string{v["axis"]}
+				valueKey = "total"
+			case "excite_freq":
+				collectorItem = collector.printerExciteFreq
+			case "g425_cen":
+				labels = []string{v["t"], v["x"], v["y"], v["z"]}
+				collectorItem = collector.printerG425Cen
+			case "g425_off":
+				labels = []string{v["t"], v["x"], v["y"], v["z"]}
+				collectorItem = collector.printerG425Offset
+			case "g425_rxy":
+				labels = []string{v["t"], v["p"], v["a"], v["x"], v["y"], v["z"]}
+				collectorItem = collector.printerG425Rxy
+			case "g425_rz":
+				labels = []string{v["t"], v["p"], v["x"], v["y"], v["z"]}
+				collectorItem = collector.printerG425Rz
+			case "g425_xy":
+				collectorItem = collector.printerG425Xy
+				labels = []string{v["t"], v["p"], v["a"], v["x"], v["y"]}
+			case "g425_z":
+				labels = []string{v["t"], v["p"], v["x"], v["y"], v["z"]}
+				collectorItem = collector.printerG425Z
+			case "g425_xy_dev":
+				collectorItem = collector.printerG425XyDev
+			case "gcode":
+				ch <- prometheus.MustNewConstMetric(collector.printerGcode, prometheus.GaugeValue, 1, getLabels(mac, ip, port, []string{v[valueKey]})...)
+				continue
+			case "mmu_comm":
+				ch <- prometheus.MustNewConstMetric(collector.printerMMUComm, prometheus.GaugeValue, 1, getLabels(mac, ip, port, []string{v[valueKey]})...)
+				continue
+			case "probe_analysis":
+				valueKey = "ok"
+				labels = []string{v["desc"]}
+				collectorItem = collector.printerProbeAnalysis
+			case "probe_start":
+				collectorItem = collector.printerProbeStart
+			case "probe_z":
+				labels = []string{v["x"], v["y"]}
+				collectorItem = collector.printerProbeZ
+			case "probe_z_diff":
+				collectorItem = collector.printerProbeZDiff
+			case "tmc_read":
+				labels = []string{v["ax"], v["reg"], v["regn"]}
+				collectorItem = collector.printerTmcRead
+			case "tmc_write":
+				labels = []string{v["ax"], v["reg"], v["regn"]}
+				collectorItem = collector.printerTmcWrite
+			case "tmc_sg":
+				labels = []string{splittedName[1]}
+				collectorItem = collector.printerTmcSg
+			case "usbh_err_count":
+				collectorItem = collector.printerUsbhErrCount
+			case "voltage":
+				labels = []string{splittedName[0], ""}
+				collectorItem = collector.printerVoltage
+			case "voltage_raw":
+				labels = []string{splittedName[0], ""}
+				collectorItem = collector.printerVoltageRaw
+			case "xy_dev":
+				collectorItem = collector.printerXyDev
+			case "power_panic":
+				ch <- prometheus.MustNewConstMetric(collector.printerPowerPanicCount, prometheus.CounterValue, 1, getLabels(mac, ip, port, []string{})...)
+			case "crash_length":
+				labels = []string{v["x"], v["y"]}
+				collectorItem = collector.printerCrashLength
+			case "usbh_err_cnt":
+				collectorItem = collector.printerUsbhErrCount
+			case "probe_window":
+				valuesList := []string{"as", "fe", "rs", "ae"} // " as=%0.3f,fe=%0.3f,rs=%0.3f,ae=%0.3f"
+				collectorList := []*prometheus.Desc{collector.printerProbeWindowStart, collector.printerProbeWindowFallEnd, collector.printerProbeWindowRiseStart, collector.printerProbeWindowEnd}
+				for i, value := range valuesList {
+					valueParsed, err = strconv.ParseFloat(v[value], 64)
+					if err != nil {
+						fmt.Println(nestedmap)
+						log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
+						continue // Skip to next iteration if value parsing fails
+					}
+					ch <- prometheus.MustNewConstMetric(collectorList[i], prometheus.GaugeValue, valueParsed, getLabels(mac, ip, port, []string{})...)
+				}
+				continue
+			case "eeprom_write":
+				collectorItem = collector.printerEeepromWrite
+			case "modbus_reqfail":
+				collectorItem = collector.printerModbusReqfail
+			case "puppy_t":
+				collectorItem = collector.prusaPuppyTimeUs
+			case "sync_rt":
+				collectorItem = collector.prusaSyncRoundtripUs
+			case "puppy_off":
+				collectorItem = collector.prusaPuppyOffsetUs
+			case "puppy_drift":
+				collectorItem = collector.prusaPuppyDriftPpb
+			case "puppy_aoff":
+				collectorItem = collector.prusaPuppyAverageOffsetUs
+			case "puppy_adrift":
+				collectorItem = collector.prusaPuppyAverageDriftPpb
 			case "ip":
 				continue // just ignore
 			default:
