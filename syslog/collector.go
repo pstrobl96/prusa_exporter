@@ -5,9 +5,14 @@ import (
 	"runtime/debug"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/rs/zerolog/log"
+)
+
+var (
+	ttl = 0
 )
 
 // Collect is a function that collects all the metrics
@@ -39,6 +44,30 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 	for mac, nestedmap := range syslogMetricsExtracted {
 		ipArr := strings.Split(nestedmap["ip"]["value"], ":")
+
+		if ttl != 0 {
+
+			timestamp := nestedmap["timestamp"]["value"]
+			if timestamp == "" {
+				log.Error().Msgf("No timestamp found for %s", mac)
+				continue
+			}
+			timeParsed, err := time.Parse("2006-01-02T15:04:05.999999999Z07:00", timestamp)
+			timeNowWithoutTTL := time.Now().Add(-time.Duration(ttl) * time.Second)
+
+			if err != nil {
+				log.Error().Msgf("Error parsing timestamp for %s: %s", mac, err)
+				continue
+			}
+
+			alive := 0.0
+
+			if !timeParsed.Before(timeNowWithoutTTL) {
+				alive = 1.0
+			}
+			ch <- prometheus.MustNewConstMetric(collector.printerSyslogUp, prometheus.GaugeValue, alive, getLabels(mac, ipArr[0], []string{})...)
+
+		}
 		ip := ipArr[0]
 		for k, v := range nestedmap {
 			var (
@@ -456,6 +485,8 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "puppy_adrift":
 				collectorItem = collector.prusaPuppyAverageDriftPpb
 			case "ip":
+				continue // just ignore
+			case "timestamp":
 				continue // just ignore
 			default:
 				log.Debug().Msgf("No collector item found for metric %s", k)

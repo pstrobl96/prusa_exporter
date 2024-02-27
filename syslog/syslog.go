@@ -3,6 +3,7 @@ package syslog
 import (
 	"regexp"
 	"sync"
+	"time"
 
 	"github.com/rs/zerolog/log"
 	"gopkg.in/mcuadros/go-syslog.v2"
@@ -92,10 +93,14 @@ func HandleMetrics(listenUDP string) {
 
 					if loadedPart["ip"] == nil {
 						loadedPart["ip"] = make(map[string]string)
+					}
 
+					if loadedPart["timestamp"] == nil {
+						loadedPart["timestamp"] = make(map[string]string)
 					}
 
 					loadedPart["ip"]["value"] = logParts["client"].(string)
+					loadedPart["timestamp"]["value"] = time.Now().Format(time.RFC3339Nano)
 
 					log.Trace().Msg("Received message from: " + mac)
 

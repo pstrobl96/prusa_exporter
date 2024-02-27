@@ -122,6 +122,7 @@ type Collector struct {
 	prusaPuppyDriftPpb           *prometheus.Desc
 	prusaPuppyAverageOffsetUs    *prometheus.Desc
 	prusaPuppyAverageDriftPpb    *prometheus.Desc
+	printerSyslogUp              *prometheus.Desc
 }
 
 // NewCollector is a function that returns new Collector
@@ -129,9 +130,9 @@ type Collector struct {
 // It initializes all the Prometheus metrics used for monitoring different aspects of the printer.
 // The defaultLabels parameter is a list of labels that will be included in all the metrics.
 // Returns a pointer to the created Collector.
-func NewCollector() *Collector {
+func NewCollector(syslogTTL int) *Collector {
 	defaultLabels := []string{"mac", "ip"}
-
+	ttl = syslogTTL
 	return &Collector{
 		printerActiveExtruder:        prometheus.NewDesc("prusa_active_extruder", "Active extruder - used for XL", defaultLabels, nil),
 		printerAppStart:              prometheus.NewDesc("prusa_app_start", "Application start", defaultLabels, nil),
@@ -227,6 +228,7 @@ func NewCollector() *Collector {
 		prusaPuppyDriftPpb:           prometheus.NewDesc("prusa_puppy_drift_ppb", "Puppy drift in ppb", defaultLabels, nil),
 		prusaPuppyAverageOffsetUs:    prometheus.NewDesc("prusa_puppy_average_offset_ms", "Puppy average offset in microseconds", defaultLabels, nil),
 		prusaPuppyAverageDriftPpb:    prometheus.NewDesc("prusa_puppy_average_drift_ppb", "Puppy average drift in ppb", defaultLabels, nil),
+		printerSyslogUp:              prometheus.NewDesc("prusa_up_syslog", "Printer up - from syslog metric - ttl is by default 60 seconds but can be different and it depends on choosen interval. That means if printer wont sent any data for 60 seconds is considered down.", defaultLabels, nil),
 	}
 }
 
@@ -316,4 +318,12 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerVoltage
 	ch <- collector.printerVoltageRaw
 	ch <- collector.printerXyDev
+	ch <- collector.prusaBuddyTimeUs
+	ch <- collector.prusaPuppyTimeUs
+	ch <- collector.prusaSyncRoundtripUs
+	ch <- collector.prusaPuppyOffsetUs
+	ch <- collector.prusaPuppyDriftPpb
+	ch <- collector.prusaPuppyAverageOffsetUs
+	ch <- collector.prusaPuppyAverageDriftPpb
+	ch <- collector.printerSyslogUp
 }
