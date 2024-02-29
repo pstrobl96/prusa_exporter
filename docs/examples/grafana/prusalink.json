@@ -64,7 +64,7 @@
         }
       ]
     },
-    "description": "This is dashboard for monitoring Prusa 3D printers with use of pubeldev/prusa_exporter - this dashboard supports only Prusa Link metrics",
+    "description": "This is dashboard for monitoring Prusa 3D printers with use of pubeldev/prusa_exporter. Uses only PrusaLink metrics",
     "editable": true,
     "fiscalYearStartMonth": 0,
     "gnetId": 20393,
@@ -1615,8 +1615,7 @@
                   "mode": "percentage",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "red",
@@ -1703,8 +1702,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     }
                   ]
                 }
@@ -1767,8 +1765,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     }
                   ]
                 },
@@ -1893,8 +1890,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "red",
@@ -1965,8 +1961,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     }
                   ]
                 }
@@ -2029,8 +2024,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     }
                   ]
                 }
@@ -2107,8 +2101,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     }
                   ]
                 },
@@ -2173,8 +2166,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "red",
@@ -2196,8 +2188,7 @@
                         "mode": "absolute",
                         "steps": [
                           {
-                            "color": "green",
-                            "value": null
+                            "color": "green"
                           },
                           {
                             "color": "red",
@@ -2304,8 +2295,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "red",
@@ -2401,8 +2391,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "red",
@@ -2531,8 +2520,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "red",
@@ -2618,9 +2606,9 @@
         },
         {
           "current": {
-            "selected": true,
-            "text": "grafanacloud-pubel-prom",
-            "value": "grafanacloud-prom"
+            "selected": false,
+            "text": "grafanacloud-demoinfra-prom",
+            "value": "grafanacloud-demoinfra-prom"
           },
           "hide": 0,
           "includeAll": false,
@@ -2639,7 +2627,7 @@
           "current": {},
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROM}"
+            "uid": "${DS_GRAFANACLOUD-DEMOINFRA-PROM}"
           },
           "definition": "label_values(prusa_info{printer_name=\"$printer\"},printer_address)",
           "hide": 2,
@@ -2661,13 +2649,13 @@
       ]
     },
     "time": {
-      "from": "2024-02-27T21:27:16.071Z",
-      "to": "2024-02-27T23:52:06.836Z"
+      "from": "2024-02-27T21:22:33.080Z",
+      "to": "2024-02-27T23:54:43.054Z"
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Prusa Buddy Dashboard",
+    "title": "PrusaLink Dashboard",
     "uid": "RXaNIGY4z",
-    "version": 5,
+    "version": 7,
     "weekStart": ""
   }
