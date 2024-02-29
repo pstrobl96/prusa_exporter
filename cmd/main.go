@@ -23,6 +23,7 @@ var (
 	metricsPath     = kingpin.Flag("exporter.metrics-path", "Path where to expose metrics.").Default("/metrics").String()
 	exporterMetrics = kingpin.Flag("exporter.metrics", "Decides if expose metrics about exporter itself.").Default("true").Bool()
 	metricsPort     = kingpin.Flag("exporter.metrics-port", "Port where to expose metrics.").Default("10009").Int()
+	syslogTTL       = kingpin.Flag("syslog.ttl", "TTL for syslog metrics in seconds.").Default("60").Int()
 	// Configuration used for scraping and exporter
 	Configuration config.Config
 )
@@ -63,7 +64,7 @@ func Run() {
 		go syslog.HandleMetrics(config.Exporter.Syslog.ListenAddress)
 	}
 
-	syslogCollector := syslog.NewCollector()
+	syslogCollector := syslog.NewCollector(*syslogTTL)
 	prusalinkCollector := prusalink.NewCollector(&config)
 
 	prometheus.MustRegister(prusalinkCollector, syslogCollector)
@@ -107,6 +108,6 @@ func configReloader(configuration *config.Config, reloadInterval int) {
 		if err != nil {
 			log.Error().Msg("Error probing configuration file " + err.Error())
 		}
-
+		configuration = &config
 	}
 }
