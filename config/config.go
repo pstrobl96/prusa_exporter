@@ -13,7 +13,10 @@ type Config struct {
 		ScrapeTimeout  int    `yaml:"scrape_timeout"`
 		ReloadInterval int    `yaml:"reload_interval"`
 		LogLevel       string `yaml:"log_level"`
-		Syslog         struct {
+		Prusalink      struct {
+			Enabled bool `yaml:"enabled"`
+		} `yaml:"prusalink"`
+		Syslog struct {
 			ListenAddress string `yaml:"listen_address"`
 			Enabled       bool   `yaml:"enabled"`
 		} `yaml:"syslog"`

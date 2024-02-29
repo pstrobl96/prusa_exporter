@@ -53,21 +53,30 @@ func Run() {
 		log.Error().Msg("Error probing configuration file " + err.Error())
 		os.Exit(1)
 	}
+	var collectors []prometheus.Collector
+
+	if config.Exporter.Prusalink.Enabled {
+		log.Info().Msg("PrusaLink metrics enabled!")
+		collectors = append(collectors, prusalink.NewCollector(&config))
+	}
 
 	if config.Exporter.ReloadInterval != 0 { // do not run reloader if interval is set to zero
 		go configReloader(&config, *configReload) // run reloader as goroutine
 	}
 
 	if config.Exporter.Syslog.Enabled {
-		log.Warn().Msg("Syslog metrics enabled!")
-		log.Warn().Msg("Syslog metrics server starting at: " + config.Exporter.Syslog.ListenAddress)
+		log.Info().Msg("Syslog metrics enabled!")
+		log.Info().Msg("Syslog metrics server starting at: " + config.Exporter.Syslog.ListenAddress)
 		go syslog.HandleMetrics(config.Exporter.Syslog.ListenAddress)
+		collectors = append(collectors, syslog.NewCollector(*syslogTTL))
 	}
 
-	syslogCollector := syslog.NewCollector(*syslogTTL)
-	prusalinkCollector := prusalink.NewCollector(&config)
+	if len(collectors) == 0 {
+		log.Error().Msg("No collectors registered")
+		os.Exit(1)
+	}
 
-	prometheus.MustRegister(prusalinkCollector, syslogCollector)
+	prometheus.MustRegister(collectors...)
 	log.Info().Msg("Metrics registered")
 	http.Handle(*metricsPath, promhttp.Handler())
 	log.Info().Msg("Listening at port: " + strconv.Itoa(*metricsPort))
