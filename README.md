@@ -353,15 +353,15 @@ I also prepared one dashboard per board which you can find in the [docs/examples
 
 ### Prusa Link
 
-Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20393-buddy-detail/)! Just use ID `20393` when importing.  
+Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20393)! Just use ID `20393` when importing.  
 
 ![dashboard](docs/examples/grafana/prusalink.png)
 
 ### Syslog
 
-// TODO 
+Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20618)! Just use ID `20618` when importing.  
 
-![dashboard](docs/examples/grafana/buddy_syslog.png)
+![dashboard](docs/examples/grafana/syslog.png)
 
 ### Overview
 
