@@ -34,10 +34,9 @@ For MK3S with Einsy board you need to use at least version 0.7.0 of Prusa Link o
       - [promtail.yml](#promtailyml)
     - [Starting](#starting)
   - [Grafana Dashboards](#grafana-dashboards)
-    - [Buddy](#buddy)
-    - [Einsy](#einsy)
+    - [Prusa Link](#prusa-link)
+    - [Syslog](#syslog)
     - [Overview](#overview)
-    - [SL](#sl)
 
 ## Where to find prusa exporter
 
@@ -58,7 +57,7 @@ This list contains current and future features along with completion status:
 - [ ] Configuration update
 - [x] Send logs to Grafana Cloud
 - [x] Enable node_exporter for Grafana Cloud
-- [ ] Optimize and get more syslog metrics
+- [x] Optimize and get more syslog metrics
 - [ ] Automatically send syslog config gcode to buddy boards 
 - [ ] exporter toolkit implemenation
 - [ ] Create endpoint for configuration update
@@ -68,8 +67,6 @@ This list contains current and future features along with completion status:
 - [ ] CI for binaries release
 - [ ] Enable log collection to Loki
 - [x] SL1 support
-- [ ] 
-- [ ] README.md update
 
 ## How to install prusa exporter
 
@@ -352,18 +349,17 @@ docker compose up
 
 I also prepared one dashboard per board which you can find in the [docs/examples/grafana](docs/examples/grafana) folder.
 
-### Buddy
+### Prusa Link
 
-Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20393-buddy-detail/)! Just use ID `20393` when importing.  
+Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20393)! Just use ID `20393` when importing.  
 
-![dashboard](docs/examples/grafana/buddy.png)
-![dashboard](docs/examples/grafana/buddy_syslog.png)
+![dashboard](docs/examples/grafana/prusalink.png)
 
-### Einsy
+### Syslog
 
-Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20446)! Just use ID `20446` when importing.  
+Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20618)! Just use ID `20618` when importing.  
 
-![dashboard](docs/examples/grafana/einsy.png)
+![dashboard](docs/examples/grafana/syslog.png)
 
 ### Overview
 
@@ -372,11 +368,3 @@ This dashboard is used for monitoring all of your printers. Basically - green me
 Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20449)! Just use ID `20449` when importing.  
 
 ![dashboard](docs/examples/grafana/overview.png)
-
-### SL
-
-This dashboard is experimental same as support of resin printers
-
-Download this dashboard straight from [Grafana.net](https://grafana.com/grafana/dashboards/20474)! Just use ID `20474` when importing.  
-
-![dashboard](docs/examples/grafana/sl.png)

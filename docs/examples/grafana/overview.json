@@ -1,7 +1,7 @@
 {
   "__inputs": [
     {
-      "name": "DS_GRAFANACLOUD-PUBEL-PROM",
+      "name": "DS_PROM",
       "label": "grafanacloud-pubel-prom",
       "description": "",
       "type": "datasource",
@@ -15,7 +15,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "10.4.0-66861"
+      "version": "11.0.0-67429"
     },
     {
       "type": "panel",
@@ -70,7 +70,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_GRAFANACLOUD-PUBEL-PROM}"
+        "uid": "${DS_PROM}"
       },
       "fieldConfig": {
         "defaults": {
@@ -132,15 +132,15 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.0-66861",
+      "pluginVersion": "11.0.0-67429",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-PUBEL-PROM}"
+            "uid": "${DS_PROM}"
           },
           "editorMode": "code",
-          "expr": "count (prusa_einsy_status)  + count (prusa_buddy_status) + count(prusa_sl_status)",
+          "expr": "count (prusa_status)",
           "legendFormat": "{{printer_model}}",
           "range": true,
           "refId": "A"
@@ -152,7 +152,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_GRAFANACLOUD-PUBEL-PROM}"
+        "uid": "${DS_PROM}"
       },
       "fieldConfig": {
         "defaults": {
@@ -196,45 +196,19 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.4.0-66861",
+      "pluginVersion": "11.0.0-67429",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-PUBEL-PROM}"
+            "uid": "${DS_PROM}"
           },
           "editorMode": "code",
-          "expr": "count (prusa_einsy_status) by (printer_model)",
+          "expr": "count (prusa_status) by (printer_model)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-PUBEL-PROM}"
-          },
-          "editorMode": "code",
-          "expr": "count (prusa_buddy_status) by (printer_model)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-PUBEL-PROM}"
-          },
-          "editorMode": "code",
-          "expr": "count (prusa_sl_status) by (printer_model)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "C"
         }
       ],
       "title": "Panel Title",
@@ -243,7 +217,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_GRAFANACLOUD-PUBEL-PROM}"
+        "uid": "${DS_PROM}"
       },
       "fieldConfig": {
         "defaults": {
@@ -378,51 +352,21 @@
         "frameIndex": 0,
         "showHeader": true
       },
-      "pluginVersion": "10.4.0-66861",
+      "pluginVersion": "11.0.0-67429",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-PUBEL-PROM}"
+            "uid": "${DS_PROM}"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "max by (printer_name, printer_model)(prusa_einsy_status) ",
+          "expr": "max by (printer_name, printer_model)(prusa_status) ",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
           "refId": "Einsy"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-PUBEL-PROM}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "max by (printer_name, printer_model)(prusa_buddy_status) ",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-PUBEL-PROM}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "max by (printer_name, printer_model)(prusa_sl_status) ",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "B"
         }
       ],
       "title": "Printers status",
@@ -483,7 +427,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_GRAFANACLOUD-PUBEL-PROM}"
+        "uid": "${DS_PROM}"
       },
       "description": "",
       "fieldConfig": {
@@ -725,38 +669,13 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-PUBEL-PROM}"
+            "uid": "${DS_PROM}"
           },
           "editorMode": "code",
-          "expr": "max by (printer_name,printer_state)(prusa_einsy_status)",
+          "expr": "max by (printer_name,printer_state)(prusa_status)",
           "legendFormat": "{{printer_name}}",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-PUBEL-PROM}"
-          },
-          "editorMode": "code",
-          "expr": "max by (printer_name)(prusa_buddy_status)",
-          "hide": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_GRAFANACLOUD-PUBEL-PROM}"
-          },
-          "editorMode": "code",
-          "expr": "max by (printer_name)(prusa_sl_status)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "C"
         }
       ],
       "title": "Printing status",
@@ -770,9 +689,9 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "grafanacloud-pubel-prom",
-          "value": "grafanacloud-prom"
+          "selected": false,
+          "text": "grafanacloud-demoinfra-prom",
+          "value": "grafanacloud-demoinfra-prom"
         },
         "hide": 0,
         "includeAll": false,
@@ -796,6 +715,6 @@
   "timezone": "",
   "title": "Prusa Overview Dashboard",
   "uid": "ea142901-b66b-4667-9d0a-35ba5863549a",
-  "version": 3,
+  "version": 4,
   "weekStart": ""
 }
