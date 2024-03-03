@@ -57,7 +57,7 @@ This list contains current and future features along with completion status:
 - [ ] Configuration update
 - [x] Send logs to Grafana Cloud
 - [x] Enable node_exporter for Grafana Cloud
-- [ ] Optimize and get more syslog metrics
+- [x] Optimize and get more syslog metrics
 - [ ] Automatically send syslog config gcode to buddy boards 
 - [ ] exporter toolkit implemenation
 - [ ] Create endpoint for configuration update
@@ -67,8 +67,6 @@ This list contains current and future features along with completion status:
 - [ ] CI for binaries release
 - [ ] Enable log collection to Loki
 - [x] SL1 support
-- [ ] 
-- [ ] README.md update
 
 ## How to install prusa exporter
 
