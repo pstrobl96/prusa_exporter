@@ -296,7 +296,14 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "loadcell_xy":
 				collectorItem = collector.printerLoadcellXY
 			case "cpu_usage":
+				valueParsed, err = strconv.ParseFloat(v[valueKey], 64)
+				if err != nil {
+					log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
+					continue // Skip to next iteration if value parsing fails
+				}
 				collectorItem = collector.printerCPUUsage
+				ch <- prometheus.MustNewConstMetric(collector.printerCPUUsage, prometheus.GaugeValue, valueParsed/100, getLabels(mac, ip, []string{})...)
+				continue
 			case "loadcell":
 				collectorItem = collector.printerLoadcellValueRaw
 				valueKey = "r"
