@@ -125,7 +125,7 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 
 // Collect implements prometheus.Collector
 func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
-	for i, s := range configuration.Printers {
+	for _, s := range configuration.Printers {
 		log.Debug().Msg("Printer scraping at " + s.Address)
 		if !s.Reachable {
 			printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
@@ -141,7 +141,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			job, err := GetJob(s)
 			if err != nil {
 				log.Error().Msg("Error while scraping job endpoint at " + s.Address + " - " + err.Error())
-				configuration.Printers[i].Reachable = false
+				//configuration.Printers[i].Reachable = false
 				ch <- printerUp
 				continue
 			}
@@ -149,7 +149,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			printer, err := GetPrinter(s)
 			if err != nil {
 				log.Error().Msg("Error while scraping printer endpoint at " + s.Address + " - " + err.Error())
-				configuration.Printers[i].Reachable = false
+				//configuration.Printers[i].Reachable = false
 				ch <- printerUp
 				continue
 			}
@@ -157,7 +157,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			files, err := GetFiles(s)
 			if err != nil {
 				log.Error().Msg("Error while scraping files endpoint at " + s.Address + " - " + err.Error())
-				configuration.Printers[i].Reachable = false
+				//configuration.Printers[i].Reachable = false
 				ch <- printerUp
 				continue
 			}
@@ -165,7 +165,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			version, err := GetVersion(s)
 			if err != nil {
 				log.Error().Msg("Error while scraping version endpoint at " + s.Address + " - " + err.Error())
-				configuration.Printers[i].Reachable = false
+				//configuration.Printers[i].Reachable = false
 				ch <- printerUp
 				continue
 			}
