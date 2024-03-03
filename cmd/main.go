@@ -91,7 +91,7 @@ func probeConfigFile(config config.Config) (config.Config, error) {
 
 		if err != nil {
 			log.Error().Msg(err.Error())
-			printer.Reachable = false
+			//printer.Reachable = false
 		} else if status {
 			printerType, err := prusalink.GetPrinterType(printer)
 			if err != nil || printerType == "" {
@@ -99,7 +99,7 @@ func probeConfigFile(config config.Config) (config.Config, error) {
 				printer.Type = "unknown"
 			}
 			config.Printers[i].Type = printerType
-			config.Printers[i].Reachable = status
+			//config.Printers[i].Reachable = status
 		}
 	}
 	return config, nil
