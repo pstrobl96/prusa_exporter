@@ -4,6 +4,7 @@ exporter:
   log_level: info
   prusalink:
     enabled: true
+
   syslog:
     metrics:
       enabled: true
