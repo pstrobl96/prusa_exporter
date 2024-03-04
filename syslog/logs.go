@@ -13,37 +13,28 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-func newLogger(maxSize int, maxBackups int, maxAge int, directory string, filename string) (zerolog.Logger, error) {
+// HandleLogs is a function to handle logs from syslog and send them to Loki or Promtail - promtail does not work because printers send logs in a different format than it should and Promtails throws EOF error
+func HandleLogs(listenUDP string, directory string, filename string, maxSize int, maxBackups int, maxAge int) {
+	channel, server := startSyslogServer(listenUDP)
+	log.Debug().Msg("Syslog server for logs started at: " + listenUDP)
 
-	lumbrejackLogger := &lumberjack.Logger{
+	if err := os.MkdirAll(directory, 0744); err != nil {
+		log.Error().Err(err).Str("path", directory).Msg("Can't create log directory")
+		return
+	}
+
+	writers := []io.Writer{&lumberjack.Logger{
 		Filename:   path.Join(directory, filename),
 		MaxBackups: maxBackups, // maximum number of backups
 		MaxSize:    maxSize,    // in MB
 		MaxAge:     maxAge,     // in Days
-	}
-
-	if err := os.MkdirAll(directory, 0744); err != nil {
-		log.Error().Err(err).Str("path", directory).Msg("can't create log directory")
-		return zerolog.Logger{}, err
-	}
-
-	writers := []io.Writer{lumbrejackLogger}
+	}}
 
 	mw := io.MultiWriter(writers...)
 
-	return zerolog.New(mw).With().Timestamp().Logger(), nil
-}
+	syslogLogger := zerolog.New(mw).With().Timestamp().Logger()
 
-// HandleLogs is a function to handle logs from syslog and send them to Loki or Promtail - promtail does not work because printers send logs in a different format than it should and Promtails throws EOF error
-func HandleLogs(listenUDP string, path string, filename string) {
-	channel, server := startSyslogServer(listenUDP)
-	log.Debug().Msg("Syslog server for logs started at: " + listenUDP)
-	syslogLogger, err := newLogger(10, 3, 28, path, filename)
-
-	if err != nil {
-		log.Error().Err(err).Msg("Error configuring syslog logger")
-		return
-	}
+	log.Debug().Msg("Syslog logs are being written to: " + path.Join(directory, filename))
 
 	go func(channel syslog.LogPartsChannel) {
 		for logParts := range channel {

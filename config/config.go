@@ -24,8 +24,11 @@ type Config struct {
 			Logs struct {
 				Enabled       bool   `yaml:"enabled"`
 				ListenAddress string `yaml:"listen_address"`
-				Path          string `yaml:"path"`
+				Directory     string `yaml:"directory"`
 				Filename      string `yaml:"filename"`
+				MaxSize       int    `yaml:"max_size"`
+				MaxBackups    int    `yaml:"max_backups"`
+				MaxAge        int    `yaml:"max_age"`
 			} `yaml:"logs"`
 		} `yaml:"syslog"`
 	} `yaml:"exporter"`

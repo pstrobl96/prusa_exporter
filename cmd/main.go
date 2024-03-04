@@ -75,7 +75,12 @@ func Run() {
 	if config.Exporter.Syslog.Logs.Enabled {
 		log.Info().Msg("Syslog logs enabled!")
 		log.Info().Msg("Syslog logs server starting at: " + config.Exporter.Syslog.Logs.ListenAddress)
-		go syslog.HandleLogs(config.Exporter.Syslog.Logs.ListenAddress, config.Exporter.Syslog.Logs.Path, config.Exporter.Syslog.Logs.Filename)
+		go syslog.HandleLogs(config.Exporter.Syslog.Logs.ListenAddress,
+			config.Exporter.Syslog.Logs.Directory,
+			config.Exporter.Syslog.Logs.Filename,
+			config.Exporter.Syslog.Logs.MaxSize,
+			config.Exporter.Syslog.Logs.MaxBackups,
+			config.Exporter.Syslog.Logs.MaxAge)
 	}
 
 	if len(collectors) == 0 && !config.Exporter.Syslog.Logs.Enabled {
