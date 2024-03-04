@@ -24,6 +24,8 @@ type Config struct {
 			Logs struct {
 				Enabled       bool   `yaml:"enabled"`
 				ListenAddress string `yaml:"listen_address"`
+				Path          string `yaml:"path"`
+				Filename      string `yaml:"filename"`
 			} `yaml:"logs"`
 		} `yaml:"syslog"`
 	} `yaml:"exporter"`

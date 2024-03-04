@@ -11,6 +11,8 @@ exporter:
     logs:
       enabled: true
       listen_address: 0.0.0.0:10007
+      path: ./ #local path to store logs, default
+      filename: prusa.log
 printers:
   - address: <address_of_printer>
     username: maker
