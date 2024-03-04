@@ -8,13 +8,13 @@ networks:
 
 services:
   exporter:
-    image: pubeldev/prusa-exporter:1.0.b4
+    build: .
     container_name: exporter
     restart: unless-stopped
     volumes:
       - prusa_syslog:/var/log/prusa
       - type: bind
-        source: /boot/firmware/prusa.yml
+        source: ./prusa.yml
         target: /app/prusa.yml
     ports:
       - "10007:10007/udp"
@@ -31,7 +31,7 @@ services:
     volumes:  
       - prusa_syslog:/var/log/prusa
       - type: bind
-        source: /boot/firmware/agent.yaml
+        source: ./agent.yaml
         target: /etc/agent-config/agent.yaml
     entrypoint:
       - /bin/grafana-agent
