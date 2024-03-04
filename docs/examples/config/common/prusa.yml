@@ -5,8 +5,12 @@ exporter:
   prusalink:
     enabled: true
   syslog:
-    listen_address: 0.0.0.0:10008
-    enabled: true
+    metrics:
+      enabled: true
+      listen_address: 0.0.0.0:10008
+    logs:
+      enabled: true
+      listen_address: 0.0.0.0:10007
 printers:
   - address: <address_of_printer>
     username: maker

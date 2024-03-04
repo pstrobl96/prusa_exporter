@@ -17,8 +17,14 @@ type Config struct {
 			Enabled bool `yaml:"enabled"`
 		} `yaml:"prusalink"`
 		Syslog struct {
-			ListenAddress string `yaml:"listen_address"`
-			Enabled       bool   `yaml:"enabled"`
+			Metrics struct {
+				Enabled       bool   `yaml:"enabled"`
+				ListenAddress string `yaml:"listen_address"`
+			} `yaml:"metrics"`
+			Logs struct {
+				Enabled       bool   `yaml:"enabled"`
+				ListenAddress string `yaml:"listen_address"`
+			} `yaml:"logs"`
 		} `yaml:"syslog"`
 	} `yaml:"exporter"`
 	Printers []Printers `yaml:"printers"`

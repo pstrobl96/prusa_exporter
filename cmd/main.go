@@ -65,15 +65,21 @@ func Run() {
 		go configReloader(&config, *configReload) // run reloader as goroutine
 	}
 
-	if config.Exporter.Syslog.Enabled {
+	if config.Exporter.Syslog.Metrics.Enabled {
 		log.Info().Msg("Syslog metrics enabled!")
-		log.Info().Msg("Syslog metrics server starting at: " + config.Exporter.Syslog.ListenAddress)
-		go syslog.HandleMetrics(config.Exporter.Syslog.ListenAddress)
+		log.Info().Msg("Syslog metrics server starting at: " + config.Exporter.Syslog.Metrics.ListenAddress)
+		go syslog.HandleMetrics(config.Exporter.Syslog.Metrics.ListenAddress)
 		collectors = append(collectors, syslog.NewCollector(*syslogTTL))
 	}
 
-	if len(collectors) == 0 {
-		log.Error().Msg("No collectors registered")
+	if config.Exporter.Syslog.Logs.Enabled {
+		log.Info().Msg("Syslog logs enabled!")
+		log.Info().Msg("Syslog logs server starting at: " + config.Exporter.Syslog.Logs.ListenAddress)
+		go syslog.HandleLogs(config.Exporter.Syslog.Logs.ListenAddress)
+	}
+
+	if len(collectors) == 0 && !config.Exporter.Syslog.Logs.Enabled {
+		log.Error().Msg("No collectors or logs registered")
 		os.Exit(1)
 	}
 
