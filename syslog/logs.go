@@ -19,7 +19,7 @@ func HandleLogs(listenUDP string, directory string, filename string, maxSize int
 	log.Debug().Msg("Syslog server for logs started at: " + listenUDP)
 
 	if err := os.MkdirAll(directory, 0744); err != nil {
-		log.Error().Err(err).Str("path", directory).Msg("Can't create log directory")
+		log.Panic().Err(err).Str("path", directory).Msg("Can't create log directory")
 		return
 	}
 
