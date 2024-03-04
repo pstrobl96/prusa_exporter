@@ -17,8 +17,19 @@ type Config struct {
 			Enabled bool `yaml:"enabled"`
 		} `yaml:"prusalink"`
 		Syslog struct {
-			ListenAddress string `yaml:"listen_address"`
-			Enabled       bool   `yaml:"enabled"`
+			Metrics struct {
+				Enabled       bool   `yaml:"enabled"`
+				ListenAddress string `yaml:"listen_address"`
+			} `yaml:"metrics"`
+			Logs struct {
+				Enabled       bool   `yaml:"enabled"`
+				ListenAddress string `yaml:"listen_address"`
+				Directory     string `yaml:"directory"`
+				Filename      string `yaml:"filename"`
+				MaxSize       int    `yaml:"max_size"`
+				MaxBackups    int    `yaml:"max_backups"`
+				MaxAge        int    `yaml:"max_age"`
+			} `yaml:"logs"`
 		} `yaml:"syslog"`
 	} `yaml:"exporter"`
 	Printers []Printers `yaml:"printers"`

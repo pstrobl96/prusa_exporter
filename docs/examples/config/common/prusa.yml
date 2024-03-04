@@ -5,8 +5,17 @@ exporter:
   prusalink:
     enabled: true
   syslog:
-    listen_address: 0.0.0.0:10008
-    enabled: true
+    metrics:
+      enabled: true
+      listen_address: 0.0.0.0:10008
+    logs:
+      enabled: true
+      listen_address: 0.0.0.0:10007
+      directory: /var/log/prusa
+      filename: exporter.log
+      max_size: 10 # in MB
+      max_age: 7 # in days
+      max_backups: 10
 printers:
   - address: <address_of_printer>
     username: maker
