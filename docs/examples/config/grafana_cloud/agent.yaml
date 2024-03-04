@@ -53,7 +53,7 @@ logs:
       - labels:
           stream: 'stdout'
           job: prusa_printers_logs
-          __path__: /app/logs/exporter.log
+          __path__: /var/log/prusa/exporter.log
 
 integrations:
   agent:
