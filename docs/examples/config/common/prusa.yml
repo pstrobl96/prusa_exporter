@@ -4,7 +4,6 @@ exporter:
   log_level: info
   prusalink:
     enabled: true
-
   syslog:
     metrics:
       enabled: true
@@ -12,7 +11,7 @@ exporter:
     logs:
       enabled: true
       listen_address: 0.0.0.0:10007
-      directory: ./logs #local path to store logs, default
+      directory: /var/log/prusa
       filename: exporter.log
       max_size: 10 # in MB
       max_age: 7 # in days
