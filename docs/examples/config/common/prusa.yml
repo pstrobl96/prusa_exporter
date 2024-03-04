@@ -11,8 +11,8 @@ exporter:
     logs:
       enabled: true
       listen_address: 0.0.0.0:10007
-      directory: ./ #local path to store logs, default
-      filename: prusa.log
+      directory: ./logs #local path to store logs, default
+      filename: exporter.log
       max_size: 10 # in MB
       max_age: 7 # in days
       max_backups: 10
