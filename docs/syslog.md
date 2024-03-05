@@ -40,7 +40,7 @@ Now click on `Allow` - Confirm and change value to `Any Host`. Next switch on `E
 ![syslog4](readme/syslog/screenshot_4.jpg)  
 ![syslog5](readme/syslog/screenshot_5.jpg)  
 
-Now run your configuration gcode we created before
+Now run your configuration gcode we created before  
 ![syslog6](readme/syslog/screenshot_6.jpg)  
 ![syslog7](readme/syslog/screenshot_7.jpg)  
 
