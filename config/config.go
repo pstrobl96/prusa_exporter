@@ -10,10 +10,9 @@ import (
 // Config struct for the configuration file prusa.yml
 type Config struct {
 	Exporter struct {
-		ScrapeTimeout  int    `yaml:"scrape_timeout"`
-		ReloadInterval int    `yaml:"reload_interval"`
-		LogLevel       string `yaml:"log_level"`
-		Prusalink      struct {
+		ScrapeTimeout int    `yaml:"scrape_timeout"`
+		LogLevel      string `yaml:"log_level"`
+		Prusalink     struct {
 			Enabled bool `yaml:"enabled"`
 		} `yaml:"prusalink"`
 		Syslog struct {

@@ -105,7 +105,7 @@ func accessPrinterEndpoint(path string, printer config.Printers) ([]byte, error)
 				Username: printer.Username,
 				Password: printer.Password,
 			},
-			Timeout: time.Duration(1500) * time.Millisecond,
+			Timeout: time.Duration(configuration.Exporter.ScrapeTimeout) * time.Millisecond,
 		}
 		res, err = client.Get(url)
 
@@ -115,7 +115,7 @@ func accessPrinterEndpoint(path string, printer config.Printers) ([]byte, error)
 	} else {
 		req, err := http.NewRequest("GET", url, nil)
 		client := &http.Client{
-			Timeout: time.Duration(1500) * time.Millisecond,
+			Timeout: time.Duration(configuration.Exporter.ScrapeTimeout) * time.Millisecond,
 		}
 
 		if err != nil {
@@ -310,7 +310,7 @@ func GetPrinterType(printer config.Printers) (string, error) {
 // ProbePrinter is used to probe the printer - just testing the connection
 func ProbePrinter(printer config.Printers) (bool, error) {
 	req, _ := http.NewRequest("GET", "http://"+printer.Address+"/", nil)
-	client := &http.Client{Timeout: time.Duration(1) * time.Second}
+	client := &http.Client{Timeout: time.Duration(configuration.Exporter.ScrapeTimeout) * time.Millisecond}
 	r, e := client.Do(req)
 
 	if e != nil {
