@@ -2,7 +2,6 @@ package syslog
 
 import (
 	"fmt"
-	"runtime/debug"
 	"strconv"
 	"strings"
 	"time"
@@ -17,12 +16,6 @@ var (
 
 // Collect is a function that collects all the metrics
 func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
-	defer func() {
-		if panicInfo := recover(); panicInfo != nil {
-			fmt.Printf("spadlo ti to")
-			fmt.Printf("%v, %s", panicInfo, string(debug.Stack()))
-		}
-	}()
 	// little bit more memory intensive but we need to extract the data from the map as fast as possible
 	var syslogMetricsExtracted = make(map[string]map[string]map[string]string)
 
