@@ -1,6 +1,5 @@
 exporter:
   scrape_timeout: 1 # scrape timeout of Prusa Link
-  reload_interval: 300 # interval in seconds for config reloader
   log_level: info
   prusalink:
     enabled: true

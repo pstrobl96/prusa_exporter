@@ -1,11 +1,9 @@
 package cmd
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"strconv"
-	"time"
 
 	"github.com/alecthomas/kingpin/v2"
 	"github.com/prometheus/client_golang/prometheus"
@@ -18,14 +16,14 @@ import (
 )
 
 var (
-	configFile       = kingpin.Flag("config.file", "Configuration file for prusa_exporter.").Default("./prusa.yml").ExistingFile()
-	configReload     = kingpin.Flag("config.reload", "Interval how often should be config reloaded - 0 for no reload.").Default("300").Int()
+	configFile       = kingpin.Flag("Configuration.file", "Configuration file for prusa_exporter.").Default("./prusa.yml").ExistingFile()
+	configReload     = kingpin.Flag("Configuration.reload", "Interval how often should be config reloaded - 0 for no reload.").Default("300").Int()
 	metricsPath      = kingpin.Flag("exporter.metrics-path", "Path where to expose metrics.").Default("/metrics").String()
 	exporterMetrics  = kingpin.Flag("exporter.metrics", "Decides if expose metrics about exporter itself.").Default("true").Bool()
 	metricsPort      = kingpin.Flag("exporter.metrics-port", "Port where to expose metrics.").Default("10009").Int()
 	syslogTTL        = kingpin.Flag("syslog.ttl", "TTL for syslog metrics in seconds.").Default("60").Int()
 	prusalinkTimeout = kingpin.Flag("prusalink.timeout", "Timeout for prusalink requests in ms.").Default("1000").Int()
-	// Configuration used for scraping and exporter
+	// Configuration is a global variable for the of exporter
 	Configuration config.Config
 )
 
@@ -41,14 +39,14 @@ func Run() {
 		os.Exit(1)
 	}
 
-	logLevel, err := zerolog.ParseLevel(config.Exporter.LogLevel)
+	logLevel, err := zerolog.ParseLevel(Configuration.Exporter.LogLevel)
 
 	if err != nil {
 		logLevel = zerolog.InfoLevel // default log level
 	}
 	zerolog.SetGlobalLevel(logLevel)
 
-	config, err = probeConfigFile(config)
+	Configuration, err = probeConfigFile(config)
 
 	if err != nil {
 		log.Error().Msg("Error probing configuration file " + err.Error())
@@ -56,34 +54,30 @@ func Run() {
 	}
 	var collectors []prometheus.Collector
 
-	if config.Exporter.Prusalink.Enabled {
+	if Configuration.Exporter.Prusalink.Enabled {
 		log.Info().Msg("PrusaLink metrics enabled!")
-		collectors = append(collectors, prusalink.NewCollector(&config))
+		collectors = append(collectors, prusalink.NewCollector(config))
 	}
 
-	if config.Exporter.ReloadInterval != 0 { // do not run reloader if interval is set to zero
-		go configReloader(&config, *configReload) // run reloader as goroutine
-	}
-
-	if config.Exporter.Syslog.Metrics.Enabled {
+	if Configuration.Exporter.Syslog.Metrics.Enabled {
 		log.Info().Msg("Syslog metrics enabled!")
-		log.Info().Msg("Syslog metrics server starting at: " + config.Exporter.Syslog.Metrics.ListenAddress)
-		go syslog.HandleMetrics(config.Exporter.Syslog.Metrics.ListenAddress)
+		log.Info().Msg("Syslog metrics server starting at: " + Configuration.Exporter.Syslog.Metrics.ListenAddress)
+		go syslog.HandleMetrics(Configuration.Exporter.Syslog.Metrics.ListenAddress)
 		collectors = append(collectors, syslog.NewCollector(*syslogTTL))
 	}
 
-	if config.Exporter.Syslog.Logs.Enabled {
+	if Configuration.Exporter.Syslog.Logs.Enabled {
 		log.Info().Msg("Syslog logs enabled!")
-		log.Info().Msg("Syslog logs server starting at: " + config.Exporter.Syslog.Logs.ListenAddress)
-		go syslog.HandleLogs(config.Exporter.Syslog.Logs.ListenAddress,
-			config.Exporter.Syslog.Logs.Directory,
-			config.Exporter.Syslog.Logs.Filename,
-			config.Exporter.Syslog.Logs.MaxSize,
-			config.Exporter.Syslog.Logs.MaxBackups,
-			config.Exporter.Syslog.Logs.MaxAge)
+		log.Info().Msg("Syslog logs server starting at: " + Configuration.Exporter.Syslog.Logs.ListenAddress)
+		go syslog.HandleLogs(Configuration.Exporter.Syslog.Logs.ListenAddress,
+			Configuration.Exporter.Syslog.Logs.Directory,
+			Configuration.Exporter.Syslog.Logs.Filename,
+			Configuration.Exporter.Syslog.Logs.MaxSize,
+			Configuration.Exporter.Syslog.Logs.MaxBackups,
+			Configuration.Exporter.Syslog.Logs.MaxAge)
 	}
 
-	if len(collectors) == 0 && !config.Exporter.Syslog.Logs.Enabled {
+	if len(collectors) == 0 && !Configuration.Exporter.Syslog.Logs.Enabled {
 		log.Error().Msg("No collectors or logs registered")
 		os.Exit(1)
 	}
@@ -97,38 +91,21 @@ func Run() {
 }
 
 func probeConfigFile(config config.Config) (config.Config, error) {
-	for i, printer := range config.Printers {
+	for i, printer := range Configuration.Printers {
 		status, err := prusalink.ProbePrinter(printer)
 
 		if err != nil {
 			log.Error().Msg(err.Error())
-			//printer.Reachable = false
+			printer.Reachable = false
 		} else if status {
 			printerType, err := prusalink.GetPrinterType(printer)
 			if err != nil || printerType == "" {
 				log.Error().Msg(err.Error())
 				printer.Type = "unknown"
 			}
-			config.Printers[i].Type = printerType
-			//config.Printers[i].Reachable = status
+			Configuration.Printers[i].Type = printerType
+			Configuration.Printers[i].Reachable = status
 		}
 	}
 	return config, nil
-}
-
-func configReloader(configuration *config.Config, reloadInterval int) {
-	ticker := time.NewTicker(time.Duration(reloadInterval) * time.Second)
-
-	for t := range ticker.C {
-		log.Info().Msg(fmt.Sprintf("Config reloaded at: %v\n", t.UTC()))
-		config, err := config.LoadConfig(*configFile)
-		if err != nil {
-			log.Error().Msg("Error loading configuration file " + err.Error())
-		}
-		config, err = probeConfigFile(config)
-		if err != nil {
-			log.Error().Msg("Error probing configuration file " + err.Error())
-		}
-		configuration = &config
-	}
 }

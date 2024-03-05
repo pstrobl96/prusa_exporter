@@ -47,7 +47,7 @@ type Collector struct {
 }
 
 // NewCollector returns a new Collector for printer metrics
-func NewCollector(config *config.Config) *Collector {
+func NewCollector(config config.Config) *Collector {
 	configuration = config
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
 	return &Collector{
@@ -127,21 +127,12 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 	for _, s := range configuration.Printers {
 		log.Debug().Msg("Printer scraping at " + s.Address)
-		//if !s.Reachable {
-		//	printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
-		//		0, s.Address, s.Type, s.Name)
-		//
-		//	ch <- printerUp
-		//
-		//	log.Debug().Msg(s.Address + " is unreachable while scraping")
-		// } else {
 		printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
 			0, s.Address, s.Type, s.Name)
 
 		job, err := GetJob(s)
 		if err != nil {
 			log.Error().Msg("Error while scraping job endpoint at " + s.Address + " - " + err.Error())
-			//configuration.Printers[i].Reachable = false
 			ch <- printerUp
 			continue
 		}
@@ -414,6 +405,6 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			1, s.Address, s.Type, s.Name)
 
 		ch <- printerUp
-		//}
+
 	}
 }

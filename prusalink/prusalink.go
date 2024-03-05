@@ -36,13 +36,8 @@ var (
 		"prusa-sl1s":        "SL1S",
 	}
 
-	configuration *config.Config
+	configuration config.Config
 )
-
-// SetConfig is used to set the configuration
-func SetConfig(config *config.Config) {
-	configuration = config
-}
 
 // GetLabels is used to get the labels for the given printer and job
 func GetLabels(printer config.Printers, job Job, labelValues ...string) []string {
