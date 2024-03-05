@@ -1,6 +1,7 @@
 package prusalink
 
 import (
+	"strings"
 	"sync"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -275,7 +276,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 				material := prometheus.MustNewConstMetric(
 					collector.printerMaterial, prometheus.GaugeValue,
-					BoolToFloat(printer.Telemetry.Material != " - "),
+					BoolToFloat(!(strings.Contains(printer.Telemetry.Material, "-"))),
 					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, printer.Telemetry.Material)
 
 				ch <- material
