@@ -27,31 +27,31 @@ M340 192.168.20.2 10007
 After loading gcode on to flash drive you can enable the metrics in printer.
 
 Open `Settings`  
-![syslog0](readme/syslog/screenshot_0.jpg)
+![syslog0](readme/syslog/screenshot_0.jpg)  
 
 Navigate to `Network`  
-![syslog1](readme/syslog/screenshot_1.jpg)
+![syslog1](readme/syslog/screenshot_1.jpg)  
 
 Find `Metrics & Log`  
-![syslog2](readme/syslog/screenshot_2.jpg)
+![syslog2](readme/syslog/screenshot_2.jpg)  
 
 Now click on `Allow` - Confirm and change value to `Any Host`. Next switch on `Enabled Stored at Startup`  
-![syslog3](readme/syslog/screenshot_3.jpg)
-![syslog4](readme/syslog/screenshot_4.jpg)
-![syslog5](readme/syslog/screenshot_5.jpg)
+![syslog3](readme/syslog/screenshot_3.jpg)  
+![syslog4](readme/syslog/screenshot_4.jpg)  
+![syslog5](readme/syslog/screenshot_5.jpg)  
 
 Now run your configuration gcode we created before
-![syslog6](readme/syslog/screenshot_6.jpg)
-![syslog7](readme/syslog/screenshot_7.jpg)
+![syslog6](readme/syslog/screenshot_6.jpg)  
+![syslog7](readme/syslog/screenshot_7.jpg)  
 
 Navigate back to `Metrics & Log` and find `Current Configuration` - click on `Metrics Host` and store it as Host   
-![syslog8](readme/syslog/screenshot_8.jpg)
-![syslog9](readme/syslog/screenshot_9.jpg)
+![syslog8](readme/syslog/screenshot_8.jpg)  
+![syslog9](readme/syslog/screenshot_9.jpg)  
 
 Click on `Metrics Port` and store it as Metrics Port  
-![syslog10](readme/syslog/screenshot_10.jpg)
-![syslog11](readme/syslog/screenshot_11.jpg)
+![syslog10](readme/syslog/screenshot_10.jpg)  
+![syslog11](readme/syslog/screenshot_11.jpg)  
 
 After configuration it should look like this. Only IP address should be different. And if different port was choosen then also port.  
-![syslog12](readme/syslog/screenshot_12.jpg)
+![syslog12](readme/syslog/screenshot_12.jpg)  
 
