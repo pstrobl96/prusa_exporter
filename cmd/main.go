@@ -16,15 +16,13 @@ import (
 )
 
 var (
-	configFile       = kingpin.Flag("Configuration.file", "Configuration file for prusa_exporter.").Default("./prusa.yml").ExistingFile()
-	configReload     = kingpin.Flag("Configuration.reload", "Interval how often should be config reloaded - 0 for no reload.").Default("300").Int()
+	configFile       = kingpin.Flag("config.file", "Configuration file for prusa_exporter.").Default("./prusa.yml").ExistingFile()
+	configReload     = kingpin.Flag("config.reload", "Interval how often should be config reloaded - 0 for no reload.").Default("300").Int()
 	metricsPath      = kingpin.Flag("exporter.metrics-path", "Path where to expose metrics.").Default("/metrics").String()
 	exporterMetrics  = kingpin.Flag("exporter.metrics", "Decides if expose metrics about exporter itself.").Default("true").Bool()
 	metricsPort      = kingpin.Flag("exporter.metrics-port", "Port where to expose metrics.").Default("10009").Int()
 	syslogTTL        = kingpin.Flag("syslog.ttl", "TTL for syslog metrics in seconds.").Default("60").Int()
 	prusalinkTimeout = kingpin.Flag("prusalink.timeout", "Timeout for prusalink requests in ms.").Default("1000").Int()
-	// Configuration is a global variable for the of exporter
-	Configuration config.Config
 )
 
 // Run function to start the exporter
@@ -39,14 +37,14 @@ func Run() {
 		os.Exit(1)
 	}
 
-	logLevel, err := zerolog.ParseLevel(Configuration.Exporter.LogLevel)
+	logLevel, err := zerolog.ParseLevel(config.Exporter.LogLevel)
 
 	if err != nil {
 		logLevel = zerolog.InfoLevel // default log level
 	}
 	zerolog.SetGlobalLevel(logLevel)
 
-	Configuration, err = probeConfigFile(config)
+	config, err = probeConfigFile(config)
 
 	if err != nil {
 		log.Error().Msg("Error probing configuration file " + err.Error())
@@ -54,30 +52,30 @@ func Run() {
 	}
 	var collectors []prometheus.Collector
 
-	if Configuration.Exporter.Prusalink.Enabled {
+	if config.Exporter.Prusalink.Enabled {
 		log.Info().Msg("PrusaLink metrics enabled!")
 		collectors = append(collectors, prusalink.NewCollector(config))
 	}
 
-	if Configuration.Exporter.Syslog.Metrics.Enabled {
+	if config.Exporter.Syslog.Metrics.Enabled {
 		log.Info().Msg("Syslog metrics enabled!")
-		log.Info().Msg("Syslog metrics server starting at: " + Configuration.Exporter.Syslog.Metrics.ListenAddress)
-		go syslog.HandleMetrics(Configuration.Exporter.Syslog.Metrics.ListenAddress)
+		log.Info().Msg("Syslog metrics server starting at: " + config.Exporter.Syslog.Metrics.ListenAddress)
+		go syslog.HandleMetrics(config.Exporter.Syslog.Metrics.ListenAddress)
 		collectors = append(collectors, syslog.NewCollector(*syslogTTL))
 	}
 
-	if Configuration.Exporter.Syslog.Logs.Enabled {
+	if config.Exporter.Syslog.Logs.Enabled {
 		log.Info().Msg("Syslog logs enabled!")
-		log.Info().Msg("Syslog logs server starting at: " + Configuration.Exporter.Syslog.Logs.ListenAddress)
-		go syslog.HandleLogs(Configuration.Exporter.Syslog.Logs.ListenAddress,
-			Configuration.Exporter.Syslog.Logs.Directory,
-			Configuration.Exporter.Syslog.Logs.Filename,
-			Configuration.Exporter.Syslog.Logs.MaxSize,
-			Configuration.Exporter.Syslog.Logs.MaxBackups,
-			Configuration.Exporter.Syslog.Logs.MaxAge)
+		log.Info().Msg("Syslog logs server starting at: " + config.Exporter.Syslog.Logs.ListenAddress)
+		go syslog.HandleLogs(config.Exporter.Syslog.Logs.ListenAddress,
+			config.Exporter.Syslog.Logs.Directory,
+			config.Exporter.Syslog.Logs.Filename,
+			config.Exporter.Syslog.Logs.MaxSize,
+			config.Exporter.Syslog.Logs.MaxBackups,
+			config.Exporter.Syslog.Logs.MaxAge)
 	}
 
-	if len(collectors) == 0 && !Configuration.Exporter.Syslog.Logs.Enabled {
+	if len(collectors) == 0 && !config.Exporter.Syslog.Logs.Enabled {
 		log.Error().Msg("No collectors or logs registered")
 		os.Exit(1)
 	}
@@ -91,7 +89,7 @@ func Run() {
 }
 
 func probeConfigFile(config config.Config) (config.Config, error) {
-	for i, printer := range Configuration.Printers {
+	for i, printer := range config.Printers {
 		status, err := prusalink.ProbePrinter(printer)
 
 		if err != nil {
@@ -103,8 +101,8 @@ func probeConfigFile(config config.Config) (config.Config, error) {
 				log.Error().Msg(err.Error())
 				printer.Type = "unknown"
 			}
-			Configuration.Printers[i].Type = printerType
-			Configuration.Printers[i].Reachable = status
+			config.Printers[i].Type = printerType
+			config.Printers[i].Reachable = status
 		}
 	}
 	return config, nil

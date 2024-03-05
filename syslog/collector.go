@@ -1,7 +1,6 @@
 package syslog
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 	"time"
@@ -312,7 +311,6 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 					}
 					valueParsed, err = strconv.ParseFloat(v[value], 64)
 					if err != nil {
-						fmt.Println(nestedmap)
 						log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 						continue // Skip to next iteration if value parsing fails
 					}
@@ -462,7 +460,6 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				for i, value := range valuesList {
 					valueParsed, err = strconv.ParseFloat(v[value], 64)
 					if err != nil {
-						fmt.Println(nestedmap)
 						log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 						continue // Skip to next iteration if value parsing fails
 					}
