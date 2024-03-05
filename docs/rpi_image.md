@@ -7,17 +7,17 @@ Download image from [releases page](https://github.com/pstrobl96/prusa_exporter/
 
 [Download](https://www.raspberrypi.com/software/) and install Raspberry Pi Imager. You can alternatively use different tool but rpi-imager is easiest in terms of settings.  
 
-![rpiimager0](docs/readme/rpiimager0.png)
+![rpiimager0](readme/rpiimager0.png)
 
 After installing open the Raspberry Pi Imager. **Don't** click `Choose Device` instead of that click on `Choose OS`. Scroll down, you'll find `Use Custom`. Select downloaded image.  
 
-![rpiimager1](docs/readme/rpiimager1.png)
+![rpiimager1](readme/rpiimager1.png)
 
-![rpiimager2](docs/readme/rpiimager2.png)
+![rpiimager2](readme/rpiimager2.png)
 
 Now connect memory card to your computer and click `Choose Storage`. **BEWARE** - you can mistakenly choose wrong storage media and flashing process includes formating your drive. Now select your Raspberry Pi memory card. Now click `Next`.
 
-![rpiimager3](docs/readme/rpiimager3.png)
+![rpiimager3](readme/rpiimager3.png)
 
 Now it depends if you want to connect via LAN or WiFi.
 
@@ -25,19 +25,19 @@ Now it depends if you want to connect via LAN or WiFi.
 
 If you want to use wireless ethernet, then click at `Edit Settings`. Click at `Configure wireless LAN` and write your WiFi name (SSID) and password. Don't forget to select correct Wireless LAN country. Next be sure that `Eject media when finished` is **unchecked** . Click `Save` and after that click on `Yes`. If you are sure that all content of your memory card would be erased, click `Yes`.
 
-![rpiimager4](docs/readme/rpiimager4.png)
+![rpiimager4](readme/rpiimager4.png)
 
-![rpiimager7](docs/readme/rpiimager7.png)
+![rpiimager7](readme/rpiimager7.png)
 
-![rpiimager6](docs/readme/rpiimager6.png)
+![rpiimager6](readme/rpiimager6.png)
 
 ### LAN
 
 If you want to use wired ethernet, then click at `Edit Settings`, click `Options` and be sure that `Eject media when finished` is **unchecked** . Click `Save` and after that click on `Yes`. If you are sure that all content of your memory card would be erased, click `Yes`.
 
-![rpiimager7](docs/readme/rpiimager7.png)
+![rpiimager7](readme/rpiimager7.png)
 
-![rpiimager6](docs/readme/rpiimager6.png)
+![rpiimager6](readme/rpiimager6.png)
 
 ## Flashing
 
