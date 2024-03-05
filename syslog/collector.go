@@ -109,9 +109,6 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "temp_noz":
 				labels = []string{splittedName[1] + suffix}
 				collectorItem = collector.printerTemp
-			case "bedlet_temp":
-				labels = []string{splittedName[0] + suffix}
-				collectorItem = collector.printerTemp
 			case "dwarf_board_temp":
 				fallthrough
 			case "dwarf_mcu_temp":
@@ -123,6 +120,10 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "bed_mcu_temp":
 				collectorItem = collector.printerTemp
 				labels = []string{splittedName[0] + "_" + splittedName[1] + suffix}
+			case "bedlet_temp":
+				//labels = []string{splittedName[0] + suffix}
+				//collectorItem = collector.printerTemp
+				continue // firwmare returns constant value that contains only max measured current
 			case "pos_x":
 				fallthrough
 			case "pos_y":
@@ -510,6 +511,11 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 				continue // Skip to next iteration if value parsing fails
 			}
+
+			if collectorItem == collector.printerCurrent && !strings.Contains(k, "dwarf") {
+				valueParsed = valueParsed * 1000 // firmware uses MODBUS_CURRENT_REGISTERS_SCALE = 1000 I'm upscaling this value ... just a little workaround
+			}
+
 			printerMetric := prometheus.MustNewConstMetric(collectorItem, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, labels)...)
 			ch <- printerMetric
 		}

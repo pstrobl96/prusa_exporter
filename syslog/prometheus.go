@@ -150,7 +150,7 @@ func NewCollector(syslogTTL int) *Collector {
 		printerCrashSpeed:            prometheus.NewDesc("prusa_crash_speed", "Crash Speed", append(defaultLabels, "axis", "sens", "period"), nil),
 		printerCrashLength:           prometheus.NewDesc("prusa_crash_length", "Crash length", append(defaultLabels, "x", "y"), nil),
 		printerCrashStat:             prometheus.NewDesc("prusa_crash_stat", "Crash statistics", append(defaultLabels, "axis"), nil),
-		printerCurrent:               prometheus.NewDesc("prusa_current", "Current of different devices in / on the printer", append(defaultLabels, "rail", "device"), nil),
+		printerCurrent:               prometheus.NewDesc("prusa_current", "Current of different devices in / on the printer in miliampers", append(defaultLabels, "rail", "device"), nil),
 		printerCurrentRaw:            prometheus.NewDesc("prusa_current_raw", "Current of different devices in / on the printer in raw sensor value", append(defaultLabels, "rail", "device"), nil),
 		printerDwarfFastRefreshDelay: prometheus.NewDesc("prusa_dwarf_fast_refresh_delay", "Dwarf fast refresh delay", defaultLabels, nil),
 		printerDwarfParkedRaw:        prometheus.NewDesc("prusa_dwarf_parked_raw", "Dwarf parked raw sensor value", append(defaultLabels, "tool"), nil),

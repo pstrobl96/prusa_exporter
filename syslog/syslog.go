@@ -78,6 +78,7 @@ func HandleMetrics(listenUDP string) {
 	log.Debug().Msg("Syslog server started at: " + listenUDP)
 	go func(channel syslog.LogPartsChannel) {
 		for logParts := range channel {
+			log.Trace().Msg("Received message: " + logParts["message"].(string))
 			mac := logParts["hostname"].(string)
 			if mac == "" { // Skip empty mac addresses
 				continue
