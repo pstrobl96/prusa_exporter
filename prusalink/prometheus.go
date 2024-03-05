@@ -130,8 +130,8 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 	var wg sync.WaitGroup
-	wg.Add(len(configuration.Printers)) // one goroutine per printer
 	for _, s := range configuration.Printers {
+		wg.Add(1)
 		go func(s config.Printers) {
 			defer wg.Done()
 
