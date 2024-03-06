@@ -29,6 +29,7 @@ services:
     container_name: grafana_agent
     restart: unless-stopped
     volumes:  
+      - /var/run/docker.sock:/var/run/docker.sock
       - prusa_syslog:/var/log/prusa
       - type: bind
         source: ./agent.yaml

@@ -43,6 +43,7 @@ func Run() {
 		logLevel = zerolog.InfoLevel // default log level
 	}
 	zerolog.SetGlobalLevel(logLevel)
+	zerolog.TimeFieldFormat = zerolog.TimeFormatUnixNano
 
 	config, err = probeConfigFile(config)
 
