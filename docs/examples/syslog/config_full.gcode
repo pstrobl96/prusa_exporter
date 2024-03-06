@@ -88,7 +88,6 @@ M331 crash_length
 M331 usbh_err_cnt
 M331 media_prefetched
 M331 points_dropped
-M331 val_xyz
 M331 probe_window
 M331 eeprom_write
 M331 tmc_sg_x

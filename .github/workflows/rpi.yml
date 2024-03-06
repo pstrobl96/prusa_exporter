@@ -39,14 +39,14 @@ jobs:
           sh ./get-docker.sh
           systemctl enable docker
 
-          curl https://github.com/pstrobl96/prusa_exporter/blob/releases/v1.0.0/docs/examples/config/common/prusa.yml -o /boot/firmware/prusa.yml
+          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/main/docs/examples/config/grafana_cloud/prusa.yml -o /boot/firmware/prusa.yml
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/main/docs/examples/config/grafana_cloud/agent.yaml -o /boot/firmware/agent.yaml
 
           rm -rf /opt/prusa_exporter
 
           mkdir /opt/prusa_exporter
-          curl https://github.com/pstrobl96/prusa_exporter/blob/releases/v1.0.0/docker-compose.rpi-cloud.yaml -o /opt/prusa_exporter/docker-compose.yaml
-
+          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/main/docker-compose.rpi-cloud.yaml -o /opt/prusa_exporter/docker-compose.yaml
+          
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/main/docs/services/prusa-exporter-docker.service -o /etc/systemd/system/prusa-exporter.service
           systemctl enable prusa-exporter
 

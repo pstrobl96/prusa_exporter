@@ -1,11 +1,9 @@
 package cmd
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"strconv"
-	"time"
 
 	"github.com/alecthomas/kingpin/v2"
 	"github.com/prometheus/client_golang/prometheus"
@@ -25,8 +23,6 @@ var (
 	metricsPort      = kingpin.Flag("exporter.metrics-port", "Port where to expose metrics.").Default("10009").Int()
 	syslogTTL        = kingpin.Flag("syslog.ttl", "TTL for syslog metrics in seconds.").Default("60").Int()
 	prusalinkTimeout = kingpin.Flag("prusalink.timeout", "Timeout for prusalink requests in ms.").Default("1000").Int()
-	// Configuration used for scraping and exporter
-	Configuration config.Config
 )
 
 // Run function to start the exporter
@@ -47,6 +43,7 @@ func Run() {
 		logLevel = zerolog.InfoLevel // default log level
 	}
 	zerolog.SetGlobalLevel(logLevel)
+	zerolog.TimeFieldFormat = zerolog.TimeFormatUnixNano
 
 	config, err = probeConfigFile(config)
 
@@ -58,11 +55,7 @@ func Run() {
 
 	if config.Exporter.Prusalink.Enabled {
 		log.Info().Msg("PrusaLink metrics enabled!")
-		collectors = append(collectors, prusalink.NewCollector(&config))
-	}
-
-	if config.Exporter.ReloadInterval != 0 { // do not run reloader if interval is set to zero
-		go configReloader(&config, *configReload) // run reloader as goroutine
+		collectors = append(collectors, prusalink.NewCollector(config))
 	}
 
 	if config.Exporter.Syslog.Metrics.Enabled {
@@ -102,7 +95,7 @@ func probeConfigFile(config config.Config) (config.Config, error) {
 
 		if err != nil {
 			log.Error().Msg(err.Error())
-			//printer.Reachable = false
+			printer.Reachable = false
 		} else if status {
 			printerType, err := prusalink.GetPrinterType(printer)
 			if err != nil || printerType == "" {
@@ -110,25 +103,8 @@ func probeConfigFile(config config.Config) (config.Config, error) {
 				printer.Type = "unknown"
 			}
 			config.Printers[i].Type = printerType
-			//config.Printers[i].Reachable = status
+			config.Printers[i].Reachable = status
 		}
 	}
 	return config, nil
-}
-
-func configReloader(configuration *config.Config, reloadInterval int) {
-	ticker := time.NewTicker(time.Duration(reloadInterval) * time.Second)
-
-	for t := range ticker.C {
-		log.Info().Msg(fmt.Sprintf("Config reloaded at: %v\n", t.UTC()))
-		config, err := config.LoadConfig(*configFile)
-		if err != nil {
-			log.Error().Msg("Error loading configuration file " + err.Error())
-		}
-		config, err = probeConfigFile(config)
-		if err != nil {
-			log.Error().Msg("Error probing configuration file " + err.Error())
-		}
-		configuration = &config
-	}
 }

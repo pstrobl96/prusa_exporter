@@ -1,8 +1,6 @@
 package syslog
 
 import (
-	"fmt"
-	"runtime/debug"
 	"strconv"
 	"strings"
 	"time"
@@ -17,12 +15,6 @@ var (
 
 // Collect is a function that collects all the metrics
 func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
-	defer func() {
-		if panicInfo := recover(); panicInfo != nil {
-			fmt.Printf("spadlo ti to")
-			fmt.Printf("%v, %s", panicInfo, string(debug.Stack()))
-		}
-	}()
 	// little bit more memory intensive but we need to extract the data from the map as fast as possible
 	var syslogMetricsExtracted = make(map[string]map[string]map[string]string)
 
@@ -109,9 +101,6 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "temp_noz":
 				labels = []string{splittedName[1] + suffix}
 				collectorItem = collector.printerTemp
-			case "bedlet_temp":
-				labels = []string{splittedName[0] + suffix}
-				collectorItem = collector.printerTemp
 			case "dwarf_board_temp":
 				fallthrough
 			case "dwarf_mcu_temp":
@@ -123,6 +112,10 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "bed_mcu_temp":
 				collectorItem = collector.printerTemp
 				labels = []string{splittedName[0] + "_" + splittedName[1] + suffix}
+			case "bedlet_temp":
+				//labels = []string{splittedName[0] + suffix}
+				//collectorItem = collector.printerTemp
+				continue // firwmare returns constant value that contains only max measured current
 			case "pos_x":
 				fallthrough
 			case "pos_y":
@@ -318,7 +311,6 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 					}
 					valueParsed, err = strconv.ParseFloat(v[value], 64)
 					if err != nil {
-						fmt.Println(nestedmap)
 						log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 						continue // Skip to next iteration if value parsing fails
 					}
@@ -468,7 +460,6 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				for i, value := range valuesList {
 					valueParsed, err = strconv.ParseFloat(v[value], 64)
 					if err != nil {
-						fmt.Println(nestedmap)
 						log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 						continue // Skip to next iteration if value parsing fails
 					}
@@ -510,6 +501,11 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
 				continue // Skip to next iteration if value parsing fails
 			}
+
+			if collectorItem == collector.printerCurrent && !strings.Contains(k, "dwarf") {
+				valueParsed = valueParsed * 1000 // firmware uses MODBUS_CURRENT_REGISTERS_SCALE = 1000 I'm upscaling this value ... just a little workaround
+			}
+
 			printerMetric := prometheus.MustNewConstMetric(collectorItem, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, labels)...)
 			ch <- printerMetric
 		}

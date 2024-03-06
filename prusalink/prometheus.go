@@ -1,6 +1,9 @@
 package prusalink
 
 import (
+	"strings"
+	"sync"
+
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/pstrobl96/prusa_exporter/config"
 	"github.com/rs/zerolog/log"
@@ -47,7 +50,7 @@ type Collector struct {
 }
 
 // NewCollector returns a new Collector for printer metrics
-func NewCollector(config *config.Config) *Collector {
+func NewCollector(config config.Config) *Collector {
 	configuration = config
 	defaultLabels := []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}
 	return &Collector{
@@ -125,295 +128,289 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 
 // Collect implements prometheus.Collector
 func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
+
+	var wg sync.WaitGroup
 	for _, s := range configuration.Printers {
-		log.Debug().Msg("Printer scraping at " + s.Address)
-		//if !s.Reachable {
-		//	printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
-		//		0, s.Address, s.Type, s.Name)
-		//
-		//	ch <- printerUp
-		//
-		//	log.Debug().Msg(s.Address + " is unreachable while scraping")
-		// } else {
-		printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
-			0, s.Address, s.Type, s.Name)
+		wg.Add(1)
+		go func(s config.Printers) {
+			defer wg.Done()
 
-		job, err := GetJob(s)
-		if err != nil {
-			log.Error().Msg("Error while scraping job endpoint at " + s.Address + " - " + err.Error())
-			//configuration.Printers[i].Reachable = false
-			ch <- printerUp
-			continue
-		}
+			log.Debug().Msg("Printer scraping at " + s.Address)
+			printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
+				0, s.Address, s.Type, s.Name)
 
-		printer, err := GetPrinter(s)
-		if err != nil {
-			log.Error().Msg("Error while scraping printer endpoint at " + s.Address + " - " + err.Error())
-			//configuration.Printers[i].Reachable = false
-			ch <- printerUp
-			continue
-		}
-
-		files, err := GetFiles(s)
-		if err != nil {
-			log.Error().Msg("Error while scraping files endpoint at " + s.Address + " - " + err.Error())
-			//configuration.Printers[i].Reachable = false
-			ch <- printerUp
-			continue
-		}
-
-		version, err := GetVersion(s)
-		if err != nil {
-			log.Error().Msg("Error while scraping version endpoint at " + s.Address + " - " + err.Error())
-			//configuration.Printers[i].Reachable = false
-			ch <- printerUp
-			continue
-		}
-
-		// metrics specific for both buddy and einsy
-		if printerBoards[s.Type] == "buddy" || printerBoards[s.Type] == "einsy" {
-
-			status, err := GetStatus(s)
-
+			job, err := GetJob(s)
 			if err != nil {
-				log.Error().Msg("Error while scraping status endpoint at " + s.Address + " - " + err.Error())
-				continue
+				log.Error().Msg("Error while scraping job endpoint at " + s.Address + " - " + err.Error())
+				ch <- printerUp
+				return
 			}
 
-			info, err := GetInfo(s)
-
+			printer, err := GetPrinter(s)
 			if err != nil {
-				log.Error().Msg("Error while scraping info endpoint at " + s.Address + " - " + err.Error())
+				log.Error().Msg("Error while scraping printer endpoint at " + s.Address + " - " + err.Error())
+				ch <- printerUp
+				return
 			}
 
-			// only einsy related metrics
-			if printerBoards[s.Type] == "einsy" {
-				settings, err := GetSettings(s)
+			files, err := GetFiles(s)
+			if err != nil {
+				log.Error().Msg("Error while scraping files endpoint at " + s.Address + " - " + err.Error())
+				ch <- printerUp
+				return
+			}
+
+			version, err := GetVersion(s)
+			if err != nil {
+				log.Error().Msg("Error while scraping version endpoint at " + s.Address + " - " + err.Error())
+				ch <- printerUp
+				return
+			}
+
+			// metrics specific for both buddy and einsy
+			if printerBoards[s.Type] == "buddy" || printerBoards[s.Type] == "einsy" {
+
+				status, err := GetStatus(s)
 
 				if err != nil {
-					log.Error().Msg("Error while scraping settings endpoint at " + s.Address + " - " + err.Error())
-					continue
-				} else {
-
-					printerFarmMode := prometheus.MustNewConstMetric(
-						collector.printerFarmMode, prometheus.GaugeValue,
-						BoolToFloat(settings.Printer.FarmMode),
-						GetLabels(s, job)...)
-
-					ch <- printerFarmMode
-
+					log.Error().Msg("Error while scraping status endpoint at " + s.Address + " - " + err.Error())
 				}
 
-				cameras, err := GetCameras(s)
+				info, err := GetInfo(s)
 
 				if err != nil {
-					log.Error().Msg("Error while scraping cameras endpoint at " + s.Address + " - " + err.Error())
-					continue
-				} else {
+					log.Error().Msg("Error while scraping info endpoint at " + s.Address + " - " + err.Error())
+				}
 
-					for _, v := range cameras.CameraList {
-						printerCamera := prometheus.MustNewConstMetric(
-							collector.printerCameras, prometheus.GaugeValue,
-							BoolToFloat(v.Connected),
-							GetLabels(s, job, v.CameraID, v.Config.Name, v.Config.Resolution)...)
-						ch <- printerCamera
+				// only einsy related metrics
+				if printerBoards[s.Type] == "einsy" {
+					settings, err := GetSettings(s)
+
+					if err != nil {
+						log.Error().Msg("Error while scraping settings endpoint at " + s.Address + " - " + err.Error())
+					} else {
+
+						printerFarmMode := prometheus.MustNewConstMetric(
+							collector.printerFarmMode, prometheus.GaugeValue,
+							BoolToFloat(settings.Printer.FarmMode),
+							GetLabels(s, job)...)
+
+						ch <- printerFarmMode
+
 					}
+
+					cameras, err := GetCameras(s)
+
+					if err != nil {
+						log.Error().Msg("Error while scraping cameras endpoint at " + s.Address + " - " + err.Error())
+					} else {
+
+						for _, v := range cameras.CameraList {
+							printerCamera := prometheus.MustNewConstMetric(
+								collector.printerCameras, prometheus.GaugeValue,
+								BoolToFloat(v.Connected),
+								GetLabels(s, job, v.CameraID, v.Config.Name, v.Config.Resolution)...)
+							ch <- printerCamera
+						}
+					}
+
+					for _, v := range files.Files {
+						printerFiles := prometheus.MustNewConstMetric(
+							collector.printerFiles, prometheus.GaugeValue,
+							float64(len(v.Children)),
+							GetLabels(s, job, v.Display)...)
+						ch <- printerFiles
+					}
+
 				}
 
-				for _, v := range files.Files {
-					printerFiles := prometheus.MustNewConstMetric(
-						collector.printerFiles, prometheus.GaugeValue,
-						float64(len(v.Children)),
-						GetLabels(s, job, v.Display)...)
-					ch <- printerFiles
+				printerInfo := prometheus.MustNewConstMetric(
+					collector.printerInfo, prometheus.GaugeValue,
+					1,
+					GetLabels(s, job, version.API, version.Server, version.Text, info.Name, info.Location, info.Serial, info.Hostname)...)
+
+				ch <- printerInfo
+
+				printerFanHotend := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
+					status.Printer.FanHotend, GetLabels(s, job, "hotend")...)
+
+				ch <- printerFanHotend
+
+				printerFanPrint := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
+					status.Printer.FanPrint, GetLabels(s, job, "print")...)
+
+				ch <- printerFanPrint
+
+				printerNozzleSize := prometheus.MustNewConstMetric(collector.printerNozzleSize, prometheus.GaugeValue,
+					info.NozzleDiameter, GetLabels(s, job)...)
+
+				ch <- printerNozzleSize
+
+				printSpeed := prometheus.MustNewConstMetric(
+					collector.printerPrintSpeedRatio, prometheus.GaugeValue,
+					printer.Telemetry.PrintSpeed/100,
+					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
+
+				ch <- printSpeed
+
+				printTime := prometheus.MustNewConstMetric(
+					collector.printerPrintTime, prometheus.GaugeValue,
+					job.Progress.PrintTime,
+					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
+
+				ch <- printTime
+
+				printTimeRemaining := prometheus.MustNewConstMetric(
+					collector.printerPrintTimeRemaining, prometheus.GaugeValue,
+					job.Progress.PrintTimeLeft,
+					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
+
+				ch <- printTimeRemaining
+
+				printProgress := prometheus.MustNewConstMetric(
+					collector.printerPrintProgress, prometheus.GaugeValue,
+					job.Progress.Completion,
+					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
+
+				ch <- printProgress
+
+				material := prometheus.MustNewConstMetric(
+					collector.printerMaterial, prometheus.GaugeValue,
+					BoolToFloat(!(strings.Contains(printer.Telemetry.Material, "-"))),
+					s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, printer.Telemetry.Material)
+
+				ch <- material
+
+				printerAxisX := prometheus.MustNewConstMetric(
+					collector.printerAxis, prometheus.GaugeValue,
+					printer.Telemetry.AxisX,
+					GetLabels(s, job, "x")...)
+
+				ch <- printerAxisX
+
+				printerAxisY := prometheus.MustNewConstMetric(
+					collector.printerAxis, prometheus.GaugeValue,
+					printer.Telemetry.AxisY,
+					GetLabels(s, job, "y")...)
+
+				ch <- printerAxisY
+
+				printerAxisZ := prometheus.MustNewConstMetric(
+					collector.printerAxis, prometheus.GaugeValue,
+					printer.Telemetry.AxisZ,
+					GetLabels(s, job, "z")...)
+
+				ch <- printerAxisZ
+
+				printerFlow := prometheus.MustNewConstMetric(collector.printerFlow, prometheus.GaugeValue,
+					status.Printer.Flow/100, GetLabels(s, job)...)
+
+				ch <- printerFlow
+
+				if printerBoards[s.Type] == "buddy" {
+					printerMMU := prometheus.MustNewConstMetric(collector.printerMMU, prometheus.GaugeValue,
+						BoolToFloat(info.Mmu), GetLabels(s, job)...)
+					ch <- printerMMU
 				}
-
 			}
 
-			printerInfo := prometheus.MustNewConstMetric(
-				collector.printerInfo, prometheus.GaugeValue,
-				1,
-				GetLabels(s, job, version.API, version.Server, version.Text, info.Name, info.Location, info.Serial, info.Hostname)...)
+			// only sl related metrics
+			if printerBoards[s.Type] == "sl" {
+				printerCover := prometheus.MustNewConstMetric(collector.printerCover, prometheus.GaugeValue,
+					BoolToFloat(printer.Telemetry.CoverClosed), GetLabels(s, job)...)
 
-			ch <- printerInfo
+				ch <- printerCover
 
-			printerFanHotend := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
-				status.Printer.FanHotend, GetLabels(s, job, "hotend")...)
+				printerFanBlower := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
+					printer.Telemetry.FanBlower, GetLabels(s, job, "blower")...)
 
-			ch <- printerFanHotend
+				ch <- printerFanBlower
 
-			printerFanPrint := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
-				status.Printer.FanPrint, GetLabels(s, job, "print")...)
+				printerFanRear := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
+					printer.Telemetry.FanRear, GetLabels(s, job, "rear")...)
 
-			ch <- printerFanPrint
+				ch <- printerFanRear
 
-			printerNozzleSize := prometheus.MustNewConstMetric(collector.printerNozzleSize, prometheus.GaugeValue,
-				info.NozzleDiameter, GetLabels(s, job)...)
+				printerFanUV := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
+					printer.Telemetry.FanUvLed, GetLabels(s, job, "uv")...)
 
-			ch <- printerNozzleSize
+				ch <- printerFanUV
 
-			printSpeed := prometheus.MustNewConstMetric(
-				collector.printerPrintSpeedRatio, prometheus.GaugeValue,
-				printer.Telemetry.PrintSpeed/100,
-				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
+				printerAmbientTemp := prometheus.MustNewConstMetric(collector.printerAmbientTemp, prometheus.GaugeValue,
+					printer.Telemetry.TempAmbient, GetLabels(s, job)...)
 
-			ch <- printSpeed
+				ch <- printerAmbientTemp
 
-			printTime := prometheus.MustNewConstMetric(
-				collector.printerPrintTime, prometheus.GaugeValue,
-				job.Progress.PrintTime,
-				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
+				printerCPUTemp := prometheus.MustNewConstMetric(collector.printerCPUTemp, prometheus.GaugeValue,
+					printer.Telemetry.TempCPU, GetLabels(s, job)...)
 
-			ch <- printTime
+				ch <- printerCPUTemp
 
-			printTimeRemaining := prometheus.MustNewConstMetric(
-				collector.printerPrintTimeRemaining, prometheus.GaugeValue,
-				job.Progress.PrintTimeLeft,
-				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
+				pritnerUVTemp := prometheus.MustNewConstMetric(collector.pritnerUVTemp, prometheus.GaugeValue,
+					printer.Telemetry.TempUvLed, GetLabels(s, job)...)
 
-			ch <- printTimeRemaining
+				ch <- pritnerUVTemp
 
-			printProgress := prometheus.MustNewConstMetric(
-				collector.printerPrintProgress, prometheus.GaugeValue,
-				job.Progress.Completion,
-				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path)
+				printerChamberTempTarget := prometheus.MustNewConstMetric(collector.printerChamberTempTarget, prometheus.GaugeValue,
+					printer.Temperature.Chamber.Target, GetLabels(s, job)...)
 
-			ch <- printProgress
+				ch <- printerChamberTempTarget
 
-			material := prometheus.MustNewConstMetric(
-				collector.printerMaterial, prometheus.GaugeValue,
-				BoolToFloat(printer.Telemetry.Material != " - "),
-				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, printer.Telemetry.Material)
+				printerChamberTempOffset := prometheus.MustNewConstMetric(collector.printerChamberTempOffset, prometheus.GaugeValue,
+					printer.Temperature.Chamber.Offset, GetLabels(s, job)...)
 
-			ch <- material
+				ch <- printerChamberTempOffset
 
-			printerAxisX := prometheus.MustNewConstMetric(
-				collector.printerAxis, prometheus.GaugeValue,
-				printer.Telemetry.AxisX,
-				GetLabels(s, job, "x")...)
+				printerChamberTemp := prometheus.MustNewConstMetric(collector.printerChamberTemp, prometheus.GaugeValue,
+					printer.Temperature.Chamber.Actual, GetLabels(s, job)...)
 
-			ch <- printerAxisX
-
-			printerAxisY := prometheus.MustNewConstMetric(
-				collector.printerAxis, prometheus.GaugeValue,
-				printer.Telemetry.AxisY,
-				GetLabels(s, job, "y")...)
-
-			ch <- printerAxisY
-
-			printerAxisZ := prometheus.MustNewConstMetric(
-				collector.printerAxis, prometheus.GaugeValue,
-				printer.Telemetry.AxisZ,
-				GetLabels(s, job, "z")...)
-
-			ch <- printerAxisZ
-
-			printerFlow := prometheus.MustNewConstMetric(collector.printerFlow, prometheus.GaugeValue,
-				status.Printer.Flow/100, GetLabels(s, job)...)
-
-			ch <- printerFlow
-
-			if printerBoards[s.Type] == "buddy" {
-				printerMMU := prometheus.MustNewConstMetric(collector.printerMMU, prometheus.GaugeValue,
-					BoolToFloat(info.Mmu), GetLabels(s, job)...)
-				ch <- printerMMU
+				ch <- printerChamberTemp
 			}
-		}
 
-		// only sl related metrics
-		if printerBoards[s.Type] == "sl" {
-			printerCover := prometheus.MustNewConstMetric(collector.printerCover, prometheus.GaugeValue,
-				BoolToFloat(printer.Telemetry.CoverClosed), GetLabels(s, job)...)
+			printerBedTemp := prometheus.MustNewConstMetric(collector.printerBedTemp, prometheus.GaugeValue,
+				printer.Temperature.Bed.Actual, GetLabels(s, job)...)
 
-			ch <- printerCover
+			ch <- printerBedTemp
 
-			printerFanBlower := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
-				printer.Telemetry.FanBlower, GetLabels(s, job, "blower")...)
+			printerBedTempTarget := prometheus.MustNewConstMetric(collector.printerBedTempTarget, prometheus.GaugeValue,
+				printer.Temperature.Bed.Target, GetLabels(s, job)...)
 
-			ch <- printerFanBlower
+			ch <- printerBedTempTarget
 
-			printerFanRear := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
-				printer.Telemetry.FanRear, GetLabels(s, job, "rear")...)
+			printerBedTempOffset := prometheus.MustNewConstMetric(collector.printerBedTempOffset, prometheus.GaugeValue,
+				printer.Temperature.Bed.Offset, GetLabels(s, job)...)
 
-			ch <- printerFanRear
+			ch <- printerBedTempOffset
 
-			printerFanUV := prometheus.MustNewConstMetric(collector.printerFanSpeed, prometheus.GaugeValue,
-				printer.Telemetry.FanUvLed, GetLabels(s, job, "uv")...)
+			printerStatus := prometheus.MustNewConstMetric(
+				collector.printerStatus, prometheus.GaugeValue,
+				getStateFlag(printer),
+				s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, printer.State.Text)
 
-			ch <- printerFanUV
+			ch <- printerStatus
 
-			printerAmbientTemp := prometheus.MustNewConstMetric(collector.printerAmbientTemp, prometheus.GaugeValue,
-				printer.Telemetry.TempAmbient, GetLabels(s, job)...)
+			printerToolTempTarget := prometheus.MustNewConstMetric(collector.printerToolTempTarget, prometheus.GaugeValue,
+				printer.Temperature.Tool0.Target, GetLabels(s, job, "0")...)
 
-			ch <- printerAmbientTemp
+			ch <- printerToolTempTarget
 
-			printerCPUTemp := prometheus.MustNewConstMetric(collector.printerCPUTemp, prometheus.GaugeValue,
-				printer.Telemetry.TempCPU, GetLabels(s, job)...)
+			printerToolTempOffset := prometheus.MustNewConstMetric(collector.printerToolTempOffset, prometheus.GaugeValue,
+				printer.Temperature.Tool0.Offset, GetLabels(s, job, "0")...)
 
-			ch <- printerCPUTemp
+			ch <- printerToolTempOffset
 
-			pritnerUVTemp := prometheus.MustNewConstMetric(collector.pritnerUVTemp, prometheus.GaugeValue,
-				printer.Telemetry.TempUvLed, GetLabels(s, job)...)
+			printerToolTemp := prometheus.MustNewConstMetric(collector.printerToolTemp, prometheus.GaugeValue,
+				printer.Temperature.Tool0.Actual, GetLabels(s, job, "0")...)
 
-			ch <- pritnerUVTemp
+			ch <- printerToolTemp
 
-			printerChamberTempTarget := prometheus.MustNewConstMetric(collector.printerChamberTempTarget, prometheus.GaugeValue,
-				printer.Temperature.Chamber.Target, GetLabels(s, job)...)
+			printerUp = prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
+				1, s.Address, s.Type, s.Name)
 
-			ch <- printerChamberTempTarget
+			ch <- printerUp
 
-			printerChamberTempOffset := prometheus.MustNewConstMetric(collector.printerChamberTempOffset, prometheus.GaugeValue,
-				printer.Temperature.Chamber.Offset, GetLabels(s, job)...)
-
-			ch <- printerChamberTempOffset
-
-			printerChamberTemp := prometheus.MustNewConstMetric(collector.printerChamberTemp, prometheus.GaugeValue,
-				printer.Temperature.Chamber.Actual, GetLabels(s, job)...)
-
-			ch <- printerChamberTemp
-		}
-
-		printerBedTemp := prometheus.MustNewConstMetric(collector.printerBedTemp, prometheus.GaugeValue,
-			printer.Temperature.Bed.Actual, GetLabels(s, job)...)
-
-		ch <- printerBedTemp
-
-		printerBedTempTarget := prometheus.MustNewConstMetric(collector.printerBedTempTarget, prometheus.GaugeValue,
-			printer.Temperature.Bed.Target, GetLabels(s, job)...)
-
-		ch <- printerBedTempTarget
-
-		printerBedTempOffset := prometheus.MustNewConstMetric(collector.printerBedTempOffset, prometheus.GaugeValue,
-			printer.Temperature.Bed.Offset, GetLabels(s, job)...)
-
-		ch <- printerBedTempOffset
-
-		printerStatus := prometheus.MustNewConstMetric(
-			collector.printerStatus, prometheus.GaugeValue,
-			getStateFlag(printer),
-			s.Address, s.Type, s.Name, job.Job.File.Name, job.Job.File.Path, printer.State.Text)
-
-		ch <- printerStatus
-
-		printerToolTempTarget := prometheus.MustNewConstMetric(collector.printerToolTempTarget, prometheus.GaugeValue,
-			printer.Temperature.Tool0.Target, GetLabels(s, job, "0")...)
-
-		ch <- printerToolTempTarget
-
-		printerToolTempOffset := prometheus.MustNewConstMetric(collector.printerToolTempOffset, prometheus.GaugeValue,
-			printer.Temperature.Tool0.Offset, GetLabels(s, job, "0")...)
-
-		ch <- printerToolTempOffset
-
-		printerToolTemp := prometheus.MustNewConstMetric(collector.printerToolTemp, prometheus.GaugeValue,
-			printer.Temperature.Tool0.Actual, GetLabels(s, job, "0")...)
-
-		ch <- printerToolTemp
-
-		printerUp = prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
-			1, s.Address, s.Type, s.Name)
-
-		ch <- printerUp
-		//}
+			log.Debug().Msg("Scraping done at " + s.Address)
+		}(s)
 	}
+	wg.Wait()
 }
