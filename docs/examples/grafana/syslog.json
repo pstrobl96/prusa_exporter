@@ -7,6 +7,14 @@
       "type": "datasource",
       "pluginId": "prometheus",
       "pluginName": "Prometheus"
+    },
+    {
+      "name": "DS_LOGS",
+      "label": "grafanacloud-pubel-logs",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "loki",
+      "pluginName": "Loki"
     }
   ],
   "__elements": {},
@@ -28,6 +36,18 @@
       "id": "grafana-xyzchart-panel",
       "name": "XYZ Chart",
       "version": "0.1.0"
+    },
+    {
+      "type": "panel",
+      "id": "logs",
+      "name": "Logs",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "loki",
+      "name": "Loki",
+      "version": "1.0.0"
     },
     {
       "type": "datasource",
@@ -505,10 +525,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
@@ -548,7 +564,7 @@
             "uid": "${DS_PROM}"
           },
           "editorMode": "code",
-          "expr": "max(prusa_buddy_bom{mac=\"$printer_mac\"})",
+          "expr": "max by (mac)(prusa_buddy_bom{mac=\"$printer_mac\"})",
           "format": "table",
           "legendFormat": "__auto",
           "range": true,
@@ -619,7 +635,7 @@
             "uid": "${DS_PROM}"
           },
           "editorMode": "code",
-          "expr": "max(prusa_buddy_revision{mac=\"$printer_mac\"})",
+          "expr": "max by (mac)(prusa_buddy_revision{mac=\"$printer_mac\"})",
           "format": "table",
           "legendFormat": "{{buddy_bom}}",
           "range": true,
@@ -2321,6 +2337,7 @@
         "type": "prometheus",
         "uid": "${DS_PROM}"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2409,7 +2426,7 @@
           "refId": "A"
         }
       ],
-      "title": "Panel Title",
+      "title": "PWM",
       "type": "timeseries"
     },
     {
@@ -2512,6 +2529,44 @@
       ],
       "title": "Dwarf fast refresh delay",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${DS_LOGS}"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 92
+      },
+      "id": 99,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DS_LOGS}"
+          },
+          "editorMode": "code",
+          "expr": "{hostname=\"$printer_mac\"}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Printer Logs",
+      "type": "logs"
     }
   ],
   "refresh": "",
@@ -2620,6 +2675,6 @@
   "timezone": "",
   "title": "Prusa Syslog Dashboard",
   "uid": "RXaNIGY4zeefse",
-  "version": 16,
+  "version": 17,
   "weekStart": ""
 }
