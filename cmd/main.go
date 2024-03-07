@@ -92,7 +92,6 @@ func Run() {
 func probeConfigFile(config config.Config) (config.Config, error) {
 	for i, printer := range config.Printers {
 		status, err := prusalink.ProbePrinter(printer)
-
 		if err != nil {
 			log.Error().Msg(err.Error())
 		} else if status {
@@ -104,7 +103,7 @@ func probeConfigFile(config config.Config) (config.Config, error) {
 			}
 
 			if err != nil {
-				log.Panic().Msg(err.Error())
+				log.Error().Msg(err.Error())
 			}
 
 			config.Printers[i].Type = printerType
