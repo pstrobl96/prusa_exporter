@@ -16,13 +16,10 @@ import (
 )
 
 var (
-	configFile       = kingpin.Flag("config.file", "Configuration file for prusa_exporter.").Default("./prusa.yml").ExistingFile()
-	configReload     = kingpin.Flag("config.reload", "Interval how often should be config reloaded - 0 for no reload.").Default("300").Int()
-	metricsPath      = kingpin.Flag("exporter.metrics-path", "Path where to expose metrics.").Default("/metrics").String()
-	exporterMetrics  = kingpin.Flag("exporter.metrics", "Decides if expose metrics about exporter itself.").Default("true").Bool()
-	metricsPort      = kingpin.Flag("exporter.metrics-port", "Port where to expose metrics.").Default("10009").Int()
-	syslogTTL        = kingpin.Flag("syslog.ttl", "TTL for syslog metrics in seconds.").Default("60").Int()
-	prusalinkTimeout = kingpin.Flag("prusalink.timeout", "Timeout for prusalink requests in ms.").Default("1000").Int()
+	configFile  = kingpin.Flag("config.file", "Configuration file for prusa_exporter.").Default("./prusa.yml").ExistingFile()
+	metricsPath = kingpin.Flag("exporter.metrics-path", "Path where to expose metrics.").Default("/metrics").String()
+	metricsPort = kingpin.Flag("exporter.metrics-port", "Port where to expose metrics.").Default("10009").Int()
+	syslogTTL   = kingpin.Flag("syslog.ttl", "TTL for syslog metrics in seconds.").Default("60").Int()
 )
 
 // Run function to start the exporter
