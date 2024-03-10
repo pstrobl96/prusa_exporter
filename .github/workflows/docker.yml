@@ -28,11 +28,11 @@ jobs:
     - name: Run go vet
       run: go vet ./...
 
-    #- name: Install staticcheck
-    #  run: go install honnef.co/go/tools/cmd/staticcheck@latest
+    - name: Install staticcheck
+      run: go install honnef.co/go/tools/cmd/staticcheck@latest
 
-    #- name: Run staticcheck
-    #  run: staticcheck ./...
+    - name: Run staticcheck
+      run: staticcheck ./...
 
     - name: Install golint
       run: go install golang.org/x/lint/golint@latest
@@ -43,28 +43,6 @@ jobs:
     - name: Run tests
       run: go test -race -vet=off ./...
 
-#  build:
-#    needs: audit
-#    runs-on: ubuntu-22.04
-#    steps:
-#    - uses: actions/checkout@v3
-#
-#    - name: Set up Go
-#      uses: actions/setup-go@v4
-#      with:
-#        go-version: '1.21.0'
-#        check-latest: true
-#        architecture: x64
-#
-#    - name: Install dependencies
-#      run: go get .
-#
-#    - name: Verify dependencies
-#      run: go mod verify
-#
-#    - name: Build
-#      run: go build -v ./...
-  
   docker-image:
     needs: audit
     name: create docker image
