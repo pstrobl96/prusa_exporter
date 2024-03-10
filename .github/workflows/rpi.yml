@@ -39,7 +39,7 @@ jobs:
           sh ./get-docker.sh
           systemctl enable docker
 
-          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/main/docs/examples/config/grafana_cloud/prusa.yml -o /boot/firmware/prusa.yml
+          curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/main/docs/examples/config/common/prusa.yml -o /boot/firmware/prusa.yml
           curl https://raw.githubusercontent.com/pstrobl96/prusa_exporter/main/docs/examples/config/grafana_cloud/agent.yaml -o /boot/firmware/agent.yaml
 
           rm -rf /opt/prusa_exporter
