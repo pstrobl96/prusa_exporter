@@ -26,7 +26,7 @@ var (
 
 	printerTypes = map[string]string{
 		"PrusaMINI":         "MINI",
-		"PrusaMK4":          "MK4",
+		"PrusaMK4":          "MK4", // unfortunately MK3.5 is also detected as MK4
 		"PrusaXL":           "XL",
 		"PrusaLink I3MK3S":  "I3MK3S",
 		"PrusaLink I3MK3":   "I3MK3",
@@ -34,6 +34,7 @@ var (
 		"PrusaLink I3MK25":  "I3MK25",
 		"prusa-sl1":         "SL1",
 		"prusa-sl1s":        "SL1S",
+		"Prusa_iX":          "iX", // can be found in src/common/config.h in firmware source code
 	}
 
 	configuration config.Config
@@ -296,15 +297,36 @@ func GetPrinterProfiles(printer config.Printers) (PrinterProfiles, error) {
 func GetPrinterType(printer config.Printers) (string, error) {
 	version, err := GetVersion(printer)
 	if err != nil {
-		return "", err
+		return "unknown", err
 	}
 
-	if printerTypes[version.Hostname] == "" {
-		// If the hostname is not found in the map, try to find the original variable
-		return printerTypes[version.Original], nil
+	printerType := version.Hostname
+
+	if version.Hostname == "" {
+		if version.Original == "" {
+			info, err := GetInfo(printer)
+			if err != nil {
+				return "unknown", err
+			}
+			printerType = info.Hostname
+		} else {
+			printerType = version.Original
+		}
+	} else if version.Original != "" {
+		printerType = version.Original
 	}
 
-	return printerTypes[version.Hostname], nil
+	if printerTypes[printerType] != "" {
+		printerType = printerTypes[printerType]
+	}
+
+	if printerType == "" {
+		printerType = "unknown"
+	}
+
+	log.Trace().Msg(printerType + " detected for " + printer.Address + " (" + printer.Name + ")")
+
+	return printerType, nil
 }
 
 // ProbePrinter is used to probe the printer - just testing the connection

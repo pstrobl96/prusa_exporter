@@ -139,6 +139,16 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
 				0, s.Address, s.Type, s.Name)
 
+			if s.Type == "" {
+				printerType, err := GetPrinterType(s)
+				if err != nil {
+					log.Error().Msg("Error while probing printer at " + s.Address + " - " + err.Error())
+					ch <- printerUp
+					return
+				}
+				s.Type = printerType
+			}
+
 			job, err := GetJob(s)
 			if err != nil {
 				log.Error().Msg("Error while scraping job endpoint at " + s.Address + " - " + err.Error())
