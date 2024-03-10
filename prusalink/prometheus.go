@@ -11,15 +11,12 @@ import (
 
 // Collector is a struct of all printer metrics
 type Collector struct {
-	printerNozzleTemp         *prometheus.Desc
 	printerBedTemp            *prometheus.Desc
 	printerPrintSpeed         *prometheus.Desc
-	printerNozzleTempTarget   *prometheus.Desc
 	printerFiles              *prometheus.Desc
 	printerPrintTime          *prometheus.Desc
 	printerPrintTimeRemaining *prometheus.Desc
 	printerPrintProgress      *prometheus.Desc
-	printerPrinting           *prometheus.Desc
 	printerMaterial           *prometheus.Desc
 	printerUp                 *prometheus.Desc
 	printerNozzleSize         *prometheus.Desc

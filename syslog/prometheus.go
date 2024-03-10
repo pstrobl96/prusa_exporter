@@ -293,7 +293,6 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerNetworkIn
 	ch <- collector.printerNetworkOut
 	ch <- collector.printerOvercurrent
-	ch <- collector.printerPrinting
 	ch <- collector.printerPointsDropped
 	ch <- collector.printerPos
 	ch <- collector.printerPowerPanicCount
