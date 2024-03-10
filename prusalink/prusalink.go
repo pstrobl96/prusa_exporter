@@ -34,6 +34,7 @@ var (
 		"PrusaLink I3MK25":  "I3MK25",
 		"prusa-sl1":         "SL1",
 		"prusa-sl1s":        "SL1S",
+		"Prusa_iX":          "iX", // can be found in src/common/config.h in firmware source code
 	}
 
 	configuration config.Config
