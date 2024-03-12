@@ -11,7 +11,9 @@ COPY . ./
 
 COPY *.go ./
 
-RUN go build -v -o /prusa_exporter
+RUN apk add gcc musl-dev
+
+RUN CGO_ENABLED=1 go build -race -v -o /prusa_exporter
 
 FROM alpine:latest
 

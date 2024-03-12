@@ -18,6 +18,10 @@ var (
 	// syslogMetrics is a map of mac addresses and their metrics
 	syslogMetrics = sync.Map{}
 
+	mutex sync.RWMutex
+
+	syslogMetricsNew = map[string]map[string]map[string]string{} // mac -> metric -> field -> value ; field can be value or label
+
 	// regexpPatterns is a map that stores the regular expression patterns for different types of log messages.
 	// Each pattern is associated with a set of named capture groups and corresponding field names.
 	regexpPatterns = map[string]patterns{
@@ -82,73 +86,69 @@ func HandleMetrics(listenUDP string) {
 			if mac == "" { // Skip empty mac addresses
 				continue
 			} else {
-				mac, syslogMetricsPart := func(mac string, logParts map[string]interface{}) (string, map[string]map[string]string) {
-					syslogMetricsPart, _ := syslogMetrics.Load(mac) // loading from sync.Map - thread safe
+				mutex.Lock()
+				loadedPart := syslogMetricsNew[mac]
 
-					loadedPart, _ := syslogMetricsPart.(map[string]map[string]string) // type assertion
-
-					if loadedPart == nil {
-						loadedPart = make(map[string]map[string]string) // if found but empty, create a new map, at start it will be empty everytime
-					}
-
-					if loadedPart["ip"] == nil {
-						loadedPart["ip"] = make(map[string]string)
-					}
-
-					if loadedPart["timestamp"] == nil {
-						loadedPart["timestamp"] = make(map[string]string)
-					}
-
-					loadedPart["ip"]["value"] = logParts["client"].(string)
-					loadedPart["timestamp"]["value"] = time.Now().Format(time.RFC3339Nano)
-
-					log.Trace().Msg("Received message from: " + mac)
-
-					for name, pattern := range regexpPatterns {
-
-						reg, err := regexp.Compile(pattern.pattern)
-						if err != nil {
-							log.Error().Msg("Error compiling regexp: " + err.Error())
-							continue
-						}
-
-						log.Trace().Msg("Matching pattern: " + name + " for message: " + logParts["message"].(string))
-
-						matches := reg.FindAllStringSubmatch(logParts["message"].(string), -1)
-						if matches == nil {
-							continue // No matches for this pattern
-						}
-						var metricName string
-
-						for _, match := range matches {
-							// Extract values based on named groups
-
-							suffix := ""
-
-							for i, field := range pattern.fields {
-								if field == "n" {
-									suffix = "_" + match[i+1]
-								}
-							}
-
-							for i, field := range pattern.fields {
-								if field == "name" {
-									metricName = match[i+1] + suffix
-								} else if match[i+1] != "" && field != "timestamp" { // todo - check if timestamp is needed
-									if loadedPart[metricName] == nil {
-										loadedPart[metricName] = make(map[string]string)
-									}
-									loadedPart[metricName][field] = match[i+1]
-								}
-							}
-						}
-
-					}
-					return mac, loadedPart
-				}(mac, logParts)
-				if syslogMetricsPart != nil {
-					syslogMetrics.Store(mac, syslogMetricsPart) // store the updated map back to sync.Map
+				if loadedPart == nil {
+					loadedPart = make(map[string]map[string]string) // if found but empty, create a new map, at start it will be empty everytime
 				}
+
+				if loadedPart["ip"] == nil {
+					loadedPart["ip"] = make(map[string]string)
+				}
+
+				if loadedPart["timestamp"] == nil {
+					loadedPart["timestamp"] = make(map[string]string)
+				}
+
+				loadedPart["ip"]["value"] = logParts["client"].(string)
+				loadedPart["timestamp"]["value"] = time.Now().Format(time.RFC3339Nano)
+
+				log.Trace().Msg("Received message from: " + mac)
+
+				for name, pattern := range regexpPatterns {
+
+					reg, err := regexp.Compile(pattern.pattern)
+					if err != nil {
+						log.Error().Msg("Error compiling regexp: " + err.Error())
+						continue
+					}
+
+					log.Trace().Msg("Matching pattern: " + name + " for message: " + logParts["message"].(string))
+
+					matches := reg.FindAllStringSubmatch(logParts["message"].(string), -1)
+					if matches == nil {
+						continue // No matches for this pattern
+					}
+					var metricName string
+
+					for _, match := range matches {
+						// Extract values based on named groups
+
+						suffix := ""
+
+						for i, field := range pattern.fields {
+							if field == "n" {
+								suffix = "_" + match[i+1]
+							}
+						}
+
+						for i, field := range pattern.fields {
+							if field == "name" {
+								metricName = match[i+1] + suffix
+							} else if match[i+1] != "" && field != "timestamp" { // todo - check if timestamp is needed
+								if loadedPart[metricName] == nil {
+									loadedPart[metricName] = make(map[string]string)
+								}
+								loadedPart[metricName][field] = match[i+1]
+							}
+						}
+					}
+				}
+
+				syslogMetricsNew[mac] = loadedPart
+
+				mutex.Unlock()
 			}
 		}
 	}(channel)

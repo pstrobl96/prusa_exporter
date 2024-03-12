@@ -10,36 +10,39 @@ import (
 )
 
 var (
-	ttl = 0
+	ttl = 60
 )
 
 // Collect is a function that collects all the metrics
 func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
-	// little bit more memory intensive but we need to extract the data from the map as fast as possible
-	var syslogMetricsExtracted = make(map[string]map[string]map[string]string)
+	defer mutex.RUnlock()
 
-	syslogMetrics.Range(func(key, value interface{}) bool {
-		mac := key.(string)
-		nestedmap, ok := value.(map[string]map[string]string)
+	//hostnames := map[string]string{}
+	log.Debug().Msgf("Collecting syslog metrics")
+	log.Debug().Msg("RLocking mutex")
+	mutex.RLock()
+	//loadedPart := syslogMetricsNew
+	//log.Trace().Msgf("Loaded part: %v", loadedPart)
 
-		log.Trace().Msg("Collecting metrics for " + mac)
-		log.Trace().Msg("nestedmap: " + nestedmap["ip"]["value"])
+	for mac, v := range syslogMetricsNew {
+		log.Debug().Msgf("Loading data for %s", mac)
 
-		if !ok {
-			log.Error().Msg("Error casting syslog data")
-			return false
-		}
+		//syslogMetricsPart, ok := syslogMetrics.Load(mac)
 
-		syslogMetricsExtracted[mac] = nestedmap
-		return true
-	})
+		//if !ok {
+		//	log.Error().Msgf("Error loading data for %s", mac)
+		//	continue
+		//}
 
-	for mac, nestedmap := range syslogMetricsExtracted {
-		ipArr := strings.Split(nestedmap["ip"]["value"], ":")
+		//loadedPart := syslogMetricsPart.(map[string]map[string]string)
+
+		ip := strings.Split(v["ip"]["value"], ":")[0]
+
+		//timestamp := time.Load(loadedPart["timestamp"]["value"])
 
 		if ttl != 0 {
 
-			timestamp := nestedmap["timestamp"]["value"]
+			timestamp := v["timestamp"]["value"]
 			if timestamp == "" {
 				log.Error().Msgf("No timestamp found for %s", mac)
 				continue
@@ -57,11 +60,11 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			if !timeParsed.Before(timeNowWithoutTTL) {
 				alive = 1.0
 			}
-			ch <- prometheus.MustNewConstMetric(collector.printerSyslogUp, prometheus.GaugeValue, alive, getLabels(mac, ipArr[0], []string{})...)
+			ch <- prometheus.MustNewConstMetric(collector.printerSyslogUp, prometheus.GaugeValue, alive, getLabels(mac, ip, []string{})...)
 
 		}
-		ip := ipArr[0]
-		for k, v := range nestedmap {
+
+		for k, v := range v {
 			var (
 				collectorItem *prometheus.Desc
 				labels        = []string{}
@@ -509,4 +512,5 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			ch <- printerMetric
 		}
 	}
+
 }
