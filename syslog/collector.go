@@ -480,7 +480,8 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "puppy_adrift":
 				collectorItem = collector.prusaPuppyAverageDriftPpb
 			case "print_filename":
-				collectorItem = collector.printerPrintFilename
+				ch <- prometheus.MustNewConstMetric(collector.printerPrintFilename, prometheus.GaugeValue, 1, getLabels(mac, ip, []string{v[valueKey]})...)
+				continue
 			case "ip":
 				continue // just ignore
 			case "timestamp":
