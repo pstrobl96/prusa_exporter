@@ -15,31 +15,19 @@ var (
 
 // Collect is a function that collects all the metrics
 func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
-	// little bit more memory intensive but we need to extract the data from the map as fast as possible
-	var syslogMetricsExtracted = make(map[string]map[string]map[string]string)
+	defer mutex.RUnlock()
+	log.Debug().Msgf("Collecting syslog metrics")
 
-	syslogMetrics.Range(func(key, value interface{}) bool {
-		mac := key.(string)
-		nestedmap, ok := value.(map[string]map[string]string)
+	mutex.RLock()
 
-		log.Trace().Msg("Collecting metrics for " + mac)
-		log.Trace().Msg("nestedmap: " + nestedmap["ip"]["value"])
+	for mac, v := range syslogMetricsNew {
+		log.Trace().Msgf("Loading data for %s", mac)
 
-		if !ok {
-			log.Error().Msg("Error casting syslog data")
-			return false
-		}
-
-		syslogMetricsExtracted[mac] = nestedmap
-		return true
-	})
-
-	for mac, nestedmap := range syslogMetricsExtracted {
-		ipArr := strings.Split(nestedmap["ip"]["value"], ":")
+		ip := strings.Split(v["ip"]["value"], ":")[0]
 
 		if ttl != 0 {
 
-			timestamp := nestedmap["timestamp"]["value"]
+			timestamp := v["timestamp"]["value"]
 			if timestamp == "" {
 				log.Error().Msgf("No timestamp found for %s", mac)
 				continue
@@ -57,11 +45,11 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			if !timeParsed.Before(timeNowWithoutTTL) {
 				alive = 1.0
 			}
-			ch <- prometheus.MustNewConstMetric(collector.printerSyslogUp, prometheus.GaugeValue, alive, getLabels(mac, ipArr[0], []string{})...)
+			ch <- prometheus.MustNewConstMetric(collector.printerSyslogUp, prometheus.GaugeValue, alive, getLabels(mac, ip, []string{})...)
 
 		}
-		ip := ipArr[0]
-		for k, v := range nestedmap {
+
+		for k, v := range v {
 			var (
 				collectorItem *prometheus.Desc
 				labels        = []string{}
@@ -509,4 +497,5 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			ch <- printerMetric
 		}
 	}
+
 }
