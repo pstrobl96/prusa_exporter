@@ -1,7 +1,6 @@
 package syslog
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 	"time"
@@ -248,7 +247,6 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "adj_z":
 				collectorItem = collector.printerAxisZAdjustment
 			case "filament":
-				fmt.Println(v[valueKey])
 				valueParsed = 0
 				if v[valueKey] != "---" {
 					valueParsed = 1
