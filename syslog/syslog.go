@@ -17,11 +17,10 @@ type patterns struct {
 
 var (
 	// syslogMetrics is a map of mac addresses and their metrics
-	syslogMetrics = sync.Map{}
 
 	mutex sync.RWMutex
 
-	syslogMetricsNew = map[string]map[string]map[string]string{} // mac -> metric -> field -> value ; field can be value or label
+	syslogMetrics = map[string]map[string]map[string]string{} // mac -> metric -> field -> value ; field can be value or label
 
 	// regexpPatterns is a map that stores the regular expression patterns for different types of log messages.
 	// Each pattern is associated with a set of named capture groups and corresponding field names.
@@ -88,7 +87,7 @@ func HandleMetrics(listenUDP string) {
 				continue
 			} else {
 				mutex.Lock()
-				loadedPart := syslogMetricsNew[mac]
+				loadedPart := syslogMetrics[mac]
 
 				if loadedPart == nil {
 					loadedPart = make(map[string]map[string]string) // if found but empty, create a new map, at start it will be empty everytime
@@ -159,7 +158,7 @@ func HandleMetrics(listenUDP string) {
 					}
 				}
 
-				syslogMetricsNew[mac] = loadedPart
+				syslogMetrics[mac] = loadedPart
 
 				mutex.Unlock()
 			}
