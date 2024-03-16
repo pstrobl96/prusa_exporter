@@ -481,6 +481,8 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				collectorItem = collector.prusaPuppyAverageOffsetUs
 			case "puppy_adrift":
 				collectorItem = collector.prusaPuppyAverageDriftPpb
+			case "print_filename":
+				collectorItem = collector.printerPrintFilename
 			case "ip":
 				continue // just ignore
 			case "timestamp":
