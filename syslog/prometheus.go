@@ -123,6 +123,7 @@ type Collector struct {
 	prusaPuppyAverageOffsetUs    *prometheus.Desc
 	prusaPuppyAverageDriftPpb    *prometheus.Desc
 	printerSyslogUp              *prometheus.Desc
+	printerPrintFilename         *prometheus.Desc
 }
 
 // NewCollector is a function that returns new Collector
@@ -192,8 +193,8 @@ func NewCollector(syslogTTL int) *Collector {
 		printerMediaPrefetched:       prometheus.NewDesc("prusa_media_prefetched_bytes", "Media prefetched in bytes", defaultLabels, nil),
 		printerMMUComm:               prometheus.NewDesc("prusa_mmu_comm", "MMU communication", append(defaultLabels, "msg"), nil),
 		printerModbusReqfail:         prometheus.NewDesc("prusa_modbus_reqfail", "Modbus request fail", defaultLabels, nil),
-		printerNetworkIn:             prometheus.NewDesc("prusa_network_in", "Network in", append(defaultLabels, "device"), nil),
-		printerNetworkOut:            prometheus.NewDesc("prusa_network_out", "Network out", append(defaultLabels, "device"), nil),
+		printerNetworkIn:             prometheus.NewDesc("prusa_network_in_total", "Network in", append(defaultLabels, "device"), nil),
+		printerNetworkOut:            prometheus.NewDesc("prusa_network_out_total", "Network out", append(defaultLabels, "device"), nil),
 		printerOvercurrent:           prometheus.NewDesc("prusa_overcurrent", "Overcurrent of different devices in / on the printer", append(defaultLabels, "device"), nil),
 		printerPrinting:              prometheus.NewDesc("prusa_printing", "Printing printer", defaultLabels, nil),
 		printerPointsDropped:         prometheus.NewDesc("prusa_points_dropped", "Points dropped", defaultLabels, nil),
@@ -229,6 +230,7 @@ func NewCollector(syslogTTL int) *Collector {
 		prusaPuppyAverageOffsetUs:    prometheus.NewDesc("prusa_puppy_average_offset_ms", "Puppy average offset in microseconds", defaultLabels, nil),
 		prusaPuppyAverageDriftPpb:    prometheus.NewDesc("prusa_puppy_average_drift_ppb", "Puppy average drift in ppb", defaultLabels, nil),
 		printerSyslogUp:              prometheus.NewDesc("prusa_up_syslog", "Printer up - from syslog metric - ttl is by default 60 seconds but can be different and it depends on choosen interval. That means if printer wont sent any data for 60 seconds is considered down.", defaultLabels, nil),
+		printerPrintFilename:         prometheus.NewDesc("prusa_print_filename", "Printed file name", append(defaultLabels, "filename"), nil),
 	}
 }
 
@@ -325,4 +327,5 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.prusaPuppyAverageOffsetUs
 	ch <- collector.prusaPuppyAverageDriftPpb
 	ch <- collector.printerSyslogUp
+	ch <- collector.printerPrintFilename
 }

@@ -121,15 +121,25 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			case "esp_out":
 				fallthrough
 			case "eth_out":
-				valueKey = "sent"
-				labels = []string{splittedName[0]}
-				collectorItem = collector.printerNetworkOut
+				valueParsed, err = strconv.ParseFloat(v["sent"], 64)
+				if err != nil {
+					log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
+					continue // Skip to next iteration if value parsing fails
+				}
+
+				ch <- prometheus.MustNewConstMetric(collector.printerNetworkOut, prometheus.CounterValue, valueParsed, getLabels(mac, ip, []string{splittedName[0]})...)
+				continue
 			case "esp_in":
 				fallthrough
 			case "eth_in":
-				valueKey = "recv"
-				labels = []string{splittedName[0]}
-				collectorItem = collector.printerNetworkIn
+				valueParsed, err = strconv.ParseFloat(v["recv"], 64)
+				if err != nil {
+					log.Error().Msgf("Error parsing value for metric %s: %s", k, err)
+					continue // Skip to next iteration if value parsing fails
+				}
+
+				ch <- prometheus.MustNewConstMetric(collector.printerNetworkIn, prometheus.CounterValue, valueParsed, getLabels(mac, ip, []string{splittedName[0]})...)
+				continue
 			case "24VVoltage":
 				fallthrough
 			case "5VVoltage":
@@ -238,7 +248,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				collectorItem = collector.printerAxisZAdjustment
 			case "filament":
 				valueParsed = 0
-				if v[valueKey] != "0" {
+				if v[valueKey] != "---" {
 					valueParsed = 1
 				}
 				ch <- prometheus.MustNewConstMetric(collector.printerFilament, prometheus.GaugeValue, valueParsed, getLabels(mac, ip, []string{v[valueKey]})...)
@@ -469,6 +479,9 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 				collectorItem = collector.prusaPuppyAverageOffsetUs
 			case "puppy_adrift":
 				collectorItem = collector.prusaPuppyAverageDriftPpb
+			case "print_filename":
+				ch <- prometheus.MustNewConstMetric(collector.printerPrintFilename, prometheus.GaugeValue, 1, getLabels(mac, ip, []string{v[valueKey]})...)
+				continue
 			case "ip":
 				continue // just ignore
 			case "timestamp":

@@ -9,7 +9,7 @@
       "pluginName": "Prometheus"
     },
     {
-      "name": "DS_LOGS",
+      "name": "DS_LOKI",
       "label": "grafanacloud-pubel-logs",
       "description": "",
       "type": "datasource",
@@ -29,7 +29,13 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "11.0.0-67746"
+      "version": "11.0.0-67977"
+    },
+    {
+      "type": "panel",
+      "id": "grafana-polystat-panel",
+      "name": "Polystat",
+      "version": "2.1.5"
     },
     {
       "type": "panel",
@@ -50,6 +56,12 @@
       "version": "1.0.0"
     },
     {
+      "type": "panel",
+      "id": "piechart",
+      "name": "Pie chart",
+      "version": ""
+    },
+    {
       "type": "datasource",
       "id": "prometheus",
       "name": "Prometheus",
@@ -59,6 +71,12 @@
       "type": "panel",
       "id": "stat",
       "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
       "version": ""
     },
     {
@@ -107,179 +125,10 @@
         "x": 0,
         "y": 0
       },
-      "id": 70,
+      "id": 100,
       "panels": [],
-      "title": "Printer Detail - SYSLOG",
+      "title": "Overview",
       "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROM}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "noValue": "0",
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 300
-              }
-            ]
-          },
-          "unit": "celsius"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 21,
-        "x": 0,
-        "y": 1
-      },
-      "id": 92,
-      "interval": "5s",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.0.0-67746",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "max by (mac, device) (prusa_temp{mac=\"$printer_mac\", device=~\"noz.*|.*bed.*\"}) ",
-          "hide": false,
-          "legendFormat": "{{device}}",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "max by (mac, device) (prusa_temp_target{mac=\"$printer_mac\", device=~\"noz.*\"})",
-          "hide": true,
-          "legendFormat": "Target - {{device}}",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "Temperatures",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROM}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "0": {
-                  "color": "red",
-                  "index": 1,
-                  "text": "Down"
-                },
-                "1": {
-                  "color": "green",
-                  "index": 0,
-                  "text": " Up"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 21,
-        "y": 1
-      },
-      "id": 94,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.0.0-67746",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "min by (mac)(prusa_up_syslog{mac=\"$printer_mac\"})",
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Printer status",
-      "type": "stat"
     },
     {
       "datasource": {
@@ -315,7 +164,7 @@
         "h": 4,
         "w": 2,
         "x": 0,
-        "y": 5
+        "y": 1
       },
       "id": 72,
       "interval": "5s",
@@ -335,7 +184,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.0.0-67746",
+      "pluginVersion": "11.0.0-67977",
       "targets": [
         {
           "datasource": {
@@ -343,7 +192,7 @@
             "uid": "${DS_PROM}"
           },
           "editorMode": "code",
-          "expr": "max by (printer_name) (prusa_active_extruder{printer_name=\"$printer\"}) + 1",
+          "expr": "max by (mac) (prusa_active_extruder{mac=\"$printer_mac\"}) + 1",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -400,7 +249,7 @@
         "h": 4,
         "w": 2,
         "x": 2,
-        "y": 5
+        "y": 1
       },
       "id": 77,
       "interval": "5s",
@@ -420,7 +269,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.0.0-67746",
+      "pluginVersion": "11.0.0-67977",
       "targets": [
         {
           "datasource": {
@@ -435,214 +284,6 @@
         }
       ],
       "title": "Heater Enabled",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROM}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "lengthmm"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 4,
-        "y": 5
-      },
-      "id": 71,
-      "interval": "5s",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.0.0-67746",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "max by (mac) (prusa_axis_z_adjustment{mac=\"$printer_mac\"})",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Adjustment of Z Axis",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROM}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 2,
-        "x": 7,
-        "y": 5
-      },
-      "id": 81,
-      "interval": "5s",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.0.0-67746",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "max by (mac)(prusa_buddy_bom{mac=\"$printer_mac\"})",
-          "format": "table",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Buddy BOM",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROM}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 2,
-        "x": 9,
-        "y": 5
-      },
-      "id": 82,
-      "interval": "5s",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.0.0-67746",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "max by (mac)(prusa_buddy_revision{mac=\"$printer_mac\"})",
-          "format": "table",
-          "legendFormat": "{{buddy_bom}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Buddy revision",
       "type": "stat"
     },
     {
@@ -681,8 +322,8 @@
       "gridPos": {
         "h": 4,
         "w": 2,
-        "x": 11,
-        "y": 5
+        "x": 4,
+        "y": 1
       },
       "id": 88,
       "interval": "5s",
@@ -701,7 +342,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.0.0-67746",
+      "pluginVersion": "11.0.0-67977",
       "targets": [
         {
           "datasource": {
@@ -754,8 +395,8 @@
       "gridPos": {
         "h": 4,
         "w": 2,
-        "x": 13,
-        "y": 5
+        "x": 6,
+        "y": 1
       },
       "id": 89,
       "interval": "5s",
@@ -774,7 +415,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.0.0-67746",
+      "pluginVersion": "11.0.0-67977",
       "targets": [
         {
           "datasource": {
@@ -848,8 +489,8 @@
       "gridPos": {
         "h": 4,
         "w": 9,
-        "x": 15,
-        "y": 5
+        "x": 8,
+        "y": 1
       },
       "id": 87,
       "interval": "5s",
@@ -869,7 +510,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.0.0-67746",
+      "pluginVersion": "11.0.0-67977",
       "targets": [
         {
           "datasource": {
@@ -886,6 +527,1374 @@
       ],
       "title": "Voltage",
       "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 17,
+        "y": 1
+      },
+      "id": 82,
+      "interval": "5s",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.0.0-67977",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "max by (mac)(prusa_buddy_revision{mac=\"$printer_mac\"})",
+          "format": "table",
+          "legendFormat": "{{buddy_bom}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Buddy revision",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 19,
+        "y": 1
+      },
+      "id": 81,
+      "interval": "5s",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.0.0-67977",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "max by (mac)(prusa_buddy_bom{mac=\"$printer_mac\"})",
+          "format": "table",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Buddy BOM",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "Down"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 0,
+                  "text": " Up"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 21,
+        "y": 1
+      },
+      "id": 94,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.0.0-67977",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "min by (mac)(prusa_up_syslog{mac=\"$printer_mac\"})",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Printer status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "---",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 0,
+        "y": 5
+      },
+      "id": 105,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "uniqueValues"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "name",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.0.0-67977",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "max by(filament)(prusa_filament{mac=\"$printer_mac\"})",
+          "format": "time_series",
+          "instant": true,
+          "legendFormat": "{{filament}}",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "Loaded filament",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "No"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 1,
+                "result": {
+                  "color": "red",
+                  "index": 2,
+                  "text": "Yes"
+                },
+                "to": 100324
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 2,
+        "y": 5
+      },
+      "id": 104,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.0.0-67977",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "max by (device)(prusa_overcurrent{mac=\"10:9c:70:2c:da:8\"})",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Overcurrent detected",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "lengthmm"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 7,
+        "y": 5
+      },
+      "id": 71,
+      "interval": "5s",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.0.0-67977",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "max by (mac) (prusa_axis_z_adjustment{mac=\"$printer_mac\"})",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Adjustment of Z Axis",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 10,
+        "y": 5
+      },
+      "id": 117,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "name",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.0.0-67977",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "(prusa_buddy_fw{mac=\"$printer_mac\"})",
+          "instant": false,
+          "legendFormat": "{{version}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Firmware version",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "-",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 7,
+        "x": 13,
+        "y": 5
+      },
+      "id": 118,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "name",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.0.0-67977",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "max by (filename)(prusa_print_filename{mac=\"$printer_mac\"})",
+          "instant": false,
+          "legendFormat": "{{filename}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Printing file name",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 400
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 5
+      },
+      "id": 106,
+      "interval": "5s",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.0.0-67977",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "-1*( sum (prusa_voltage{mac=\"$printer_mac\", device=\"bed\"}) * max(prusa_current{mac=\"$printer_mac\", device=\"inp\"}) / 1000)",
+          "hide": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "(sum(prusa_current{mac=\"$printer_mac\", device!~\"bedlet.*\", rail!=\"5V\"}) * max (prusa_voltage{mac=\"$printer_mac\", rail=\"24V\"}) + (sum(prusa_current{mac=\"$printer_mac\", rail=\"5V\"}) * max(prusa_voltage{mac=\"$printer_mac\", rail=\"5V\"}))) / 1000",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Average power consumption",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 70,
+      "panels": [],
+      "title": "Detail",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 300
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 92,
+      "interval": "5s",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.0.0-67977",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "max by (mac, device) (prusa_temp{mac=\"$printer_mac\", device=~\"noz.*|.*bed.*\"}) ",
+          "hide": false,
+          "legendFormat": "{{device}}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "max by (mac, device) (prusa_temp_target{mac=\"$printer_mac\", device=~\"noz.*\"})",
+          "hide": true,
+          "legendFormat": "Target - {{device}}",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Temperatures",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 14
+      },
+      "id": 90,
+      "interval": "5s",
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.0.0-67429",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "max by (device, rail)(prusa_voltage{mac=\"$printer_mac\"})",
+          "hide": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Voltage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic-by-name"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 14
+      },
+      "id": 103,
+      "interval": "5s",
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean",
+            "min"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.0.0-67429",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "-1*( sum (prusa_voltage{mac=\"$printer_mac\", device=\"bed\"}) * max(prusa_current{mac=\"$printer_mac\", device=\"inp\"}) / 1000)",
+          "hide": false,
+          "legendFormat": "Input",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "(sum(prusa_current{mac=\"$printer_mac\", device!~\"bedlet.*\", rail!=\"5V\"}) * max (prusa_voltage{mac=\"$printer_mac\", rail=\"24V\"}) + (sum(prusa_current{mac=\"$printer_mac\", rail=\"5V\"}) * max(prusa_voltage{mac=\"$printer_mac\", rail=\"5V\"}))) / 1000",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Input",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Power consumption",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "purple",
+            "mode": "palette-classic",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": 3600000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 3,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "mamp"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "id": 84,
+      "interval": "5s",
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean",
+            "min"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "max by (device,rail)(prusa_current{mac=\"$printer_mac\", device!~\"bedlet.*\"})",
+          "hide": false,
+          "legendFormat": "{{device}} {{rail}}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "max by (device,rail)(prusa_current{mac=\"$printer_mac\", device=~\"dwarf.*\"})  ",
+          "hide": true,
+          "legendFormat": "{{device}} {{rail}}",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Current",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 4,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": 3600000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "custom.gradientMode",
+                "value": "opacity"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 15
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 6,
+        "x": 12,
+        "y": 24
+      },
+      "id": 74,
+      "interval": "5s",
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean",
+            "min"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "max by (mac)(prusa_heap_total{mac=\"$printer_mac\"})",
+          "legendFormat": "Total",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "max by (mac)(prusa_heap_total{mac=\"$printer_mac\"}) - max by (mac)(prusa_heap_free{mac=\"$printer_mac\"})",
+          "hide": false,
+          "legendFormat": "Used",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Heap Usage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": 3600000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 6,
+        "x": 18,
+        "y": 24
+      },
+      "id": 73,
+      "interval": "5s",
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean",
+            "min"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "max by (mac)(prusa_cpu_usage_ratio{mac=\"$printer_mac\"}) ",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "CPU Usage",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -937,8 +1946,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -960,10 +1968,10 @@
         ]
       },
       "gridPos": {
-        "h": 13,
+        "h": 10,
         "w": 12,
         "x": 0,
-        "y": 9
+        "y": 34
       },
       "id": 91,
       "interval": "5s",
@@ -1065,8 +2073,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1088,10 +2095,10 @@
         ]
       },
       "gridPos": {
-        "h": 13,
+        "h": 10,
         "w": 12,
         "x": 12,
-        "y": 9
+        "y": 34
       },
       "id": 93,
       "interval": "5s",
@@ -1160,508 +2167,6 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": 3600000,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 0,
-        "y": 22
-      },
-      "id": 73,
-      "interval": "5s",
-      "options": {
-        "legend": {
-          "calcs": [
-            "max",
-            "mean",
-            "min"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "maxHeight": 600,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "10.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "max by (mac)(prusa_cpu_usage_ratio{mac=\"$printer_mac\"}) ",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "CPU Usage",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROM}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 1,
-            "pointSize": 4,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": 3600000,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "custom.gradientMode",
-                "value": "opacity"
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "red",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 15
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "light-green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 12,
-        "y": 22
-      },
-      "id": 74,
-      "interval": "5s",
-      "options": {
-        "legend": {
-          "calcs": [
-            "max",
-            "mean",
-            "min"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "maxHeight": 600,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "10.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "max by (mac)(prusa_heap_total{mac=\"$printer_mac\"})",
-          "legendFormat": "Total",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "max by (mac)(prusa_heap_total{mac=\"$printer_mac\"}) - max by (mac)(prusa_heap_free{mac=\"$printer_mac\"})",
-          "hide": false,
-          "legendFormat": "Used",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "Heap Usage",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROM}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "purple",
-            "mode": "palette-classic",
-            "seriesBy": "last"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": 3600000,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "decimals": 3,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "mamp"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 0,
-        "y": 32
-      },
-      "id": 84,
-      "interval": "5s",
-      "options": {
-        "legend": {
-          "calcs": [
-            "max",
-            "mean",
-            "min"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Mean",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "maxHeight": 600,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "10.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "max by (device,rail)(prusa_current{mac=\"$printer_mac\"})",
-          "hide": false,
-          "legendFormat": "{{device}} {{rail}}",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "max by (device,rail)(prusa_current{mac=\"$printer_mac\", device=~\"dwarf.*\"})  ",
-          "hide": true,
-          "legendFormat": "{{device}} {{rail}}",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "Current",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROM}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "volt"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "nozz"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Nozzle"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "bed"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Bed"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 12,
-        "y": 32
-      },
-      "id": 90,
-      "interval": "5s",
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "maxHeight": 600,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.0.0-67429",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "max by (device, rail)(prusa_voltage{mac=\"$printer_mac\"})",
-          "hide": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Voltage",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROM}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
             "axisSoftMax": 100,
             "axisSoftMin": 0,
             "barAlignment": 0,
@@ -1695,8 +2200,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1708,7 +2212,7 @@
         "h": 13,
         "w": 24,
         "x": 0,
-        "y": 42
+        "y": 44
       },
       "id": 75,
       "interval": "5s",
@@ -1796,8 +2300,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1838,7 +2341,7 @@
         "h": 10,
         "w": 8,
         "x": 0,
-        "y": 55
+        "y": 57
       },
       "id": 78,
       "interval": "5s",
@@ -1975,8 +2478,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1992,7 +2494,7 @@
         "h": 10,
         "w": 8,
         "x": 8,
-        "y": 55
+        "y": 57
       },
       "id": 80,
       "interval": "5s",
@@ -2078,8 +2580,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2095,7 +2596,7 @@
         "h": 10,
         "w": 8,
         "x": 16,
-        "y": 55
+        "y": 57
       },
       "id": 86,
       "interval": "5s",
@@ -2181,8 +2682,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2195,10 +2695,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 11,
-        "w": 24,
+        "h": 8,
+        "w": 12,
         "x": 0,
-        "y": 65
+        "y": 67
       },
       "id": 95,
       "interval": "5s",
@@ -2266,78 +2766,6 @@
         "uid": "${DS_PROM}"
       },
       "description": "",
-      "gridPos": {
-        "h": 16,
-        "w": 12,
-        "x": 0,
-        "y": 76
-      },
-      "id": 97,
-      "options": {
-        "dims": {
-          "frame": 0
-        },
-        "hudBgColor": "#22252b",
-        "pointColor": "dark-red",
-        "pointSize": 5,
-        "series": {
-          "x": "{axis=\"y\", mac=\"10:9c:70:25:17:3d\"}",
-          "y": "{axis=\"x\", mac=\"10:9c:70:25:17:3d\"}",
-          "z": "{axis=\"z\", mac=\"10:9c:70:25:17:3d\"}"
-        },
-        "seriesMapping": "manual",
-        "themeColor": "#ffffff"
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "avg by (mac, axis)(prusa_stepper_pos{mac=\"$printer_mac\", axis=\"x\"})",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "{{Axis}}",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "avg by (mac, axis)(prusa_stepper_pos{mac=\"$printer_mac\", axis=\"y\"})",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "{{Axis}}",
-          "range": true,
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROM}"
-          },
-          "editorMode": "code",
-          "expr": "avg by (mac, axis)(prusa_stepper_pos{mac=\"$printer_mac\", axis=\"z\"})",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "{{Axis}}",
-          "range": true,
-          "refId": "D"
-        }
-      ],
-      "title": "Stepper position",
-      "type": "grafana-xyzchart-panel"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROM}"
-      },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2380,8 +2808,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2396,7 +2823,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 76
+        "y": 67
       },
       "id": 98,
       "options": {
@@ -2476,8 +2903,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2492,8 +2918,8 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 12,
-        "y": 84
+        "x": 0,
+        "y": 75
       },
       "id": 96,
       "options": {
@@ -2532,41 +2958,756 @@
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOGS}"
+        "type": "prometheus",
+        "uid": "${DS_PROM}"
       },
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "binBps"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 92
+        "w": 12,
+        "x": 12,
+        "y": 75
       },
-      "id": 99,
+      "id": 114,
+      "interval": "15s",
       "options": {
-        "dedupStrategy": "none",
-        "enableLogDetails": true,
-        "prettifyLogMessage": false,
-        "showCommonLabels": false,
-        "showLabels": false,
-        "showTime": true,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
+        "legend": {
+          "calcs": [
+            "max",
+            "mean",
+            "min"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOGS}"
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
           },
           "editorMode": "code",
-          "expr": "{hostname=\"$printer_mac\"}",
-          "queryType": "range",
+          "expr": "sum by (device)(rate(prusa_network_in_total{mac=\"$printer_mac\"}[$__rate_interval]))",
+          "instant": false,
+          "legendFormat": "{{device}} - In",
+          "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (device)(rate(prusa_network_out_total{mac=\"$printer_mac\"}[$__rate_interval]))",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{device}} - Out",
+          "range": true,
+          "refId": "B"
         }
       ],
-      "title": "Printer Logs",
-      "type": "logs"
+      "title": "Network",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 83
+      },
+      "id": 107,
+      "panels": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DS_LOKI}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "mappings": []
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 6,
+            "x": 0,
+            "y": 11
+          },
+          "id": 109,
+          "options": {
+            "displayLabels": [
+              "name"
+            ],
+            "legend": {
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "values": [
+                "value",
+                "percent"
+              ]
+            },
+            "pieType": "pie",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.0.0-67977",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "${DS_LOKI}"
+              },
+              "editorMode": "code",
+              "expr": "count by (proc_id)({hostname=\"$printer_mac\", proc_id=~\"$proc_id\"})",
+              "hide": true,
+              "queryType": "range",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "${DS_LOKI}"
+              },
+              "editorMode": "code",
+              "expr": "sum(count_over_time(({hostname=\"$printer_mac\"})[$__range])) by (proc_id)",
+              "hide": false,
+              "legendFormat": "{{proc_id}}",
+              "queryType": "range",
+              "refId": "B"
+            }
+          ],
+          "title": "Printer Logs Count by proc_id",
+          "type": "piechart"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DS_LOKI}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              },
+              "mappings": []
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 6,
+            "x": 6,
+            "y": 11
+          },
+          "id": 110,
+          "options": {
+            "displayLabels": [
+              "name"
+            ],
+            "legend": {
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "values": [
+                "value",
+                "percent"
+              ]
+            },
+            "pieType": "pie",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.0.0-67977",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "${DS_LOKI}"
+              },
+              "editorMode": "code",
+              "expr": "sum(count_over_time(({hostname=\"$printer_mac\"})[$__range])) by (severity)",
+              "hide": false,
+              "legendFormat": "{{proc_id}}",
+              "queryType": "range",
+              "refId": "B"
+            }
+          ],
+          "title": "Printer Logs Count by severity",
+          "type": "piechart"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DS_LOKI}"
+          },
+          "description": "Total Count of log lines in the specified time range",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-GrYlRd"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "bars",
+                "fillOpacity": 74,
+                "gradientMode": "scheme",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "rgb(31, 255, 7)",
+                      "text": "0"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "rgb(31, 255, 7)"
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byFrameRefID",
+                  "options": "B"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 12,
+            "y": 11
+          },
+          "id": 22,
+          "maxDataPoints": 100,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "tooltip": {
+              "maxHeight": 600,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.4.0-beta1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "${DS_LOKI}"
+              },
+              "editorMode": "code",
+              "expr": "sum(count_over_time(({hostname=\"$printer_mac\", proc_id=~\"$proc_id\", severity=~\"$severity\"} |~ \"(?i)$searchable_pattern\"  )[$__range]))",
+              "legendFormat": "Count",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Count over time",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DS_LOKI}"
+          },
+          "description": "",
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 18
+          },
+          "id": 108,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "${DS_LOKI}"
+              },
+              "editorMode": "code",
+              "expr": "{hostname=\"$printer_mac\", proc_id=~\"$proc_id\", severity=~\"$severity\"} |~ \"(?i)$searchable_pattern\" ",
+              "queryType": "range",
+              "refId": "A"
+            }
+          ],
+          "title": "Printer Logs",
+          "type": "logs"
+        }
+      ],
+      "title": "Logs",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 84
+      },
+      "id": 111,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "description": "",
+          "gridPos": {
+            "h": 16,
+            "w": 12,
+            "x": 0,
+            "y": 12
+          },
+          "id": 112,
+          "options": {
+            "dims": {
+              "frame": 0
+            },
+            "hudBgColor": "#22252b",
+            "pointColor": "dark-red",
+            "pointSize": 5,
+            "series": {
+              "x": "{axis=\"y\", mac=\"10:9c:70:25:17:3d\"}",
+              "y": "{axis=\"x\", mac=\"10:9c:70:25:17:3d\"}",
+              "z": "{axis=\"z\", mac=\"10:9c:70:25:17:3d\"}"
+            },
+            "seriesMapping": "manual",
+            "themeColor": "#ffffff"
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROM}"
+              },
+              "editorMode": "code",
+              "expr": "avg by (mac, axis)(prusa_stepper_pos{mac=\"$printer_mac\", axis=\"x\"})",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{Axis}}",
+              "range": true,
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROM}"
+              },
+              "editorMode": "code",
+              "expr": "avg by (mac, axis)(prusa_stepper_pos{mac=\"$printer_mac\", axis=\"y\"})",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{Axis}}",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROM}"
+              },
+              "editorMode": "code",
+              "expr": "avg by (mac, axis)(prusa_stepper_pos{mac=\"$printer_mac\", axis=\"z\"})",
+              "hide": false,
+              "instant": false,
+              "legendFormat": "{{Axis}}",
+              "range": true,
+              "refId": "D"
+            }
+          ],
+          "title": "Stepper position",
+          "type": "grafana-xyzchart-panel"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "fieldMinMax": true,
+              "mappings": []
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 16,
+            "w": 7,
+            "x": 12,
+            "y": 12
+          },
+          "id": 119,
+          "options": {
+            "autoSizeColumns": true,
+            "autoSizePolygons": true,
+            "autoSizeRows": false,
+            "compositeConfig": {
+              "animationSpeed": "1500",
+              "composites": [],
+              "enabled": false
+            },
+            "compositeGlobalAliasingEnabled": false,
+            "ellipseCharacters": 18,
+            "ellipseEnabled": false,
+            "globalAutoScaleFonts": true,
+            "globalClickthrough": "",
+            "globalClickthroughCustomTarget": "",
+            "globalClickthroughCustomTargetEnabled": false,
+            "globalClickthroughNewTabEnabled": true,
+            "globalClickthroughSanitizedEnabled": true,
+            "globalDecimals": 0,
+            "globalDisplayMode": "all",
+            "globalDisplayTextTriggeredEmpty": "OK",
+            "globalFillColor": "dark-red",
+            "globalFontSize": 12,
+            "globalGradientsEnabled": false,
+            "globalOperator": "mean",
+            "globalPolygonBorderColor": "rgba(0, 0, 0, 0)",
+            "globalPolygonBorderSize": 2,
+            "globalPolygonSize": 25,
+            "globalRegexPattern": "",
+            "globalShape": "square",
+            "globalShowTooltipColumnHeadersEnabled": true,
+            "globalShowValueEnabled": true,
+            "globalTextFontAutoColorEnabled": true,
+            "globalTextFontColor": "#000000",
+            "globalTextFontFamily": "Roboto",
+            "globalThresholdsConfig": [
+              {
+                "color": "#C4162A",
+                "state": 0,
+                "value": 0
+              },
+              {
+                "color": "#299c46",
+                "state": 0,
+                "value": 1
+              },
+              {
+                "color": "#5794F2",
+                "state": 0,
+                "value": 100
+              },
+              {
+                "color": "#A352CC",
+                "state": 0,
+                "value": 200
+              },
+              {
+                "color": "#1F60C4",
+                "state": 0,
+                "value": 300
+              },
+              {
+                "color": "#299c46",
+                "state": 0,
+                "value": 400
+              }
+            ],
+            "globalTooltipsEnabled": true,
+            "globalTooltipsFontFamily": "Roboto",
+            "globalTooltipsShowTimestampEnabled": true,
+            "globalUnitFormat": "short",
+            "layoutDisplayLimit": 100,
+            "layoutNumColumns": 8,
+            "layoutNumRows": 4,
+            "overrideConfig": {
+              "overrides": []
+            },
+            "sortByDirection": 3,
+            "sortByField": "name",
+            "tooltipDisplayMode": "all",
+            "tooltipDisplayTextTriggeredEmpty": "OK",
+            "tooltipPrimarySortByField": "thresholdLevel",
+            "tooltipPrimarySortDirection": 1,
+            "tooltipSecondarySortByField": "value",
+            "tooltipSecondarySortDirection": 0
+          },
+          "pluginVersion": "2.1.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROM}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "prusa_pwm{device=~\"bedlet.*\"}",
+              "format": "time_series",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "{{device}}",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Bed PWM",
+          "type": "grafana-polystat-panel"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 16,
+            "w": 5,
+            "x": 19,
+            "y": 12
+          },
+          "id": 115,
+          "interval": "5s",
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "11.0.0-67977",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROM}"
+              },
+              "editorMode": "code",
+              "expr": "prusa_gcode{mac=\"$printer_mac\"}",
+              "instant": false,
+              "legendFormat": "{{gcode}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Processed gcodes",
+          "transformations": [
+            {
+              "id": "seriesToRows",
+              "options": {}
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": true
+                },
+                "includeByName": {},
+                "indexByName": {},
+                "renameByName": {
+                  "Metric": "GCODE",
+                  "Value": ""
+                }
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "title": "Experimental",
+      "type": "row"
     }
   ],
   "refresh": "",
@@ -2582,6 +3723,7 @@
           "uid": "${DS_PROM}"
         },
         "definition": "label_values(prusa_info{printer_address=\"$printer_ip\"},printer_name)",
+        "description": "Accessible only when also scraping metrics from PrusaLink",
         "hide": 0,
         "includeAll": false,
         "label": "Printer",
@@ -2601,7 +3743,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "grafanacloud-pubel-prom",
           "value": "grafanacloud-prom"
         },
@@ -2627,6 +3769,7 @@
         "definition": "label_values(prusa_cpu_usage_ratio,mac)",
         "hide": 0,
         "includeAll": false,
+        "label": "Printer MAC",
         "multi": false,
         "name": "printer_mac",
         "options": [],
@@ -2635,7 +3778,7 @@
           "query": "label_values(prusa_cpu_usage_ratio,mac)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -2650,6 +3793,7 @@
         "definition": "label_values(prusa_current{mac=\"$printer_mac\"},ip)",
         "hide": 0,
         "includeAll": false,
+        "label": "Printer IP",
         "multi": false,
         "name": "printer_ip",
         "options": [],
@@ -2658,23 +3802,95 @@
           "query": "label_values(prusa_current{mac=\"$printer_mac\"},ip)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
+      },
+      {
+        "allValue": ".*",
+        "current": {},
+        "datasource": {
+          "type": "loki",
+          "uid": "${DS_LOKI}"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Log proc_id",
+        "multi": true,
+        "name": "proc_id",
+        "options": [],
+        "query": {
+          "label": "proc_id",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{hostname=\"$printer_mac\"}",
+          "type": 1
+        },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": ".*",
+        "current": {},
+        "datasource": {
+          "type": "loki",
+          "uid": "${DS_LOKI}"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Log severity",
+        "multi": true,
+        "name": "severity",
+        "options": [],
+        "query": {
+          "label": "severity",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{hostname=\"$printer_mac\"}",
+          "type": 1
+        },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "",
+          "value": ""
+        },
+        "hide": 0,
+        "label": "Log Search (case insensitive)",
+        "name": "searchable_pattern",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "skipUrlSync": false,
+        "type": "textbox"
       }
     ]
   },
   "time": {
-    "from": "2024-03-04T21:11:56.756Z",
-    "to": "2024-03-04T23:55:05.426Z"
+    "from": "now-30m",
+    "to": "now"
   },
   "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "",
   "title": "Prusa Syslog Dashboard",
   "uid": "RXaNIGY4zeefse",
-  "version": 17,
+  "version": 38,
   "weekStart": ""
 }
