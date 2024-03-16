@@ -20,7 +20,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 	mutex.RLock()
 
-	for mac, v := range syslogMetricsNew {
+	for mac, v := range syslogMetrics {
 		log.Trace().Msgf("Loading data for %s", mac)
 
 		ip := strings.Split(v["ip"]["value"], ":")[0]
