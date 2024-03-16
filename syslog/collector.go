@@ -10,35 +10,20 @@ import (
 )
 
 var (
-	ttl = 60
+	ttl = 0
 )
 
 // Collect is a function that collects all the metrics
 func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 	defer mutex.RUnlock()
-
-	//hostnames := map[string]string{}
 	log.Debug().Msgf("Collecting syslog metrics")
-	log.Debug().Msg("RLocking mutex")
+
 	mutex.RLock()
-	//loadedPart := syslogMetricsNew
-	//log.Trace().Msgf("Loaded part: %v", loadedPart)
 
 	for mac, v := range syslogMetricsNew {
-		log.Debug().Msgf("Loading data for %s", mac)
-
-		//syslogMetricsPart, ok := syslogMetrics.Load(mac)
-
-		//if !ok {
-		//	log.Error().Msgf("Error loading data for %s", mac)
-		//	continue
-		//}
-
-		//loadedPart := syslogMetricsPart.(map[string]map[string]string)
+		log.Trace().Msgf("Loading data for %s", mac)
 
 		ip := strings.Split(v["ip"]["value"], ":")[0]
-
-		//timestamp := time.Load(loadedPart["timestamp"]["value"])
 
 		if ttl != 0 {
 
