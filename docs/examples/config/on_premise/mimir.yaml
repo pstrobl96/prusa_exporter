@@ -38,11 +38,11 @@ ingester:
 blocks_storage:
   backend: filesystem
   bucket_store:
-    sync_dir: /tmp/mimir/tsdb-sync
+    sync_dir: /data/tsdb-sync
   filesystem:
-    dir: /tmp/mimir/blocks
+    dir: /data/blocks
   tsdb:
-    dir: /tmp/mimir/tsdb
+    dir: /data/tsdb
 
 compactor:
   sharding_ring:
