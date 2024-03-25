@@ -35,8 +35,6 @@ services:
     container_name: grafana
     environment:
       - GF_INSTALL_PLUGINS=grafana-xyzchart-panel, grafana-polystat-panel
-      - DS_LOKI=Loki
-      - DS_PROM=Mimir
     depends_on:
       - loki
       - mimir
@@ -47,7 +45,7 @@ services:
     volumes:
       - ./docs/examples/config/grafana/provisioning:/etc/grafana/provisioning
       - grafana_data:/var/lib/grafana
-      - ./docs/examples/grafana:/var/lib/grafana/dashboards
+      - ./docs/examples/grafana/provisioning:/var/lib/grafana/dashboards
 
   exporter:
     image: pubeldev/prusa_exporter:v1.0.rc1
