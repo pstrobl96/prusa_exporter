@@ -19,13 +19,13 @@ services:
       - prusa
 
   mimir:
-    image: grafana/mimir:2.10.5
-    command: ["-config.file=/etc/mimir.yaml"]
-    hostname: mimir
+    image: grafana/mimir:2.11.0
     volumes:
-      - ./config/mimir.yaml:/etc/mimir.yaml
-      - ./config/alertmanager-fallback-config.yaml:/etc/alertmanager-fallback-config.yaml
-      - mimir-data:/data
+      - ./mimir/config:/etc/mimir-config
+      - mimir_data:/var/lib/mimir
+    entrypoint:
+      - /bin/mimir
+      - -config.file=/etc/mimir-config/mimir.yaml
 
   grafana:
     image: grafana/grafana:10.3.5

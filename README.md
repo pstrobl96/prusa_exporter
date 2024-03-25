@@ -106,7 +106,7 @@ docker compose up
 
 ## Grafana Dashboards
 
-I also prepared one dashboard per board which you can find in the [docs/examples/grafana](docs/examples/grafana) folder.
+I also prepared one dashboard per board which you can find in the [docs/examples/grafana](docs/examples/config/grafana/provisioning) folder.
 
 ### Prusa Link
 
