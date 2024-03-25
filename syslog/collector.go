@@ -46,7 +46,7 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 		}
 		ch <- prometheus.MustNewConstMetric(collector.printerSyslogUp, prometheus.GaugeValue, prusalink.BoolToFloat(alive), getLabels(mac, ip, []string{})...)
 
-		if !alive {
+		if alive {
 			for k, v := range v {
 				var (
 					collectorItem *prometheus.Desc
