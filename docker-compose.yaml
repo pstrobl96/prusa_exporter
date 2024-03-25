@@ -4,89 +4,76 @@ networks:
   prusa:
 
 volumes:
-  prometheus_data:
-  grafana_storage:
+  mimir_data:
+  grafana_data:
+  prusa_syslog_logs:
 
 services:
-  node-exporter:
-    image: prom/node-exporter:v1.5.0
-    container_name: node-exporter
-    restart: unless-stopped
+  loki:
+    image: grafana/loki:2.9.6
+    container_name: loki
     volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command:
-      - '--path.procfs=/host/proc'
-      - '--path.rootfs=/rootfs'
-      - '--path.sysfs=/host/sys'
-      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
-    ports:
-      - "9100:9100"
+      - ./docs/examples/config/on_premise/loki.yaml:/etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml
     networks:
       - prusa
 
-  prometheus:
-    image: prom/prometheus:v2.49.1
-    container_name: prometheus
-    restart: unless-stopped
+  mimir:
+    image: grafana/mimir:latest
+    command: ["-config.file=/etc/mimir.yaml"]
+    hostname: mimir
     volumes:
-      - ./docs/examples/config/on_premise/prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus_data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/etc/prometheus/console_libraries'
-      - '--web.console.templates=/etc/prometheus/consoles'
-      - '--web.enable-lifecycle'
-      - '--storage.tsdb.retention.time=14d'
-    ports:
-      - "9090:9090"
-    networks:
-      - prusa
-
-  promtail:
-    image: grafana/promtail:2.8.0
-    container_name: promtail
-    volumes:
-      - ./docs/examples/config/on_premise/promtail.yaml:/etc/promtail/config.yml
-      - /var/log:/var/log
-    command: -config.file=/etc/promtail/config.yml
-    networks:
-      - prusa
-
-  exporter:
-    image: pubeldev/prusa_exporter:latest
-    container_name: exporter
-    volumes:
-      - type: bind
-        source: ./docs/examples/config/common/prusa.yml
-        target: /app/prusa.yml
-    ports:
-      - "10007:10007/udp"
-      - "10008:10008"
-      - "10009:10009"
-    command: '--config.file=/app/prusa.yml'
-    networks:
-      - prusa
+      - ./config/mimir.yaml:/etc/mimir.yaml
+      - ./config/alertmanager-fallback-config.yaml:/etc/alertmanager-fallback-config.yaml
+      - mimir-data:/data
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:10.3.5
     container_name: grafana
+    depends_on:
+      - loki
+      - mimir
     ports:
       - "3000:3000"
     networks:
       - prusa
     volumes:
-      - grafana_storage:/var/lib/grafana
+      - grafana_data:/var/lib/grafana
 
-  loki:
-    image: grafana/loki:2.9.1
-    container_name: loki
-    ports:
-      - "3100:3100"
+  exporter:
+    image: pubeldev/prusa-exporter:v1.0.rc1
+    container_name: exporter
+    restart: unless-stopped
     volumes:
-      - ./docs/examples/config/on_premise/loki.yaml:/etc/loki/local-config.yaml
-    command: -config.file=/etc/loki/local-config.yaml
+      - prusa_syslog_logs:/var/log/prusa
+      - type: bind
+        source: /boot/firmware/prusa.yml
+        target: /app/prusa.yml
+    ports:
+      - "10007:10007/udp"
+      - "10008:10008/udp"
+      - "10009:10009"
+    command: '--config.file=/app/prusa.yml'
+    networks:
+      - prusa
+
+  agent:
+    image: grafana/agent:v0.39.2
+    container_name: grafana_agent
+    depends_on:
+      - exporter
+      - mimir
+    restart: unless-stopped
+    volumes:  
+      - /var/run/docker.sock:/var/run/docker.sock
+      - prusa_syslog_logs:/var/log/prusa
+      - type: bind
+        source: /boot/firmware/agent.yaml
+        target: /etc/agent-config/agent.yaml
+    entrypoint:
+      - /bin/grafana-agent
+      - -server.http.address=0.0.0.0:12345
+      - -config.file=/etc/agent-config/agent.yaml
+      - -metrics.wal-directory=/tmp/agent/wal
     networks:
       - prusa
