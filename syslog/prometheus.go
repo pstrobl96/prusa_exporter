@@ -1,6 +1,7 @@
 package syslog
 
 import (
+	"log"
 	"strconv"
 	"strings"
 
@@ -133,6 +134,9 @@ type Collector struct {
 // Returns a pointer to the created Collector.
 func NewCollector(syslogTTL int) *Collector {
 	defaultLabels := []string{"mac", "ip"}
+	if syslogTTL < 1 {
+		log.Panic("syslog TTL must be greater than 0")
+	}
 	ttl = syslogTTL
 	return &Collector{
 		printerActiveExtruder:        prometheus.NewDesc("prusa_active_extruder", "Active extruder - used for XL", defaultLabels, nil),
