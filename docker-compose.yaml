@@ -19,7 +19,7 @@ services:
       - prusa
 
   mimir:
-    image: grafana/mimir:latest
+    image: grafana/mimir:2.10.5
     command: ["-config.file=/etc/mimir.yaml"]
     hostname: mimir
     volumes:
@@ -58,7 +58,7 @@ services:
       - prusa
 
   agent:
-    image: grafana/agent:v0.39.2
+    image: grafana/agent:v0.40.3
     container_name: grafana_agent
     depends_on:
       - exporter
