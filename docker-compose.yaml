@@ -19,7 +19,7 @@ services:
       - prusa
 
   mimir:
-    image: grafana/mimir:2.9.0
+    image: grafana/mimir:2.11.0
     container_name: mimir
     volumes:
       - ./docs/examples/config/on_premise/mimir.yaml:/etc/mimir-config/mimir.yaml
