@@ -57,7 +57,7 @@ services:
     volumes:
       - prusa_syslog_logs:/var/log/prusa
       - type: bind
-        source: ./prusa.yml
+        source: ./docs/examples/config/common/prusa.yml
         target: /app/prusa.yml
     ports:
       - "10007:10007/udp"
