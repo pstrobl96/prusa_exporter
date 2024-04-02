@@ -14,8 +14,11 @@ import (
 var (
 	printerBoards = map[string]string{
 		"MINI":    "buddy",
+		"MK35":    "buddy",
+		"MK39":    "buddy",
 		"MK4":     "buddy",
 		"XL":      "buddy",
+		"IX":      "buddy",
 		"I3MK3S":  "einsy",
 		"I3MK3":   "einsy",
 		"I3MK25S": "einsy",
@@ -24,6 +27,7 @@ var (
 		"SL1S":    "sl",
 	}
 
+	// used for autodetection - does not work with changed hostname :sad:
 	printerTypes = map[string]string{
 		"PrusaMINI":         "MINI",
 		"PrusaMK4":          "MK4", // unfortunately MK3.5 is also detected as MK4
@@ -34,7 +38,7 @@ var (
 		"PrusaLink I3MK25":  "I3MK25",
 		"prusa-sl1":         "SL1",
 		"prusa-sl1s":        "SL1S",
-		"Prusa_iX":          "iX", // can be found in src/common/config.h in firmware source code
+		"Prusa_iX":          "IX", // can be found in src/common/config.h in firmware source code
 	}
 
 	configuration config.Config
