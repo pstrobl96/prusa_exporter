@@ -14,6 +14,8 @@ import (
 var (
 	printerBoards = map[string]string{
 		"MINI":    "buddy",
+		"MK35":    "buddy",
+		"MK39":    "buddy",
 		"MK4":     "buddy",
 		"XL":      "buddy",
 		"I3MK3S":  "einsy",
@@ -24,6 +26,7 @@ var (
 		"SL1S":    "sl",
 	}
 
+	// used for autodetection - does not work with changed hostname :sad:
 	printerTypes = map[string]string{
 		"PrusaMINI":         "MINI",
 		"PrusaMK4":          "MK4", // unfortunately MK3.5 is also detected as MK4

@@ -62,13 +62,17 @@ exporter:
 
 Note: Currently, you can not log into Einsy (Raspberry Pi Zero) boards with username and password. You need to generate an API key in Prusa Link settings. This will be resolved in a future release.
 
+It is recommended to also fill `field` type in configuration. Exporter can detect type automatically but it does not work with **Prusa Connect** and it would not detect the printer model correctly.
+
 ```
 printers:
   - address: <address_of_printer>
     username: maker
     password: <password>
     name: <your_printer_name> # optional
+    type: MINI # or MK35 / MK39 / MK4 / XL
   - address: <address_of_printer>
     apikey: <apikey>
     name: <your_printer_name> # optional
+    type: I3MK25 # or I3MK25S / I3MK3 / I3MK3S
 ```
