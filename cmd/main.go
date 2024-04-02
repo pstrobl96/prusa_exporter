@@ -42,15 +42,15 @@ func Run() {
 	zerolog.SetGlobalLevel(logLevel)
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnixNano
 
-	config, err = probeConfigFile(config)
-
-	if err != nil {
-		log.Error().Msg("Error probing configuration file " + err.Error())
-		os.Exit(1)
-	}
 	var collectors []prometheus.Collector
 
 	if config.Exporter.Prusalink.Enabled {
+		config, err = probeConfigFile(config)
+
+		if err != nil {
+			log.Error().Msg("Error probing configuration file " + err.Error())
+			os.Exit(1)
+		}
 		log.Info().Msg("PrusaLink metrics enabled!")
 		collectors = append(collectors, prusalink.NewCollector(config))
 	}
