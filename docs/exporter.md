@@ -64,13 +64,31 @@ Note: Currently, you can not log into Einsy (Raspberry Pi Zero) boards with user
 
 It is recommended to also fill `field` type in configuration. Exporter can detect type automatically but it does not work with **Prusa Connect** and it would not detect the printer model correctly.
 
+Allowed types are following
+
+| Printer model      | type    |
+|--------------------|---------|
+| Prusa XL           | XL      |
+| Prusa MK4          | MK4     |
+| Prusa MK3.9        | MK3     |
+| Prusa MK3.5        | MK35    |
+| Prusa Mini         | MINI    |
+| Prusa i3 MK3S(+)   | I3MK3S  |
+| Prusa i3 MK3       | I3MK3   |
+| Prusa i3 MK2.5S    | I3MK25S |
+| Pursa i3 MK2.5     | I3MK25  |
+| Prusa SL1          | SL1     |
+| Prusa SL1S (Speed) | SL1S    |
+| Prusa M1           | SL1S    |
+| Prusa iX (AFS)     | IX      |
+
 ```
 printers:
   - address: <address_of_printer>
     username: maker
     password: <password>
     name: <your_printer_name> # optional
-    type: MINI # or MK35 / MK39 / MK4 / XL
+    type: MINI # or MK35 / MK39 / MK4 / XL / IX
   - address: <address_of_printer>
     apikey: <apikey>
     name: <your_printer_name> # optional

@@ -18,6 +18,7 @@ var (
 		"MK39":    "buddy",
 		"MK4":     "buddy",
 		"XL":      "buddy",
+		"IX":      "buddy",
 		"I3MK3S":  "einsy",
 		"I3MK3":   "einsy",
 		"I3MK25S": "einsy",
@@ -37,7 +38,7 @@ var (
 		"PrusaLink I3MK25":  "I3MK25",
 		"prusa-sl1":         "SL1",
 		"prusa-sl1s":        "SL1S",
-		"Prusa_iX":          "iX", // can be found in src/common/config.h in firmware source code
+		"Prusa_iX":          "IX", // can be found in src/common/config.h in firmware source code
 	}
 
 	configuration config.Config
