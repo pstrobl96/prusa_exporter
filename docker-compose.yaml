@@ -51,7 +51,7 @@ services:
       - ./docs/examples/grafana/provisioning:/var/lib/grafana/dashboards
 
   exporter:
-    image: pubeldev/prusa_exporter:v1.0.rc1
+    image: pubeldev/prusa_exporter:v1.0.rc2
     container_name: exporter
     restart: unless-stopped
     volumes:
