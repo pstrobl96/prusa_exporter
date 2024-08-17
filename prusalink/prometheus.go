@@ -22,6 +22,7 @@ type Collector struct {
 	printerNozzleSize         *prometheus.Desc
 	printerStatus             *prometheus.Desc
 	printerAxis               *prometheus.Desc
+	printerZHeight            *prometheus.Desc
 	printerFlow               *prometheus.Desc
 	printerInfo               *prometheus.Desc
 	printerMMU                *prometheus.Desc
@@ -62,6 +63,7 @@ func NewCollector(config config.Config) *Collector {
 		printerNozzleSize:         prometheus.NewDesc("prusa_nozzle_size_meters", "Returns information about selected nozzle size.", defaultLabels, nil),
 		printerStatus:             prometheus.NewDesc("prusa_status_info", "Returns information status of printer.", append(defaultLabels, "printer_state"), nil),
 		printerAxis:               prometheus.NewDesc("prusa_axis", "Returns information about position of axis.", append(defaultLabels, "printer_axis"), nil),
+		printerZHeight:            prometheus.NewDesc("prusa_z_height_meters", "Returns information about current height of Z axis.", defaultLabels, nil),
 		printerFlow:               prometheus.NewDesc("prusa_print_flow_ratio", "Returns information about of filament flow in ratio (0.0 - 1.0).", defaultLabels, nil),
 		printerInfo:               prometheus.NewDesc("prusa_info", "Returns information about printer.", append(defaultLabels, "api_version", "server_version", "version_text", "prusalink_name", "printer_location", "serial_number", "printer_hostname"), nil),
 		printerMMU:                prometheus.NewDesc("prusa_mmu", "Returns information if MMU is enabled.", defaultLabels, nil),
@@ -100,6 +102,7 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerNozzleSize
 	ch <- collector.printerStatus
 	ch <- collector.printerAxis
+	ch <- collector.printerZHeight
 	ch <- collector.printerFlow
 	ch <- collector.printerInfo
 	ch <- collector.printerMMU
@@ -308,6 +311,13 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 					GetLabels(s, job, "z")...)
 
 				ch <- printerAxisZ
+
+				printerZHeight := prometheus.MustNewConstMetric(
+					collector.printerZHeight, prometheus.GaugeValue,
+					printer.Telemetry.ZHeight/1000,
+					GetLabels(s, job)...)
+
+				ch <- printerZHeight
 
 				printerFlow := prometheus.MustNewConstMetric(collector.printerFlow, prometheus.GaugeValue,
 					status.Printer.Flow/100, GetLabels(s, job)...)
