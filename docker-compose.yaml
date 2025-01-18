@@ -54,8 +54,6 @@ services:
         source: ./docs/examples/config/common/prusa.yml
         target: /app/prusa.yml
     ports:
-      - "10007:10007/udp"
-      - "10008:10008/udp"
       - "10009:10009"
     command: '--config.file=/app/prusa.yml'
     networks:
@@ -80,9 +78,9 @@ services:
 
   influxproxy:
     build: 
-      context: https://github.com/grafana/influx2cortex.git#main
-    networks:
-      - prusa      dockerfile_inline: |
+      context: https://github.com/grafana/influx2cortex.git#9be4cafaefe490d61ec2d1e203631741fdf5c59d # better safe than sorry
+      network: host
+      dockerfile_inline: |
         FROM golang:1.23-alpine as build
         RUN apk add --update --no-cache git coreutils
         WORKDIR /go/src/github.com/grafana/influx2cortex
