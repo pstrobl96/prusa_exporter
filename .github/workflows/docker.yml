@@ -6,7 +6,7 @@ name: docker
 on:
   push:
     tags:
-      - v*.**.**
+      - *.**.**
 
 jobs:
   audit:
