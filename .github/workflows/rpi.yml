@@ -3,7 +3,7 @@ name: rpi
 on:
   push:
     tags:
-      - v*.**.**
+      - *.**.**
 
 jobs: 
   image-creation:
