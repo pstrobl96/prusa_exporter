@@ -4,43 +4,37 @@ networks:
   prusa:
 
 volumes:
-  mimir_data:
+  prometheus_data:
   grafana_data:
   prusa_syslog_logs:
 
 services:
-  loki:
-    image: grafana/loki:2.9.6
-    container_name: loki
-    restart: unless-stopped
+  prometheus:
+    image: prom/prometheus:v3.1.0
+    container_name: prometheus
     volumes:
-      - ./docs/examples/config/on_premise/loki.yaml:/etc/loki/local-config.yaml
-    command: -config.file=/etc/loki/local-config.yaml
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    ports:
+      - 9090:9090
+    depends_on:
+      - cadvisor
     networks:
       - prusa
-
-  mimir:
-    image: grafana/mimir:2.11.0
-    container_name: mimir
-    restart: unless-stopped
-    volumes:
-      - ./docs/examples/config/on_premise/mimir.yaml:/etc/mimir-config/mimir.yaml
-      - mimir_data:/data
-    entrypoint:
-      - /bin/mimir
-      - -config.file=/etc/mimir-config/mimir.yaml
-    networks:
-      - prusa
+    restart: always
 
   grafana:
-    image: grafana/grafana:10.4.1
+    image: grafana/grafana:11.4.0
     container_name: grafana
     restart: unless-stopped
     environment:
       - GF_INSTALL_PLUGINS=grafana-xyzchart-panel, grafana-polystat-panel
     depends_on:
       - loki
-      - mimir
+      - prometheus
     ports:
       - "3000:3000"
     networks:
@@ -67,23 +61,51 @@ services:
     networks:
       - prusa
 
-  agent:
-    image: grafana/agent:v0.40.3
-    container_name: agent
-    depends_on:
-      - exporter
-      - mimir
+  prusa_metrics_handler:
+    image: pubeldev/prusa_metrics_handler:v0.1.0
+    container_name: prusa_metrics_handler
     restart: unless-stopped
-    volumes:  
-      - /var/run/docker.sock:/var/run/docker.sock
-      - prusa_syslog_logs:/var/log/prusa
-      - type: bind
-        source: ./docs/examples/config/on_premise/agent.yaml
-        target: /etc/agent-config/agent.yaml
-    entrypoint:
-      - /bin/grafana-agent
-      - -server.http.address=0.0.0.0:12345
-      - -config.file=/etc/agent-config/agent.yaml
-      - -metrics.wal-directory=/tmp/agent/wal
+    command: 
+      - "--influx-url=http://influxproxy:8007"
+      - "--influx-org=pubeldev"
+      - "--influx-bucket=prusa"
+      - "--influx-token=null"
+    ports:
+      - 10011:10011 # prometheus metrics
+      - 8514:8514/udp
+    depends_on:
+      - influxproxy
+    networks:
+      - prusa
+
+  influxproxy:
+    build: 
+      context: https://github.com/grafana/influx2cortex.git#main
+    networks:
+      - prusa      dockerfile_inline: |
+        FROM golang:1.23-alpine as build
+        RUN apk add --update --no-cache git coreutils
+        WORKDIR /go/src/github.com/grafana/influx2cortex
+        COPY . .
+        RUN go mod download
+        RUN go build -o /bin/influx2cortex ./cmd/influx2cortex
+        FROM alpine:3.12
+        RUN apk add --update --no-cache ca-certificates
+        RUN addgroup -g 1000 app && \
+          adduser -u 1000 -h /app -G app -S app
+        WORKDIR /app
+        USER app
+        COPY --from=build /bin/influx2cortex /bin/influx2cortex
+        ENTRYPOINT [ "/bin/influx2cortex" ]
+    container_name: influxproxy
+    entrypoint: 
+    - "/bin/influx2cortex"
+    - "-auth.enable=false"
+    - "-server.http-listen-port=8007"
+    - "-write-endpoint=http://prometheus:9090/api/v1/write"
+    pull_policy: build
+    restart: unless-stopped
+    depends_on:
+      - prometheus
     networks:
       - prusa
