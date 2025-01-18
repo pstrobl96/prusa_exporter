@@ -55,7 +55,9 @@ services:
         target: /app/prusa.yml
     ports:
       - "10009:10009"
-    command: '--config.file=/app/prusa.yml'
+    command: 
+      - "--config.file=/app/prusa.yml"
+      - "--prusalink.scrape-interval=20"
     networks:
       - prusa
 

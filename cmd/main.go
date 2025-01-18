@@ -10,16 +10,16 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/pstrobl96/prusa_exporter/config"
 	"github.com/pstrobl96/prusa_exporter/prusalink"
-	"github.com/pstrobl96/prusa_exporter/syslog"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
 
 var (
-	configFile  = kingpin.Flag("config.file", "Configuration file for prusa_exporter.").Default("./prusa.yml").ExistingFile()
-	metricsPath = kingpin.Flag("exporter.metrics-path", "Path where to expose metrics.").Default("/metrics").String()
-	metricsPort = kingpin.Flag("exporter.metrics-port", "Port where to expose metrics.").Default("10009").Int()
-	syslogTTL   = kingpin.Flag("syslog.ttl", "TTL for syslog metrics in seconds.").Default("60").Int()
+	configFile              = kingpin.Flag("config.file", "Configuration file for prusa_exporter.").Default("./prusa.yml").ExistingFile()
+	metricsPath             = kingpin.Flag("exporter.metrics-path", "Path where to expose metrics.").Default("/metrics").String()
+	metricsPort             = kingpin.Flag("exporter.metrics-port", "Port where to expose metrics.").Default("10009").Int()
+	prusaLinkScrapeInterval = kingpin.Flag("prusalink.scrape-interval", "Interval in seconds to scrape prusalink metrics.").Default("60").Int()
+	prusaLinkScrapeTimeout  = kingpin.Flag("prusalink.scrape-timeout", "Timeout in seconds to scrape prusalink metrics.").Default("10").Int()
 )
 
 // Run function to start the exporter
@@ -53,24 +53,6 @@ func Run() {
 		}
 		log.Info().Msg("PrusaLink metrics enabled!")
 		collectors = append(collectors, prusalink.NewCollector(config))
-	}
-
-	if config.Exporter.Syslog.Metrics.Enabled {
-		log.Info().Msg("Syslog metrics enabled!")
-		log.Info().Msg("Syslog metrics server starting at: " + config.Exporter.Syslog.Metrics.ListenAddress)
-		go syslog.HandleMetrics(config.Exporter.Syslog.Metrics.ListenAddress)
-		collectors = append(collectors, syslog.NewCollector(*syslogTTL))
-	}
-
-	if config.Exporter.Syslog.Logs.Enabled {
-		log.Info().Msg("Syslog logs enabled!")
-		log.Info().Msg("Syslog logs server starting at: " + config.Exporter.Syslog.Logs.ListenAddress)
-		go syslog.HandleLogs(config.Exporter.Syslog.Logs.ListenAddress,
-			config.Exporter.Syslog.Logs.Directory,
-			config.Exporter.Syslog.Logs.Filename,
-			config.Exporter.Syslog.Logs.MaxSize,
-			config.Exporter.Syslog.Logs.MaxBackups,
-			config.Exporter.Syslog.Logs.MaxAge)
 	}
 
 	if len(collectors) == 0 && !config.Exporter.Syslog.Logs.Enabled {
