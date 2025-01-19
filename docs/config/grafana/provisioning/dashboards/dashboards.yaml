@@ -1,8 +1,0 @@
-- name: 'dashboards'
-  org_id: 1
-  folder: ''
-  type: 'file'
-  disableDeletion: false
-  allowUiUpdates: true
-  options:
-    folder: '/var/lib/grafana/dashboards'
