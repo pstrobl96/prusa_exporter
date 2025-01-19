@@ -20,8 +20,6 @@ services:
       - '--storage.tsdb.path=/prometheus'
     ports:
       - 9090:9090
-    depends_on:
-      - cadvisor
     networks:
       - prusa
     restart: always
@@ -33,7 +31,6 @@ services:
     environment:
       - GF_INSTALL_PLUGINS=grafana-xyzchart-panel, grafana-polystat-panel
     depends_on:
-      - loki
       - prometheus
     ports:
       - "3000:3000"
@@ -45,7 +42,7 @@ services:
       - ./docs/examples/grafana/provisioning:/var/lib/grafana/dashboards
 
   exporter:
-    image: pubeldev/prusa_exporter:v1.0.rc2
+    build: .
     container_name: exporter
     restart: unless-stopped
     volumes:
@@ -62,7 +59,7 @@ services:
       - prusa
 
   prusa_metrics_handler:
-    image: pubeldev/prusa_metrics_handler:v0.1.1
+    image: pubeldev/prusa_metrics_handler:0.1.1
     container_name: prusa_metrics_handler
     restart: unless-stopped
     command: 
@@ -71,7 +68,7 @@ services:
       - "--influx-bucket=prusa"
       - "--influx-token=null"
     ports:
-      - 10011:10011 # prometheus metrics
+      - 10011:10011
       - 8514:8514/udp
     depends_on:
       - influxproxy
