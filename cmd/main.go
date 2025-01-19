@@ -9,7 +9,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/pstrobl96/prusa_exporter/config"
-	"github.com/pstrobl96/prusa_exporter/prusalink"
+	prusalink "github.com/pstrobl96/prusa_exporter/prusalink/buddy"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
