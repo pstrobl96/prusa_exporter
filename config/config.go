@@ -10,26 +10,9 @@ import (
 // Config struct for the configuration file prusa.yml
 type Config struct {
 	Exporter struct {
-		ScrapeTimeout int    `yaml:"scrape_timeout"`
-		LogLevel      string `yaml:"log_level"`
-		Prusalink     struct {
-			Enabled bool `yaml:"enabled"`
-		} `yaml:"prusalink"`
-		Syslog struct {
-			Metrics struct {
-				Enabled       bool   `yaml:"enabled"`
-				ListenAddress string `yaml:"listen_address"`
-			} `yaml:"metrics"`
-			Logs struct {
-				Enabled       bool   `yaml:"enabled"`
-				ListenAddress string `yaml:"listen_address"`
-				Directory     string `yaml:"directory"`
-				Filename      string `yaml:"filename"`
-				MaxSize       int    `yaml:"max_size"`
-				MaxBackups    int    `yaml:"max_backups"`
-				MaxAge        int    `yaml:"max_age"`
-			} `yaml:"logs"`
-		} `yaml:"syslog"`
+		ScrapeTimeout int `yaml:"scrape_timeout"`
+
+		LogLevel string `yaml:"log_level"`
 	} `yaml:"exporter"`
 	Printers []Printers `yaml:"printers"`
 }
@@ -46,7 +29,7 @@ type Printers struct {
 }
 
 // LoadConfig function to load and parse the configuration file
-func LoadConfig(path string) (Config, error) {
+func LoadConfig(path string, prusaLinkScrapeTimeout int) (Config, error) {
 	var config Config
 	file, err := os.ReadFile(path)
 
@@ -57,6 +40,7 @@ func LoadConfig(path string) (Config, error) {
 	if err := yaml.Unmarshal(file, &config); err != nil {
 		return config, err
 	}
+	config.Exporter.ScrapeTimeout = prusaLinkScrapeTimeout
 
 	return config, err
 }

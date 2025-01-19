@@ -15,11 +15,11 @@ import (
 )
 
 var (
-	configFile              = kingpin.Flag("config.file", "Configuration file for prusa_exporter.").Default("./prusa.yml").ExistingFile()
-	metricsPath             = kingpin.Flag("exporter.metrics-path", "Path where to expose metrics.").Default("/metrics").String()
-	metricsPort             = kingpin.Flag("exporter.metrics-port", "Port where to expose metrics.").Default("10009").Int()
-	prusaLinkScrapeInterval = kingpin.Flag("prusalink.scrape-interval", "Interval in seconds to scrape prusalink metrics.").Default("60").Int()
-	prusaLinkScrapeTimeout  = kingpin.Flag("prusalink.scrape-timeout", "Timeout in seconds to scrape prusalink metrics.").Default("10").Int()
+	configFile             = kingpin.Flag("config.file", "Configuration file for prusa_exporter.").Default("./prusa.yml").ExistingFile()
+	metricsPath            = kingpin.Flag("exporter.metrics-path", "Path where to expose metrics.").Default("/metrics").String()
+	metricsPort            = kingpin.Flag("exporter.metrics-port", "Port where to expose metrics.").Default("10009").Int()
+	prusaLinkScrapeTimeout = kingpin.Flag("prusalink.scrape-timeout", "Timeout in seconds to scrape prusalink metrics.").Default("10").Int()
+	logLevel               = kingpin.Flag("log.level", "Log level for zerolog.").Default("info").String()
 )
 
 // Run function to start the exporter
@@ -28,13 +28,13 @@ func Run() {
 	log.Info().Msg("Prusa exporter starting")
 	log.Info().Msg("Loading configuration file: " + *configFile)
 
-	config, err := config.LoadConfig(*configFile)
+	config, err := config.LoadConfig(*configFile, *prusaLinkScrapeTimeout)
 	if err != nil {
 		log.Error().Msg("Error loading configuration file " + err.Error())
 		os.Exit(1)
 	}
 
-	logLevel, err := zerolog.ParseLevel(config.Exporter.LogLevel)
+	logLevel, err := zerolog.ParseLevel(*logLevel)
 
 	if err != nil {
 		logLevel = zerolog.InfoLevel // default log level
@@ -44,21 +44,14 @@ func Run() {
 
 	var collectors []prometheus.Collector
 
-	if config.Exporter.Prusalink.Enabled {
-		config, err = probeConfigFile(config)
+	config, err = probeConfigFile(config)
 
-		if err != nil {
-			log.Error().Msg("Error probing configuration file " + err.Error())
-			os.Exit(1)
-		}
-		log.Info().Msg("PrusaLink metrics enabled!")
-		collectors = append(collectors, prusalink.NewCollector(config))
-	}
-
-	if len(collectors) == 0 && !config.Exporter.Syslog.Logs.Enabled {
-		log.Error().Msg("No collectors or logs registered")
+	if err != nil {
+		log.Error().Msg("Error probing configuration file " + err.Error())
 		os.Exit(1)
 	}
+	log.Info().Msg("PrusaLink metrics enabled!")
+	collectors = append(collectors, prusalink.NewCollector(config))
 
 	prometheus.MustRegister(collectors...)
 	log.Info().Msg("Metrics registered")
