@@ -9,9 +9,9 @@
 
 If you saw this repository earlier then you probably notice a bit changes. I basically removed most features as `feature-creep` was getting worse and worse and I'm aiming for simpler setup and much higher code quality, that is why version 1.0.0 is skipped and `Vistaized` - first final version is going to be 2.0.0.
 
-- [ ] [prusa_metric_handler]() integration for getting syslog metrics
-- [ ] [prusa_log_processor]() integration for processing logs
-- [ ] [prusa_exporter]() where apart of logs and syslog metrics are going to be processed as well metrics from Prusa Link
+- [ ] [prusa_metric_handler](https://github.com/pstrobl96/prusa_metrics_handler) integration for getting syslog metrics
+- [ ] [prusa_log_processor](https://github.com/pstrobl96/prusa_log_processor) integration for processing logs
+- [ ] [prusa_exporter](https://github.com/pstrobl96/prusa_exporter) where apart of logs and syslog metrics are going to be processed as well metrics from Prusa Link. It's like bundle for all three components
 
 ---
 
