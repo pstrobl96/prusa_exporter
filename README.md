@@ -5,13 +5,24 @@
 ![tag](https://img.shields.io/github/v/tag/pstrobl96/prusa_exporter) 
 ![license](https://img.shields.io/github/license/pstrobl96/prusa_exporter)
 
-# Prusa Exporter - formerly Buddy Link Prometheus Exporter
+# prusa_exporter
+
+If you saw this repository earlier then you probably notice a bit changes. I basically removed most features as `feature-creep` was getting worse and worse and I'm aiming for simpler setup and much higher code quality, that is why version 1.0.0 is skipped and `Vistaized` - first final version is going to be 2.0.0.
+
+- [ ] [prusa_metric_handler]() integration for getting syslog metrics
+- [ ] [prusa_log_processor]() integration for processing logs
+- [ ] [prusa_exporter]() where apart of logs and syslog metrics are going to be processed as well metrics from Prusa Link
+
+---
+
+# OLD README.md
 
 This is an implementation of Prometheus Exporter for Prusa printers running Buddy boards (Prusa MK4, XL, and Mini), Einsy boards (Prusa MK3(S(+)) with Prusa Link installed) or resin printers (SL1). Multi-target is supported out of the box so you can check any number of printers as long it has accessible Prusa Link API and you have enough computing power.
 
 For MK3S with Einsy board you need to use at least version 0.7.0 of Prusa Link or higher, because there are many more metrics to scrape than in the older versions. You can find the most up to date version in the [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/releases).
 
-- [Prusa Exporter - formerly Buddy Link Prometheus Exporter](#prusa-exporter---formerly-buddy-link-prometheus-exporter)
+- [prusa\_exporter](#prusa_exporter)
+- [OLD README.md](#old-readmemd)
   - [Where to find prusa exporter](#where-to-find-prusa-exporter)
   - [Roadmap](#roadmap)
   - [How to install prusa exporter](#how-to-install-prusa-exporter)
