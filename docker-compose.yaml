@@ -6,7 +6,6 @@ networks:
 volumes:
   prometheus_data:
   grafana_data:
-  prusa_syslog_logs:
 
 services:
   prometheus:
