@@ -5,6 +5,8 @@
 ![tag](https://img.shields.io/github/v/tag/pstrobl96/prusa_exporter) 
 ![license](https://img.shields.io/github/license/pstrobl96/prusa_exporter)
 
+# THE REPOSITORY IS UNDER RECONSTRUCTION
+
 # prusa_exporter
 
 If you've seen this repository before, you've probably noticed some minor changes. Basically I removed most of the features because `feature-creep` was getting worse and worse and I'm aiming for a simpler setup and much higher quality code, so version 1.0.0 is skipped and `Vistaized` - the first final version will be 2.0.0.
@@ -21,6 +23,7 @@ This is an implementation of Prometheus Exporter for Prusa printers running Budd
 
 For MK3S with Einsy board you need to use at least version 0.7.0 of Prusa Link or higher, because there are many more metrics to scrape than in the older versions. You can find the most up to date version in the [Prusa Link repository](https://github.com/prusa3d/Prusa-Link/releases).
 
+- [THE REPOSITORY IS UNDER RECONSTRUCTION](#the-repository-is-under-reconstruction)
 - [prusa\_exporter](#prusa_exporter)
 - [OLD README.md](#old-readmemd)
   - [Where to find prusa exporter](#where-to-find-prusa-exporter)
