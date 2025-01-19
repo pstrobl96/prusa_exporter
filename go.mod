@@ -7,8 +7,6 @@ require (
 	github.com/icholy/digest v0.1.22
 	github.com/prometheus/client_golang v1.18.0
 	github.com/rs/zerolog v1.32.0
-	gopkg.in/mcuadros/go-syslog.v2 v2.3.0
-	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 	gopkg.in/yaml.v3 v3.0.1
 )
 
