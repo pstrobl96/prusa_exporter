@@ -83,10 +83,25 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 			defer wg.Done()
 
 			log.Debug().Msg("Printer scraping at " + s.Address)
+			// printerUp
 			printerUp := prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
 				0, s.Address, s.Type, s.Name)
 
 			// here goes all metrics lolz
+
+			// printerPrintSpeed
+			// printerFiles
+			// printerPrintTime
+			// printerPrintTimeRemaining
+			// printerPrintProgressRatio
+			// printerMaterial
+			// printerNozzleSize
+			// printerStatus
+			// printerAxis
+			// printerFlow
+			// printerInfo
+			// printerMMU
+			// printerFanSpeed
 
 			printerUp = prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
 				1, s.Address, s.Type, s.Name)
