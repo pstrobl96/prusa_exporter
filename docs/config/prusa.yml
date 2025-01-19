@@ -1,0 +1,10 @@
+printers:
+  - address: <address_of_printer>
+    username: maker
+    password: <password>
+    name: <your_printer_name> # optional
+    type: MINI # or MK35 / MK39 / MK4 / XL / IX
+  - address: <address_of_printer>
+    apikey: <apikey>
+    name: <your_printer_name> # optional
+    type: I3MK25 # or I3MK25S / I3MK3 / I3MK3S
