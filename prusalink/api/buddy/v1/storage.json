@@ -1,11 +1,11 @@
 {
-    "storage_list": [
+  "storage_list": [
       {
-        "path": "/usb/",
-        "name": "usb",
-        "type": "USB",
-        "read_only": false,
-        "available": true
+          "path": "/usb/",
+          "name": "usb",
+          "type": "USB",
+          "read_only": false,
+          "available": true
       }
-    ]
-  }
+  ]
+}
