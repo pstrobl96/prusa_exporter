@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	printerBoards = map[string]string{
+	/*printerBoards = map[string]string{
 		"MINI":    "buddy",
 		"MK35":    "buddy",
 		"MK39":    "buddy",
@@ -25,7 +25,7 @@ var (
 		"I3MK25":  "einsy",
 		"SL1":     "sl",
 		"SL1S":    "sl",
-	}
+	}*/
 
 	// used for autodetection - does not work with changed hostname :sad:
 	printerTypes = map[string]string{
