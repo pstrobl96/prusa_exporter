@@ -13,7 +13,6 @@ import (
 type Collector struct {
 	printerTemp               *prometheus.Desc
 	printerTempTarget         *prometheus.Desc
-	printerPrintSpeed         *prometheus.Desc
 	printerPrintTime          *prometheus.Desc
 	printerPrintTimeRemaining *prometheus.Desc
 	printerPrintProgressRatio *prometheus.Desc
