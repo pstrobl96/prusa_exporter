@@ -110,7 +110,7 @@ func accessPrinterEndpoint(path string, printer config.Printers) ([]byte, error)
 				Username: printer.Username,
 				Password: printer.Password,
 			},
-			Timeout: time.Duration(configuration.Exporter.ScrapeTimeout) * time.Millisecond,
+			Timeout: 5 * time.Duration(configuration.Exporter.ScrapeTimeout) * time.Second,
 		}
 		res, err = client.Get(url)
 
@@ -120,7 +120,7 @@ func accessPrinterEndpoint(path string, printer config.Printers) ([]byte, error)
 	} else {
 		req, err := http.NewRequest("GET", url, nil)
 		client := &http.Client{
-			Timeout: time.Duration(configuration.Exporter.ScrapeTimeout) * time.Millisecond,
+			Timeout: 5 * time.Duration(configuration.Exporter.ScrapeTimeout) * time.Second,
 		}
 
 		if err != nil {
