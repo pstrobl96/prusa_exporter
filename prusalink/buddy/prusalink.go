@@ -1,7 +1,11 @@
 package prusalink
 
 import (
+	"bytes"
+	"encoding/base64"
 	"encoding/json"
+	"image"
+	"image/png"
 	"io"
 	"net/http"
 	"time"
@@ -295,6 +299,41 @@ func GetPrinterProfiles(printer config.Printers) (PrinterProfiles, error) {
 	err = json.Unmarshal(response, &profiles)
 
 	return profiles, err
+}
+
+// GetJobImage is used to get the printer's job image from API
+func GetJobImage(printer config.Printers, imagePath string) (string, error) { // returns base64 encoded image
+	//http://192.168.20.50/thumb/l/usb/PYTHON~1.BGC
+	response, err := accessPrinterEndpoint("/thumb/l"+imagePath, printer)
+
+	image, err := compressPNG(response, -2)
+
+	if err != nil {
+		return "", err
+	}
+
+	return base64.StdEncoding.EncodeToString(image), err
+}
+
+func compressPNG(input []byte, compressionLevel png.CompressionLevel) ([]byte, error) {
+	img, _, err := image.Decode(bytes.NewReader(input))
+
+	if err != nil {
+		return nil, err
+	}
+
+	var compressedBuffer bytes.Buffer
+	encoder := png.Encoder{
+		CompressionLevel: compressionLevel,
+	}
+
+	err = encoder.Encode(&compressedBuffer, img)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return compressedBuffer.Bytes(), nil
 }
 
 // GetPrinterType returns the printer type of the given printer - e.g. "MINI", "MK4", "XL", "I3MK3S", "I3MK3", "I3MK25S",
