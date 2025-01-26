@@ -11,7 +11,7 @@ services:
     container_name: grafana
     restart: unless-stopped
     environment:
-      - GF_INSTALL_PLUGINS=grafana-xyzchart-panel, grafana-polystat-panel
+      - GF_INSTALL_PLUGINS=grafana-xyzchart-panel, grafana-polystat-panel, yesoreyeram-infinity-datasource, volkovlabs-image-panel, betatech-qrcode-panel
     depends_on:
       - prometheus
     ports:
@@ -24,7 +24,8 @@ services:
       - ./docs/examples/grafana/provisioning:/var/lib/grafana/dashboards
 
   exporter:
-    image: pubeldev/prusa_exporter:latest
+    #image: pubeldev/prusa_exporter:latest
+    build: .
     container_name: exporter
     restart: unless-stopped
     volumes:

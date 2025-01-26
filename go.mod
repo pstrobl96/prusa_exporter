@@ -4,7 +4,7 @@ go 1.23
 
 require (
 	github.com/alecthomas/kingpin/v2 v2.4.0
-	github.com/icholy/digest v1.0.1
+	github.com/icholy/digest v1.1.0
 	github.com/prometheus/client_golang v1.20.5
 	github.com/rs/zerolog v1.33.0
 	gopkg.in/yaml.v3 v3.0.1
@@ -24,5 +24,5 @@ require (
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/xhit/go-str2duration/v2 v2.1.0 // indirect
 	golang.org/x/sys v0.29.0 // indirect
-	google.golang.org/protobuf v1.36.3 // indirect
+	google.golang.org/protobuf v1.36.4 // indirect
 )

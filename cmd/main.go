@@ -44,12 +44,6 @@ func Run() {
 
 	var collectors []prometheus.Collector
 
-	config, err = probeConfigFile(config)
-
-	if err != nil {
-		log.Error().Msg("Error probing configuration file " + err.Error())
-		os.Exit(1)
-	}
 	log.Info().Msg("PrusaLink metrics enabled!")
 	collectors = append(collectors, prusalink.NewCollector(config))
 
@@ -59,25 +53,4 @@ func Run() {
 	log.Info().Msg("Listening at port: " + strconv.Itoa(*metricsPort))
 	log.Fatal().Msg(http.ListenAndServe(":"+strconv.Itoa(*metricsPort), nil).Error())
 
-}
-
-func probeConfigFile(config config.Config) (config.Config, error) {
-	for i, printer := range config.Printers {
-		if printer.Type == "" {
-			status, err := prusalink.ProbePrinter(printer)
-			if err != nil {
-				log.Error().Msg(err.Error())
-			} else if status {
-
-				printerType, err := prusalink.GetPrinterType(printer)
-
-				if err != nil {
-					log.Error().Msg(err.Error())
-				}
-
-				config.Printers[i].Type = printerType
-			}
-		}
-	}
-	return config, nil
 }
