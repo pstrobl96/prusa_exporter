@@ -76,7 +76,7 @@ M331 eth_in
 
 ### Dashboard
 
-Pretty basic but nice and cozy dashboard for TV.
+Pretty basic but nice and cozy [dashboard](docs/config/grafana/provisioning/dashboards/Prusa%20Metrics%20TV-1737915696031.json) for TV.
 
 ![dashboard](docs/dashboard.png)
 
