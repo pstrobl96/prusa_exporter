@@ -101,7 +101,7 @@ func getStateFlag(printer Printer) float64 {
 
 // accessPrinterEndpoint is used to access the printer's API endpoint
 func accessPrinterEndpoint(path string, printer config.Printers) ([]byte, error) {
-	url := string("http://" + printer.Address + "/api/" + path)
+	url := string("http://" + printer.Address + path)
 	var (
 		res    *http.Response
 		result []byte
@@ -150,7 +150,7 @@ func accessPrinterEndpoint(path string, printer config.Printers) ([]byte, error)
 // GetVersion is used to get the printer's version API endpoint
 func GetVersion(printer config.Printers) (Version, error) {
 	var version Version
-	response, err := accessPrinterEndpoint("version", printer)
+	response, err := accessPrinterEndpoint("/api/version", printer)
 
 	if err != nil {
 		return version, err
@@ -164,7 +164,7 @@ func GetVersion(printer config.Printers) (Version, error) {
 // GetJob is used to get the printer's job API endpoint
 func GetJob(printer config.Printers) (Job, error) {
 	var job Job
-	response, err := accessPrinterEndpoint("job", printer)
+	response, err := accessPrinterEndpoint("/api/job", printer)
 
 	if err != nil {
 		return job, err
@@ -178,7 +178,7 @@ func GetJob(printer config.Printers) (Job, error) {
 // GetPrinter is used to get the printer's printer API endpoint
 func GetPrinter(printer config.Printers) (Printer, error) {
 	var printerData Printer
-	response, err := accessPrinterEndpoint("printer", printer)
+	response, err := accessPrinterEndpoint("/api/printer", printer)
 
 	if err != nil {
 		return printerData, err
@@ -192,7 +192,7 @@ func GetPrinter(printer config.Printers) (Printer, error) {
 // GetFiles is used to get the printer's files API endpoint
 func GetFiles(printer config.Printers) (Files, error) {
 	var files Files
-	response, err := accessPrinterEndpoint("files?recursive=true", printer)
+	response, err := accessPrinterEndpoint("/api/files?recursive=true", printer)
 
 	if err != nil {
 		return files, err
@@ -206,7 +206,7 @@ func GetFiles(printer config.Printers) (Files, error) {
 // GetJobV1 is used to get the printer's job v1 API endpoint
 func GetJobV1(printer config.Printers) (JobV1, error) {
 	var job JobV1
-	response, err := accessPrinterEndpoint("v1/job", printer)
+	response, err := accessPrinterEndpoint("/api/v1/job", printer)
 
 	if err != nil {
 		return job, err
@@ -220,7 +220,7 @@ func GetJobV1(printer config.Printers) (JobV1, error) {
 // GetStatus is used to get Buddy status endpoint
 func GetStatus(printer config.Printers) (Status, error) {
 	var status Status
-	response, err := accessPrinterEndpoint("v1/status", printer)
+	response, err := accessPrinterEndpoint("/api/v1/status", printer)
 
 	if err != nil {
 		return status, err
@@ -234,7 +234,7 @@ func GetStatus(printer config.Printers) (Status, error) {
 // GetStorageV1 is used to get the printer's storage v1 API endpoint
 func GetStorageV1(printer config.Printers) (StorageV1, error) {
 	var storage StorageV1
-	response, err := accessPrinterEndpoint("v1/storage", printer)
+	response, err := accessPrinterEndpoint("/api/v1/storage", printer)
 
 	if err != nil {
 		return storage, err
@@ -248,7 +248,7 @@ func GetStorageV1(printer config.Printers) (StorageV1, error) {
 // GetInfo is used to get the printer's info API endpoint
 func GetInfo(printer config.Printers) (Info, error) {
 	var info Info
-	response, err := accessPrinterEndpoint("v1/info", printer)
+	response, err := accessPrinterEndpoint("/api/v1/info", printer)
 
 	if err != nil {
 		return info, err
@@ -262,7 +262,7 @@ func GetInfo(printer config.Printers) (Info, error) {
 // GetSettings is used to get the printer's settings API endpoint
 func GetSettings(printer config.Printers) (Settings, error) {
 	var settings Settings
-	response, err := accessPrinterEndpoint("settings", printer)
+	response, err := accessPrinterEndpoint("/api/settings", printer)
 
 	if err != nil {
 		return settings, err
@@ -276,7 +276,7 @@ func GetSettings(printer config.Printers) (Settings, error) {
 // GetCameras is used to get the printer's cameras API endpoint
 func GetCameras(printer config.Printers) (Cameras, error) {
 	var cameras Cameras
-	response, err := accessPrinterEndpoint("v1/cameras", printer)
+	response, err := accessPrinterEndpoint("/api/v1/cameras", printer)
 
 	if err != nil {
 		return cameras, err
@@ -290,7 +290,7 @@ func GetCameras(printer config.Printers) (Cameras, error) {
 // GetPrinterProfiles is used to get the printer's printerprofiles API endpoint
 func GetPrinterProfiles(printer config.Printers) (PrinterProfiles, error) {
 	var profiles PrinterProfiles
-	response, err := accessPrinterEndpoint("v1/printerprofiles", printer)
+	response, err := accessPrinterEndpoint("/api/v1/printerprofiles", printer)
 
 	if err != nil {
 		return profiles, err
@@ -306,7 +306,7 @@ func GetJobImage(printer config.Printers, imagePath string) (string, error) { //
 	//http://192.168.20.50/thumb/l/usb/PYTHON~1.BGC
 	response, err := accessPrinterEndpoint("/thumb/l"+imagePath, printer)
 
-	image, err := compressPNG(response, -2)
+	image, err := compressPNG(response, png.BestCompression)
 
 	if err != nil {
 		return "", err

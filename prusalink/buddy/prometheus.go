@@ -236,6 +236,20 @@ func (collector *Collector) Collect(ch chan<- prometheus.Metric) {
 
 			ch <- printerStatus
 
+			if getStateFlag(printer) == 4 {
+				image, err := GetJobImage(s, job.Job.File.Path)
+
+				if err != nil {
+					log.Error().Msg("Error while scraping image endpoint at " + s.Address + " - " + err.Error())
+				} else {
+					printerJobImage := prometheus.MustNewConstMetric(collector.printerJobImage, prometheus.GaugeValue,
+						1, GetLabels(s, job, image)...)
+
+					ch <- printerJobImage
+				}
+
+			}
+
 			printerUp = prometheus.MustNewConstMetric(collector.printerUp, prometheus.GaugeValue,
 				1, s.Address, s.Type, s.Name)
 
