@@ -27,6 +27,7 @@ type Collector struct {
 	printerMMU                *prometheus.Desc
 	printerFanSpeedRpm        *prometheus.Desc
 	printerPrintSpeedRatio    *prometheus.Desc
+	printerJobImage           *prometheus.Desc
 }
 
 // NewCollector returns a new Collector for printer metrics
@@ -49,13 +50,15 @@ func NewCollector(config config.Config) *Collector {
 		printerInfo:               prometheus.NewDesc("prusa_info", "Returns information about printer.", append(defaultLabels, "api_version", "server_version", "version_text", "prusalink_name", "printer_location", "serial_number", "printer_hostname"), nil),
 		printerMMU:                prometheus.NewDesc("prusa_mmu", "Returns information if MMU is enabled.", defaultLabels, nil),
 		printerFanSpeedRpm:        prometheus.NewDesc("prusa_fan_speed_rpm", "Returns information about speed of hotend fan in rpm.", append(defaultLabels, "fan"), nil),
-		printerPrintSpeedRatio:    prometheus.NewDesc("prusa_print_speed_ratio", "Current setting of printer speed in values from 0.0 - 1.0", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil)}
+		printerPrintSpeedRatio:    prometheus.NewDesc("prusa_print_speed_ratio", "Current setting of printer speed in values from 0.0 - 1.0", []string{"printer_address", "printer_model", "printer_name", "printer_job_name", "printer_job_path"}, nil),
+		printerJobImage:           prometheus.NewDesc("prusa_job_image", "Returns information about image of current print job.", append(defaultLabels, "printer_job_image"), nil),
+	}
 }
 
 // Describe implements prometheus.Collector
 func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerTemp
-
+	ch <- collector.printerTempTarget
 	ch <- collector.printerFiles
 	ch <- collector.printerPrintTime
 	ch <- collector.printerPrintTimeRemaining
@@ -70,6 +73,7 @@ func (collector *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.printerInfo
 	ch <- collector.printerMMU
 	ch <- collector.printerFanSpeedRpm
+	ch <- collector.printerJobImage
 }
 
 // Collect implements prometheus.Collector
