@@ -19,9 +19,9 @@ services:
     networks:
       - prusa
     volumes:
-      - ./docs/examples/config/grafana/provisioning:/etc/grafana/provisioning
+      - ./docs/config/grafana/provisioning:/etc/grafana/provisioning
       - grafana_data:/var/lib/grafana
-      - ./docs/examples/grafana/provisioning:/var/lib/grafana/dashboards
+      - ./docs/config/grafana/dashboards:/var/lib/grafana/dashboards
 
   exporter:
     #image: pubeldev/prusa_exporter:latest
