@@ -7,14 +7,9 @@
 
 # prusa_exporter
 
-If you've seen this repository before, you've probably noticed some minor changes. Basically I removed most of the features because `feature-creep` was getting worse and worse and I'm aiming for a simpler setup and much higher quality code, so version 1.0.0 is skipped and `Vistaized` - the first final version will be 2.0.0.
+Prusa Exporter or more known as prusa_exporter is a tool that allows users to expose metrics from the Prusa Research 3D printers. Its approach is to scrape metrics from [Prusa Link](https://help.prusa3d.com/article/prusa-connect-and-prusalink-explained_302608) REST API and also from [line_protocol](https://github.com/prusa3d/Prusa-Firmware-Buddy/blob/master/doc/metrics.md) type of metrics. After gettng data it's simply exposes the metrics at `/metrics` endpoint.
 
-- [ ] [prusa_metric_handler](https://github.com/pstrobl96/prusa_metrics_handler) integration for getting syslog metrics
-- [ ] [prusa_log_processor](https://github.com/pstrobl96/prusa_log_processor) integration for log processing
-- [ ] [prusa_exporter](https://github.com/pstrobl96/prusa_exporter) to process metrics from Prusa Link in addition to logs and syslog metrics. It's like a package for all three components.
-
-
-**prusa_metrics_handler** is configured in printer - Settings -> Network -> Metrics & Log
+**line_protocol** is configured in printer - Settings -> Network -> Metrics & Log
 
 - Host => address where prusa_metrics_handler is running
 - Metrics Port => default 8514 same as prusa_metrics_handler but you can change it
@@ -55,7 +50,7 @@ M331 eth_out
 M331 eth_in
 ```
 
-**prusa_exporter** is configured with [prusa.yml](docs/config/prusa.yml) where you need to fill - Settings -> Network -> PrusaLink
+**Prusa Link** is configured with [prusa.yml](docs/config/prusa.yml) where you need to fill - Settings -> Network -> PrusaLink
 
 - `address` of the printer
 - `username` => default `maker`
