@@ -1,65 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_MIMIR",
-      "label": "Mimir",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "bargauge",
-      "name": "Bar gauge",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "betatech-qrcode-panel",
-      "name": "QR code",
-      "version": "1.0.0"
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "11.4.0"
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "text",
-      "name": "Text",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "volkovlabs-image-panel",
-      "name": "Business Media",
-      "version": "6.2.0"
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -79,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": null,
+  "id": 9,
   "links": [],
   "liveNow": true,
   "panels": [
@@ -99,7 +38,11 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 6,
@@ -135,18 +78,18 @@
       "pluginVersion": "6.2.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "label_replace(vector(0), \"fosdem\", \"https://149753425.v2.pressablecdn.com/wp-content/uploads/2024/12/fosdem-logo.jpg\", \"\", \"\")",
+          "expr": "label_replace(vector(0), \"fosdem\", \"https://www.cncf.io/wp-content/uploads/2020/09/kubecon_profile.jpg\", \"\", \"\")",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
-          "refId": "A",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_MIMIR}"
-          }
+          "refId": "A"
         }
       ],
       "title": "Welcome!",
@@ -155,7 +98,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -209,19 +152,19 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "avg by(printer_name) (prusa_info{printer_address=\"$ip\"})",
+          "expr": "avg by(printer_name) (prusa_info{printer_address=\"${printer_address}\"})",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "{{printer_job_name}}",
           "range": true,
           "refId": "A",
-          "useBackend": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_MIMIR}"
-          }
+          "useBackend": false
         }
       ],
       "timeFrom": "10s",
@@ -240,7 +183,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -291,12 +234,12 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "avg by(printer_model) (prusa_info{printer_address=\"$ip\"})",
+          "expr": "avg by(printer_model) (prusa_info{printer_address=\"${printer_address}\"})",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -314,7 +257,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -368,19 +311,19 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "avg by(printer_state) (prusa_status_info{printer_address=\"$ip\"})",
+          "expr": "avg by(printer_state) (prusa_status_info{printer_address=\"${printer_address}\"})",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A",
-          "useBackend": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_MIMIR}"
-          }
+          "useBackend": false
         }
       ],
       "timeFrom": "10s",
@@ -399,7 +342,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -452,7 +395,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "code",
@@ -476,7 +419,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -529,12 +472,12 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "prusa_printing_time_remaining_seconds{printer_address=\"$ip\", printer_job_name!=\"\"}",
+          "expr": "prusa_printing_time_remaining_seconds{printer_address=\"${printer_address}\", printer_job_name!=\"\"}",
           "format": "table",
           "fullMetaSearch": false,
           "hide": false,
@@ -553,7 +496,11 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 7,
@@ -567,6 +514,11 @@
         "value": "https://github.com/pstrobl96/prusa_exporter"
       },
       "pluginVersion": "1.0.0",
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
       "timeFrom": "10s",
       "title": "prusa_exporter",
       "type": "betatech-qrcode-panel"
@@ -574,7 +526,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -723,11 +675,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "prusa_temp_noz{ip=\"$ip\"}",
+          "expr": "prusa_temperature_celsius{printer_address=\"${printer_address}\", printer_heated_element=\"tool0\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -740,18 +692,18 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "prusa_ttemp_noz{ip=\"$ip\"}",
+          "expr": "prusa_temperature_target_celsius{printer_address=\"${printer_address}\", printer_heated_element=\"tool0\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "interval": "1s",
           "legendFormat": "Target",
           "range": true,
-          "refId": "C",
+          "refId": "A",
           "useBackend": false
         }
       ],
@@ -761,7 +713,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -910,11 +862,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "prusa_temp_bed_v{ip=\"$ip\"}",
+          "expr": "prusa_temperature_celsius{printer_address=\"${printer_address}\", printer_heated_element=\"bed\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -927,11 +879,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "prusa_ttemp_bed_v{ip=\"$ip\"}",
+          "expr": "prusa_temperature_target_celsius{printer_address=\"${printer_address}\", printer_heated_element=\"bed\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -949,6 +901,10 @@
       "datasource": {
         "type": "datasource",
         "uid": "-- Mixed --"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 7,
@@ -988,12 +944,12 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "prusa_job_image{printer_address=\"$ip\"}",
+          "expr": "prusa_job_image{printer_address=\"${printer_address}\"}",
           "format": "table",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -1020,7 +976,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1225,16 +1181,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "prusa_temp_noz{ip=\"$ip\"}",
+          "expr": "prusa_temperature_celsius{printer_address=\"${printer_address}\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "interval": "1s",
-          "legendFormat": "Nozzle",
+          "legendFormat": "{{printer_heated_element}}",
           "range": true,
           "refId": "A",
           "useBackend": false
@@ -1242,28 +1198,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "prusa_temp_bed_v{ip=\"$ip\"}",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "interval": "1s",
-          "legendFormat": "Heatbed",
-          "range": true,
-          "refId": "C",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_MIMIR}"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "prusa_temp_mcu_v{ip=\"$ip\"}",
+          "expr": "prusa_temp_mcu_v{ip=\"${printer_address}\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -1276,11 +1215,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "prusa_temp_hbr{ip=\"$ip\"}",
+          "expr": "prusa_temp_hbr{ip=\"${printer_address}\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -1293,11 +1232,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "prusa_chamber_temp_v{ip=\"$ip\"}",
+          "expr": "prusa_chamber_temp_v{ip=\"${printer_address}\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -1314,7 +1253,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1369,10 +1308,14 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "prusa_status_info{printer_address=\"$ip\"} == 4",
+          "expr": "prusa_status_info{printer_address=\"${printer_address}\"} == 4",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -1380,14 +1323,11 @@
           "legendFormat": "{{printer_job_name}}",
           "range": false,
           "refId": "A",
-          "useBackend": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_MIMIR}"
-          }
+          "useBackend": false
         }
       ],
       "timeFrom": "10s",
+      "title": "",
       "transformations": [
         {
           "id": "renameByRegex",
@@ -1402,7 +1342,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1484,11 +1424,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "prusa_loadcell_value_v{ip=\"$ip\"}",
+          "expr": "prusa_loadcell_value_v{printer_address=\"${printer_address}\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "interval": "1s",
@@ -1504,7 +1444,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1593,11 +1533,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "(prusa_curr_inp_v{ip=\"$ip\"}*(-1))* 24",
+          "expr": "(prusa_curr_inp_v{printer_address=\"${printer_address}\"}*(-1))* 24",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "interval": "1s",
@@ -1613,7 +1553,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1686,19 +1626,19 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "avg by(printer_filament) (prusa_material_info{printer_address=\"$ip\"})",
+          "expr": "avg by(printer_filament) (prusa_material_info{printer_address=\"${printer_address}\"})",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A",
-          "useBackend": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_MIMIR}"
-          }
+          "useBackend": false
         }
       ],
       "timeFrom": "10s",
@@ -1717,7 +1657,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1770,6 +1710,10 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "disableTextWrap": false,
           "editorMode": "builder",
           "expr": "prusa_print_speed_ratio{printer_address=\"192.168.20.50\"}",
@@ -1778,11 +1722,7 @@
           "legendFormat": "__auto",
           "range": true,
           "refId": "A",
-          "useBackend": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_MIMIR}"
-          }
+          "useBackend": false
         }
       ],
       "timeFrom": "10s",
@@ -1792,7 +1732,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1930,12 +1870,12 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "prusa_fan_speed_rpm{printer_address=\"$ip\"}",
+          "expr": "prusa_fan_speed_rpm{printer_address=\"${printer_address}\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -1953,7 +1893,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2021,12 +1961,12 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "prusa_nozzle_size_meters{printer_address=\"$ip\"}",
+          "expr": "prusa_nozzle_size_meters{printer_address=\"${printer_address}\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -2044,7 +1984,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2111,15 +2051,15 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "editorMode": "code",
-          "expr": "prusa_mmu{printer_address=\"$ip\"}",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
-          }
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "prusa_mmu{printer_address=\"${printer_address}\"}",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "MMU",
@@ -2128,7 +2068,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2192,11 +2132,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "prusa_volt_nozz_v{ip=\"$ip\"}",
+          "expr": "prusa_volt_nozz_v{ip=\"${printer_address}\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "interval": "1s",
@@ -2208,11 +2148,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "prusa_volt_bed_v{ip=\"$ip\"}",
+          "expr": "prusa_volt_bed_v{ip=\"${printer_address}\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -2229,7 +2169,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_MIMIR}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2280,11 +2220,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "rate(prusa_eth_out_sent{ip=\"$ip\"}[$__rate_interval])",
+          "expr": "rate(prusa_eth_out_sent{printer_address=\"${printer_address}\"}[$__rate_interval])",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "interval": "1s",
@@ -2296,11 +2236,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_MIMIR}"
+            "uid": "${datasource}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "rate(prusa_eth_in_recv{ip=\"$ip\"}[$__rate_interval])",
+          "expr": "rate(prusa_eth_in_recv{ip=\"${printer_address}\"}[$__rate_interval])",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -2328,6 +2268,10 @@
       "type": "row"
     },
     {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 2,
         "w": 24,
@@ -2345,24 +2289,42 @@
         "mode": "markdown"
       },
       "pluginVersion": "11.4.0",
+      "title": "",
       "transparent": true,
       "type": "text"
     }
   ],
+  "preload": false,
   "refresh": "5s",
   "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
-        "current": {},
-        "definition": "label_values(ip)",
+        "current": {
+          "text": "Prometheus",
+          "value": "prometheus"
+        },
+        "label": "Data Source",
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "text": "192.168.2.5",
+          "value": "192.168.2.5"
+        },
+        "definition": "label_values(prusa_info, printer_address)",
         "label": "Printer",
-        "name": "ip",
+        "name": "printer_address",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(ip)",
+          "query": "label_values(prusa_info, printer_address)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -2393,6 +2355,6 @@
   "timezone": "browser",
   "title": "Prusa Metrics TV",
   "uid": "aeah0cx5x40e8fe",
-  "version": 124,
+  "version": 5,
   "weekStart": ""
 }
