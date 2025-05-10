@@ -51,6 +51,17 @@ func Run() {
 	log.Info().Msg("Metrics registered")
 	http.Handle(*metricsPath, promhttp.Handler())
 	log.Info().Msg("Listening at port: " + strconv.Itoa(*metricsPort))
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(`<html>
+    <head><title>prusa_exporter</title></head>
+    <body>
+    <h1>prusa_exporter</h1>
+    <p><a href="` + *metricsPath + `">Metrics</a></p>
+    </body>
+    </html>`))
+	})
+
 	log.Fatal().Msg(http.ListenAndServe(":"+strconv.Itoa(*metricsPort), nil).Error())
 
 }
