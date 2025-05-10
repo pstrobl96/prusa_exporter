@@ -2,6 +2,7 @@ package lineprotocol
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/rs/zerolog/log"
 	"gopkg.in/mcuadros/go-syslog.v2"
@@ -24,7 +25,10 @@ func MetricsListener(listenUDP string, influxURL string, influxToken string, inf
 
 	go func(channel syslog.LogPartsChannel) {
 		for logParts := range channel {
+			received := time.Now()
 			log.Trace().Msg(fmt.Sprintf("%v", logParts))
+
+			process(logParts, received, prefix)
 		}
 	}(channel)
 
