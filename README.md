@@ -13,13 +13,6 @@ If you've seen this repository before, you've probably noticed some minor change
 - [ ] [prusa_log_processor](https://github.com/pstrobl96/prusa_log_processor) integration for log processing
 - [ ] [prusa_exporter](https://github.com/pstrobl96/prusa_exporter) to process metrics from Prusa Link in addition to logs and syslog metrics. It's like a package for all three components.
 
-## Omega2
-
-*Why Omega?*
-
-*Omega development stage name was choosed when Microsoft d\*cked up Windows Vista development and restarted the development. One of the first known builds was Omega13.*
-
-The Omega2 version is the one you could see at the Grafana / Prusa stand at FOSDEM 2025. This setup works for more than one printer, but the problem is that the prusa_metrics_handler is pretty greedy on computational resources. However, it works quite well for one printer - it should work for multiple printers, but it's not tested. I've set up one dashboard that works with metrics from both Prusa Link and prusa_metrics_handler, so both need to be configured. 
 
 **prusa_metrics_handler** is configured in printer - Settings -> Network -> Metrics & Log
 
