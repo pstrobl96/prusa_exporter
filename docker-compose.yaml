@@ -99,5 +99,7 @@ services:
     volumes:
       - ./docs/config/prometheus.yaml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
     networks:
       - prusa
