@@ -1,5 +1,5 @@
 networks:
-  prusa:
+  pubel:
 
 volumes:
   grafana_data:
@@ -7,7 +7,7 @@ volumes:
 
 services:
   grafana:
-    image: grafana/grafana:11.4.0
+    image: grafana/grafana:12.0.0
     container_name: grafana
     restart: unless-stopped
     environment:
@@ -17,7 +17,7 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - prusa
+      - pubel
     volumes:
       - ./docs/config/grafana/provisioning:/etc/grafana/provisioning
       - grafana_data:/var/lib/grafana
@@ -36,58 +36,27 @@ services:
       - "10009:10009"
     command: 
       - "--config.file=/app/prusa.yml"
-    networks:
-      - prusa
 
-  prusa_metrics_handler:
-    image: pubeldev/prusa_metrics_handler:0.1.2
-    container_name: prusa_metrics_handler
+    networks:
+      - pubel
+
+  influxdb_exporter:
+    image: prom/influxdb-exporter:v0.12.0
+    container_name: influxdb_exporter
     restart: unless-stopped
     command: 
-      - "--influx-url=http://influxproxy:8007"
-      - "--influx-org=pubeldev"
-      - "--influx-bucket=prusa"
-      - "--influx-token=null"
+      - "--influxdb.sample-expiry=1m"
+      - "--udp.bind-address=:8007"
+      - "--timestamps"
     ports:
       - 10011:10011
       - 8514:8514/udp
     depends_on:
-      - influxproxy
-    networks:
-      - prusa
-
-  influxproxy:
-    build: 
-      context: https://github.com/grafana/influx2cortex.git#main # better safe than sorry
-      network: host
-      dockerfile_inline: |
-        FROM golang:1.23-alpine as build
-        RUN apk add --update --no-cache git coreutils
-        WORKDIR /go/src/github.com/grafana/influx2cortex
-        COPY . .
-        RUN go mod download
-        RUN go build -o /bin/influx2cortex ./cmd/influx2cortex
-        FROM alpine:3.12
-        RUN apk add --update --no-cache ca-certificates
-        RUN addgroup -g 1000 app && \
-          adduser -u 1000 -h /app -G app -S app
-        WORKDIR /app
-        USER app
-        COPY --from=build /bin/influx2cortex /bin/influx2cortex
-        ENTRYPOINT [ "/bin/influx2cortex" ]
-    container_name: influxproxy
-    entrypoint: 
-    - "/bin/influx2cortex"
-    - "-auth.enable=false"
-    - "-server.http-listen-port=8007"
-    - "-write-endpoint=http://prometheus:9090/api/v1/write"
-    pull_policy: build
-    restart: unless-stopped
-    depends_on:
+      - exporter
       - prometheus
     networks:
-      - prusa
-
+      - pubel
+  
   prometheus:
     image: prom/prometheus:v3.1.0
     container_name: prometheus
@@ -102,4 +71,4 @@ services:
     ports:
       - "9090:9090"
     networks:
-      - prusa
+      - pubel

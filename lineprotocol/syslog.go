@@ -20,7 +20,7 @@ func startSyslogServer(listenUDP string) (syslog.LogPartsChannel, *syslog.Server
 }
 
 // MetricsListener is a function to handle syslog metrics and sent them to processor
-func MetricsListener(listenUDP string, influxURL string, influxToken string, influxBucket string, influxOrg string, prefix string) {
+func MetricsListener(listenUDP string, prefix string) {
 	channel, server := startSyslogServer(listenUDP)
 
 	go func(channel syslog.LogPartsChannel) {

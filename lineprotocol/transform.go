@@ -1,15 +1,29 @@
 package lineprotocol
 
 import (
+	"context"
 	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
 
+	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
+	"github.com/influxdata/influxdb-client-go/v2/api"
 	"github.com/rs/zerolog/log"
 	"gopkg.in/mcuadros/go-syslog.v2/format"
 )
+
+var (
+	client   influxdb2.Client
+	writeAPI api.WriteAPIBlocking
+)
+
+// InitInfluxClient initializes the InfluxDB client
+func InitInfluxClient(influxURL string) {
+	client = influxdb2.NewClient(influxURL, "placeholder")
+	writeAPI = client.WriteAPIBlocking("placeholder", "placeholder")
+}
 
 func process(data format.LogParts, received time.Time, prefix string) {
 	mac, ip, timestamp, err := processTimestamp(data, received)
@@ -24,7 +38,7 @@ func process(data format.LogParts, received time.Time, prefix string) {
 		return
 	}
 
-	fmt.Println(metrics)
+	sentToInflux(metrics, writeAPI)
 
 }
 
@@ -113,4 +127,18 @@ func updateMetric(splitted []string, prefix string, mac string, ip string) ([]st
 
 	splitted[0] = fmt.Sprintf("%s%s,mac=%s,ip=%s", prefix, splitted[0], mac, strings.Split(ip, ":")[0])
 	return splitted, nil
+}
+
+func sentToInflux(message []string, writeAPI api.WriteAPIBlocking) (result bool, err error) {
+	log.Trace().Msg("Sending to InfluxDB")
+
+	for _, line := range message {
+		err = writeAPI.WriteRecord(context.Background(), line)
+		if err != nil {
+			log.Trace().Err(err).Msg("Error while sending to InfluxDB")
+			return false, err
+		}
+	}
+
+	return false, nil
 }
