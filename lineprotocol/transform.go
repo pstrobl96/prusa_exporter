@@ -21,7 +21,7 @@ var (
 
 // InitInfluxClient initializes the InfluxDB client
 func InitInfluxClient(influxURL string) {
-	client = influxdb2.NewClient(influxURL, "placeholder")
+	client = influxdb2.NewClient(influxURL, "cGxhY2Vob2xkZXI=")
 	writeAPI = client.WriteAPIBlocking("placeholder", "placeholder")
 }
 

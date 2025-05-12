@@ -1,5 +1,5 @@
 global:
-  scrape_interval: 15s
+  scrape_interval: 1s
   evaluation_interval: 15s
 
 scrape_configs:
@@ -11,9 +11,9 @@ scrape_configs:
     static_configs:
       - targets: ["exporter:10009"]
 
-  - job_name: "metrics_handler"
+  - job_name: "influxdb_exporter"
     static_configs:
-      - targets: ["metrics_handler:10011"]
+      - targets: ["influxdb_exporter:9122"]
 
 storage:
   tsdb:

@@ -34,9 +34,13 @@ services:
         target: /app/prusa.yml
     ports:
       - "10009:10009"
+      - 8514:8514/udp
     command: 
       - "--config.file=/app/prusa.yml"
-
+      - "--lineprotocol.export=http://influxdb_exporter:9122"
+      - "--log.level=debug"
+    depends_on:
+      - influxdb_exporter
     networks:
       - pubel
 
@@ -44,15 +48,11 @@ services:
     image: prom/influxdb-exporter:v0.12.0
     container_name: influxdb_exporter
     restart: unless-stopped
-    command: 
-      - "--influxdb.sample-expiry=1m"
-      - "--udp.bind-address=:8007"
-      - "--timestamps"
+    command:
+      - '--timestamps'
     ports:
-      - 10011:10011
-      - 8514:8514/udp
+      - 9122:9122
     depends_on:
-      - exporter
       - prometheus
     networks:
       - pubel
