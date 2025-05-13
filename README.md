@@ -31,11 +31,11 @@ List of metrics needed for dashboard
 - eth_out
 - eth_in
 
-Of course you can configure metrics with gcode as well
+Of course you can configure metrics with gcode as well - that gcode can be found [here](docs/examples/syslog/config_full.gcode) as well
 
 ```
 M330 SYSLOG
-M334 192.168.20.20
+M334 192.168.20.20 8514
 M331 ttemp_noz
 M331 temp_noz
 M331 ttemp_bed
@@ -62,7 +62,7 @@ M331 eth_in
 
 ### Dashboard
 
-Pretty basic but nice and cozy [dashboard](docs/config/grafana/provisioning/dashboards/Prusa%20Metrics%20TV-1737915696031.json) for TV.
+Pretty basic but nice and cozy [dashboard](docs/Prusa%20Metrics%20MK4_C1-1747124111854.json) for TV.
 
 ![dashboard](docs/dashboard.png)
 
