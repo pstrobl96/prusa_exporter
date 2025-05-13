@@ -24,8 +24,8 @@ services:
       - ./docs/config/grafana/dashboards:/var/lib/grafana/dashboards
 
   exporter:
-    #image: pubeldev/prusa_exporter:latest
-    build: .
+    image: pubeldev/prusa_exporter:v2.0.0-alpha1
+    #build: .
     container_name: exporter
     restart: unless-stopped
     volumes:
@@ -38,7 +38,7 @@ services:
     command: 
       - "--config.file=/app/prusa.yml"
       - "--lineprotocol.export=http://influxdb_exporter:9122"
-      - "--log.level=debug"
+      - "--log.level=info"
     depends_on:
       - influxdb_exporter
     networks:
