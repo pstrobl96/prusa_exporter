@@ -11,8 +11,8 @@ Prusa Exporter or more known as prusa_exporter is a tool that allows users to ex
 
 **line_protocol** is configured in printer - Settings -> Network -> Metrics & Log
 
-- Host => address where prusa_metrics_handler is running
-- Metrics Port => default 8514 same as prusa_metrics_handler but you can change it
+- Host => address where prusa_exporter is running aka your computer / server
+- Metrics Port => default 8514 same as prusa_exporter but you can change it
 - Enable Metrics => enable
 - Metrics List => list of enabled metrics
   - You can select all but it has actual impact on performance so choose wisely
