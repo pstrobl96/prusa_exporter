@@ -1,28 +1,20 @@
 package lineprotocol
 
 import (
-	"context"
 	"fmt"
-	"regexp"
 	"strconv"
 	"strings"
 	"time"
 
-	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
-	"github.com/influxdata/influxdb-client-go/v2/api"
 	"github.com/rs/zerolog/log"
 	"gopkg.in/mcuadros/go-syslog.v2/format"
 )
 
-var (
-	client   influxdb2.Client
-	writeAPI api.WriteAPIBlocking
-)
-
-// InitInfluxClient initializes the InfluxDB client
-func InitInfluxClient(influxURL string) {
-	client = influxdb2.NewClient(influxURL, "cGxhY2Vob2xkZXI=")
-	writeAPI = client.WriteAPIBlocking("placeholder", "placeholder")
+type point struct {
+	Measurement string
+	Tags        map[string]string
+	Fields      map[string]interface{} // Use interface{} to handle different field types
+	Timestamp   time.Time
 }
 
 func process(data format.LogParts, received time.Time, prefix string) {
@@ -38,8 +30,18 @@ func process(data format.LogParts, received time.Time, prefix string) {
 		return
 	}
 
-	sentToInflux(metrics, writeAPI)
-
+	for _, line := range metrics {
+		point, err := parseLineProtocol(line)
+		if err != nil {
+			fmt.Printf("Error parsing '%s': %v\n", line, err)
+			continue
+		}
+		fmt.Printf("Parsed: %+v\n", point)
+		fmt.Printf("  Measurement: %s\n", point.Measurement)
+		fmt.Printf("  Tags: %v\n", point.Tags)
+		fmt.Printf("  Fields: %v\n", point.Fields)
+		fmt.Println("---")
+	}
 }
 
 // processTimestamp returns the MAC address and timestamp from the ingested data
@@ -50,28 +52,9 @@ func processTimestamp(data format.LogParts, received time.Time) (string, string,
 		return "", "", 0, fmt.Errorf("mac is not an string")
 	}
 
-	message, ok := data["message"].(string)
-	if !ok {
-		return "", "", 0, fmt.Errorf("message is not an string")
-	}
-
 	ip, ok := data["client"].(string)
 	if !ok {
 		return "", "", 0, fmt.Errorf("ip is not an string")
-	}
-
-	re := regexp.MustCompile(`tm=(\d+)`)
-	matches := re.FindAllStringSubmatch(message, -1)
-
-	for _, match := range matches {
-		if len(match) < 1 {
-			return "", "", 0, fmt.Errorf("none time delta value found")
-		}
-	}
-	tmValue, err := strconv.ParseInt(matches[0][1], 10, 64)
-	log.Trace().Msg("tmValue: " + strconv.FormatInt(tmValue, 10))
-	if err != nil {
-		return "", "", 0, fmt.Errorf("time delta cannot be converted to int64")
 	}
 
 	return mac, ip, received.UnixNano(), nil
@@ -129,16 +112,71 @@ func updateMetric(splitted []string, prefix string, mac string, ip string) ([]st
 	return splitted, nil
 }
 
-func sentToInflux(message []string, writeAPI api.WriteAPIBlocking) (result bool, err error) {
-	log.Trace().Msg("Sending to InfluxDB")
+func newPoint() *point {
+	return &point{
+		Tags:   make(map[string]string),
+		Fields: make(map[string]interface{}),
+	}
+}
 
-	for _, line := range message {
-		err = writeAPI.WriteRecord(context.Background(), line)
-		if err != nil {
-			log.Trace().Err(err).Msg("Error while sending to InfluxDB")
-			return false, err
-		}
+func parseLineProtocol(line string) (*point, error) {
+	p := newPoint()
+
+	parts := strings.Split(line, " ")
+	if len(parts) < 2 || len(parts) > 3 {
+		return nil, fmt.Errorf("invalid line protocol format: %s", line) // this happens when printer sends error message
 	}
 
-	return false, nil
+	measurementTags := parts[0]
+	measurementTagParts := strings.Split(measurementTags, ",")
+	p.Measurement = measurementTagParts[0]
+
+	for i := 1; i < len(measurementTagParts); i++ {
+		tag := measurementTagParts[i]
+		tagParts := strings.SplitN(tag, "=", 2)
+		if len(tagParts) != 2 {
+			return nil, fmt.Errorf("invalid tag format: %s", tag)
+		}
+		p.Tags[tagParts[0]] = tagParts[1]
+	}
+
+	fieldStr := parts[1]
+	fieldParts := strings.Split(fieldStr, ",")
+	for _, field := range fieldParts {
+		kv := strings.SplitN(field, "=", 2)
+		if len(kv) != 2 {
+			return nil, fmt.Errorf("invalid field format: %s", field)
+		}
+		key := kv[0]
+		val := kv[1]
+
+		// parsing metrics as different data types
+
+		if strings.HasSuffix(val, "i") { // Integer
+			if iVal, err := strconv.ParseInt(val[:len(val)-1], 10, 64); err == nil {
+				p.Fields[key] = iVal
+				continue
+			}
+		}
+
+		if bVal, err := strconv.ParseBool(val); err == nil { // boolean
+			p.Fields[key] = bVal
+			continue
+		}
+
+		if fVal, err := strconv.ParseFloat(val, 64); err == nil { // float
+			p.Fields[key] = fVal
+			continue
+		}
+
+		if strings.HasPrefix(val, "\"") && strings.HasSuffix(val, "\"") { // string
+			p.Fields[key] = val[1 : len(val)-1]
+			continue
+		}
+
+		// fallback
+		p.Fields[key] = val
+	}
+
+	return p, nil
 }

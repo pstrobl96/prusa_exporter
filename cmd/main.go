@@ -58,7 +58,6 @@ func Run() {
 	log.Info().Msg("Listening at port: " + strconv.Itoa(*metricsPort))
 
 	log.Info().Msg("Syslog logs server starting at: " + *syslogListenAddress)
-	lineprotocol.InitInfluxClient(*lineprotocolExportAddress)
 	go lineprotocol.MetricsListener(*syslogListenAddress, *lineprotocolPrefix)
 	log.Info().Msg("Syslog server started")
 
